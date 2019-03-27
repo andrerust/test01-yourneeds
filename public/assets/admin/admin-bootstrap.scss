@@ -1,0 +1,645 @@
+/* YOURneeds manager module */
+
+@import "../scss/variables"; 
+
+
+/*================================================
+  >> BUTTONS
+  ================================================*/
+
+.btn {
+    .fa,
+    .glyphicon,
+    .caret,
+    span {
+    	position: relative;
+    	color: inherit;
+    }
+    
+    span {
+    	color: $yn-color-white;
+    }
+    
+    &#{&}--success:not(.disabled) {
+        @include background-gradient($yn-color-green, $yn-color-green-secondary);
+
+        &:before {
+            @include background-gradient(shade($yn-color-green, $yn-shade-factor), shade($yn-color-green-secondary, $yn-shade-factor));
+        }
+    }
+    
+    &#{&}--info:not(.disabled) {
+        @include background-gradient($yn-color-blue, tint($yn-color-blue, $yn-tint-factor));
+
+        &:before {
+            @include background-gradient(shade($yn-color-blue, $yn-shade-factor), shade(tint($yn-color-blue, $yn-tint-factor), $yn-shade-factor));
+        }
+    }
+    
+    &#{&}--warning:not(.disabled) {
+        @include background-gradient($yn-color-yellow, tint($yn-color-yellow, $yn-tint-factor));
+
+        &:before {
+            @include background-gradient(shade($yn-color-yellow, $yn-shade-factor), shade(tint($yn-color-yellow, $yn-tint-factor), $yn-shade-factor));
+        }
+    }
+    
+    &#{&}--danger:not(.disabled) {
+        @include background-gradient($yn-color-red, tint($yn-color-red, $yn-tint-factor));
+
+        &:before {
+            @include background-gradient(shade($yn-color-red, $yn-shade-factor), shade(tint($yn-color-red, $yn-tint-factor), $yn-shade-factor));
+        }
+    }
+    
+    &#{&}--process:not(.disabled) {
+        @include background-gradient($yn-color-blue-dark, tint($yn-color-blue-dark, $yn-tint-factor));
+
+        &:before {
+            @include background-gradient(shade($yn-color-blue-dark, $yn-shade-factor), shade(tint($yn-color-blue-dark, $yn-tint-factor), $yn-shade-factor));
+        }
+
+    	text-transform: uppercase;
+    	font-weight: normal;
+    	box-shadow: 0 0 1px 1px $yn-color-grey-7,
+    	0 0 0 6px $yn-color-grey-2,
+    	0 0 0 8px $yn-color-white,
+    	0 0 0 10px $yn-color-grey-6;
+
+        .btn-text {
+        	color: $yn-color-white;
+        }
+    }    
+}
+
+.btn-group .dropdown-menu {
+	padding: 5px;
+	opacity: .85;
+}
+
+.nav,
+.flex-column,
+.navbar-custom {
+	margin: 0;
+	padding: 0;
+}
+
+/* change the link color */
+.navbar-custom {
+    .navbar-nav .nav-link {
+    	color: $yn-color-black;
+    }
+    
+    .navbar-brand,
+    .navbar-text {
+    	color: $yn-color-black;
+    }
+    
+    .nav-item.active .nav-link,
+    .nav-item:hover .nav-link {
+    	color: $yn-color-green;
+    }
+}
+
+.bullit {
+	transform: translate(-50%, -0%);
+}
+
+.bullittext {
+	display: inline-block;
+	width: 80%;
+	padding-left: 3%;
+}
+
+.card {
+	background-color: transparentize($yn-color-grey-1, 0);
+	border: 0;
+}
+
+.card-header, 
+.card-footer {
+	opacity: 0;
+	border: 0;
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+/*!
+ * IE10 viewport hack for Surface/desktop Windows 8 bug
+ * Copyright 2014-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+@-ms-viewport {
+	width: device-width;
+}
+
+@-o-viewport {
+	width: device-width;
+}
+
+@viewport {
+	width: device-width;
+}
+
+.img-thumbnail {
+    @include shadow-box();
+	@include edges-round();
+	border: 1px solid $yn-color-grey-3;
+	margin: 0 5px 5px 0px;
+}
+
+/*================================================
+  >> PANEL
+  ================================================*/
+.panel {
+	border: 1px solid $yn-color-grey-6;
+	color: $yn-color-grey-6;
+
+    .panel-heading {
+    	background: -moz-radial-gradient(center, ellipse cover, $yn-color-orange-dark 0%, $yn-color-green 100%);
+    	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, $yn-color-orange-dark), color-stop(100%, $yn-color-green));
+    	background: -webkit-radial-gradient(center, ellipse cover, $yn-color-orange-dark 0%, $yn-color-green 100%);
+    	background: -o-radial-gradient(center, ellipse cover, $yn-color-orange-dark 0%, $yn-color-green 100%);
+    	background: -ms-radial-gradient(center, ellipse cover, $yn-color-orange-dark 0%, $yn-color-green 100%);
+    	background: radial-gradient(ellipse at center, $yn-color-orange-dark 0%, $yn-color-green 100%);
+    	background-size: 250% 250%;
+    }
+}
+
+/*================================================
+  >> TABLES
+  ================================================*/
+.bootstrap-table {
+    @include shadow-box();
+	@include edges-round();
+
+    > * {
+	    @include edges-round();
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    td p {
+    	font-size: $yn-font-size;
+    }
+    
+    .toolbar {
+    	width: 100%;
+    	background-color: $yn-color-white;
+    }
+    
+    .table {
+    	margin-bottom: 0 !important;
+    	border-collapse: collapse !important;
+    	border-radius: 0;
+        
+        & > tbody > tr > td {
+        	padding: $yn-unit;
+        	margin: 0;
+        }
+        
+        & > tfoot > tr > td {
+        	padding: $yn-unit;
+        }
+    }
+}
+
+.fixed-table-footer,
+.fixed-table-header {
+	overflow: hidden;
+	border-radius: 6px 6px 0 0;
+	-webkit-border-radius: 4px 4px 0 0;
+	-moz-border-radius: 6px 6px 0 0;
+}
+
+.fixed-table-footer {
+	border-top: 1px solid $yn-color-grey-2;
+	padding-top: 20px;
+}
+
+.fixed-table-body {
+	overflow-x: auto;
+	overflow-y: auto;
+	height: 100%;
+}
+
+.special-table thead th,
+.fixed-table-container thead th {
+	margin: 0;
+	border-left: 1px solid $yn-color-grey-2;
+}
+
+.fixed-table-container {
+    table {
+    	width: 100%;
+    }
+    
+    th {
+        .th-inner,
+        .fht-cell {
+        	vertical-align: middle;
+        	overflow: hidden;
+        	white-space: nowrap;
+        }
+        
+        .table-header-sub {
+        	text-decoration: underline;
+        }
+    }
+    
+    .no-records-found {
+    	text-align: center;
+    }
+}
+
+.fixed-table-pagination {
+    div.pagination .pagination {
+    	margin: 0;
+    }
+    
+    .pagination-info {
+    	margin-right: $yn-unit;
+    }
+    
+    .btn-group {
+    	position: relative;
+    	display: inline-block;
+    	vertical-align: middle;
+    }
+    
+    .dropup .dropdown-menu {
+    	margin-bottom: 0;
+    }
+    
+    .page-list {
+    	display: inline-block;
+    }
+}
+
+.fixed-table-toolbar .columns label {
+	display: block;
+	padding: $yn-unit 0;
+	clear: both;
+	font-weight: normal;
+	color: $yn-color-grey-6;
+}
+
+.filter,
+.btn-hover,
+.pagination > li > a,
+.pagination > li > span {
+    @include transition();
+}
+
+.special-table {
+	width: 100%;
+	margin-top: 10px;
+
+    .fixed-table-toolbar,
+    .toolbar {
+    	color: $yn-color-white;
+    }
+        
+    .fixed-table-toolbar {
+        @include background-gradient($yn-color-green, $yn-color-green-secondary);
+                
+        &:after {
+        	display: table;
+        	content: "";
+        	clear: both;
+        }
+    	
+        input[type="text"] {
+            border-color: transparent;
+            color: $yn-color-black;
+        }
+
+        .dropdown-menu {
+        	overflow: visible;
+        }
+        
+        .pull-right .btn {
+        	margin-right: 5px;
+        }
+        
+        .pull-left .btn {
+        	margin-left: 5px;
+        }
+        
+        .columns {
+            label {
+            	padding: 4px 5px;
+            	color: $yn-color-grey-6;
+            }
+            
+            ul > li:first-child label {
+            	padding-top: 10px;
+            }
+            
+            ul > li:last-child label {
+            	padding-bottom: 10px;
+            }        
+        }
+    }
+    
+    .fixed-table-pagination {
+    	background-color: $yn-color-white;
+    	padding-left: 10px;
+
+        a {
+        	height: 5px;
+        	font-size: $yn-font-size;
+        }
+        
+        &:after {
+        	display: table;
+        	content: "";
+        	clear: both;
+        }
+        
+        .dropup .dropdown-menu {
+        	margin-top: auto;
+        	margin-bottom: 10px;
+        }
+        
+        div.pagination,
+        .pagination-detail {
+        	padding: 10px;
+        }
+    }
+        
+    .pagination {
+        & > li > a,
+        & > li > span,
+        & > li:first-child > a,
+        & > li:first-child > span,
+        & > li:last-child > a,
+        & > li:last-child > span {
+        	border-radius: 0;
+        	margin: 0 2px;
+        	background-color: transparent;
+        	min-width: 36px;
+        	height: 36px;
+        	font-weight: bold;
+        	text-align: center;
+        	line-height: 20px;
+        	border-width: 2px;
+        	color: $yn-color-grey-4;
+        	border-color: transparent;
+        	opacity: .7;
+        	filter: alpha(opacity=70);
+
+            &:hover {
+            	color: $yn-color-grey-5;
+            	border-color: $yn-color-grey-5;
+            	opacity: 1;
+            	filter: alpha(opacity=100);
+            }
+        }
+                
+        & > li.active > a,
+        & > li.active > span,
+        & > li.active > a:hover,
+        & > li.active > span:hover,
+        & > li.active > a:focus,
+        & > li.active > span:focus {
+        	color: $yn-color-grey-5;
+        	border-color: $yn-color-grey-4;
+        	background-color: transparent;
+        	opacity: 1;
+        	filter: alpha(opacity=100);
+        }
+    }
+    
+    .fixed-table-toolbar {        
+        .btn-group {
+        	margin-top: 0;
+        }
+        
+        .btn {
+        	height: 36px;
+        	
+            i {
+            	padding: 5px;
+            	height: 36px;
+            }
+            
+            &.toggleIcon::before {
+            	font-family: FontAwesome;
+            	content: "\f03a";
+            }
+            
+            &.paginationIcon::before {
+            	font-family: FontAwesome;
+            	content: "\f358";
+            }
+        }
+    }    
+}
+
+
+.form-group {
+    & > .form-group {
+    	padding-left: 0;
+    	padding-right: 0;
+    }
+    
+    & > .form-group:nth-child(n+1) {
+    	padding-left: 5px;
+    	padding-right: 0;
+    }
+    
+    & > .form-group:first-child {
+    	padding-left: 0;
+    }
+    
+    & > div[class*='col-'] {
+    	padding-left: 0;
+    	padding-right: 0;
+    }
+    
+    & > div[class*='col-']:nth-child(n+1) {
+    	padding-left: 5px;
+    	padding-right: 0;
+    }
+    
+    & > div[class*='col-']:first-child {
+    	padding-left: 10px;
+    }
+    
+    & > div[class*='col-']:last-child {
+    	padding-right: 10px;
+    }
+
+    @media only screen and (max-width: 768px) and (min-width: 120px) {
+    	& > div[class*='col-']:nth-child(n+1) {
+    		padding-left: 15px;
+    		padding-right: 15px;
+    		padding-bottom: 15px;
+    	}
+    
+    	& > div[class*='col-']:first-child {
+    		padding-right: 15px;
+    	}
+    
+    	& > div[class*='col-']:last-child {
+    		padding-left: 15px;
+    		padding-bottom: 0;
+    	}
+    }
+    
+    @media only screen and (max-width: 992px) and (min-width: 769px) {
+    	& > div[class*='col-']:nth-child(n+1) {
+    		padding-left: 15px;
+    		padding-right: 15px;
+    		padding-bottom: 15px;
+    	}
+    
+    	& > div[class*='col-']:first-child {
+    		padding-right: 15px;
+    	}
+    
+    	& > div[class*='col-']:last-child {
+    		padding-left: 15px;
+    		padding-bottom: 0;
+    	}
+    }
+}
+
+
+/*====================================
+  >> FORM - FLOATING FORM VALUES
+  ====================================*/
+.floating-label-form-group {
+	position: relative;
+	
+	input,
+    textarea {
+    	padding-left: 0;
+    	padding-right: 0;
+    	box-shadow: none !important;
+    	position: relative;
+    	z-index: 1;
+    }
+    
+    label {
+        @include transition();
+    	display: block;
+    	position: relative;
+    	top: 2em;
+    	opacity: 0;
+    	z-index: 0;
+    	line-height: 1.764705882em;
+    	vertical-align: middle;
+    	vertical-align: baseline;
+    	margin: 0;
+    }
+    
+    &:not(:first-child) {
+    	border-left: 1px solid $yn-color-grey-3;
+    	padding-left: 14px;
+    }
+}
+
+.floating-label-form-group-with-value label {
+	top: 0;
+	opacity: 1;
+}
+
+.floating-label-form-group-with-focus label {
+	color: $yn-color-orange;
+	font-size: $yn-font-size;
+}
+
+form .row:first-child .floating-label-form-group {
+	border-top: 1px solid $yn-color-grey-3;
+}
+
+.form-control.file {
+	padding: 5px;
+	margin: 0;
+	height: 50px;
+}
+
+/*====================================
+  >> FORM - ADDON COLORS OF REAL-TIME VALIDATION
+  ====================================*/
+.input-group-addon {
+    &.primary {
+    	color: $yn-color-white;
+    	background-color: $yn-color-blue;
+    	border-color: tint($yn-color-blue, 10%);
+    }
+    
+    &.success {
+    	color: $yn-color-white;
+    	background-color: $yn-color-green;
+    	border-color: tint($yn-color-green, 10%);
+    }
+    
+    &.info {
+    	color: $yn-color-white;
+    	background-color: $yn-color-blue-light;
+    	border-color: tint($yn-color-blue-light, 10%);
+    }
+    
+    &.warning {
+    	color: $yn-color-white;
+    	background-color: $yn-color-orange;
+    	border-color: tint($yn-color-orange, 10%);
+    }
+    
+    &.danger {
+    	color: $yn-color-white;
+    	background-color: $yn-color-red;
+    	border-color: tint($yn-color-red, 10%);
+    }
+}
+
+/*====================================
+  >> FORM - FORM ERROR VALIDATION
+  ====================================*/
+.errors {
+	padding-bottom: 20px;
+
+    .title {
+    	font-weight: 700;
+    	text-decoration: underline;
+    }
+    
+    ul {
+    	padding-left: 30px;
+    	list-style: circle;
+    }
+    
+    li {
+    	padding-top: 10px;
+    	font-size: 13px;
+    	color: $yn-color-red;
+    	font-weight: 600;
+    }
+}
+
+.badge {
+	font-size: $yn-font-size;
+	margin: 2px;
+}
+
+.list-group {
+	border-top-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.fixed-table-container {
+    border: 0;
+}
+
+.table thead th {
+    @include media-breakpoint-down(xs) {
+        border: 0;
+    }
+}

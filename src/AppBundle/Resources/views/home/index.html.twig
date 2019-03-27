@@ -1,0 +1,317 @@
+{% extends 'static.home.html.twig' %}
+
+	{% block title %}{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-home.css') }}"/>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="{{ asset('build/yourneeds-home.js') }}"></script>
+  {% endblock %}
+
+{% block content %}
+
+    <section class="full-height full-height--desktop full-height--image">
+        <div class="row no-gutters full-height">
+            <div class="col-md-6 image-half">
+                <img src="/build/static/images/family.jpg">
+
+                <div class="image-half__container">
+                    <div class="image-half__position">
+                        <div class="image-half__text">
+                            <h1 class="image-half__headline color-white">Erlebe Versicherungen, wie du sie noch nie
+                                erlebt hast!</h1>
+
+                            <p class="mt-3">
+                                <a href="#benefits" class="btn btn--cta btn--large">Deine Vorteile</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 image-half">
+                <img src="/build/static/images/nachhaltigkeit.jpg">
+
+                <div class="image-half__container">
+                    <div class="image-half__position">
+                        <div class="image-half__text">
+                            <h2 class="image-half__headline color-white">Lass uns gemeinsam den Planeten noch schöner
+                                machen!</h2>
+
+                            <p class="mt-3">
+                                <a href="#sustainability" class="btn btn--cta btn--large">Nachhaltigkeit</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="benefits">
+        <div class="container">
+            <h2 class="title1 title1--space">Sei mit <span class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span
+                        class="color-brown">needs</span> dein eigener Versicherungs&shy;manager und entscheide selbst!
+                Hier deine Vorteile:
+            </h2>
+
+            <div class="row">
+                <div class="col-sm-6 col-lg-4 mx-auto mt-5 text-center">
+                    <i class="text-icon far fa-compass mb-3"></i>
+
+                    <h3 class="title2 mb-3">Du entscheidest – wir setzen deinen Schutz um!</h3>
+
+                    <p>
+                        Mit YOURneeds benötigst du keinen Vertreter mehr im Haus. Entscheide von der Couch aus, was du
+                        benötigst und was du dafür bezahlen willst!
+                    </p>
+                </div>
+                <div class="col-sm-6 col-lg-4 mx-auto mt-5 text-center">
+                    <i class="text-icon far fa-file-alt mb-3"></i>
+
+                    <h3 class="title2 mb-3">Verstehe endlich deine Versicherung!</h3>
+
+                    <p>
+                        Wir haben für dich Versicherungsdeutsch in jedermann verständliches Deutsch übersetzt und mit
+                        unserer Bedarfsanalyse verstehst du auch den Inhalt deiner Versicherung
+                    </p>
+                </div>
+                <div class="col-sm-6 col-lg-4 mx-auto mt-5 text-center">
+                    <i class="text-icon fas fa-money-bill-wave mb-3"></i>
+
+                    <h3 class="title2 mb-3">Oje, Schaden passiert!</h3>
+
+                    <p>
+                        Wir helfen dir unkompliziert weiter. Mit unserem mobilen Schadenhelfer nimmst du alle wichtigen
+                        Informationen auf und leitest alles umgehend an den Schadensachbearbeiter deiner Versicherung
+                        weiter.
+                    </p>
+                </div>
+                <div class="col-sm-6 col-lg-4 mx-auto mt-5 text-center">
+                    <i class="text-icon fas fa-brain mb-3"></i>
+
+                    <h3 class="title2 mb-3">Endlich einer, der für dich denkt!</h3>
+
+                    <p>
+                        Gleicher Versicherungsschutz für weniger Prämie? Unsere Künstliche Intelligenz prüft ständig, ob
+                        es noch besser geht. Mit einem Klick/Wischer am mobilen Gerät sparst du dann bares Geld!
+                    </p>
+                </div>
+                <div class="col-sm-6 col-lg-4 mx-auto mt-5 text-center">
+                    <i class="text-icon fas fa-user-graduate mb-3"></i>
+
+                    <h3 class="title2 mb-3">100% bedarfsgerecht, unabhängig und seriös!</h3>
+
+                    <p>
+                        Du möchtest keinen provisionsgetriebenen Verkauf mehr? Durch unseren Robo-Advisor wirst du
+                        neutral, objektiv und genau nach deinem Bedarf beraten!
+                    </p>
+                </div>
+            </div>
+            <p class="text-center mt-5">
+                <a href="{{ path('security_login') }}" class="btn btn--cta btn--large">Gleich loslegen!</a>
+            </p>
+        </div>
+    </section>
+
+    <section id="beamanager">
+        <div class="container">
+            <h2 class="title1 title1--space">Eine Gute Lösung für die Umwelt</h2>
+
+            <div class="row">
+                <div class="col-sm-6 col-lg-4 mt-5 text-center">
+                    <p>
+                        Mit YOURneeds hast du deinen Versicherungs&shy;manager in deiner Hosentasche oder Handtasche und
+                        schonst die Umwelt. Erstaunlich, was wir gemeinsam sparen können!
+                    </p>
+                </div>
+                <div class="col-sm-6 col-lg-4 mt-5 text-center">
+                    <p>
+                        Die <span class="number-animated color-green" data-yn-number-animate
+                                  data-yn-number-seperator=".">206010</span> Vermittler in Deutschland
+                    </p>
+                </div>
+                <div class="col-sm-6 col-lg-4 mt-5 text-center">
+                    <p>
+                        erzeugen bei <span class="number-animated color-green" data-yn-number-animate
+                                           data-yn-number-seperator=".">10000</span> gefahrenen Kilometern pro Jahr
+                    </p>
+                </div>
+                <div class="col-sm-6 col-lg-4 mt-5 text-center">
+                    <p>
+                        und <span class="number-animated color-green" data-yn-number-animate
+                                  data-yn-number-seperator=".">7.5</span> Liter durchschnittlichem Verbrauch an
+                        Kraftstoff pro 100 Kilometer
+                    </p>
+                </div>
+                <div class="col-sm-6 col-lg-4 mt-5 text-center">
+                    <p>
+                        alleine ca. <span class="number-animated color-green" data-yn-number-animate
+                                          data-yn-number-seperator=".">358457400</span> Kilogramm CO<sub>2</sub> pro
+                        Jahr.
+                    </p>
+                </div>
+                <div class="col-sm-6 col-lg-4 mt-5 text-center">
+                    <p>
+                        Um das zu kompensieren, benötigen wir <span class="number-animated color-green"
+                                                                    data-yn-number-animate data-yn-number-seperator=".">824040</span>
+                        neue Bäume.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sustainability">
+        <div class="container">
+            <h2 class="title1 title1--space">Nachhaltigkeit ist integraler Bestandteil unserer Arbeit.</h2>
+
+            <div class="row">
+                <div class="col-12 col-sm-8 mt-5 order-sm-1 order-2">
+                    <p>
+                        Nachhaltigkeit ist für uns eine Herzensangelegenheit und einer der Pfeiler, auf dem die Idee zur
+                        YOURneeds gründet. Einer wirtschaftlich ausgerichteten Definition zufolge, bedeutet
+                        Nachhaltigkeit beispielsweise <strong>»[...] nicht Gewinne zu erwirtschaften, die dann in
+                            Umwelt- und Sozialprojekte fließen, sondern Gewinne bereits umwelt- und sozialverträglich zu
+                            erwirtschaften.«</strong> (Pufé 2014, S.&nbsp;16). In diesem Sinne sparen u. a. nicht
+                        durchgeführte Fahrten vom Versicherer zum Kunden oder vom Kunden zum Versicherungsbüro
+                        erhebliche Mengen an CO<sub>2</sub>-Emissionen ein, durch die Online-Verwaltung deiner Verträge
+                        sparen wir der Erde Unmengen an Papier und Druckpatronen.
+                    </p>
+                    <p>
+                        Zusätzlich hat sich YOURneeds entschlossen, jährlich einen Betrag an drei Organisationen zu
+                        spenden: <strong>GEO schützt den Regenwald</strong>, <strong>World Vision</strong> und <strong>The
+                            Ocean Cleanup</strong>. Jeder Kunde, der mindestens einen Vertrag über die YOURneeds
+                        betreuen lässt, kann mit seiner Stimme eine dieser drei Organisationen wählen und somit die
+                        prozentuale Verteilung der Spende mitbestimmen. Die Höhe des Gesamtbetrags wird jedes Jahr auf
+                        der Gesellschafterversammlung festgelegt und ergibt sich aus dem jährlichen Umsatz. Zum 31.&nbsp;12.
+                        eines jeden Jahres wird die Stimmverteilung auf die Organisationen ermittelt und anschließend
+                        deren Anteil an der Gesamtsumme gespendet. Die genaue Höhe der Spende für die jeweilige
+                        Organisation wird zum Zeitpunkt der Spende auf unserer Website veröffentlicht.
+                    </p>
+                    <p>
+                        <strong>Damit kannst du einen nachhaltigen Beitrag für unsere Umwelt leisten.</strong>
+                    </p>
+                    <p>
+                        Wir unterstützen diese Organisationen aus Überzeugung aufgrund ihrer auf Nachhaltigkeit
+                        ausgelegten Tätigkeit. Vorsorglich weisen wir darauf hin, dass wir uns völlig unabhängig für
+                        diese drei Organisationen entschieden haben und wir durch keine dieser Organisationen
+                        unterstützt oder gesponsert werden.
+                    </p>
+                </div>
+                <div class="col-12 col-sm-4 mt-5 order-sm-2 order-1 text-center">
+                    <div class="row">
+                        <div class="col-4 col-sm-12">
+                            <p>
+                                <a href="https://www.worldvision.de/informieren/themen/wasser">
+                                    <img src="/build/static/images/world-vision-logo.png">
+                                </a>
+                            </p>
+                        </div>
+                        <div class="col-4 col-sm-12 mt-sm-3">
+                            <p>
+                                <a href="https://www.theoceancleanup.com/">
+                                    <img src="/build/static/images/ocean-cleanup-logo.png">
+                                </a>
+                            </p>
+                        </div>
+                        <div class="col-4 col-sm-12 mt-sm-3">
+                            <p>
+                                <a href="https://www.geo.de/natur/10810-rtkl-neue-initiativen-zum-schutz-des-regenwaldes">
+                                    <img src="/build/static/images/geo-schuetzt-regenwald-logo.png">
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center mt-5">
+                <a href="#organizations" class="btn btn--cta btn--large">Erfahre hier, wer unsere Projektpartner
+                    sind.</a>
+            </p>
+        </div>
+    </section>
+
+    <section id="organizations" class="slider">
+        <div class="owl-carousel owl-carousel--full-height owl-theme">
+            <div class="owl-slide" style="background-image: url('/build/static/images/geo-schuetzt-den-regenwald.jpg')">
+                <div class="owl--text">
+                    <div class="container vertical-align-middle text-center">
+                        <h2 class="title1 color-white">Mit <em>GEO schützt den Regenwald&nbsp;e.&nbsp;V.</em>
+                            unternehmen wir etwas für unser Klima.</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="owl-slide" style="background-image: url('/build/static/images/world-vision.jpg')">
+                <div class="owl--text">
+                    <div class="container vertical-align-middle text-center">
+                        <h2 class="title1 color-white">Wir helfen <em>World Vision</em>, sauberes Trinkwasser für alle
+                            zu fördern.</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="owl-slide" style="background-image: url('/build/static/images/ocean-clean-up.jpg')">
+                <div class="owl--text">
+                    <div class="container vertical-align-middle text-center">
+                        <h2 class="title1 color-white">Bei <em>The Ocean Cleanup</em> unterstützen wir ein Projekt zur
+                            Reinigung unserer Meere von Plastikmüll.</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="app">
+        <div class="container">
+            <h2 class="title1 title1--space">Die Lösung für all deine Bedürfnisse – unsere <span
+                        class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span class="color-brown">needs</span>
+                Mobile-Website.</h2>
+
+            <p>
+                Egal, was du brauchst – unsere Entwickler haben für dich die intelligenteste Lösung entwickelt. Mit
+                unserer mobilen Website hast du alles zum Thema Versicherung selbst in der Hand und bist für alle
+                Hausforderungen aus deiner Hosentasche oder Handtasche heraus gewappnet!
+            </p>
+            <div class="row">
+                <div class="col-sm-6 col-lg-6 mx-auto mt-5">
+                    <i class="text-icon fas fa-car-crash mb-4"></i>
+
+                    <p>
+                        Mach die Schadensabwicklung zu einem Erlebnis! Die Mobile Schadensachbearbeitungslösung meldet
+                        für dich
+                    </p>
+                    <ul>
+                        <li>Schäden per Sprachnachricht</li>
+                        <li>Schäden per intelligenter Eingabe oder</li>
+                        <li>Persönlich mit einem/einer Schadensachbearbeiter/in.</li>
+                    </ul>
+                </div>
+                {#
+                <div class="col-sm-6 col-lg-4 mx-auto mt-5">
+                    <i class="text-icon fas fa-concierge-bell mb-4"></i>
+                    <p>
+                        Wir sind immer für dich am Ball! Ein Kurztrip mit den Freunden zum Skifahren oder eine Bergtour in den Schweizer Alpen ohne Auslandsschutz? Kein Beinbruch! Unser Geo-Service merkt, wenn Gefahr droht, meldet es dir und mit einem Swipe ist alles im grünen Bereich.
+                    </p>
+                </div>
+                #}
+                <div class="col-sm-6 col-lg-6 mx-auto mt-5">
+                    <i class="text-icon fas fa-globe-americas mb-4"></i>
+
+                    <p>
+                        Ausgestattet mit modernster Technologie für die Umwelt! Wir möchten zusammen mit dir etwas
+                        bewegen, das über unser Leben hinaus Spuren hinterlässt.
+                    </p>
+                </div>
+            </div>
+            <p class="text-center mt-5">
+                <a href="#sustainability" class="btn btn--cta btn--large">Erfahre mehr zur Nachhaltigkeit</a>
+            </p>
+        </div>
+    </section>
+
+    {% include 'includes/home.footer.menu.html.twig' %}
+
+{% endblock %}

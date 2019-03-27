@@ -1,0 +1,771 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds Tarifumfrage{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+    <link rel="stylesheet" href="/build/surveyCore.css">
+
+
+    <style>
+        .sv_p_root {
+            text-align: left;;
+        }
+
+        .sv_nav .btn {
+            width: 125px;
+            height: 25px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .sv_nav .btn {
+            -moz-box-shadow: 0 0 15px #b19f9e;
+            -webkit-box-shadow: 0 0 15px #b19f9e;
+            box-shadow: 0 0 15px #b19f9e;
+            background: #74b959;
+            background: -moz-linear-gradient(left, #74b959 0%, #6fbc85 100%);
+            background: -webkit-linear-gradient(left, #74b959 0%, #6fbc85 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, #74b959), color-stop(100%, #6fbc85));
+            background: -o-linear-gradient(left, #74b959 0%, #6fbc85 100%);
+            background: -ms-linear-gradient(left, #74b959 0%, #6fbc85 100%);
+            background: linear-gradient(to right, #74b959 0%, #6fbc85 100%);
+        }
+
+        .sv_nav .btn:before {
+            background: #68a750;
+            background: -moz-linear-gradient(left, #68a750 0%, #64a978 100%);
+            background: -webkit-linear-gradient(left, #68a750 0%, #64a978 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, #68a750), color-stop(100%, #64a978));
+            background: -o-linear-gradient(left, #68a750 0%, #64a978 100%);
+            background: -ms-linear-gradient(left, #68a750 0%, #64a978 100%);
+            background: linear-gradient(to right, #68a750 0%, #64a978 100%);
+        }
+
+        .loader-wrapper {
+        }
+
+        #survey-spinner {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 1;
+            width: 150px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+            border: 8x solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 8px solid #6fbc85;
+            width: 60px;
+            height: 60px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+            visibility: hidden;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader-wrapper h2 {
+            margin-top: 60px;
+        }
+
+        .visible {
+            visibility: visible;
+            display: block;
+        }
+
+        .hidden {
+            visibility: hidden;
+            display: none;
+        }
+
+        #survey-proceed-title {
+            visibility: hidden;
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/build/yourneeds-manager.js"></script>
+    <script src="/build/surveyCore.js"></script>
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+      -->
+    <script type="text/javascript" src="/build/libs/customwidget.js"></script>
+
+    <script src="https://unpkg.com/surveyjs-widgets"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.6.4/showdown.min.js"></script>
+    <script src="/build/libs/preloader/modernizr.custom.js"></script>
+
+    <script>
+
+        /*
+        SURVEY
+         */
+        var survey = null;
+        var tmpQuestions = [];
+        var questionDescriptions = [];
+        var helpVisibility = 0;
+        handleSpinner = function (elem, preloader, $time) {
+            doSpinner = function (elem, preloader) {
+                $(preloader).show();
+                //console.log("handleSpinnerBox e:" + elem + " _ p:" + preloader + " successful");
+                $("#survey-spinner").addClass("visible");
+                $("#survey-proceed-title").addClass("visible");
+                setTimeout(function () {
+                    $("#survey-proceed-title").addClass("hidden");
+                    $("#survey-spinner").addClass("hidden");
+                    $("#survey-proceed-button").addClass("visible btn--cta");
+                    window.location.href = "{{ path('manager_survey_type_result', {'type': type}) }}";
+                }, ($time * 1000));
+            }
+            doSpinner(elem, preloader);
+        }
+
+        saveSurvey = function (json) {
+            var url = "/manager/survey/{{ type }}/save";
+            console.log("try to save survey via " + url + " ... ");
+            $.ajax({
+                type: "PUT",
+                contentType: 'application/json',
+                url: url,
+                dataType: 'json',
+                cache: false,
+                data: JSON.stringify({
+                    structure: json
+                }),
+                error: function (data) {
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        //console.log("Result: ");
+                        //console.log(data);
+                    }
+                }
+            });
+        }
+        /*
+                loadJobs = function (survey) {
+                    var url = "/api/job/all/load";
+                    //console.log("loadAutoComplete called with url:" + url + " successful");
+                    $.ajax({
+                        type: "PUT",
+                        contentType: 'application/json',
+                        url: url,
+                        dataType: 'json',
+                        cache: false,
+                        data: JSON.stringify({
+                            data: 'all'
+                        }),
+                        error: function (data) {
+                            console.log("Result error");
+                        },
+                        success: function (data) {
+                            if (data.status == 200) {
+                                console.log(data);
+                                var question = survey.getQuestionByName('job');
+                                question.choices = data.resultList;
+                                //return data.resultList;
+                            }
+                        }
+                    });
+                }
+        */
+
+
+        loadDogBreeds = function (survey) {
+            var question = survey.getQuestionByName('animalCountEntry');
+            var url = "/api/dogbreeds/all/load";
+            //console.log("loadAutoComplete called with url:" + url + " successful");
+            //console.log(question.getColumnByName('breed').choices);
+            $.ajax({
+                type: "PUT",
+                contentType: 'application/json',
+                url: url,
+                dataType: 'json',
+                cache: false,
+                data: JSON.stringify({
+                    data: 'all'
+                }),
+                error: function (data) {
+                    console.log("Result error");
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        question.getColumnByName('breed').choices = data.resultList;
+                        question.getColumnByName('mainMixedBreed').choices = data.resultList;
+                        return data.resultList;
+                    }
+                }
+            });
+        }
+
+        showSurveyResult = function (result) {
+            document
+                .querySelector('#surveyResult')
+                .innerHTML = "Resultat der Formulareingabe in JSON: " + JSON.stringify(result.data) + "</p>";
+            var element = $('#surveyFollow');
+            element.addClass('visible');
+        }
+
+        /*
+         show / hide help texts
+         */
+        $(document).ready(function () {
+
+            loadQuestionDescriptions = function (survey) {
+                var url = "/api/survey/questions/load";
+                console.log("loadAutoComplete called with url:" + url + " successful");
+                $.ajax({
+                    type: "PUT",
+                    contentType: 'application/json',
+                    url: url,
+                    dataType: 'json',
+                    cache: false,
+                    data: JSON.stringify({
+                        data: 'all'
+                    }),
+                    error: function (data) {
+                        console.log("Result error");
+                    },
+                    success: function (data) {
+                        if (data.status == 200) {
+                            //console.log(data);
+                            questionDescriptions = data.resultList;
+                            return data.resultList;
+                        }
+                    }
+                });
+            }
+
+            jsForeachQuestionShowDescription = function (question, page, tmpQuestions) {
+                var description = '';
+                //if (null != tmpQuestions[page.name][question.name] && 'undefined' != tmpQuestions[page.name][question.name]) {
+                if (null != questionDescriptions[question.name] && 'undefined' != questionDescriptions[question.name]) {
+
+                    description = questionDescriptions[question.name];
+                }
+                //console.log('Question: ');
+                //console.log(question.name);
+                //console.log(description);
+                //console.log();
+                //console.log(questionDescriptions);
+                question.description = description;
+            }
+
+            jsForeachQuestionHideDescription = function (question) {
+                var tmpDescription = '';
+                if (null != question.description && 'undefined' != question.description) {
+                    tmpDescription = question.description;
+                }
+                //console.log('Question: ' + question.name);
+                //console.log('Description: ' + tmpDescription);
+                question.description = 'Für Hinweise bitte Hilfe anschalten';
+                return tmpDescription;
+                //console.log(question.description);
+            }
+
+            jsForeachPages = function (page, isVisible, tmpQuestions) {
+                //console.log('Page: ');
+                //console.log(page);
+                var tmpEntries = [];
+                if (null != page && null != page.questions) {
+                    var questions = page.questions;
+                    for (var i = 0, len = questions.length; i < len; i++) {
+                        var tmpQuestion = questions[i];
+                        var result = null;
+                        var question = survey.getQuestionByName(tmpQuestion.name);
+                        if (null != question && null != question.name && 'undefined' != question.name) {
+                            if (false == isVisible) {
+                                result = jsForeachQuestionHideDescription(question);
+                            }
+                            if (true == isVisible) {
+                                result = jsForeachQuestionShowDescription(question, page, tmpQuestions);
+                            }
+                        }
+                        tmpEntries[question.name] = result;
+                    }
+                }
+                return tmpEntries;
+            }
+
+            function jsForeachShow(survey, tmpQuestions) {
+                var pages = survey.pages;
+                //console.log('Pages: ');
+                //console.log(pages);
+                for (var i = 0, len = pages.length; i < len; i++) {
+                    var page = pages[i];
+                    jsForeachPages(page, true, tmpQuestions);
+                }
+                //console.log();
+                //console.log(tmpQuestions);
+            }
+
+            function jsForeachHide(survey, globalArray) {
+                var pages = survey.pages;
+                var tmpEntries = [];
+                //console.log('Pages: ');
+                //console.log(pages);
+                for (var i = 0, len = pages.length; i < len; i++) {
+                    var page = pages[i];
+                    var result = jsForeachPages(page, false, globalArray);
+                    tmpEntries[page.name] = result;
+                }
+                tmpQuestions = tmpEntries;
+                //console.log();
+                //console.log(tmpQuestions);
+            }
+
+            var helpIsVisible = 0;
+
+            handleHelpVisibility = function (bool) {
+                if (helpIsVisible == 0 && bool == 1) {
+                    jsForeachShow(survey, tmpQuestions);
+                    helpIsVisible = 1;
+                } else {
+                    if (helpIsVisible == 1 && bool == 1) {
+                        jsForeachHide(survey, tmpQuestions);
+                        helpIsVisible = 0;
+                    }
+                }
+            }
+            jsForeachHide(survey);
+            loadQuestionDescriptions();
+
+        });
+
+
+        var storageName = "SurveyJS_LoadState";
+
+        function loadState(survey) {
+            //Here should be the code to load the data from your database
+            var storageSt = window
+                .localStorage
+                .getItem(storageName) || "";
+
+            var res = {};
+            if (storageSt)
+                res = JSON.parse(storageSt); //Create the survey state for the demo. This line should be deleted in the real app.
+            res = {
+                currentPageNo: 1,
+                data: {
+                    "calculateSumResult": 112500,
+                    "address": "Kirchenhang 32,21073 Hamburg",
+                    "livingHow": "Einfamilienhaus",
+                    "livingHowSquareMeter": "150",
+                    "livingHowSquareMeterCellar": "50",
+                    "livingHowSquareMeterCellarSize": "25",
+                    "livingHowConstructionClass": "FghIII",
+                    "publicService": "yes",
+                    "calculateSum": "yes",
+                    "bicycleTheft": "no",
+                    "ceramicHob": "yes",
+                    "floodingAndEarthquakes": "yes",
+                    "damagesCausedByGrossNegligence": "yes",
+                    "retention": "yes",
+                    "previousInsurance": "no",
+                    "insuredValuables": "no",
+                    "surgeDamage": "yes",
+                    "carTheft": "no",
+                    "singeingDamage": "no",
+                    "waterLossDueBurstPipes": "no",
+                    "hotelCosts": "yes",
+                    "returnTravelCosts": "yes",
+                    "homeOfficeDamage": "no",
+                    "theftOfGardenFurniture": "no",
+                    "pickpocketing": "yes",
+                    "everythingOk": "yes"
+                }
+            };
+
+            //Set the loaded data into the survey.
+            if (res.currentPageNo)
+                survey.currentPageNo = res.currentPageNo;
+            if (res.data)
+                survey.data = res.data;
+        }
+
+        function saveState(survey) {
+            var res = {
+                currentPageNo: survey.currentPageNo,
+                data: survey.data
+            };
+            //Here should be the code to save the data into your database
+            window
+                .localStorage
+                .setItem(storageName, JSON.stringify(res));
+        }
+
+    </script>
+{% endblock %}
+
+{% block content %}
+    <section class="content-body">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12 text-center pt-2">
+                    <h1 class="title1 title1--space">
+                        Check <span class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span
+                                class="color-brown">needs</span>
+                    </h1>
+                </div>
+            </div>
+            <!-- survey content begin -->
+            <div class="row justify-content-start">
+                <div class="col-12 text-center pt-2">
+                    {% set insuranceTitle = '' %}
+                    {% if type == 'pli' %}
+                        {% set insuranceTitle = 'Privathaftpflicht' %}
+                    {% elseif type == 'hci' %}
+                        {% set insuranceTitle = 'Hausrat' %}
+                    {% elseif type == 'lpi' %}
+                        {% set insuranceTitle = 'Rechtsschutz' %}
+                    {% elseif type == 'rbi' %}
+                        {% set insuranceTitle = 'Wohngebäude' %}
+                    {% elseif type == 'aci' %}
+                        {% set insuranceTitle = 'Unfall' %}
+                    {% elseif type == 'ali' %}
+                        {% set insuranceTitle = 'Tierhalterhaftplicht' %}
+                    {% endif %}
+
+                    <h1 class="title1 title1--space">{{ insuranceTitle }}</h1>
+                    <hr>
+                </div>
+            </div>
+            <!--
+            <div class="row no-gutters mt-3 mb-3 sv_nav">
+               <button type="button" onclick="survey.prevPage();" class="btn">
+                  <i class="fas fa-angle-left"></i>
+               </button>
+               <button type="button" onclick="survey.nextPage();" class="btn">
+                  <i class="fas fa-angle-right"></i>
+               </button>
+            </div>
+            -->
+            <div id="loader"></div>
+            <div class="row justify-content-start">
+                <div class="col-12 text-center">
+                    <div class="container-survey">
+                        <p>
+                            <button onclick="handleHelpVisibility(1)">Hilfe an/aus</button>
+                        </p>
+                        <span id="surveyProgress"></span>
+                        <!--
+                        <a class="btn" id="surveyPrev" href="#" onclick="survey.prevPage();">zur&uuml;ck</a>
+                        <a id="surveyNext" href="#" onclick="survey.nextPage();">weiter</a>
+                        <a id="surveyComplete" href="#" onclick="survey.completeLastPage();">Fertigstellen</a>
+                        -->
+                        <div id="surveyElement"></div>
+                        <div id="survey-spinner">
+                            <!--
+                            <h2 class="title2 title2--space">Speichere deine Antworten!</h2>
+       -->
+                            <div class="outer"></div>
+                            <div class="inner"></div>
+                        </div>
+                        <div id="surveyResult">
+                        </div>
+                        <div id="surveyFollow" class="text-center">
+
+                            <div id="survey-proceed-title">
+                                <h2 class="title2 title2--space">Speichere deine Antworten!</h2>
+                                <div id="survey-spinner"></div>
+                            </div>
+                            {% if type == 'basicneeds' %}
+                                <a href="{{ path('manager_choose_survey') }}" id="survey-proceed-button"
+                                   class="btn btn--cta">
+                                      <span>
+                                         Weiter zur Bedarfsauswahl
+                                      </span>
+                                </a>
+                            {% else %}
+                                <a href="{{ path('manager_survey_type_result', {
+                                    'type': type
+                                }) }}" id="survey-proceed-button" class="btn btn--cta">
+                                      <span>
+                                Zum Ergebnis
+                                </span>
+                                </a>
+
+                            {% endif %}
+                            <div class="horizontally-spacer100">&nbsp;</div>
+                        </div>
+                        <script>
+                            Survey
+                                .StylesManager
+                                .applyTheme("darkblue");
+                            //window.survey = new Survey.Model({{ structure|raw }});
+                            survey = new Survey.Model({{ structure|raw }});
+                            //Survey.cssTyp = "bootstrap";
+                            Survey.defaultStandardCss.progressBar = "bar-green";
+                            Survey.defaultStandardCss.progress = "progress";
+
+                            survey
+                                .onComplete
+                                .add(function (survey, options) {
+                                    //save the data on survey complete. You may call another function to store the final results
+                                    handleSpinner('#survey-proceed-button', '#survey-proceed-spinner', 3);
+                                });
+                            survey
+                                .onComplete
+                                .add(function (result) {
+                                    /*document
+                                     .querySelector('#surveyResult')
+                                     .innerHTML = "Resultat der Formulareingabe in JSON: " + JSON.stringify(result.data) + "</p>";
+                                     */
+                                    var element = $('#surveyFollow');
+                                    element.addClass('visible')
+                                });
+                            survey
+                                .onComplete
+                                .add(function (result) {
+                                    saveSurvey(result.data);
+                                });
+                            survey
+                                .onUpdateQuestionCssClasses
+                                .add(function (survey, options) {
+                                    var classes = options.cssClasses
+
+                                    classes.root = "sq-root";
+                                    classes.title = "sq-title";
+                                    classes.item = "sq-item";
+                                    classes.label = "sq-label";
+
+                                    if (options.question.isRequired) {
+                                        classes.title = "sq-title sq-title-required";
+                                        classes.root = "sq-root sq-root-required";
+                                    }
+
+                                    if (options.question.getType() === "checkbox") {
+                                        classes.root = "sq-root sq-root-cb";
+                                    }
+                                });
+
+                            $("#surveyElement").Survey({
+                                model: survey,
+                                onCurrentPageChanged: onCurrentPageChanged,
+                                onValueChanged: onValueChanged
+                            });
+
+
+                            survey
+                                .onCurrentPageChanged
+                                .add(function (survey, options) {
+                                    saveState(survey);
+                                });
+                            //Load the initial state
+
+
+                            /*
+                             STATE LOADER - inactive
+                             */
+                            //loadState(survey);
+
+                            {% if type == 'aci' %}
+                            //loadJobs(survey);
+                            {% endif %}
+
+                            {% if type == 'ali' %}
+                            loadDogBreeds(survey);
+                            {% endif %}
+                            {% if type == 'rbi' %}
+                            loadContractsByType(survey);
+                            {% endif %}
+
+                            function jsForeach(item) {
+                                var question = null;
+                                if (null != item.name && 'undefined' != item.name) {
+                                    question = survey.getQuestionByName(item.name);
+                                    question.description = 'Hello new';
+                                    //console.log(question.description);
+                                }
+                            }
+
+                            function onCurrentPageChanged(survey) {
+                                if (survey.currentPage.name == "exit messenger") {
+                                    question = survey.getQuestionByName('targetGroup');
+                                    //console.log(question.description);
+                                    //console.log(survey.currentPage.questions);
+
+                                    //var questions = survey.currentPage.questions;
+                                    //questions.forEach(jsForeach);
+                                    $("#survey-spinner").addClass("visible");
+                                }
+                                if (survey.currentPage.name == "Screen 1") {
+                                    question = survey.getQuestionByName('targetGroup');
+                                    //console.log(question.description);
+                                    //console.log(survey.currentPage.questions);
+
+                                    //var questions = survey.currentPage.questions;
+                                    //questions.forEach(jsForeach);
+
+                                }
+                                {% if type == 'hci' %}
+                                var name;
+                                var question;
+
+                                {% elseif type == 'ali' %}
+                                {% endif %}
+                                {% if type == 'aci' %}
+
+                                if (survey.currentPage.name == "Screen 3") {
+                                    // 				console.log(survey.getQuestionByName('nfrontend').value)
+                                    // 				console.log(survey.getQuestionByName('nportal').value)
+                                    // 				console.log(survey.getQuestionByName('nsearch').value)
+
+                                    name = 'birthdayYear';
+                                    question = survey.getQuestionByName(name);
+                                    var startYear = 1930;
+                                    var currentYear = new Date().getFullYear();
+                                    var years = [];
+                                    for (var i = startYear; i <= currentYear; i++) {
+                                        years.push(i);
+                                    }
+                                    question.choices = years;
+
+                                    name = 'birthdayMonth';
+                                    question = survey.getQuestionByName(name);
+                                    var monthNames = ["Januar", "Februar", "Maerz", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+                                    question.choices = monthNames;
+
+                                    name = 'birthdayDay';
+                                    question = survey.getQuestionByName(name);
+                                    var startDay = 1;
+                                    var lastDay = 31;
+                                    var days = []
+                                    for (var i = startDay; i <= lastDay; i++) {
+                                        days.push(i);
+                                    }
+                                    question.choices = days;
+
+                                    //console.log(days);
+                                    //console.log(" --- ");
+                                    //console.log(survey.getQuestionByName(name).items);
+                                    survey.render();
+                                }
+                                {% endif %}
+                            }
+
+                            function onValueChanged(survey) {
+                                var name;
+                                var question;
+                                var done = false;
+
+                                {% if type == 'ali' %}
+                                if (survey.getQuestionByName('animalCount') &&
+                                    survey.getQuestionByName('animalCount').value > 0) {
+                                    //if (survey.currentPage.name == "Seite 1") {
+                                    //console.log(survey.getQuestionByName('onlyMyselfCount').value);
+                                    // 				console.log(survey.getQuestionByName('nfrontend').value)
+                                    // 				console.log(survey.getQuestionByName('nportal').value)
+                                    // 				console.log(survey.getQuestionByName('nsearch').value)
+
+                                    addFields('animalCountEntry',
+                                        survey.getQuestionByName('animalCount').value);
+                                }
+                                //console.log(question.columns[2].visible);
+
+                                {% elseif type == 'lpi' %}
+
+                                {% elseif type == 'aci' %}
+                                if (survey.currentPage.name == "Screen 5") {
+                                    var questionRecommendedSum = survey.getQuestionByName('amountRecommendationResultComplete');
+                                    var incomeQuestion = survey.getQuestionByName('yearlyIncome');
+                                    if (incomeQuestion.value > 1) {
+                                        var seniorAge = {{ recommendedSumSeniorAge }};
+                                        var yearOfBirth = {{ yearOfBirth }};
+                                        var currentYear = {{ recommendedSumCurrentYear }};
+                                        var currentDivider = {{ recommendedSumCurrentDivider }};
+
+                                        questionRecommendedSum.value = (((incomeQuestion.value / currentDivider) * (seniorAge - (currentYear - yearOfBirth))) / 3.50).toFixed(0);
+                                    } else {
+                                        questionRecommendedSum.value = 0;
+                                    }
+                                }
+                                /*
+                                 if (survey.currentPage.name == "Screen 1") {
+                                 name = 'job';
+                                 input = survey.getQuestionByName(name).value;
+                                 //names = loadAutoComplete(input);
+                                 input = 'all';
+                                 var url = "/api/job/" + input + "/load";
+                                 var options = {
+                                 url: url,
+                                 getValue: "name"
+                                 };
+                                 names.easyAutocomplete(options);
+                                 alert(names);
+                                 }
+                                 */
+                                if (survey.getQuestionByName('howManyPersons') &&
+                                    survey.getQuestionByName('howManyPersons').value > 0) {
+                                    //if (survey.currentPage.name == "Seite 1") {
+                                    //console.log(survey.getQuestionByName('onlyMyselfCount').value);
+                                    // 				console.log(survey.getQuestionByName('nfrontend').value)
+                                    // 				console.log(survey.getQuestionByName('nportal').value)
+                                    // 				console.log(survey.getQuestionByName('nsearch').value)
+
+                                    addFields('howManyPersonsEntry',
+                                        survey.getQuestionByName('howManyPersons').value);
+                                }
+                                {% endif %}
+                            }
+
+                            function addFields(name, n) {
+                                //console.log(survey.getQuestionByName(name).items);
+                                var question = survey.getQuestionByName(name);
+                                survey.getQuestionByName(name).items = [];
+                                question.rowCount = n;
+                                //for (var i = 0; i < n; i++) {
+                                // question.addItem(name + " " + i, "Vorname " + (i + 1)); @multipletext
+                                //}
+                            }
+
+                            /*
+                             function sendDataToServer(survey) {
+                             var resultAsString = JSON.stringify(survey.data);
+                             console.log(survey.data);
+                             alert(resultAsString); //send Ajax request to your web server.
+                             }
+                             */
+
+                            // initialize help texts
+
+                            //Create showdown mardown converter
+                            var converter = new showdown.Converter();
+                            survey
+                                .onTextMarkdown
+                                .add(function (survey, options) {
+                                    //convert the mardown text to html
+                                    var str = converter.makeHtml(options.text);
+                                    //remove root paragraphs <p></p>
+                                    str = str.substring(3);
+                                    str = str.substring(0, str.length - 4);
+                                    //set html
+                                    options.html = str;
+                                });
+
+                        </script>
+                    </div>
+                    <div class="text-left mt-3">
+                        <a href="{{ path('manager_profile') }}" class="btn">
+                            Zur&uuml;ck zum Profil
+                        </a>
+                    </div>
+                    <div class="horizontally-spacer100">&nbsp;</div>
+                    <div class="horizontally-spacer100">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

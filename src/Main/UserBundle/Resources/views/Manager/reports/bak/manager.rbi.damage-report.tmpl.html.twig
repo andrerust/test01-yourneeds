@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            outline: none !important;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+            font-weight: 400;
+            color: #3c3c3c;
+            line-height: 16px;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 28px;
+        }
+    </style>
+
+</head>
+
+<body lang=EN-US link=blue vlink="#954F72">
+<h2><strong>Schadenmeldung &ndash; Wohngebäude</strong></h2>
+
+<p>&nbsp;</p>
+
+<p>YOURneeds Versicherungsmakler GmbH <br/> Nardinistra&szlig;e 8 <br/> 76764 Rheinzabern</p>
+
+<p><strong> vom </strong> {{ dateTime }} <strong> Agentur </strong> {{ agencyNumber }}<br/><br/></p>
+
+<p><strong>AN DIE</strong> {{ company['name'] }}<br/><br/></p>
+
+<p><strong>Reicht f&uuml;r den Kunden</strong></p>
+
+<p>
+    <strong>Anrede/Name:</strong> {{ salutation }} {{ user.firstName }} {{ user.lastName }}<br/>
+    <strong>Geb-Datum:</strong> {{ user.birthdate }} <br/>
+    <strong>Adresse:</strong> {{ address['street'] }} {{ address['streetNumber'] }}
+    , {{ address['postalCode'] }} {{ address['cityName'] }}<br/>
+    <strong>MobilNr.:</strong> {{ requestData['damageContactNumber'] }} <br/>
+    <strong>E-Mail:</strong> {{ user.email }} <br/>
+    <br/>
+    f&uuml;r welchen ein aktuelles <strong>Maklermandat vom {{ mandateDate }}</strong>
+    vorliegt, folgende durch den Kunden eingegebene Schadenmeldung ein.
+</p>
+
+<p><strong> Versicherungsnummer:</strong> {**Nummer aus der Versicherungspolice**}</p>
+
+<p><strong> Schadendatum:</strong> {{ requestData['dateOfDamage'] }}</p>
+<p><strong> Schadenort:</strong> {{ requestData['damageLocation'] }}</p>
+
+<p><strong>Eigentümer:</strong>
+    {{ requestData['owner'] }}<br>
+    {{ requestData['ownerStreet'] }}
+    {{ requestData['ownerZip'] }}<br>
+    {{ requestData['ownerCity'] }}<br>
+    {{ requestData['ownerPhoneNumber'] }}
+</p>
+
+
+<p><strong> Schadenart:</strong>
+
+    {% set fireDamageTrue = ' ' %}
+    {% set theftDamageTrue = ' ' %}
+    {% set waterDamageTrue = ' ' %}
+    {% set stormDamageTrue = ' ' %}
+    {% set glasDamageTrue = ' ' %}
+    {% set bicycleDamageTrue = ' ' %}
+    {% set elementaryDamageTrue = ' ' %}
+    {% set type = requestData['kindOfDamage'] %}
+    {% if type == 'fire' %}
+        {% set fireDamageTrue = 'x' %}
+    {% elseif type == 'theft' %}
+        {% set theftDamageTrue = 'x' %}
+    {% elseif type == 'water' %}
+        {% set waterDamageTrue = 'x' %}
+    {% elseif type == 'storm' %}
+        {% set stormDamageTrue = 'x' %}
+    {% elseif type == 'glas' %}
+        {% set glasDamageTrue = 'x' %}
+    {% elseif type == 'elementary' %}
+        {% set elementaryDamageTrue = 'x' %}
+    {% endif %}
+<p><strong>Schadenart:</strong><br>
+    ({{ fireDamageTrue }}) Feuer<br>
+    ({{ theftDamageTrue }}) Einbruch/Diebstahl<br>
+    ({{ waterDamageTrue }}) Leitungswasser<br>
+    ({{ stormDamageTrue }}) Sturm<br>
+    ({{ glasDamageTrue }}) Glasbruch<br>
+    ({{ elementaryDamageTrue }}) Elementar
+</p>
+
+<p><strong><u>Bei Feuerschaden</u></strong><br>
+    {% set damageReasonFire = ' ' %}
+    {% set damageReasonLightning = ' ' %}
+    {% set damageReasonExplosion = ' ' %}
+    {% if requestData['fireDamageReason'] == 'fire' %}
+        {% set damageReasonFire = 'x' %}
+    {% elseif requestData['fireDamageReason'] == 'lightning' %}
+        {% set damageReasonLightning = 'x' %}
+    {% elseif requestData['fireDamageReason'] == 'explosion' %}
+        {% set damageReasonExplosion = 'x' %}
+    {% endif %}
+<p><strong>Schadengrund:</strong> ({{ damageReasonFire }}) Brand / ({{ damageReasonLightning }})
+    Blitzschlag / ({{ damageReasonExplosion }}) Explosion
+</p>
+
+{% set openFireTrue = ' ' %}
+{% set openFireFalse = ' ' %}
+{% if requestData['fireDamageOpenFire'] == 'no' %}
+    {% set openFireFalse = 'x' %}
+{% elseif requestData['fireDamageOpenFire'] == 'yes' %}
+    {% set openFireTrue = 'x' %}
+{% endif %}
+<p><strong>Entstand offenes Feuer:</strong> ({{ openFireTrue }}) Ja / ({{ openFireFalse }}) Nein</p>
+
+{% set fireDamageExtinguishedTrue = ' ' %}
+{% set fireDamageExtinguishedFalse = ' ' %}
+{% if requestData['fireDamageExtinguished'] == 'no' %}
+    {% set fireDamageExtinguishedFalse = 'x' %}
+{% elseif requestData['fireDamageExtinguished'] == 'yes' %}
+    {% set fireDamageExtinguishedTrue = 'x' %}
+{% endif %}
+<p><strong>Wurde es gelöscht:</strong> ({{ fireDamageExtinguishedTrue }}) Ja / ({{ fireDamageExtinguishedFalse }}) Nein
+</p>
+
+<p><strong>Wenn ja von wem:</strong> {{ requestData['fireDamageExtinguishedBy'] }}</p>
+
+{% set extinguishedFoam = ' ' %}
+{% set extinguishedHalogen = ' ' %}
+{% set extinguishedSprinklers  = ' ' %}
+{% set extinguishedWater = ' ' %}
+{% set extinguishedCo2 = ' ' %}
+{% set extinguishedPowder  = ' ' %}
+{% set type = requestData['fireDamageExtinguishedHow'] %}
+{% if type == 'foam' %}
+    {% set extinguishedFoam = 'x' %}
+{% elseif type == 'halogen' %}
+    {% set extinguishedHalogen = 'x' %}
+{% elseif type == 'sprinklers' %}
+    {% set extinguishedSprinklers = 'x' %}
+{% elseif type == 'water' %}
+    {% set extinguishedWater = 'x' %}
+{% elseif type == 'co2' %}
+    {% set extinguishedCo2 = 'x' %}
+{% elseif type == 'powder' %}
+    {% set extinguishedPowder = 'x' %}
+{% endif %}
+<p><strong>Und wie?:</strong><br>
+    ({{ extinguishedFoam }}) Schaum<br>
+    ({{ extinguishedHalogen }}) Halogen<br>
+    ({{ extinguishedSprinklers }}) Sprinkler<br>
+    ({{ extinguishedWater }}) Sprühwasser<br>
+    ({{ extinguishedCo2 }}) CO2<br>
+    ({{ extinguishedPowder }}) Pulver
+</p>
+
+{% set lightningLocationinsuranceProperty = ' ' %}
+{% set lightningLocationneighbouringProperty = ' ' %}
+{% set lightningLocationRidge  = ' ' %}
+{% set lightningLocationRoofArea = ' ' %}
+{% set lightningLocationChimney = ' ' %}
+{% set lightningLocationGable  = ' ' %}
+{% set lightningLocationExternalAntenna = ' ' %}
+{% set lightningLocationMisc  = ' ' %}
+{% set type = requestData['lightningLocation'] %}
+{% if type == 'insuranceProperty' %}
+    {% set lightningLocationinsuranceProperty = 'x' %}
+{% elseif type == 'neighbouringProperty' %}
+    {% set lightningLocationneighbouringProperty = 'x' %}
+{% elseif type == 'ridge' %}
+    {% set lightningLocationRidge = 'x' %}
+{% elseif type == 'roofArea' %}
+    {% set lightningLocationRoofArea = 'x' %}
+{% elseif type == 'chimney' %}
+    {% set lightningLocationChimney = 'x' %}
+{% elseif type == 'gable' %}
+    {% set lightningLocationGable = 'x' %}
+{% elseif type == 'externalAntenna' %}
+    {% set lightningLocationExternalAntenna = 'x' %}
+{% elseif type == 'misc' %}
+    {% set lightningLocationMisc = 'x' %}
+{% endif %}
+<p><strong><u>Bei Blitzschlag</u></strong><br>
+    Und wie?:<br>
+    ({{ lightningLocationinsuranceProperty }}) Versicherungsgrundstück<br>
+    ({{ lightningLocationneighbouringProperty }}) Nachbargrundstück<br>
+    ({{ lightningLocationRidge }}) First<br>
+    ({{ lightningLocationRoofArea }}) Dachfläche<br>
+    ({{ lightningLocationChimney }}) Schornstein<br>
+    ({{ lightningLocationGable }}) Giebel<br>
+    ({{ lightningLocationExternalAntenna }}) Außenantenne<br>
+    ({{ lightningLocationMisc }}) Sonstiges
+</p>
+<p><strong>Bei Sonstiges:</strong> {{ requestData['lightningLocationMisc'] }}</p>
+
+<p><strong>Woran war der Blitzschlag zu erkennen?</strong> {{ requestData['lightningSigns'] }}</p>
+
+{% set lightningLeadToFireTrue = ' ' %}
+{% set lightningLeadToFireFalse = ' ' %}
+{% if requestData['lightningLeadToFire'] == 'no' %}
+    {% set lightningLeadToFireFalse = 'x' %}
+{% elseif requestData['lightningLeadToFire'] == 'yes' %}
+    {% set lightningLeadToFireTrue = 'x' %}
+{% endif %}
+<p><strong>Ist Feuer nach dem Blitzschlag ausgebrochen? </strong> ({{ lightningLeadToFireTrue }}) Ja /
+    ({{ lightningLeadToFireFalse }}) Nein
+</p>
+
+
+{% set waterReasonInsideBuilding = ' ' %}
+{% set waterReasonInsideProperty = ' ' %}
+{% set waterReasonOutsideProperty = ' ' %}
+{% set type = requestData['waterReason'] %}
+{% if type == 'insideBuilding' %}
+    {% set waterReasonInsideBuilding = 'x' %}
+{% elseif type == 'insideProperty' %}
+    {% set waterReasonInsideProperty = 'x' %}
+{% elseif type == 'outsideProperty' %}
+    {% set waterReasonOutsideProperty = 'x' %}
+{% endif %}
+<p><strong><u>Bei Leitungswasserschaden</u></strong><br>
+    Wo liegt die Ursache?<br>
+    ({{ waterReasonInsideBuilding }}) Innerhalb Gebäude<br>
+    ({{ waterReasonInsideProperty }}) Innerhalb Grundstück<br>
+    ({{ waterReasonOutsideProperty }}) Außerhalb Grundstück<br>
+</p>
+
+<p><strong>Stockwert und Raum:</strong> {{ requestData['waterInsideBuildingWhere'] }}</p>
+
+{% set waterReasonIsPipesTrue = ' ' %}
+{% set waterReasonIsPipesFalse = ' ' %}
+{% if requestData['waterReasonIsPipes'] == 'no' %}
+    {% set waterReasonIsPipesFalse = 'x' %}
+{% elseif requestData['waterReasonIsPipes'] == 'yes' %}
+    {% set waterReasonIsPipesTrue = 'x' %}
+{% endif %}
+<p><strong>Schaden an Rohren des Hausanschlusses?</strong> ({{ waterReasonIsPipesTrue }}) Ja /
+    ({{ waterReasonIsPipesFalse }}) Nein
+</p>
+
+<p><strong>Eigentümer des Hausanschlusses:</strong> {{ requestData['waterReasonPipesOwner'] }}</p>
+
+
+{% set waterReasonPipesCostsByUtilityCompanyTrue = ' ' %}
+{% set waterReasonPipesCostsByUtilityCompanyFalse = ' ' %}
+{% if requestData['waterReasonPipesCostsByUtilityCompany'] == 'no' %}
+    {% set waterReasonPipesCostsByUtilityCompanyFalse = 'x' %}
+{% elseif requestData['waterReasonPipesCostsByUtilityCompany'] == 'yes' %}
+    {% set waterReasonPipesCostsByUtilityCompanyTrue = 'x' %}
+{% endif %}
+<p><strong>Trägt das Versorgungsunternehmen die Kosten der Schadenbeseitigung des
+        Hausanschlusses:</strong> ({{ waterReasonPipesCostsByUtilityCompanyTrue }}) Ja /
+    ({{ waterReasonPipesCostsByUtilityCompanyFalse }}) Nein
+</p>
+
+<p><strong><u>Bei Sturmschaden</u></strong></p>
+
+<p><strong>Tatsache der Sturmursache:</strong> {{ requestData['stormProof'] }}</p>
+
+<p><strong>Schäden in der Nachbarschaft:</strong> {{ requestData['stormDamagedNeighbours'] }}</p>
+
+<p><strong>Was wurde beschädigt:</strong> {{ requestData['damagesBuildingPart'] }}</p>
+
+<p><strong>Geschätzte Schadenhöhe:</strong> {{ requestData['valueOfDamage'] }}</p>
+
+
+{% set policeTrue = ' ' %}
+{% set policeFalse = ' ' %}
+{% if requestData['hasPoliceRegistration'] is empty %}
+    {% set policeFalse = 'x' %}
+{% else %}
+    {% if requestData['hasPoliceRegistration'] == 'no' %}
+        {% set policeFalse = 'x' %}
+    {% elseif requestData['hasPoliceRegistration'] == 'yes' %}
+        {% set policeTrue = 'x' %}
+    {% endif %}
+{% endif %}
+<p><strong> Polizeilich aufgenommen? </strong> ({{ policeTrue }}) Ja /
+    ({{ policeFalse }}) Nein
+</p>
+
+<p><strong> Schadenaufnahme vom:</strong> {{ date }}</p>
+
+<p><strong> Konto f&uuml;r die Erstattung:</strong></p>
+
+<p>Kontoinhaber: {{ user.firstName }} {{ user.lastName }}</p>
+
+<p>IBAN: {{ bankAccount['iban'] }}&nbsp; <br/>
+    BIC: {{ bankAccount['bic'] }}&nbsp; <br/>
+    Kreditinstitut: {{ bankAccount['bank'] }}<br/>
+    <br/>
+</p>
+
+
+<p>
+    <strong> Schadenhergang: </strong><br>
+    {{ requestData['damageDescription'] }}
+</p>
+{% set mediaAttachedTrue = ' ' %}
+{% set mediaAttachedFalse = ' ' %}
+{% if countMedia == 0 %}
+    {% set mediaAttachedFalse = 'x' %}
+{% else %}
+    {% set mediaAttachedTrue = 'x' %}
+{% endif %}
+
+<p><strong> Dokumente/Foto angeh&auml;ngt: </strong>
+    ({{ mediaAttachedTrue }}) ja / ({{ mediaAttachedFalse }}) nein - {{ countMedia }} Stck.
+</p>
+
+<p>&nbsp;</p>
+
+<p>Mit der Bitte um schnellstm&ouml;gliche Bearbeitung des Schadens!</p>
+<p style="line-height: 30px;">
+<div style="width: auto; height: 120px; overflow: hidden;">
+    <img src="{{ pathToResponsible }}" style="width: auto; height: 160px;">
+</div>
+<br>Rheinzabern, {{ date }} <br>
+________________________________________________________<br>
+Ort, Datum - Makler<br>
+gez. Bjarke M.-O. Pahrmann (der Gesch&auml;ftsf&uuml;hrer)
+</p>
+
+</body>
+</html>

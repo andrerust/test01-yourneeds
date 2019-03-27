@@ -1,0 +1,129 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds personal data{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+
+    <style>
+        .visible-element {
+            margin: 0px;
+        }
+
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/build/yourneeds-manager.js"></script>
+{% endblock %}
+
+{% block content %}
+    <section class="content-body">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12 text-center pt-2">
+                    <h1 class="title1 title1--space">
+                        Willkommen bei <span class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span
+                                class="color-brown">needs</span>
+                    </h1>
+
+                    <h1 class="title1 title1--space">
+                        <img src="/build/static/images/start/start_is_open.jpg"
+                             stype="width: 150px; height: auto;"><br><br>
+                        <span class="color-green"><i>Schön, dass du da bist!</i></span>
+                    </h1>
+                </div>
+            </div>
+            <div class="row text-left">
+                <div class="col-12 text-center pt-2 text-left">
+                    {% if newsFlag == true %}
+                        <span class="">
+                            <h5 class="title5 title5--space text-left">
+                                Bevor du startest, gestatte uns ein paar Hinweise, damit du YOURneeds optimal nutzen
+                                kannst:
+                            </h5>
+                            <ul>
+                                <li>
+                                    <h3 class="title3 title3--space text-left">
+                                        Persönliche Angaben machen
+                                    </h3>
+                                    <h5 class="title5 title5--space text-left">
+                                        Um YOURneeds nutzen zu können benötigen wir zunächst von dir persönliche
+                                        Angaben.
+                                        Diese werden zur Verwaltung und zur Bedarfsanalyse benötigt
+
+                                        <div class="horizontally-spacer10">&nbsp;</div>
+                                    </h5>
+                                </li>
+
+                                <li>
+                                    <h3 class="title3 title3--space text-left">
+                                        Check YOURneeds
+                                    </h3>
+                                    <h5 class="title5 title5--space text-left" style="text-align:  left;">
+                                        Um deine maßgeschneiderten Angebote zu erstellen, checke hier zunächst deinen
+                                        Bedarf
+
+                                        <div class="horizontally-spacer10">&nbsp;</div>
+                                    </h5>
+                                </li>
+
+                                <li>
+                                    <h3 class="title3 title3--space text-left">
+                                        Police hinzufügen
+                                    </h3>
+                                    <h5 class="title5 title5--space text-left" style="text-align:  left;">
+                                        Füge am besten gleich deine bestehenden Verträge hinzu, dadurch hast du den
+                                        Vorteil,
+                                        dass:
+                                        <ul>
+                                            <li>
+                                                Du alles online und mobil verwalten kannst
+                                            </li>
+                                            <li>
+                                                Wir dir bedarfsgerechte Vergleichsangebote erstellen können
+                                            </li>
+                                            <li>
+                                                Du im Schadenfall alles zur Hand hast
+                                            </li>
+                                        </ul>
+                                        <div class="horizontally-spacer10">&nbsp;</div>
+                                    </h5>
+                                </li>
+                            </ul>
+
+                                    <h5 class="title5 title5--space text-left">
+                                        Hinweis:<br>
+                                        Die Nutzung von YOURneeds ist für dich 100% kostenfrei und du hilfst uns,
+                                        unseren
+                                        Planeten schöner zu machen!<br>
+                                        Das Maklermandat wird erst dann von dir benötigt, wenn du dich aktiv
+                                        (Neuabschluss über
+                                        Check YOURneeds oder Police hinzufügen) für YOURneeds entscheidest.
+                                    </h5>
+
+                        </span>
+
+                    {% endif %}
+                </div>
+            </div>
+            <div class="container">
+                <div class="row text-left">
+                    <div class="col-12 mx-auto mt-4">
+                        <div class="text-right">
+                            <a href="{{ path('manager_personal_data') }}" class="btn btn--cta">
+                                Weiter zu deinen persönlichen Angaben
+                            </a>
+                        </div>
+                        <div class="horizontally-spacer100">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="horizontally-spacer100">&nbsp;</div>
+        <div class="horizontally-spacer100">&nbsp;</div>
+    </section>
+
+{% endblock %}

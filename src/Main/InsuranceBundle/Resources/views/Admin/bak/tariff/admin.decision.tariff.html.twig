@@ -1,0 +1,91 @@
+{% extends '@MainAdminBundle/_admin.main.html.twig' %}
+
+{% block title %}YOURneeds tariff choosing decision way{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/tariff.css') }}">
+    <style type="text/css">
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/tariff.js') }}"></script>
+{% endblock %}
+
+{% if app.user is defined and not (app.user is null) and is_granted('ROLE_USER') %}
+    {% set userName = app.user.firstName %}
+{% else %}
+    {% set userName = 'aufmerksamer Besucher' %}
+{% endif %}
+
+{% block content %}
+    <section id="admin-detail">
+        <div id="page-box">
+            <div class="container-fluid">
+                <div class="row text-center">
+                    <div class="well well-sm">
+                        <div class="container-home">
+                            <h2 class="title2 title2--space headline">
+                                W&auml;hle, wie du den neun Tarif ermitteln m&ouml;chtest
+                                <h4 class="title4 title4--space">
+                                    <span class="home-user-name">{{ userName }}</span>!
+                                </h4>
+                            </h2>
+                            <h4 class="title4 title4--space headline">
+                                W&auml;hle deinen Versicherungstyp
+                            </h4>
+                            <nav class="nav-mainmenu">
+                                <ul>
+                                    <li class="manager-box">
+                                        <a href="{{ path('admin_user_id_type_survey', {
+                                            'id': userId,
+                                            'type': 'PLI'
+                                        }) }}">
+                                            <span class="link-button">
+                                                Privathaftpflicht
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <li class="calculator-box">
+                                        <a href="{{ path('admin_user_id_type_survey', {
+                                            'id': userId,
+                                            'type': 'LIN'
+                                        }) }}">
+                                            <span class="link-button">
+                                               Rechtsschutz
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </nav>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row text-left">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <h2 class="title2 title2--space headline ">
+                            <a href="{{ path('admin_user_id', {
+                                'id': userId
+                            }) }}">
+                                <button class="btn">
+                                    <i class="fas fa-user"></i>Zur&uuml;ck zum letzten Nutzer
+                                </button>
+                            </a>
+                        </h2>
+                    </div>
+                    <div class="col-sm-6">&nbsp;
+                    </div>
+                </div>
+                <div class="row text-center">&nbsp;
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

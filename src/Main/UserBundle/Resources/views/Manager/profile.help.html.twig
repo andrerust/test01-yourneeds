@@ -1,0 +1,116 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds personal data{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+
+    <style>
+        .visible-element {
+            margin: 0px;
+        }
+
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/build/yourneeds-manager.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-body">
+        <div class="container">
+            <div class="row text-left">
+                <div class="col-12 mx-auto mt-4">
+                    <div class="text-left">
+                        <a href="{{ path('manager_home') }}" class="btn btn--cta">
+                            Zur&uuml;ck zum Profil
+                        </a>
+                    </div>
+                    <div class="horizontally-spacer100">&nbsp;</div>
+                </div>
+            </div>
+            <div class="row text-center">
+                <h1 class="title1 title1--space">
+                    <span class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span
+                            class="color-brown">needs</span> Hilfe
+                </h1>
+            </div>
+
+            <div class="row row-eq-height">
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% if isAllowed.basicneeds == 1 %}
+                    <a href="{{ path('manager_projects') }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item" id="social">
+                                <div class="image-container">
+                                    <img src="/build/static/images/start/start_sustainability.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Nachhaltigkeit/Soziales
+                                    </h2>
+
+                                    <p>
+                                        Wir bringen Versicherung und Nachhaltigkeit zusammen
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% if isAllowed.pli == 1 %}
+                    <a href="{{ path('manager_messages') }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item" id="messages">
+                                <div class="image-container">
+                                    <img src="/build/static/images/start/start_contact.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Kontakt
+                                    </h2>
+
+                                    <p>
+                                        Dein Kontakt zu uns
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% if isAllowed.hci == 1 %}
+                    <a href="{{ path('faqs_show') }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item" id="faq">
+                                <div class="image-container">
+                                    <img src="/build/static/images/start/start_faq.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        FAQ
+                                    </h2>
+
+                                    <p>
+                                        Die wichtigsten Fragen beantwortet
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

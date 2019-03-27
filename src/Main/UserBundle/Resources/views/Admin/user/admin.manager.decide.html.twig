@@ -1,0 +1,181 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds user profil{% endblock %}
+
+  {% block stylesheets %}
+     {{ parent() }}
+     <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+  {% endblock %}
+
+  {% block javascripts %}
+     {{ parent() }}
+     <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+  {% endblock %}
+
+{% block content %}
+
+<section class="content-body" id="admin-user">
+    <div class="container">
+     <div class="container manager-content-box">
+       <div class="col-12 text-center pt-2">
+          <h1 class="title1 title1--space">Check <span class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span class="color-brown">needs</span></h1>
+          <p class="color-green">Wähle die gewünschte Versicherungsart.</p>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                <a href="javascript:void();" class="no-hover-underline full-width">
+                    <div class="item" id="Grundbedarf">
+                        <div class="image-container">
+                            <img src="/build/static/images/grundbedarf.jpg">
+                        </div>
+                        <div class="text-center p-4">
+                            <h2 class="title2">
+                                Grundbedarf
+                            </h2>
+                            <p>
+                                Prüfe, welche Versicherung du wirklich brauchst.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                <a href="{{ path('manager_type_survey', {
+                    'id': userId,
+                    'type': 'pli'
+                }) }}" class="no-hover-underline full-width">
+                    <div class="item" id="Private_Haftpflicht">
+                        <div class="image-container">
+                            <img src="/build/static/images/privathaftpflicht.jpg">
+                        </div>
+                        <div class="text-center p-4">
+                            <h2 class="title2">
+                                Private Haftpflicht
+                            </h2>
+                            <p>
+                                Die wichtigste Versicherung überhaupt!
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                <a href="{{ path('manager_type_survey', {
+                    'id': userId,
+                    'type': 'hci'
+                }) }}" class="no-hover-underline full-width">
+                    <div class="item" id="Hausrate">
+                        <div class="image-container">
+                            <img src="/build/static/images/hausrat.jpg">
+                        </div>
+                        <div class="text-center p-4">
+                            <h2 class="title2">
+                                Hausrat
+                            </h2>
+                            <p>
+                                Schütze Hab und Gut
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                <a href="{{ path('manager_type_survey', {
+                    'id': userId,
+                    'type': 'rbi'
+                }) }}" class="no-hover-underline full-width">
+                    <div class="item" id="Wohngebäude">
+                        <div class="image-container">
+                            <img src="/build/static/images/wohngebaeude.jpg">
+                        </div>
+                        <div class="text-center p-4">
+                            <h2 class="title2">
+                                Wohngebäude
+                            </h2>
+                            <p>
+                                Schütze dein Haus vor allen Gefahren
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                <a href="{{ path('manager_type_survey', {
+                    'id': userId,
+                    'type': 'aci'
+                }) }}" class="no-hover-underline full-width">
+                    <div class="item" id="Unfall">
+                        <div class="image-container">
+                            <img src="/build/static/images/unfallversicherung.jpg">
+                        </div>
+                        <div class="text-center p-4">
+                            <h2 class="title2">
+                                Unfall
+                            </h2>
+                            <p>
+                                Deine persönliche Kasko
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                <a href="javascript:void(0);" class="no-hover-underline full-width disabled">
+                    <div class="item" id="Tierhalter Haftpflicht">
+                        <div class="image-container">
+                            <img src="/build/static/images/tierhaftpflicht.jpg">
+                        </div>
+                        <div class="text-center p-4">
+                            <h2 class="title2">
+                                Tierhalter Haftpflicht
+                            </h2>
+                            <p>
+                                Wichtig wenn dein Hund/Pferd einen Schaden verursacht
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                <a href="{{ path('manager_type_survey', {
+                    'id': userId,
+                    'type': 'lpi'
+                }) }}" class="no-hover-underline full-width">
+                    <div class="item" id="Rechtsschutz">
+                        <div class="image-container">
+                            <img src="/build/static/images/rechtsschutz.jpg">
+                        </div>
+                        <div class="text-center p-4">
+                            <h2 class="title2">
+                                Rechtsschutz
+                            </h2>
+                            <p>
+                                Bekomme Recht wenn du es brauchst
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                <a href="javascript:void(0);" class="no-hover-underline full-width disabled">
+                    <div class="item" id="Kfz">
+                        <div class="image-container">
+                            <img src="/build/static/images/kfz.jpg">
+                        </div>
+                        <div class="text-center p-4">
+                            <h2 class="title2">
+                                Kfz
+                            </h2>
+                            <p>
+                                Schütze dein heiliges Blech
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+     </div>
+  </div>
+</section>
+
+{% endblock %}

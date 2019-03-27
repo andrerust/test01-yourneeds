@@ -1,0 +1,64 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds Antrag{% endblock %}
+
+{% block stylesheets %}
+   {{ parent() }}
+   <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+   <style type="text/css">
+   </style>
+{% endblock %}
+
+{% block javascripts %}
+   {{ parent() }}
+   <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+{% endblock %}
+
+{% if app.user is defined and not (app.user is null) and is_granted('ROLE_USER') %}
+   {% set userName = app.user.firstName %}
+{% else %}
+   {% set userName = 'aufmerksamer Besucher' %}
+{% endif %}
+
+{% block content %}
+
+   <section class="content-body" id="profile">
+      <div class="container">
+        <div class="row text-center">
+           <div class="col-12 text-center pt-2">
+              <h1 class="title1 title1--space">
+                 Check <span class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span
+                     class="color-brown">needs</span>
+              </h1>
+           </div>
+        </div>
+        <div class="row justify-content-start">
+           <div class="col-12 text-center pt-2">
+              <span class="color-green">
+                 Bitte fülle das Formular aus
+              </span>
+           </div>
+
+           <div class="col-12">
+
+              <iframe style="width: 100%; height: auto; border:0" id="mrmoFrame" scrolling="no"
+                      border="0"
+                      src="{{ url }}">
+              </iframe>
+              <script type="text/javascript">
+                 var mrmoScrollToViewport = 1;
+                 /* scroll die Website zum Anfang des iFrames */
+                 var mrmoScrollToViewportOffset = -20;
+                 /* Versatz beim scrollen zum Anfang des iFrames, individuell je Website */
+              </script>
+              <script type="text/javascript" src="https://www.mr-money.de/iframeControls.js"></script>
+           </div>
+
+           <div class="col-12 mt-3 mb-2">
+              <hr>
+           </div>
+        </div>
+      </div>
+   </section>
+
+{% endblock %}

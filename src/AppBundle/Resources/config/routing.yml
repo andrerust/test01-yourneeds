@@ -1,0 +1,3 @@
+home:
+    resource: "@AppBundle/Controller"
+    type:     annotation

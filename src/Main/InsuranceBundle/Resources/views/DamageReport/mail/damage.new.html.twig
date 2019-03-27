@@ -1,0 +1,55 @@
+{% extends 'static.mail.html.twig' %}
+
+{% block title %}YOURneeds projects{% endblock %}
+
+  {% block stylesheets %}
+     {{ parent() }}
+     <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+     <link rel="stylesheet" href="/build/yourneeds-admin.css"/>
+  {% endblock %}
+
+  {% block javascripts %}
+     {{ parent() }}
+  {% endblock %}
+
+{% block content %}
+   <section id="profile">
+      <div id="content">
+         <div class="row no-gutters">
+            <div class="col-md-12" id="bg-result">
+               <div class="horizontally-spacer25">&nbsp;</div>
+               <div class="container">
+                  <div class="row">
+                     <div class="container admin-content-box-title">
+
+                        <div class="row">
+                           <div class="col-12">
+                              <div class="form-group col-md-6 mb-3">
+                                 Sehr geehrte Damen und Herren,
+                                 <br><br>
+                                 hiermit reichen wir im Namen unseres Kunden die im Anhang befindliche Schadensmeldung ein.
+                                 <br>
+                                 Kunde: {{ user.lastName }}, {{ user.firstName }}
+                                 <br>
+                                 VersicherungsNr: {{ insuranceNumber }}
+                                 <br>
+                                 <br>
+                                 Unsere Vermittlernummer lautet: {{ agencyNumber }}
+                                 <br>
+                                 Vielen Dank für Ihre Bemühungen im Voraus.
+                                 <br><br>
+                                 Mit freundlichen Grüße
+                                 <br>
+                                 Ihr Team von YOURneeds
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+{% endblock %}

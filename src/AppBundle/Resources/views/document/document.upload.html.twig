@@ -1,0 +1,275 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds document upload{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+    <link rel="stylesheet" href="/build/surveyCore.css">
+
+    <style>
+        .sv_p_root {
+            text-align: left;
+        }
+
+        .sv_nav .btn,
+        .sv_matrix_dynamic_button {
+            width: 125px;
+        }
+
+        .sv_q_file_remove_button {
+            width: 60px;
+            padding-top: 10px;
+        }
+
+        .sv_nav .btn,
+        .sv_matrix_dynamic_button,
+        .sv_q_file_remove_button {
+            height: 25px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .sv_nav .btn {
+            -moz-box-shadow: 0 0 15px #b19f9e;
+            -webkit-box-shadow: 0 0 15px #b19f9e;
+            box-shadow: 0 0 15px #b19f9e;
+            background: #74b959;
+            background: -moz-linear-gradient(left, #74b959 0%, #6fbc85 100%);
+            background: -webkit-linear-gradient(left, #74b959 0%, #6fbc85 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, #74b959), color-stop(100%, #6fbc85));
+            background: -o-linear-gradient(left, #74b959 0%, #6fbc85 100%);
+            background: -ms-linear-gradient(left, #74b959 0%, #6fbc85 100%);
+            background: linear-gradient(to right, #74b959 0%, #6fbc85 100%);
+        }
+
+        .sv_nav .btn:before {
+            background: #68a750;
+            background: -moz-linear-gradient(left, #68a750 0%, #64a978 100%);
+            background: -webkit-linear-gradient(left, #68a750 0%, #64a978 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, #68a750), color-stop(100%, #64a978));
+            background: -o-linear-gradient(left, #68a750 0%, #64a978 100%);
+            background: -ms-linear-gradient(left, #68a750 0%, #64a978 100%);
+            background: linear-gradient(to right, #68a750 0%, #64a978 100%);
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/build/yourneeds-manager.js"></script>
+    <script src="/build/surveyCore.js"></script>
+    <!--
+      -->
+    <script type="text/javascript" src="/build/libs/customwidget.js"></script>
+    <script src="https://unpkg.com/surveyjs-widgets"></script>
+    <script>
+        handleSpinner = function (elem, preloader, $time) {
+            doSpinner = function (elem, preloader) {
+                $(preloader).show();
+                //console.log("handleSpinnerBox e:" + elem + " _ p:" + preloader + " successful");
+                $("#survey-spinner").addClass("visible");
+                $("#survey-proceed-title").addClass("visible");
+                setTimeout(function () {
+                    $("#survey-proceed-title").removeClass("visible");
+                    $("#survey-spinner").removeClass("visible");
+                    $("#survey-proceed-button").addClass("visible");
+                }, ($time * 1000));
+            }
+            doSpinner(elem, preloader);
+        }
+        saveSurvey = function (json) {
+            var url = "{{ path('document_upload_save', {
+            }) }}";
+            console.log("saveSurvey called with url:" + url + " successful");
+            //console.log("Json: " + json);
+            $.ajax({
+                type: "PUT",
+                contentType: 'application/json',
+                url: url,
+                dataType: 'json',
+                cache: false,
+                data: JSON.stringify({
+                    structure: json
+                }),
+                error: function (data) {
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        //console.log("Result: ");
+                        //console.log(data);
+                    }
+                }
+            })
+        }
+
+        showSurveyResult = function (json) {
+            document
+                .querySelector('#surveyResult')
+                .innerHTML = "Resultat der Formulareingabe in JSON: " + JSON.stringify(json.data) + "</p>";
+            var element = $('#surveyFollow');
+            element.addClass('visible');
+        }
+        /*
+         */
+
+    </script>
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-body" id="survey">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12 text-center pt-2">
+                    <h1 class="title1 title1--space">
+                        <span class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span
+                                class="color-brown">needs</span> Dokument(e) hochladen
+                    </h1>
+                </div>
+            </div>
+            <!--
+            <div class="row justify-content-start">
+                <div class="col-md-1 nopadding">
+                    <img class="img" src="/build/static/images/binoculars_square.png">
+                </div>
+                <div class="col text-right mt-2 hover pointer text-center">Schadensmeldung aufgeben</div>
+                <div class="col-md-1 nopadding text-right">
+                    <img class="img" src="/build/static/images/cross_square.png">
+                </div>
+            </div>
+            <div class="row no-gutters mt-3 mb-3 sv_nav">
+                <button type="button" onclick="survey.prevPage();" class="btn">
+                    <i class="fas fa-angle-left"></i>
+                </button>
+                <button type="button" onclick="survey.nextPage();" class="btn">
+                    <i class="fas fa-angle-right"></i>
+                </button>
+            </div>
+            -->
+            <div class="row justify-content-start">
+                <div class="col-12 text-center">
+                    <div class="container-survey">
+                        <span id="surveyProgress"></span>
+                        <!--
+                        <a class="btn" id="surveyPrev" href="#" onclick="survey.prevPage();">zur&uuml;ck</a>
+                        <a id="surveyNext" href="#" onclick="survey.nextPage();">weiter</a>
+                        <a id="surveyComplete" href="#" onclick="survey.completeLastPage();">Fertigstellen</a>
+                        -->
+                        <div id="surveyElement"></div>
+                        <div id="survey-spinner">
+                            <!--
+                               <h2 class="title2 title2--space">Speichere deine Antworten!</h2>
+                            -->
+                            <div class="outer"></div>
+                            <div class="inner"></div>
+                        </div>
+                        <div id="surveyResult">
+                        </div>
+                        <div id="surveyFollow" class="text-center">
+
+                            <div id="survey-proceed-title">
+                                <h2 class="title2 title2--space">Speichere deine Antworten!</h2>
+
+                            </div>
+                            <p>
+                                <a href="{{ path('contracts') }}" id="survey-proceed-button" class="btn btn--cta">
+                              <span>
+                                 Zurück zu Deinen Verträgen und Dokumenten
+                              </span>
+                                </a>
+                            </p>
+                            <div class="horizontally-spacer100">&nbsp;</div>
+                        </div>
+                        <script>
+                            //var structure = $('.structure').data('structure');
+                            //Survey.Survey.cssType = "bootstrap";
+
+                            //add file type into matrix columns (run-time)
+                            Survey.matrixDropdownColumnTypes.file = {
+                                properties: ["showPreview", "imageHeight", "imageWidth"]
+                            };
+                            //add tagbox into matrix columns (run-time)
+                            Survey.matrixDropdownColumnTypes.tagbox = {
+                                properties: [
+                                    "choices", "choicesOrder", "choicesByUrl", "otherText"
+                                ],
+                                onCellQuestionUpdate: (function (cellQuestion, column, question, data) {
+                                    Survey
+                                        .matrixDropdownColumnTypes
+                                        .dropdown
+                                        .onCellQuestionUpdate(cellQuestion, column, question, data);
+                                })
+                            };
+
+                            Survey
+                                .StylesManager
+                                .applyTheme("darkblue");
+                            survey = new Survey.Model({{ structure|raw }});
+                            Survey.defaultStandardCss.progressBar = "bar-green";
+                            Survey.defaultStandardCss.progress = "progress";
+
+                            survey
+                                .onComplete
+                                .add(function (survey, options) {
+                                    handleSpinner('#survey-proceed-button', '#survey-proceed-spinner', 3);
+                                });
+                            survey
+                                .onComplete
+                                .add(function (result) {
+                                    /*document
+                                     .querySelector('#surveyResult')
+                                     .innerHTML = "Resultat der Formulareingabe in JSON: " + JSON.stringify(result.data) + "</p>";
+                                     */
+                                    var element = $('#surveyFollow');
+                                    element.addClass('visible')
+                                });
+                            survey
+                                .onComplete
+                                .add(function (result) {
+                                    saveSurvey(result.data);
+                                });
+                            survey
+                                .onUpdateQuestionCssClasses
+                                .add(function (survey, options) {
+                                    var classes = options.cssClasses
+
+                                    classes.root = "sq-root";
+                                    classes.title = "sq-title";
+                                    classes.item = "sq-item";
+                                    classes.label = "sq-label";
+
+                                    if (options.question.isRequired) {
+                                        classes.title = "sq-title sq-title-required";
+                                        classes.root = "sq-root sq-root-required";
+                                    }
+
+                                    if (options.question.getType() === "checkbox") {
+                                        classes.root = "sq-root sq-root-cb";
+                                    }
+                                });
+
+                            $("#surveyElement").Survey({
+                                model: survey,
+                                onCurrentPageChanged: onCurrentPageChanged,
+                                onValueChanged: onValueChanged
+                            });
+
+                            function onCurrentPageChanged(survey) {
+
+                            }
+
+                            function onValueChanged(survey) {
+                            }
+
+                            function addFields(name, n) {
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

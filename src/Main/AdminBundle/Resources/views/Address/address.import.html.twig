@@ -1,0 +1,132 @@
+{% extends 'static.home.html.twig' %}
+
+{% block title %}Import runtime{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+      <style>
+      </style>
+  {% endblock %}
+
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="https://unpkg.com/jquery"></script>
+      <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+      <script>
+          $(document).ready(function () {
+              save = function (firstDigit, secondDigit, i, k) {
+
+                  var url = "/admin/import/addresses/" + firstDigit + secondDigit;
+                  console.log("url call " + url);
+
+                  var subElementName = "subExtract" + i + k;
+
+                  $.ajax({
+                      type: "PUT",
+                      contentType: 'application/json',
+                      url: url,
+                      dataType: 'json',
+                      cache: false,
+                      data: 'TEST',
+                      error: function (data) {
+                          var subElement = 'Fehler';
+                      },
+                      success: function (data) {
+                          var subElement = '';
+                          if (data.status == 200) {
+                              console.log("Result subElement: ");
+                              console.log(data);
+                              subElement += '<div class="row">';
+                              subElement += '<div class="col-2">zip</div>';
+                              subElement += '<div class="col-10">i: ' + data.zipInsert + ' / u: ' + data.zipUpdate + ' / e: ' + data.zipExist + '</div>';
+                              subElement += '</div>';
+                              subElement += '<div class="row">';
+                              subElement += '<div class="col-2">street</div>';
+                              subElement += '<div class="col-10">i: ' + data.streetInsert + ' / u: ' + data.streetUpdate + ' / e: ' + data.streetExist + '</div>';
+                              subElement += '</div>';
+                              subElement += '<div class="row">';
+                              subElement += '<div class="col-2">city</div>';
+                              subElement += '<div class="col-10">i: ' + data.cityInsert + ' / u: ' + data.cityUpdate + ' / e: ' + data.cityExist + '</div>';
+                              subElement += '</div>';
+                              subElement += '<div class="row">';
+                              subElement += '<div class="col-2">zipStreet</div>';
+                              subElement += '<div class="col-10">i: ' + data.zipStreetInsert + '</div>';
+                              subElement += '</div>';
+                              subElement += '<div class="row">';
+                              subElement += '<div class="col-2">zipCity</div>';
+                              subElement += '<div class="col-10">i: ' + data.zipCityInsert + '</div>';
+                              subElement += '</div>';
+                              subElement += '<div class="row">';
+                              subElement += '<div class="col-10">executionTime: ' + data.executionTime + '</div>';
+                              subElement += '</div>';
+                              document.getElementById(subElementName).innerHTML = subElement;
+                          }
+                      }
+                  });
+              }
+
+              start = function () {
+                  var firstDigits = [{{ firstDigit }}];
+                  var secondDigits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+                  var secondDigits = [5, 6];
+
+                  var response = '';
+                  //var max = parseInt(firstDigits.length) * parseInt(secondDigits.length);
+                  for (var i = 0, iMax = firstDigits.length; i < iMax; i++) {
+                      for (var k = 0, kMax = secondDigits.length; k < kMax; k++) {
+                          console.log("Result: ");
+                          console.log("iMax: " + iMax);
+                          console.log("kMax: " + kMax);
+                          console.log("firstDigits: " + firstDigits[i]);
+                          console.log("secondDigits: " + secondDigits[k]);
+
+                          var element;
+                          element += '<div class="row">';
+                          element += '<div class="col-12"><b>Iteration: ' + firstDigits[i] + secondDigits[k] + '</b></div>';
+                          element += '</div>';
+                          element += '<div class="row">';
+                          element += '<div class="col-1">&nbsp;</div>';
+                          element += '<div class="col-6">';
+                          element += '<p id="subExtract' + i + k + '"></p>';
+                          element += '</div>';
+                          element += '<div class="col-5">&nbsp;</div>';
+                          element += '</div>';
+                          element += '<div class="row">';
+                          element += '<div class="col-12"><hr></div>';
+                          element += '</div>';
+                          document.getElementById("extract").innerHTML = element;
+
+                          //sleep(6000);
+                          save(firstDigits[i], secondDigits[k], i, k);
+                      }
+                  }
+              }
+
+
+              function sleep(milliseconds) {
+                  var start = new Date().getTime();
+                  for (var i = 0; i < 1e7; i++) {
+                      if ((new Date().getTime() - start) > milliseconds) {
+                          break;
+                      }
+                  }
+              }
+          });
+      </script>
+  {% endblock %}
+
+{% block content %}
+
+    <section>
+        <div class="container">
+            <div id="starter">
+                <button onclick="start()">Do import Adresses</button>
+                <div id="errors">&nbsp;</div>
+                <div id="extract">&nbsp;</div>
+            </div>
+
+    </section>
+
+{% endblock %}

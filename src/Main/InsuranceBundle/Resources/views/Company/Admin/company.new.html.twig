@@ -1,0 +1,671 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}Admin company new{% endblock %}
+
+  {% block stylesheets %}
+     {{ parent() }}
+     <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+  {% endblock %}
+
+  {% block javascripts %}
+     {{ parent() }}
+     <script src="/build/yourneeds-manager.js"></script>
+     <script>
+        (function () {
+           'use strict';
+           window.addEventListener('load', function () {
+// Fetch all the forms we want to apply custom Bootstrap validation styles to
+              var forms = document.getElementsByClassName('needs-validation');
+// Loop over them and prevent submission
+              var validation = Array.prototype.filter.call(forms, function (form) {
+                 form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                       event.preventDefault();
+                       event.stopPropagation();
+                    } else {
+                       success_message
+                       $("div[id='success_message']").addClass('visible');
+                    }
+                    form.classList.add('was-validated');
+                 }, false);
+              });
+           }, false);
+        })();
+     </script>
+  {% endblock %}
+
+{% block content %}
+
+   <section class="content-body" id="admin-user">
+      <div class="container">
+         <div class="row justify-content-start">
+            <div class="col-12 text-center pt-2">
+               <h1 class="title1 title1--space">Gesellschaften bearbeiten</h1>
+            </div>
+         </div>
+         <div class="row justify-content-start">
+            <div class="col-12 text-center pt-2">
+               <h5 class="title2 title2--space">
+                  <i class="fas fa-info-circle"></i> Einige Versicherungsgesellschaften benötigen
+                  Persönlichen Daten zur Kalkulation von Angeboten.
+                  Wir haben Dir hierfür die Formulare 1. und 2. zur Verfügung gestellt. Nach dem
+                  Ausfüllen kannst du über »Check YOURneeds«
+                  selber deinen optimalen Tarif ermitteln. Formular 3 wird später interessant.
+                  Dein eigener Versicherungsmanager sein.
+               </h5>
+            </div>
+         </div>
+         <div class="row">
+            <div class="container admin-content-box-title">
+               <div class="row justify-content-start">
+                  <!--
+             {{ form_start(form) }}
+             {{ form_widget(form) }}
+             {{ form_end(form) }}
+             <input type="file" id="edit_user_form_profilePicture" name="edit_user_form[profilePicture]" required="required">
+             -->
+                  <div class="col-12 text-center pt-2">
+                     <h1 class="title1 title1--space">Gesellschaft neu anlegen</h1>
+
+                     <p>Zuletzt aktualisiert: jetzt</p>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-12">
+                     <div class="form-box">
+                        <form name="new_company_form"
+                              id="new_company_form"
+                              class="needs-validation"
+                              method="post"
+                              action="{{ path('admin_company_new') }}"
+                              novalidate="novalidate"
+                              enctype="multipart/form-data">
+
+                           <div class="form-row">
+                              <div class="form-group col-md-6 mb-3 text-right">
+                                 {% if company.logo is defined and not (company.logo is null) and not (company.logo is empty) %}
+                                    <img src="{{ asset("/uploads/logos/") }}{{ company.logo }}"
+                                         class="img-thumbnail"/>
+                                 {% else %}
+                                    {% set picture = 'logo-placeholder.jpg' %}
+                                    <img src="{{ asset("/build/static/placeholder/") }}{{ picture }}"
+                                         class="img-thumbnail"/>
+                                 {% endif %}
+                              </div>
+                              <div class="form-group col-md-6 mb-3">
+                                 <div class="custom-file">
+                                    <input class="form-control file"
+                                           type="file"
+                                           name="new_company_form[logo]"
+                                           id="new_company_form_logo"
+                                           placeholder="Abteilung"
+                                           value="{{ company.logo }}"
+                                        />
+                                    <label class="custom-file-label" for="new_company_form_logo">Choose
+                                       file...</label>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="form-row">
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_name">Name der Gesellschaft</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[name]"
+                                        id="new_company_form_name"
+                                        placeholder="Name"
+                                        value="{{ company.name }}"
+                                        required/>
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                    Bitte eingeben - offizieller Name
+                                 </div>
+                              </div>
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_publicName">Kurzname</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[publicName]"
+                                        id="new_company_form_publicName"
+                                        placeholder="Angezeigter Name"
+                                        value="{{ company.publicName }}"
+                                        required/>
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                    Bitte eingeben - sichtbar für Kunden
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="form-row">
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_department">Abteilung</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[department]"
+                                        id="new_company_form_department"
+                                        placeholder="Abteilung"
+                                        value="{{ company.department }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_contactPerson">Ansprechpartner</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[contactPerson]"
+                                        id="new_company_form_contactPerson"
+                                        placeholder="Kontaktperson"
+                                        value="{{ company.contactPerson }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="form-row">
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_faxNumber">FaxNr.</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[faxNumber]"
+                                        id="new_company_form_faxNumber"
+                                        placeholder="Fax"
+                                        value="{{ company.faxNumber }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_website">Website</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[website]"
+                                        id="new_company_form_website"
+                                        placeholder="Discountname"
+                                        value="{{ company.website }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="form-row">
+                              <div class="form-group col-md-12 mb-3">
+                                 <hr>
+                              </div>
+                           </div>
+
+                           <div class="form-row">
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_contactPhoneNumber">TelNr. Allgemein
+                                    (Hotline)</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[phoneNumberGeneral]"
+                                        id="new_company_form_phoneNumberGeneral"
+                                        placeholder="Tel"
+                                        value="{{ company.phoneNumberGeneral }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_email">E-Mail Allgemein</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[emailGeneral]"
+                                        id="new_company_form_emailGeneral"
+                                        placeholder="E-Mail"
+                                        value="{{ company.emailGeneral }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="form-row">
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_contactPhoneNumber">TelNr. Schaden
+                                    Allgemein</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[phoneDamageReportGeneral]"
+                                        id="new_company_form_phoneDamageReportGeneral"
+                                        placeholder="Tel"
+                                        value="{{ company.phoneDamageReportGeneral }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_email">E-Mail Antrag
+                                    (Vermittlerservice)</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[emailBrokerService]"
+                                        id="new_company_form_emailBrokerService"
+                                        placeholder="E-Mail"
+                                        value="{{ company.emailBrokerService }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="form-row">
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_contactPhoneNumber">TelNr. Schaden
+                                    Kfz</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[phoneDamageReportCar]"
+                                        id="new_company_form_phoneDamageReportCar"
+                                        placeholder="Tel"
+                                        value="{{ company.phoneDamageReportCar }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_email">E-Mail Bestandsübertragung</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[emailTransfer]"
+                                        id="new_company_form_emailTransfer"
+                                        placeholder="E-Mail"
+                                        value="{{ company.emailTransfer }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="form-row">
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_contactPhoneNumber">TelNr. Schaden
+                                    RS</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[phoneDamageReportLaw]"
+                                        id="new_company_form_phoneDamageReportLaw"
+                                        placeholder="Tel"
+                                        value="{{ company.phoneDamageReportLaw }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_email">E-Mail Schaden</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[emailDamageReport]"
+                                        id="new_company_form_emailDamageReport"
+                                        placeholder="E-Mail"
+                                        value="{{ company.emailDamageReport }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="form-row">
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_contactPhoneNumber">TelNr. Schaden
+                                    KV</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[phoneDamageReportHealth]"
+                                        id="new_company_form_phoneDamageReportHealth"
+                                        placeholder="Tel"
+                                        value="{{ company.phoneDamageReportHealth }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                              <div class="form-group col-md-6 mb-3">
+
+                              </div>
+                           </div>
+
+                           <div class="form-row">
+                              <div class="form-group col-md-12 mb-3">
+                                 <hr>
+                              </div>
+                           </div>
+                           <div class="form-row">
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_contactPhoneNumber">Vermittlernummer
+                                    Sach/Allgemein (Hauptnummer momentan)</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[brokerNumberGeneral]"
+                                        id="new_company_form_brokerNumberGeneral"
+                                        placeholder="Tel"
+                                        value="{{ company.brokerNumberGeneral }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_email">Vermittlernummer Leben</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[brokerNumberLife]"
+                                        id="new_company_form_brokerNumberLife"
+                                        placeholder="E-Mail"
+                                        value="{{ company.brokerNumberLife }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                           </div>
+
+
+                           <div class="form-row">
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_email">Vermittlernummer Kranken</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[brokerNumberHealth]"
+                                        id="new_company_form_brokerNumberHealth"
+                                        placeholder="E-Mail"
+                                        value="{{ company.brokerNumberHealth }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                              <div class="form-group col-md-6 mb-3">
+                              </div>
+                           </div>
+
+                           <div class="form-row">
+                              <div class="form-group col-md-12 mb-3">
+                                 <hr>
+                              </div>
+                           </div>
+                           <div class="form-row">
+                              <div class="form-group col-md-12 mb-3">
+                                 Nur für interne, freigegebene Mitarbeiter
+                              </div>
+                           </div>
+
+                           <div class="form-row">
+                              <div class="form-group col-md-12 mb-3">
+                                 <hr>
+                              </div>
+                           </div>
+
+                           <div class="form-row">
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_contactPhoneNumber">Pin zur
+                                    Courtageabrechnung</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[brokerCourtagePin]"
+                                        id="new_company_form_brokerCourtagePin"
+                                        placeholder="Tel"
+                                        value="{{ company.brokerCourtagePin }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_email">Link zum Maklerportal</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[linkBrokerPortal]"
+                                        id="new_company_form_linkBrokerPortal"
+                                        placeholder="E-Mail"
+                                        value="{{ company.linkBrokerPortal }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="form-row">
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_contactPhoneNumber">Benutzername
+                                    Maklerportal</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[brokerPortalUsername]"
+                                        id="new_company_form_brokerPortalUsername"
+                                        placeholder="Tel"
+                                        value="{{ company.brokerPortalUsername }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_email">Passwort Maklerportal</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[brokerPortalPassword]"
+                                        id="new_company_form_brokerPortalPassword"
+                                        placeholder="E-Mail"
+                                        value="{{ company.brokerPortalPassword }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                           </div>
+
+
+                           <div class="form-row">
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_email">E-Mail Provision</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[emailProvisions]"
+                                        id="new_company_form_emailProvisions"
+                                        placeholder="E-Mail"
+                                        value="{{ company.emailProvisions }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_mbpBrokerNo">MBP Vermittlernummer</label>
+                                 <input class="form-control"
+                                        type="text"
+                                        name="new_company_form[mbpBrokerNo]"
+                                        id="new_company_form_mbpBrokerNo"
+                                        placeholder="MBP Vermittlernummer"
+                                        value="{{ company.mbpBrokerNo }}"
+                                     />
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="form-row">
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_note">Notiz</label>
+                             <textarea class="form-control"
+                                       name="new_company_form[note]"
+                                       id="new_company_form_note"
+                                       placeholder="Notiz"
+                                       rows="16">{{ company.note }}
+                             </textarea>
+
+                                 <!-- TOKEN -->
+                                 <input class="form-control"
+                                        type="hidden"
+                                        name="new_company_form[_token]"
+                                        id="new_company_form__token"
+                                        value="{{ form._token.vars.value }}"/>
+
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                              <div class="form-group col-md-6 mb-3">
+                                 <label for="new_company_form_isActive">Aktiviert</label>
+
+                                 <div class="radio" id="new_company_form_isActive">
+                                    <input type="radio"
+                                           id="new_company_form_isActive_1"
+                                           name="new_company_form[isActive]"
+                                           required="required"
+                                           value="1"
+                                        {{ company.isActive == 1 ? 'checked' : '' }}/>
+                                    <label for="new_company_form_isActive_1"
+                                           class="required">Ja</label>
+                                 </div>
+                                 <div class="radio">
+                                    <input type="radio" class="radio"
+                                           id="new_company_form_isActive_0"
+                                           name="new_company_form[isActive]"
+                                           required="required"
+                                           value="0"
+                                        {{ company.isActive != 1 ? 'checked' : '' }}/>
+                                    <label for="new_company_form_isActive_0"
+                                           class="required">Nein</label>
+                                 </div>
+                                 <div class="valid-feedback">
+                                    Prima
+                                 </div>
+                                 <div class="invalid-feedback">
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="form-row">
+                              <div class="form-group col-md-6 mb-3">
+                                 &nbsp;
+                              </div>
+                              <div class="form-group col-md-6 mb-3">
+                                 <div class="horizontally-spacer100">&nbsp;</div>
+                                 <div class="alert alert-success" role="alert" id="success_message">
+                                    <i class="fas fa-check"></i>
+                                    Daten erfolgreich ge&auml;ndert
+                                 </div>
+                                 <a href="{{ path('admin_company', {
+                                    'id': user.id,
+                                    'cId': company.id
+                                 }) }}">
+                                    <button type="button"
+                                            id="new_company_form_quit"
+                                            name="new_company_form[quit]"
+                                            class="btn btn--danger">Abbrechen
+                                       <i class="fas fa-times"></i>
+                                    </button>
+                                 </a>
+                                 <button type="submit"
+                                         id="new_company_form_save"
+                                         name="new_company_form[save]"
+                                         class="btn btn--success">Daten speichern
+                                    <i class="fas fa-check"></i>
+                                 </button>
+                              </div>
+                           </div>
+
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+{% endblock %}

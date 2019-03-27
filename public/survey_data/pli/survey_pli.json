@@ -1,0 +1,1152 @@
+{
+  "locale": "de",
+  "title": "Editieren eines Tarifs",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question8",
+          "html": {
+            "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/privathaftpflicht.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h3 class=\"title2\">\nWillkommen beim Check <span class=\"color-green\">Y<span class=\"yourneeds-font\">O</span>UR</span><span\n                      class=\"color-brown\">needs</span>-Bedarfcheck!\n</h3>\n<h4 class=\"title4 title4--space\">Es geht los! Nimm dir eine Moment Zeit und erhalte von uns eine Empfehlung, welche Versicherungen für dich Sinn ergeben und welche nicht. Mit der Hilfefunktion kannst du die jeweilige Erklärung der einzelnen Frage erhalten.\n<br><br>\n            <button type=\"button\" onclick=\"survey.nextPage()\" class=\"btn btn--cta\">\n               <i class=\"fas fa-angle-right\"></i> Los geht es!\n            </button>\n<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n</div>\n</div>\n"
+          }
+        }
+      ],
+      "title": {
+        "de": "Haftpflicht"
+      }
+    },
+    {
+      "name": "Screen 1",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "targetGroup",
+          "title": {
+            "de": "Versicherst du dich alleine oder dich mit Familie?\t"
+          },
+          "valueName": "targetGroup",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "single",
+              "text": {
+                "de": "Single ohne Kinder"
+              }
+            },
+            {
+              "value": "singleChild",
+              "text": {
+                "de": "Single mit Kinder"
+              }
+            },
+            {
+              "value": "family",
+              "text": {
+                "de": "Familie/Lebensgemeinschaft ohne Kinder"
+              }
+            },
+            {
+              "value": "familyChild",
+              "text": {
+                "de": "Familie/Lebensgemeinschaft mit Kinder"
+              }
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "amountCoveredJungKids",
+          "visibleIf": "{targetGroup} contains \"familyChild\" or {targetGroup} contains \"singleChild\"",
+          "title": {
+            "de": "Möchtest du Schäden von Kindern unter 7 / 10 mitversichert haben?"
+          },
+          "valueName": "amountCoveredJungKids",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "includeInternship",
+          "visibleIf": "{targetGroup} contains \"familyChild\" or {targetGroup} = \"singleChild\"",
+          "title": {
+            "de": "Möchtest du Schäden beim fachpraktischen Unterricht (Laborarbeiten) in der Schule, während der Ausbildung/Studium mitversichern?"
+          },
+          "valueName": "includeInternship",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ]
+        }
+      ],
+      "navigationButtonsVisibility": "show"
+    },
+    {
+      "name": "Screen 2",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "governmentEmployee",
+          "title": {
+            "de": "Arbeitest du im öffentlichen Dienst?"
+          },
+          "valueName": "governmentEmployee",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 3",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "badDeptLoss",
+          "title": {
+            "de": "Möchtest du Schäden an dir durch Dritte bezahlt bekommen, wenn diese weder Geld noch eine Privathaftpflichtversicherung haben? \t"
+          },
+          "valueName": "badDeptLoss",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 4",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "dataExchange",
+          "title": {
+            "de": "Möchtest du Schäden durch die private Nutzung von Datenaustausch/Internetnutzung mitversichern?"
+          },
+          "valueName": "dataExchange",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "retention",
+          "title": {
+            "de": "Wünschst du eine Selbstbeteiligung\t"
+          },
+          "valueName": "retention",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 5",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "previousInsurance",
+          "title": {
+            "de": "Hattest du in den letzten 5 Jahren eine Privathaftpflichtversicherung?\t"
+          },
+          "valueName": "previousInsurance",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "previousInsuranceDamage",
+          "title": {
+            "de": "Hattest du Schäden in den letzten 5 Jahren? "
+          },
+          "valueName": "previousInsuranceDamage",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "previousInsuranceDamageCount",
+          "visibleIf": "{previousInsuranceDamage} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wie viele?"
+          },
+          "valueName": "previousInsuranceDamageCount",
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 6",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "amountCovered",
+          "title": {
+            "de": "Wie hoch soll Deine Deckungssumme sein?"
+          },
+          "valueName": "amountCovered",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "max3mio",
+              "text": {
+                "de": "unter 3 Mio EUR"
+              }
+            },
+            {
+              "value": "min3mio",
+              "text": {
+                "de": "min. 3 Mio EUR"
+              }
+            },
+            {
+              "value": "min5mio",
+              "text": {
+                "de": "min. 5 Mio EUR"
+              }
+            },
+            {
+              "value": "min10mio",
+              "text": {
+                "de": "min. 10 Mio EUR"
+              }
+            },
+            {
+              "value": "min15min",
+              "text": {
+                "de": "min. 15 Mio EUR"
+              }
+            },
+            {
+              "value": "min20mio",
+              "text": {
+                "de": "min. 20 Mio EUR"
+              }
+            },
+            {
+              "value": "min50mio",
+              "text": {
+                "de": "min. 50 Mio EUR"
+              }
+            }
+          ]
+        },
+        {
+          "type": "html",
+          "name": "question12",
+          "visibleIf": "{help-page6} notempty",
+          "html": {
+            "de": "Wähle zu deiner Sicherheit eine hohe Versicherungssumme.\n\n"
+          }
+        },
+        {
+          "type": "radiogroup",
+          "name": "amountCoveredUSA",
+          "visibleIf": "{amountCovered} notempty",
+          "title": {
+            "de": "Reist du in die USA / Canada?"
+          },
+          "valueName": "amountCoveredUSA",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 7",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "rentals",
+          "title": {
+            "de": "Besitzt du eine Eigentumswohnung, ein Haus oder ein unbebautes Grundstück?\t"
+          },
+          "valueName": "rentals",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "ownResidentialHomeLivingIn",
+          "visibleIf": "{rentals} = \"yes\"",
+          "title": {
+            "de": "Welche Art selbstgenutztes Wohneigentum?"
+          },
+          "valueName": "ownResidentialHomeLivingIn",
+          "choices": [
+            {
+              "value": "flat",
+              "text": {
+                "de": "Wohnung"
+              }
+            },
+            {
+              "value": "houseOnParty",
+              "text": {
+                "de": "Einfamilienhaus"
+              }
+            },
+            {
+              "value": "houseTwoParties",
+              "text": {
+                "de": "Zweifamilienhaus"
+              }
+            },
+            {
+              "value": "appartmentUpToFour",
+              "text": {
+                "de": "Mehrfamilienhaus bis 4 Wohnungen"
+              }
+            },
+            {
+              "value": "appartmentMoteFour",
+              "text": {
+                "de": "Mehrfamilienhaus über 4 Wohnungen"
+              }
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "ownResidentialHomeRentalOthers",
+          "visibleIf": "{rentals} = \"yes\"",
+          "title": {
+            "de": "Vermietest du eine Eigentumswohnung in Deutschland?"
+          },
+          "valueName": "ownResidentialHomeRentalOthers",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "undevelopedProperties",
+          "visibleIf": "{rentals} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Hast du ein unbebautes Grundstück?"
+          },
+          "valueName": "undevelopedProperties",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "rentedPropertiesNational",
+          "visibleIf": "{rentals} = \"yes\"",
+          "title": {
+            "de": "Hast du eine Ferienimmobilie im Inland?"
+          },
+          "valueName": "rentedPropertiesNational",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "rentedPropertiesEurope",
+          "visibleIf": "{rentals} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Hast du eine Ferienimmobilie im europ. Ausland?"
+          },
+          "valueName": "rentedPropertiesEurope",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasOilTank",
+          "visibleIf": "{rentals} = \"yes\"",
+          "title": {
+            "de": "Hast du einen Öltank?"
+          },
+          "valueName": "hasOilTank",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOilTankLiter",
+          "visibleIf": "{hasOilTank} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Eingabe Liter"
+          },
+          "valueName": "hasOilTankLiter",
+          "choices": [
+            {
+              "value": "3000",
+              "text": {
+                "de": "bis 3.000 Liter"
+              }
+            },
+            {
+              "value": "5000",
+              "text": {
+                "de": "bis 5.000 Liter"
+              }
+            },
+            {
+              "value": "10000",
+              "text": {
+                "de": "bis 10.000 Liter"
+              }
+            },
+            {
+              "value": "20000",
+              "text": {
+                "de": "bis 20.000 Liter"
+              }
+            },
+            {
+              "value": "50000",
+              "text": {
+                "de": "bis 50.000 Liter"
+              }
+            },
+            {
+              "value": "100000",
+              "text": {
+                "de": "bis 100.000 Liter"
+              }
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasOilTankLiterLocation",
+          "visibleIf": "{hasOilTank} = \"yes\"",
+          "title": {
+            "de": "Wo befindet sich der Öltank?"
+          },
+          "valueName": "hasOilTankLiterLocation",
+          "choices": [
+            {
+              "value": "aboveGround",
+              "text": {
+                "de": "Überirdisch"
+              }
+            },
+            {
+              "value": "underGround",
+              "text": {
+                "de": "Unterirdisch"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 8",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "horsesAndDogs",
+          "title": {
+            "de": "Hütest du fremde Hunde oder reitest fremde Pferde?\t"
+          },
+          "valueName": "horsesAndDogs",
+          "isRequired": true,
+          "requiredErrorText": {
+            "de": "Für den Tierhalter sowie den Tierhüter (Person die Aufsicht über ein Tier übernommen hat) gelten verschärfte Haftungsvorschriften. Die Haftpflichtrisiken aus der Eigenschaft des Versicherungsnehmers als Tierhalter können im Rahmen einer besonderen Tierhalter-Haftpflichtversicherung abgedeckt werden. Zu den gängigsten Versicherungen für Tierhalter gehören die Hundehalter-Haftpflichtversicherung und Pferdehalter-Haftpflichtversicherung. Schadenbeispiel hierzu: Frau W. führt den Hund einer Bekannten zum Gassi aus. Plötzlich läuft ein Jogger vorbei. Der Hund verletzt den Jogger am Arm sowie am Bein. Der Jogger fordert Schadenersatz von Frau W., da sie die Aufsicht über den Hund hatte."
+          },
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja (EU)"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "eBike",
+          "title": {
+            "de": "Fährst du oder jemand in deinem Haushalt ein E-Bike?\n"
+          },
+          "valueName": "eBike",
+          "isRequired": true,
+          "requiredErrorText": {
+            "de": "\"Ein E-Bike (Pedelec) ist eine Ausführung eines Elektrofahrrads, bei der der Fahrer von einem Elektroantrieb nur dann unterstützt wird, wenn er gleichzeitig selbst die Pedale tritt. Lauf Definition gilt der Begriff E-Bike als einsitziges zweirädriges Kleinkraftrad mit elektrischem Antrieb, der sich bei einer Geschwindigkeit von mehr als 25 km/h selbsttätig abschaltet. In den meisten privaten Haftpflichtversicherungen ist nur das normale Fahrrad abgesichert!\""
+          },
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 9",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "gradualDamage",
+          "title": {
+            "de": "Möchtest du Schäden, die allmählich und nicht plötzlich passieren, mitversichert haben?\t"
+          },
+          "valueName": "gradualDamage",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 10",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "actsOfKindness",
+          "title": {
+            "de": "Möchtest du Schäden, die du anderen bei einem Gefallen zufügst, versichert haben (z.B. bei einem Umzug)?"
+          },
+          "valueName": "actsOfKindness",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 11",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "damageToMovables",
+          "title": {
+            "de": "Möchtest du gemietete oder geliehene Sachen mitversichert haben? (z.B. die Bohrmaschine vom Nachbarn)"
+          },
+          "valueName": "damageToMovables",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 12",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "lossOfPrivateKeys",
+          "title": {
+            "de": "Möchtest du den Verlust von privaten oder fremden Schlüsseln versichern?"
+          },
+          "valueName": "lossOfPrivateKeys",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "lossOfJobKeys",
+          "title": {
+            "de": "Möchtest du den Verlust von beruflichen Schlüsseln versichern?"
+          },
+          "valueName": "lossOfJobKeys",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 13",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "withParentLivingInHouse",
+          "title": {
+            "de": "Lebt ein Elternteil von dir mit in deinem Haushalt?\t"
+          },
+          "valueName": "withParentLivingInHouse",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 14",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "voluntaryWork",
+          "title": {
+            "de": "Arbeitest du ehrenamtlich?"
+          },
+          "valueName": "voluntaryWork",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 15",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "childminderNonCommercial",
+          "title": {
+            "de": "Arbeitest du als Tagesmutter?"
+          },
+          "valueName": "childminderNonCommercial",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 16",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "renovations",
+          "title": {
+            "de": "Wünschst du eine Bauherrenhaftpflicht für spätere Bauvorhaben auf deinem Grundstück? \t"
+          },
+          "valueName": "renovations",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "renovationsAmount",
+          "visibleIf": "{renovations} = \"yes\"",
+          "title": {
+            "de": "Bis zur Höhe der Versicherungssumme?"
+          },
+          "valueName": "renovationsAmount",
+          "choices": [
+            {
+              "value": "max50000",
+              "text": {
+                "de": "bis 50.000 EUR (EU)"
+              }
+            },
+            {
+              "value": "max100000",
+              "text": {
+                "de": "bis 100.000 EUR (EU)"
+              }
+            },
+            {
+              "value": "max200000",
+              "text": {
+                "de": "bis 200.000 EUR (EU)"
+              }
+            },
+            {
+              "value": "max1000000",
+              "text": {
+                "de": "bis Versicherungssumme"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 17",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "surfboards",
+          "title": {
+            "de": "Hast du ein eignes Surfbrett?"
+          },
+          "valueName": "surfboards",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 18",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "conditionalUpdate",
+          "title": {
+            "de": "Möchtest du automatisch immer die neuesten Bedingungen haben?"
+          },
+          "valueName": "conditionalUpdate",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Seite 19",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "bestPerfomanceGuarantee",
+          "title": {
+            "de": "Willst du die Best-Leistungsgarantie mitversichert haben (Wird nur beim Leistungssieger berücksichtigt)?"
+          },
+          "valueName": "bestPerfomanceGuarantee",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "sentinel",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "everythingOk",
+          "title": {
+            "de": "Hast du alle Fragen mit deinen Wünschen beantwortet?"
+          },
+          "valueName": "everythingOk",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "exit",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question31",
+          "html": {
+            "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/privathaftpflicht.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h4 class=\"title4 title4--space\">Wir kalkulieren nun die zu dir passenden Versicherungen.<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n            <button type=\"button\" onclick=\"survey.completeLastPage()\" class=\"btn btn--cta\">\n               Zum Angebot - los geht es!\n            </button>\n<br><br>\n\n</div>\n</div>\n"
+          }
+        }
+      ],
+      "visibleIf": "{everythingOk} = \"yes\""
+    },
+    {
+      "name": "exit messenger",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question1",
+          "html": {
+            "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/privathaftpflicht.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h4 class=\"title4 title4--space\">Welche Wünsche sind noch offen, bzw. welche Fragen nicht beantwortet? Schreibe uns hier über unsere Kontaktbox Deine Wünsche/Fragen.<br><br>\nSollten doch alle deine Wünsche/Fragen erfüllt sein, kommst du mit \"Absenden\" zu deinem Angebot.\n<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n<a href=\"/manager/messages\">\n            <button type=\"button\" class=\"btn btn--cta\">\n               Schreib eine Nachricht an uns!\n            </button>\n</a>\n<br><br>\n\n</div>\n</div>\n"
+          }
+        }
+      ],
+      "visibleIf": "{everythingOk} = \"no\""
+    }
+  ],
+  "showCompletedPage": false,
+  "showQuestionNumbers": "off",
+  "questionErrorLocation": "bottom",
+  "showProgressBar": "top",
+  "goNextPageAutomatic": true,
+  "startSurveyText": {
+    "de": "zurück"
+  },
+  "pagePrevText": {
+    "de": "zurück"
+  },
+  "pageNextText": {
+    "de": "weiter"
+  }
+}

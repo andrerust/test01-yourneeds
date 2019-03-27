@@ -1,0 +1,91 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds login{% endblock %}
+
+{% block stylesheets %}
+   {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+   {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+   {% include 'includes/header.html.twig' %}
+
+   <section>
+      <div class="container" id="content">
+         <div class="row">
+            <div class="col-md-8 offset-md-2"><br>
+
+               <h1 class="title1 title1--space text-center">
+                  Anmelden als Tester
+               </h1>
+               <br>
+
+               <p style="font-size: larger; color: #cc0000;">
+                  {{ message }}
+               </p>
+               <br><br>
+               <i>Wir starten in Kürze unsere Beta-Testphase mit dem Markteintritt.
+                  <br><br>
+                  Werde Tester* und trag dich hier ein. Sobald wir die Testphase starten erhältst du von uns eine
+                  Nachricht.
+                  <br><br>
+                  Die ersten 50 Tester erhalten zum Dank eine Tafel Fairafric Schokolade
+
+                  <br><br>
+                  Unter allen Testern werden wir einen Präsentkorb in Höhe von 100 € verlosen</i>
+
+               <form action="{{ path('tester') }}" method="post" class="form-horizontal">
+                  <div class="form-group">
+                     <label for="login_form__username"
+                            id="login_form__username_Label">E-Mail</label>
+                     <input class="form-control"
+                            value="{{ _username }}"
+                            id="login_form__username"
+                            name="login_form[_username]"
+                            required="required"
+                            autofocus
+                            type="email">
+                  </div>
+                  <!--
+                  <div class="form-group">
+                     <label for="login_form__password"
+                            id="login_form__password_Label">Passwort</label>
+                     <input class="form-control"
+                            type="password"
+                            placeholder="Passwort"
+                            id="login_form__password"
+                            name="login_form[_password]"
+                            required="required">
+                  </div>
+                  -->
+                  <input type="hidden"
+                         name="_csrf_token"
+                         value="{{ csrf_token('authenticate') }}">
+                  <input type="hidden"
+                         name="_target_path"
+                         value="{{ path('homepage') }}">
+                  <button type="submit" class="btn btn--cta btn-lg btn-block mt-3">Eintragen</button>
+               </form>
+               <br><br><br>
+               <i>
+                  *Die Testphase geht bis 31.12.2018. Als Tester gilt Der-/Diejenige der/die folgende Funktionen nutzt
+                  <ul>
+                     <li>Deine Daten eingeben
+                     <li>Policen hinzufügen
+                     <li>Check YOURneeds Vergleich machen
+                     <li>beim Nachhaltigkeitsprojekt abgestimmt hat
+                     <li>und uns ein Feedback mit der Kontaktbox schickt</li>
+                  </ul>
+               </i>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   {% include 'includes/home-menu-footer.html.twig' %}
+
+{% endblock %}

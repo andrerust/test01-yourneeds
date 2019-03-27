@@ -1,0 +1,218 @@
+{% extends '@MainAdminBundle/_admin.main.html.twig' %}
+
+{% block title %}YOURneeds tariff choosing decision way{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/surveyCore.css') }}">
+    <!--
+    <link href="https://surveyjs.azureedge.net/1.0.13/survey.css" type="text/css" rel="stylesheet"/>
+    -->
+    <style type="text/css">
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/surveyCore.js') }}"></script>
+    <script>
+        handleSpinner = function (elem, preloader, $time) {
+            doSpinner = function (elem, preloader) {
+                $(preloader).show();
+                console.log("handleSpinnerBox e:" + elem + " _ p:" + preloader + " successful");
+                $("#survey-spinner").addClass("visible");
+                $("#survey-proceed-title").addClass("visible");
+                setTimeout(function () {
+                    $("#survey-proceed-title").removeClass("visible");
+                    $("#survey-spinner").removeClass("visible");
+                    $("#survey-proceed-button").addClass("visible");
+                }, ($time * 1000));
+            }
+            doSpinner(elem, preloader);
+        }
+
+        saveSurvey = function (json) {
+            var url = "/admin/user/{{ userId }}/type/{{ type }}/finish";
+            console.log("saveSurvey called with url:" + url + " successful");
+            console.log("Json: " + json);
+            $.ajax({
+                type: "PUT",
+                contentType: 'application/json',
+                url: url,
+                dataType: 'json',
+                cache: false,
+                data: JSON.stringify({
+                    structure: json
+                }),
+                error: function (data) {
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        console.log("Result: ");
+                        console.log(data);
+                    }
+                }
+            })
+        }
+
+    </script>
+{% endblock %}
+
+{% if app.user is defined and not (app.user is null) and is_granted('ROLE_USER') %}
+    {% set userName = app.user.firstName %}
+{% else %}
+    {% set userName = 'lieber Besucher' %}
+{% endif %}
+
+{% block content %}
+    <section id="admin-survey">
+        <div id="page-box">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="well well-sm">
+                        <div class="row text-center">
+                            <h2 class="title2 title2--space">
+                                Beantworte die Fragen, um Tarif-Vorschl&auml;ge zu erhalten.
+                                <span class="home-user-name">{{ userName }}</span>!
+                            </h2>
+                            <h4 class="title4 title4--space">
+                                Oops! Du kannst aktuell nur die Eingabe via Formular w&auml;hlen, bis der
+                                Versicherungsrechner
+                                fertiggestellt ist.
+                            </h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                &nbsp;
+                            </div>
+                            <div class="col-sm-8 col-md-8 col-lg-8">
+                                <div class="container-survey">
+                                    <div class="well well-sm">
+                                        <span id="surveyProgress"></span>
+
+                                        <div class="sv_nav">
+                                            <div class="row">
+                                                <div class="col-sm-6 text-right">
+                                                    <input type="button" onclick="survey.prevPage();"
+                                                           class="btn" value="back">
+                                                </div>
+                                                <div class="col-sm-6 text-right">
+                                                    <input type="button" onclick="survey.nextPage();"
+                                                           class="btn" value="proceed">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--
+                                        <a class="btn" id="surveyPrev" href="#" onclick="survey.prevPage();">zur&uuml;ck</a>
+                                        <a id="surveyNext" href="#" onclick="survey.nextPage();">weiter</a>
+                                        <a id="surveyComplete" href="#" onclick="survey.completeLastPage();">Fertigstellen</a>
+                                        -->
+                                        <hr/>
+                                        <div id="surveyElement"></div>
+                                        <div id="survey-spinner">
+                                            <div class="outer"></div>
+                                            <div class="inner"></div>
+                                        </div>
+                                        <div id="surveyResult">
+                                        </div>
+                                        <div id="surveyFollow" class="text-center">
+
+                                            <div id="survey-proceed-title">
+                                                <h2 class="title2 title2--space">Rechne Tarife f&uuml;r Dich!</h2>
+
+                                            </div>
+
+                                            <a href="{{ path('admin_user_id_type_result', {
+                                                'id': userId,
+                                                'type': type
+                                            }) }}" id="survey-proceed-button">
+                                                Weiter zum Ergebnis
+                                            </a>
+                                        </div>
+                                        <script>
+                                            //var structure = $('.structure').data('structure');
+                                            //Survey.Survey.cssType = "bootstrap";
+                                            Survey
+                                                    .StylesManager
+                                                    .applyTheme("darkblue");
+                                            survey = new Survey.Model({{ structure|raw }});
+                                            survey
+                                                    .onComplete
+                                                    .add(function (survey, options) {
+                                                        //save the data on survey complete. You may call another function to store the final results
+                                                        handleSpinner('#survey-proceed-button', '#survey-proceed-spinner', 3);
+                                                    });
+                                            survey
+                                                    .onComplete
+                                                    .add(function (result) {
+                                                        document
+                                                                .querySelector('#surveyResult')
+                                                                .innerHTML = "Resultat der Formulareingabe in JSON: " + JSON.stringify(result.data) + "</p>";
+                                                        var element = $('#surveyFollow');
+                                                        element.addClass('visible')
+                                                    });
+                                            survey
+                                                    .onComplete
+                                                    .add(function (result) {
+                                                        console.log(result.data);
+                                                        tmpResult = result.data;
+                                                        saveSurvey(tmpResult);
+                                                    });
+                                            survey
+                                                    .onUpdateQuestionCssClasses
+                                                    .add(function (survey, options) {
+                                                        var classes = options.cssClasses
+
+                                                        classes.root = "sq-root";
+                                                        classes.title = "sq-title";
+                                                        classes.item = "sq-item";
+                                                        classes.label = "sq-label";
+
+                                                        if (options.question.isRequired) {
+                                                            classes.title = "sq-title sq-title-required";
+                                                            classes.root = "sq-root sq-root-required";
+                                                        }
+
+                                                        if (options.question.getType() === "checkbox") {
+                                                            classes.root = "sq-root sq-root-cb";
+                                                        }
+                                                    });
+                                            $("#surveyElement").Survey({model: survey});
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 col-md-2 col-lg-2">
+                                &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-left">
+                        <div class="col-sm-1 col-md-1 col-lg-1">
+                            &nbsp;
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <h2 class="title2 title2--space">
+                                <a href="{{ path('admin_user_id', {
+                                    'id': userId
+                                }) }}">
+                                    <button class="btn">
+                                        <i class="fas fa-user"></i>Zur&uuml;ck zum letzten Nutzer
+                                    </button>
+                                </a>
+                            </h2>
+                        </div>
+                        <div class="col-sm-5">&nbsp;
+                        </div>
+                    </div>
+                    <div class="row">&nbsp;
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}

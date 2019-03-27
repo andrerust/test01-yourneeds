@@ -1,0 +1,248 @@
+/*=================================================================
+ > AdminHeader CSS
+=================================================================*/
+#admin-header {
+  width: 100%;
+  float: left;
+  z-index: 1050;
+  max-width: 1175px;
+  padding: 0;
+  margin: 0;
+  /*
+  position: fixed;
+  */
+}
+
+#admin-header .header-wrapper {
+  width: 100%;
+  float: left;
+  padding: 0;
+  height: 65px;
+  background-color: #ffffff;
+  border-bottom: 2px #44a17d solid;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  /*
+  position: fixed;
+  */
+}
+
+/*================================================
+  >> NAVIGATION
+  ================================================*/
+/*================================
+  >>> MAIN NAVIGATION ROW
+  ================================*/
+#admin-header .nav-wrapper {
+  padding: 5px 15px 0 0;
+}
+
+#admin-header .nav-wrapper .dropdown .dropdown-menu {
+  opacity: 0.9;
+  border-radius: 6px;
+  z-index: 1050;
+  font-size: 12px;
+}
+
+#admin-header .nav-wrapper .dropdown ul a {
+  z-index: 1050;
+  color: #707070;
+}
+
+#admin-header .bar {
+  margin-top: 0;
+}
+
+#admin-header .logo img {
+  width: 95px;
+  height: auto;
+  padding-left: 20px;
+  position: relative;
+  top: -15px;
+}
+
+#admin-header .dropmenu-item-btn {
+  text-align: center;
+  border: 1px solid #0086b3;
+  border-radius: 6px;
+  font-size: 11px;
+  padding: 4px;
+  margin-right: 5px;
+  opacity: 0.7;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=180, Color=#d2d2d2)"; /*IE 8*/
+  -moz-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #44a17d), to(#0086b3));
+  background: linear-gradient(to right, #44a17d 0, #0086b3 100%);
+}
+
+#admin-header .dropmenu-item-btn .fa {
+  color: #ffffff;
+}
+
+#admin-header .dropmenu-item-btn .dropmenu-item-btn-text {
+  font-size: 14px;
+  color: #ffffff;
+  padding-left: 3px;
+  font-weight: 400;
+}
+
+#admin-header .dropmenu-item-btn-text:hover,
+#admin-header .dropmenu-item-btn-text:focus,
+#admin-header .dropmenu-item-btn-text:active,
+#admin-header .dropmenu-item-btn .fa:hover,
+#admin-header .dropmenu-item-btn .fa:focus,
+#admin-header .dropmenu-item-btn .fa:active {
+  color: #00498f;
+  opacity: 1;
+}
+
+#admin-header .bar > .dropdown-menu--horizontal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#admin-header .bar > .dropdown-menu--horizontal > li > a {
+  min-width: 100px;
+  font-size: 11px;
+}
+
+#admin-header .bar > .dropdown-menu--horizontal > .divider {
+  width: 10px;
+}
+
+#admin-header .bar > .dropdown-menu--horizontal > .logo-divider {
+  width: 40px;
+  margin: 0 9px;
+}
+
+/*================================================
+  >>> SUB NAVIGATION ROW
+  ================================================*/
+/*
+#admin-header .sub-nav {
+  background: transparent;
+  margin-top: 10px;
+}
+
+#admin-header .sub-nav-divider {
+  width: 241px;
+}
+
+#admin-header .sub-nav a {
+  border: 1px solid : #44a17d;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #44a17d), to(#ffffff));
+  background: linear-gradient(to bottom, #44a17d 0, #ffffff 100%);
+  font-size: 12px;
+  padding: 5px;
+  color: #424242;
+}
+
+#admin-header .sub-nav a:hover,
+#admin-header .sub-nav a:focus,
+#admin-header .sub-nav a:active {
+  color: #00498f;
+  background: none;
+  background-color: #ffffff;
+}
+*/
+/*
+  RESPONSIVENESS
+*/
+/*===========================================================================*/
+/* max 768px // bootstrap xs
+/*===========================================================================*/
+@media screen and (max-width: 768px) {
+  #admin-header .header-wrapper {
+    width: 100%;
+    height: 80px;
+  }
+
+  #admin-header .bar > .dropdown-menu--horizontal > .logo-divider {
+    width: 20px;
+    height: auto;
+    margin: 0 9px;
+  }
+
+  #admin-header .dropmenu-item-btn {
+    text-align: center;
+    border: 1px solid #44a17d;
+    border-radius: 6px;
+    color: #424242;
+    font-size: 10px;
+    padding: 1px;
+    padding-top: 2px;
+    margin-right: 2px;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #44a17d), to(#ffffff));
+    background: linear-gradient(to bottom, #44a17d 0, #ffffff 100%);
+  }
+
+  #admin-header .bar > .dropdown-menu--horizontal > li > a {
+    min-width: 96px;
+  }
+
+}
+
+/*===========================================================================*/
+/* min 769px -> max 992px // bootstrap sm
+/*===========================================================================*/
+@media screen and (min-width: 769px) and (max-width: 992px) {
+  #admin-header .header-wrapper {
+    width: auto;
+    float: left;
+    padding: 0;
+    height: 80px;
+    background-color: #ffffff;
+    border-bottom: 2px #44a17d solid;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+  }
+
+  #admin-header .logo img {
+    width: 150px;
+    height: auto;
+    padding-left: 10px;
+    position: relative;
+    top: 10px;
+  }
+
+  #admin-header .bar > .dropdown-menu--horizontal > li > a {
+    min-width: 90px;
+  }
+
+  #admin-header .dropmenu-item-btn {
+    text-align: center;
+    border: 1px solid #44a17d;
+    border-radius: 6px;
+    color: #424242;
+    font-size: 11px;
+    padding: 2px;
+    padding-top: 3px;
+    margin-right: 3px;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #44a17d), to(#ffffff));
+    background: linear-gradient(to bottom, #44a17d 0, #ffffff 100%);
+  }
+
+  #admin-header .dropmenu-item-btn > .fa {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 1px;
+    color: #424242;
+  }
+}
+
+/*===========================================================================*/
+/* min 993px -> max 1200px // bootstrap md
+/*===========================================================================*/
+@media screen and (min-width: 993px) and (max-width: 1200px) {
+
+}
+
+/*===========================================================================*/
+/* min 1201px // bootstrap lg
+/*===========================================================================*/
+@media screen and (min-width: 1201px) {
+
+}

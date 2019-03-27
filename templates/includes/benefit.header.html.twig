@@ -1,0 +1,52 @@
+<aside class="mobilemenu text-right" data-yn-mobilemenu>
+    <div class="container">
+        <div>
+            <a href="#" class="color-grey no-hover-underline" data-yn-toggle-mobilemenu>
+                <i class="fas fa-times"></i>
+            </a>
+        </div>
+    
+        {% if user.id is defined and not (user.id is null) and is_granted('ROLE_USER') %}
+             <a href="{{ path('manager_profile') }}" class="title1">
+                Profil
+             </a>
+        {% endif %}
+    
+        {% if user.id is defined and not (user.id is null) and is_granted('ROLE_USER') %}
+             <a href="{{ path('manager_choose_survey') }}" class="title1">
+                Check Tarife
+             </a>
+        {% endif %}
+    
+        <a href="#" class="title1">Hilfe</a>
+    
+        {% if user.id is defined and not (user.id is null) and is_granted('ROLE_USER') %}
+            <a href="{{ path('security_logout') }}" class="title1" data-yn-toggle-mobilemenu>Abmelden</a>
+        {% else %}
+            <a href="{{ path('security_login') }}" class="title1" data-yn-toggle-mobilemenu>Anmelden</a>
+        {% endif %}
+    </div>
+</aside>
+
+<header>
+    <div class="container">
+       <div class="row" id="header">
+          <div class="col-6 col-sm-2 vertical-align-middle">
+             <div class="text-left logo">
+                <a href="{{ path('homepage') }}" class="logo-link">
+                   <img src="/build/static/images/yourneeds-logo-color.png">
+                </a>
+                 <span class="color-green">Benefit</span><span class="color-brown">+</span></span>
+             </div>
+          </div>
+          <div class="col-6 col-sm-10 vertical-align-middle text-right">
+             <div class="menu">
+                <a href="javascript:void(0)" data-yn-toggle-mobilemenu class="no-hover-underline">
+                    <i class="fas fa-bars color-grey"></i>
+                </a>
+             </div>
+          </div>
+       </div>
+   </div>
+</header>
+

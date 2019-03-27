@@ -1,0 +1,3 @@
+parameters:
+    locale: de
+    cache_type: array

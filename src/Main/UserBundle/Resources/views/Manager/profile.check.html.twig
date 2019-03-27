@@ -1,0 +1,122 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds personal data{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+
+    <style>
+        .visible-element {
+            margin: 0px;
+        }
+
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/build/yourneeds-manager.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-body">
+        <div class="container">
+            <div class="row text-left">
+                <div class="col-12 mx-auto mt-4">
+                    <div class="text-left">
+                        <a href="{{ path('manager_home') }}" class="btn btn--cta">
+                            Zur&uuml;ck zur Übersicht
+                        </a>
+                    </div>
+                    <div class="horizontally-spacer100">&nbsp;</div>
+                </div>
+            </div>
+            <div class="row text-center">
+                <h1 class="title1 title1--space">
+                    Check <span class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span
+                            class="color-brown">needs</span>
+                </h1>
+                <h3 class="title3 title3--space">
+                    <span class="color-green">Hier versicherst du dich selbst</span>
+                </h3>
+            </div>
+            <div class="row row-eq-height">
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% if isAllowed.basicneeds == 1 %}
+                    <a href="{{ path('contracts') }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item" id="insurances">
+                                <div class="image-container">
+                                    <img src="/build/static/images/start/start_contract.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Deine Verträge
+                                    </h2>
+
+                                    <p>
+                                        Überblick über deine Versicherungen
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% if isAllowed.pli == 1 %}
+                    <a href="{{ path('contract_new') }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item" id="police">
+                                <div class="image-container">
+                                    <img src="/build/static/images/start/start_police.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Police hinzufügen
+                                    </h2>
+
+                                    <p>
+                                        Policen hochladen und managen
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% if isAllowed.hci == 1 %}
+                    <a href="{{ path('manager_choose_survey', {
+                    }) }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item" id="check">
+                                <div class="image-container">
+                                    <img src="/build/static/images/grundbedarf.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Check <span class="color-green">Y<span
+                                                    class="yourneeds-font">O</span>UR</span><span
+                                                class="color-brown">needs</span>
+                                    </h2>
+
+                                    <p>
+                                        Hole dir die besten Versicherungsangebote
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+{% endblock %}

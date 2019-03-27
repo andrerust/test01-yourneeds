@@ -1,0 +1,73 @@
+{% extends 'static.home.html.twig' %}
+
+{% block title %}Import runtime{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+      <style>
+      </style>
+  {% endblock %}
+
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="https://unpkg.com/jquery"></script>
+      <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+      <script>
+          save = function (firstDigit, secondDigit) {
+
+              var url = "/admin/import/addresses/" + firstDigit + secondDigit;
+              console.log("url call " + url);
+              $.ajax({
+                  type: "GET",
+                  contentType: 'application/json',
+                  url: url,
+                  dataType: 'json',
+                  cache: false,
+                  data: JSON.stringify({
+                      structure: json
+                  }),
+                  error: function (data) {
+                  },
+                  success: function (data) {
+                      if (data.status == 200) {
+                          console.log("Result: ");
+                          console.log(data);
+                      }
+                  }
+
+              });
+          }
+
+          var firstDigits = [2];
+          var secondDigits = [0];
+          for (var i = 0, len = firstDigits.length; i < len; i++) {
+            echo
+          }
+      </script>
+  {% endblock %}
+
+{% block content %}
+
+    <section id="survey">
+        <div class="container">
+            <div class="row">
+                <div class="container-survey">
+                    <div id="editorElement" style="width: 100%; position: absolute; left: 25px;"></div>
+                </div>
+                executionTime: {{ executionTime }}<br>
+                <br>
+                zipInsert: {{ counts.zipInsert }}<br>
+                zipUpdate: {{ counts.zipUpdate }}<br>
+                streetInsert: {{ counts.streetInsert }}<br>
+                streetUpdate: {{ counts.streetUpdate }}<br>
+                cityInsert: {{ counts.cityInsert }}<br>
+                cityUpdate: {{ counts.cityUpdate }}<br>
+                zipStreetInsert: {{ counts.zipStreetInsert }}<br>
+                zipCityInsert: {{ counts.zipCityInsert }}<br>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

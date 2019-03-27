@@ -1,0 +1,95 @@
+{% extends 'static.home.html.twig' %}
+
+{% block title %}YOURneeds benefit plus{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+
+    <style>
+        .visible-element {
+            margin: 0;
+        }
+
+        span.step {
+            border: 1px solid #74b959;
+            border-radius: 0.8em;
+            -moz-border-radius: 0.8em;
+            -webkit-border-radius: 0.8em;
+            color: #74b959;
+            display: inline-block;
+            font-weight: bold;
+            line-height: 1.4em;
+            margin-right: 6px;
+            text-align: center;
+            width: 1.6em;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/build/yourneeds-manager.js"></script>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="container" id="content">
+            <div class="row" text-center>
+                <div class="col-12 text-center pt-2">
+                    <h1 class="title1 title1--space">
+                        Herzlich Willkommen im Benefit+<br>dem Vorteils-Programm von <span class="color-green">Y<span
+                                    class="yourneeds-font">O</span>UR</span><span
+                                class="color-brown">needs</span>
+                    </h1>
+                    <h1 class="title1 title1--space">
+                        <img src="/build/static/images/benefit/benefitplus.jpg"
+                             stype="width: 150px; height: auto;"><br><br>
+                    </h1>
+                    <div class="text-center info-box">
+                        <h3 class="title3 title3--space">
+                            <i class="fas fa-info-circle"></i> Bitte
+                            entscheide, ob du als Firma, Verein oder Verband fortfahren oder ob du als
+                            MitarbeiterIn/Mitglied fortfahren möchtest:
+                            </span>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row text-left">
+                    <div class="col-6 mx-auto mt-4">
+                        <div class="text-right">
+                            <a href="{{ path('benefitplus_partner') }}" class="btn btn--cta">
+                                Weiter als Firma, Verband oder Verein
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-6 mx-auto mt-4">
+                        <div class="text-left">
+                            {% if canAccess == true %}
+                                <a href="{{ path('security_login', {
+                                    'isBenefit': 'benefit'
+                                }) }}" class="btn btn--cta">
+                                    Weiter als Mitarbeiter oder Mitglied
+                                </a>
+                            {% else %}
+                                <a href="#" class="btn btn--cta">
+                                    Weiter als Mitarbeiter oder Mitglied
+                                    (z.Zt.gesperrt)
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="horizontally-spacer100">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <div class="horizontally-spacer100">&nbsp;</div>
+        <div class="horizontally-spacer100">&nbsp;</div>
+        <div class="horizontally-spacer100">&nbsp;</div>
+        <div class="horizontally-spacer100">&nbsp;</div>
+        <div class="horizontally-spacer100">&nbsp;</div>
+    </section>
+
+{% endblock %}

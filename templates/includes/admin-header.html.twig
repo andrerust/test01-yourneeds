@@ -1,0 +1,47 @@
+<div class="container">
+   <div class="row">
+      <div class="col-12">
+         <nav class='tabs'>
+            <ul>
+               <li>
+                  <a href="{{ path('admin_managers') }}">
+                     <i class="fas fa-users fa-1x"></i> Nutzer
+                  </a>
+               </li>
+               <li>
+                  {% if not (user.id is null) %}
+                     <a href="{{ path('admin_companies') }}">
+                        <i class="fas fa-building-o fa-1x"></i> Gesellschaften
+                     </a>
+                  {% endif %}
+               </li>
+               <li>
+                  {% if not (user.id is null) %}
+                     <a href="{{ path('manager_choose_survey') }}">
+                        <i class="fas fa-asterisk fa-1x"></i> Check Prozess
+                     </a>
+                  {% endif %}
+               </li>
+               <li>
+                  {% if not (user.id is null) %}
+                     <a href="{{ path('manager_profile') }}">
+                        <i class="fas fa-user fa-1x"></i> Mein Profil
+                     </a>
+                  {% endif %}
+               </li>
+               <li>
+                  {% if not (user.id is null) and is_granted('ROLE_USER') %}
+                     <a href="{{ path('security_logout') }}">
+                        <i class="fas fa-sign-out-alt fa-1x"></i> Abmelden
+                     </a>
+                  {% else %}
+                     <a href="{{ path('security_login') }}">
+                        <i class="fas fa-users fa-1x"></i> Anmelden
+                     </a>
+                  {% endif %}
+               </li>
+            </ul>
+         </nav>
+      </div>
+   </div>
+</div>

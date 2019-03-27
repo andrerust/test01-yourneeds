@@ -1,0 +1,19 @@
+#----------------------------------------
+#----------------- DOCUMENT TYPE
+Main\InsuranceBundle\Entity\DocumentTYpe:
+    document_type_agb:
+        name: 'AGB'
+    document_type_special_information:
+        name: 'Besondere Bedingungen'
+    document_type_product_information:
+        name: 'Produktinformationsblatt'
+    document_type_note:
+        name: 'Deckungsnote'
+    document_type_mandate:
+        name: 'Maklermandat'
+    document_type_registration:
+        name: 'Einwilligung in die Erhebung und Verwendung von Gesundheitsdaten und Schweigepflichtsentbindungserklaerung'
+    document_type_pre_offer:
+        name: 'Vorvertragliche Anzeigepflicht nach  19 Abs 5 VVG'
+    document_type_pre_information:
+        name: 'Erstinformation'

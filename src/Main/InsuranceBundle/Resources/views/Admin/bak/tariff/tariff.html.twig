@@ -1,0 +1,762 @@
+{% extends '@MainAdminBundle/_admin.main.html.twig' %}
+
+{% block title %}YOURneeds admin tariffs{% endblock %}
+
+  {% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/tariff.css') }}">
+  {% endblock %}
+
+  {% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/tariff.js') }}"></script>
+  {% endblock %}
+
+{% block content %}
+  <section id="admin-detail">
+    <div id="page-box">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="well well-sm">
+            <legend>Detailansicht {{ tariff.tariffName }}-Tarif der {{ tariff.publicName }}</legend>
+            <!--<a href="#" id="username">superuser</a>-->
+            <div class="container-fluid">
+              {% if tariff.note is defined and not (tariff.note is null) %}
+                <div class="row">
+                  <div class="col-sm-4 col-md-4 col-lg-4">
+                    <button class="btn" data-toggle="collapse" data-target="#notes">
+                      <i class="fas fa-info-circle"></i>&nbsp;&nbsp;Notizen
+                    </button>
+                  </div>
+                  <div class="col-sm-8 col-md-8 col-lg-8">
+
+                    <div class="collapse" id="notes">
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="special-table">
+                            <div class="toolbar">
+                              <div class="row">
+                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                  <h3 class="title3 title3--space">Notizen</h3>
+                                </div>
+                              </div>
+                            </div>
+                            <table class="table"
+                                   id="table-note"
+                                   data-toggle="table">
+                              <thead>
+                              <tr>
+                                <th>
+                                  <h5>Hier findest du die allgemeinen Notizen zum Tarif</h5>
+                                </th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                <td>
+                                  <p>{{ tariff.note }}</p>
+                                </td>
+                              </tr>
+                              </tbody>
+                              <tfoot>
+                              <tr>
+                                <td>&nbsp;</td>
+                              </tr>
+                              </tfoot>
+                            </table>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+              <div class="row">
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="card-wrapper">
+                        <div class="point"></div>
+                        <div class="line line-left"></div>
+                        <div class="line line-right"></div>
+                        <!-- card -->
+
+                        <div class="detail-card">
+                          <div class="detail">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <legend>Tarif ({{ tariffType.shortName }})</legend>
+                                <h3 class="title3 title3--space">
+                                  Name: {{ tariff.tariffName }}
+                                </h3>
+
+                                <div class="status">
+                                  {% if tariff.isActive == true %}
+                                    <span class="label label-success">
+                                      <i class="fas fa-check"></i> ist aktiviert</span>
+                                  {% elseif tariff.isActive == false %}
+                                    <span class="label label-danger">
+                                      <i class="fas fa-minus"></i> ist nicht aktiviert</span>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="btn-spacer"></div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-4 col-md-4 col-lg-4">
+                              </div>
+                              <div class="col-sm-4 col-md-4 col-lg-4">
+                                &nbsp;
+                              </div>
+                              <div class="col-sm-4 col-md-4 col-lg-4">
+                                <a class="btn" href="{{ path('admin_tariff_edit', {
+                                  'id': tariff.id
+                                }) }}">
+                                  <i class="fas fa-pencil-alt fa-2x message"></i>&nbsp;&nbsp;<span>Editieren</span>
+                                </a>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                <p>
+                                  <legend>Kontakt</legend>
+                                  <span class="logo-image">
+                                    {% if tariff.logo is defined and not (tariff.logo is null) %}
+                                      <img src="{{ asset("uploads/logos/") }}{{ tariff.logo }}"
+                                           class="img-thumbnail"/>
+                                    {% else %}
+                                      {% set picture = 'avatar-girl.png' %}
+                                      <img src="{{ asset("uploads/logos/") }}{{ picture }}"
+                                           class="img-thumbnail"/>
+                                    {% endif %}
+                                  </span>
+                                  <br>
+                                  Abteilung: {{ tariff.department }}<br>
+                                  Name: {{ tariff.contactPerson }}<br>
+                                  E-Mail: {{ tariff.email }}<br>
+                                  Telefon: {{ tariff.contactPhoneNumber }}
+                                </p>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="btn-spacer"></div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /card -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="special-table sub">
+                        <div class="toolbar">
+                          <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                              <h3 class="title3 title3--space">
+                                Tarifparameter
+                              </h3>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6 text-right updated">
+                              <h5>Aktualisiert am
+                                {% if tariff is defined and not (tariff is null) %}
+                                  {{ tariff.updatedAt }}
+                                {% else %}
+                                  <td>
+                                    ---
+                                  </td>
+                                {% endif %}
+                              </h5>
+                            </div>
+                          </div>
+                        </div>
+                        <table class="table"
+                               id="table"
+                               data-toggle="table"
+                               data-toolbar="#toolbar"
+                               data-search="false"
+                               data-click-to-select="false"
+                               data-filter-control="true"
+                               data-filter-show-clear="true"
+                               data-show-export="false"
+                               data-pagination="false"
+                                >
+                          <thead>
+                              <tr>
+                                <th><h4 class="title4 title4--space">Attribut</h4></th>
+                                <th><h4 class="title4 title4--space">Wert</h4></th>
+                              </tr>
+                              </thead>
+                          <tbody>
+                          {% if tariff.amountCoveredBodyInjury is defined and not (tariff.amountCoveredBodyInjury is null) %}
+                            <tr>
+                              <td>
+                                <!--
+                                <div>
+                                  <span>Status:</span>
+                                  <a href="#" id="status"></a>
+                                </div>
+                                -->
+                                Deckungssumme Personensch&auml;den mind.
+                              </td>
+                              <td>
+                                {% for entry in tariff.amountCoveredBodyInjury %}
+                                  {% include('@MainInsuranceBundle/Admin/tariff/partials/checklist.html.twig') %}
+                                {% endfor %}
+                                <!--
+                                <a id="edit" href="javascript:;" data-placement="right" data-value="Open">Open</a>
+                                -->
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                Deckungssummen Sachsch&auml;den mind.
+                              </td>
+                              <td>
+                                <div class="form-check form-check-inline" data-toggle="buttons">
+                                  {% for entry in tariff.amountCoveredMaterialDamage %}
+                                    {% include('@MainInsuranceBundle/Admin/tariff/partials/checklist.html.twig') %}
+                                  {% endfor %}
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                Deckungssummen Verm&ouml;gensch&auml;den mind.
+                              </td>
+                              <td>
+                                {% for entry in tariff.amountCoveredFinancialDamage %}
+                                  {% include('@MainInsuranceBundle/Admin/tariff/partials/checklist.html.twig') %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                Forderungsausfalldeckung
+                              </td>
+                              <td>
+                                {% for entry in tariff.badDeptLoss %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                Elektronischer Datenaustausch/Internetnutzung
+                              </td>
+                              <td>
+                                {% for entry in tariff.dataExchange %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                Selbstbewohnte eigene oder gemietete Immobilien im Inland
+                              </td>
+                              <td>
+                                {% for entry in tariff.ownResidentialHomeLivingIn %}
+                                  {% for key, value in entry %}
+                                    {% if value == 1 %}
+                                      <i class="fas fa-check"></i>
+                                    {% elseif value == 0 %}
+                                      <i class="fas fa-times"></i>
+                                    {% endif %}
+                                  {% endfor %}
+                                  {% if not loop.last %},{% endif %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                Vermietete Immobilien Inland (Einliegerwohnung, Ferienwohnung, einzelne Zimmer)
+                              </td>
+                              <td>
+                                {% for entry in tariff.ownResidentialHomeRentalOthers %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                                <!--
+                                  <input id="acbi{ key }" type="checkbox" name="ownResidentialHomeRentalOthers[]"
+                                         value="{ key }"
+                                          { paramSub==1 ? 'checked' : '' } disabled> { keySub }} { paramSub }
+                                  <br>
+                                  -->
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                Unbebaute Grundst&uuml;cke
+                              </td>
+                              <td>
+                                {% for entry in tariff.undevelopedProperties %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Vermietete Immobilien Ausland (Einliegerwohnung, Ferienwohnung, einzelne Zimmer)
+                              </td>
+                              <td>
+                                {% for entry in tariff.rentedPropertiesAbroad %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Gewässerschadenhaftspflicht (Heizöltank Oberirdisch)
+                              </td>
+                              <td>
+                                {% for entry in tariff.waterDamageLiabilityAboveGround %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Gewässerschadenhaftspflicht (Heizöltank Unterirdisch)
+                              </td>
+                              <td>
+                                {% for entry in tariff.waterDamageLiabilityUnderground %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+
+                            <tr>
+                              <td>
+                                Gelegentliches Hüten fremder Hunde
+                              </td>
+                              <td>
+                                {% for entry in tariff.takeCareOfDogs %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                eBikes
+                              </td>
+                              <td>
+                                {% for entry in tariff.ebikes %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Fremde Pferde/Fuhrwerke
+                              </td>
+                              <td>
+                                {% for entry in tariff.horsesAndWagons %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Allmählichkeitsschäden
+                              </td>
+                              <td>
+                                {% for entry in tariff.gradualDamage %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Gefälligkeitshandlungen
+                              </td>
+                              <td>
+                                {% for entry in tariff.actsOfKindness %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Beschädigung fremder beweglicher Sachen (gemietet/gepachtet/geliehen)
+                              </td>
+                              <td>
+                                {% for entry in tariff.damageToMovables %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Verlust privater fremder Schlüssel
+                              </td>
+                              <td>
+                                {% for entry in tariff.lossOfPrivateKeys %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Verlust beruflicher Schlüssel
+                              </td>
+                              <td>
+                                {% for entry in tariff.lossOfJobKeys %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Mit im Haus lebendes Elternteil
+                              </td>
+                              <td>
+                                {% for entry in tariff.withParentLivingInHouse %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Ehrenamtliche Tätigkeiten
+                              </td>
+                              <td>
+                                {% for entry in tariff.voluntaryWork %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Tagesmutter/Betreuer (nicht gewerblich)
+                              </td>
+                              <td>
+                                <div class="form-check form-check-inline" data-toggle="buttons">
+                                  {% for entry in tariff.childminderNonCommercial %}
+                                    {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                  {% endfor %}
+                                </div>
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Surfbretter
+                              </td>
+                              <td>
+                                {% for entry in tariff.surfboards %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Rabattausgleich KFZ
+                              </td>
+                              <td>
+                                {% for entry in tariff.discountBalancing %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Umbauma&szlig;nahmen
+                              </td>
+                              <td>
+                                {% for entry in tariff.renovations %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Bedingungsupdate
+                              </td>
+                              <td>
+                                {% for entry in tariff.conditionlUpdate %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Besonderheiten des Tarifes
+                              </td>
+                              <td>
+                                {% for entry in tariff.tariffIndividualSpecials %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Laufzeit 1 Jahr
+                              </td>
+                              <td>
+                                <div class="form-check form-check-inline" data-toggle="buttons">
+                                  {% for entry in tariff.runTime %}
+                                    {% include('@MainInsuranceBundle/Admin/tariff/partials/checklist.html.twig') %}
+                                  {% endfor %}
+                                </div>
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Selbstbeteiligung
+                              </td>
+                              <td>
+                                {% for entry in tariff.retention %}
+                                  {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                {% endfor %}
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Zahlungsweise
+                              </td>
+                              <td>
+                                <div class="form-check form-check-inline" data-toggle="buttons">
+                                  {% for entry in tariff.methodOfPayment %}
+                                    {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                  {% endfor %}
+                                </div>
+                              </td>
+                            </tr>
+
+                            <tr>
+                              <td>
+                                Anzahl der Vorschäden in den letzten 5 Jahren
+                              </td>
+                              <td>
+                                <div class="form-check form-check-inline" data-toggle="buttons">
+                                  {% for entry in tariff.numberOfPreviousCases %}
+                                    {% for key, value in entry %}    {% if value is iterable %}     {% for subValue in value %}       {% for deepKey, deepValue in subValue %}         {{ deepKey }}: {{ deepValue }}       {% endfor %}       {% if not loop.last %},{% endif %}<br>     {% endfor %}   {% else %}     {% if key == 'bool' %}       {% if value == 1 %}         <i class="fas fa-check"></i>       {% else %}         <i class="fas fa-times"></i>       {% endif %}       <br>     {% else %}       {{ key }}: {{ value }}     {% endif %}   {% endif %} {% endfor %}
+                                  {% endfor %}
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                Personenumfang
+                              </td>
+                              <td>
+                                <div class="form-check form-check-inline" data-toggle="buttons">
+                                  {% for key, value in targetGroups %}
+                                    {{ value['name'] }}
+                                    {% if not loop.last %},{% endif %}<br>
+                                  {% endfor %}
+                                </div>
+                              </td>
+                            </tr>
+                          {% else %}
+                            <tr>
+                              <td class="text-center">
+                                <span class="missing">Noch nicht angegeben</span>
+                              </td>
+                            </tr>
+                          {% endif %}
+                          </tbody>
+                          <tfoot>
+                              <tr>
+                                <td class="d-none d-sm-table-cell">&nbsp;</td>
+                                <td>
+                                  {% if tariff is defined and not (tariff is null) %}
+                                    <a class="btn" href="{{ path('admin_tariff_edit', {
+                                      'id': tariff.id
+                                    }) }}">
+                                      <i class="fas fa-pencil-alt fa-2x message"></i>&nbsp;&nbsp;<span>Editieren</span>
+                                    </a>
+                                  {% else %}
+                                    <a class="btn"
+                                       href="{{ path('admin_user_id_address_new', {
+                                         'id' : tariff.id
+                                       }) }}">
+                                      <i class="fas fa-plus fa-2x message"></i>&nbsp;&nbsp;<span>Neu</span>
+                                    </a>
+                                  {% endif %}
+                                </td>
+                              </tr>
+                          </tfoot>
+                        </table>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="well well-sm">
+                <div class="row">
+                  <div class="col-9 col-sm-10 col-md-10 col-lg-10">
+                    <legend>Pr&auml;mien&uuml;bersicht</legend>
+                  </div>
+                  <div class="col-3 col-sm-2 col-md-2 col-lg-2 text-right">
+                    <a href="">
+                      <button type="button" class="btn"
+                              data-toggle="tooltip"
+                              data-placement="left"
+                              title="Einstellungen">
+                        <span><i class="fas fa-cog"></i> (*)</span>
+                      </button>
+                    </a>
+
+                    <a href="{{ path('admin_user_new') }}"
+                       data-toggle="tooltip"
+                       data-placement="left"
+                       title="Neuer Nutzer">
+                      <button type="button" class="btn">
+                        <span><i class="fas fa-plus"></i></span>
+                      </button>
+                    </a>
+                  </div>
+                </div>
+                <div class="row">
+                  <!--<div class="fresh-table toolbar-color-green">-->
+                  <div class="special-table">
+                    <div id="toolbar">
+                      <!--
+                      <div class="form-inline" role="group">
+                        <select class="form-control">
+                          <option value="">Export Basic</option>
+                          <option value="all">Export All</option>
+                          <option value="selected">Export Selected</option>
+                        </select>
+                      </div>
+                      -->
+                    </div>
+                    <table class="table"
+                           id="table"
+                           data-toggle="table"
+                           data-toolbar="#toolbar"
+                           data-search="true"
+                           data-search-text=""
+                           data-show-columns="false"
+                           data-show-toggle="true"
+                           data-click-to-select="false"
+                           data-filter-control="false"
+                           data-filter-show-clear="false"
+                           data-show-export="false"
+                           data-pagination="true"
+                            >
+                      <thead>
+                      <tr>
+                        <th data-field="actions" class="text-center" data-sortable="false"
+                            data-switchable="false">ToDo
+                        </th>
+                        <th data-field="targetGroup" data-filter-control="" data-sortable="false"
+                            data-editable="false" data-switchable="true">Zielgruppe
+                        </th>
+                        <th data-field="sum" data-filter-control="input" data-sortable="true"
+                            data-editable="false" data-switchable="true">Deckungssumme
+                        </th>
+                        <th data-field="age" data-filter-control="input" data-sortable="true"
+                            data-editable="false" data-switchable="true">
+                          Alter von n bis m
+                        </th>
+                        <th data-field="address" data-filter-control="input" data-sortable="true">
+                          Rate / Intervall<br>
+                          Discount / H&ouml;he
+                        </th>
+                        <th data-field="insurance" data-filter-control="" data-sortable="false">
+                          SB
+                        </th>
+                        <th data-field="active" data-filter-control="" data-sortable="true">Aktiv</th>
+                        <th data-field="last_update" data-filter-control="input" data-sortable="true">Aktualisierung
+                        </th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      {% for tariffRate in tariffRates %}
+                        {% set counter = tariffRate.id %}
+                        <tr>
+                          <td class="text-center">
+                            <a href="{{ path('admin_user_id', {
+                              'id': tariffRate.id
+                            }) }}" class="btn"
+                               data-toggle="tooltip"
+                               data-placement="right"
+                               title="Detail des Nutzers">
+                              <span><i class="fas fa-pencil-alt"></i></span>
+                            </a>
+                          </td>
+                          <td>
+                            {{ tariffRate.name }}
+                          </td>
+                          <td class="text-center">
+                            {% for entry in tariffRate.amountOfCoverage %}
+                              {% for key, value in entry %}
+                                {{ value }}{{ key }}
+                              {% endfor %}
+                              {% if not loop.last %},{% endif %}
+                            {% endfor %}
+                          </td>
+                          <td class="text-center">
+                            {{ tariffRate.ageFrom }} bis {{ tariffRate.ageUntil }}
+                          </td>
+                          <td>
+                            {% set interval = 'jährlich' %}
+                            {% if tariffRate.rateInterval%12 == 0 %}
+                              {% set interval = '12' %}
+                            {% elseif tariffRate.rateInterval%6 == 0 %}
+                              {% set interval = '6' %}
+                            {% elseif tariffRate.rateInterval%4 == 0 %}
+                              {% set interval = '4' %}
+                            {% elseif tariffRate.rateInterval%1 == 0 %}
+                              {% set interval = '1' %}
+                            {% endif %}
+                            {{ tariffRate.rate }} EUR / {{ interval }}<br>
+                            Discount: {{ tariffRate.discountName }} / {{ tariffRate.discountValue }}%
+                          </td>
+                          <td class="text-right">
+                            {{ tariffRate.retentionValue }}
+                          </td>
+                          <td class="status text-center">
+                            {% if tariffRate.isActive == true %}
+                              <span class="label label-success"><i class="fas fa-check"></i></span>
+                            {% elseif tariffRate.isActive == false %}
+                              <span class="label label-danger"><i class="fas fa-minus"></i></span>
+                            {% endif %}
+                          </td>
+                          <td class="text-center">
+                            {{ tariffRate.updatedAt }}
+                          </td>
+                        </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+{% endblock %}

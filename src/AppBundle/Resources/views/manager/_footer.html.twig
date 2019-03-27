@@ -1,0 +1,58 @@
+<footer id="footer">
+  <div class="container">
+    <div class="navbar navbar-fixed-bottom"><!-- navbar-fixed-bottom -->
+      <div class="row">
+        <div class="container">
+          <div class="nav-wrapper">
+            <div class="col-3 col-sm-3 col-md-4 col-lg-4">
+              <div class="copyright">
+                &copy; 2018 YOURneeds GmbH
+              </div>
+            </div>
+            <div class="visible-xs visible-sm visible-md visible-lg col-9 col-sm-9 col-md-8 col-lg-8 text-right">
+              <ul class="bottom_ul">
+                <li class="dropdown link" id="footer-language-selector">
+                  <form>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       data-close-others="true">
+                      <img src="{{ asset('images/flags/de.png') }}"><span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu fa-pull-right">
+                      <li>
+                        <a href="/?page=wall">
+                          <img src="{{ asset('build/static/flag/de.png') }}">&nbsp;German
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/?page=wall">
+                          <img src="{{ asset('build/static/flag/us.png') }}">&nbsp;English
+                        </a>
+                      </li>
+                    </ul>
+                  </form>
+                </li>
+                <li class="link"><a href="#">Home</a></li>
+                <li class="link"><a href="#">Kundenordner</a></li>
+                <li class="link"><a href="#">Check your needs</a></li>
+                <li class="dropdown" id="footer-company-selector">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                     role="button" aria-haspopup="true"
+                     aria-expanded="false">
+                    Unternehmen
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">&Uuml;ber uns</a></li>
+                    <li><a href="{{ path('page_privacypolicy') }}">Datenschutz</a></li>
+                    <li><a href="#">Presse</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</footer>

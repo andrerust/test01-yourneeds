@@ -1,0 +1,213 @@
+{% block content %}
+    {% set show = 1 %}
+    {% if show == 1 %}
+        {% if (user is defined) and not (user is null) %}
+            <div class="container content-menu">
+                <div class="row no-gutters mt-3">
+                    <div class="col-12 logo vertical-align-middle" data-yn-toggle-class="col-12 col-8">
+                        <a href="{{ path('homepage') }}" class="logo-link">
+                            {% if true == user.isBenefitPartnerMember %}
+                                <img src="/build/static/placeholder/tree.gif" data-yn-toggle-logo class="d-none">
+                                <img src="/build/static/placeholder/tree.gif" data-yn-toggle-logo>
+                            {% else %}
+                                <img src="/build/static/images/yourneeds-logo-color.png" data-yn-toggle-logo
+                                     class="d-none">
+                                <img src="/build/static/images/yourneeds-logo-color-icon.png" data-yn-toggle-logo>
+                            {% endif %}
+
+                        </a>
+                    </div>
+                    <div class="col-12 text-right vertical-align-middle title1 d-none d-sm-block"
+                         data-yn-toggle-class="col-12 col-4">
+                        <a href="javascript:void(0);" class="color-grey no-hover-underline" data-yn-toggle-col-menu>
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    {% if 1 == 0 %}
+                        {% if user.profilePicture is defined and not (user.profilePicture is null) and not (user.profilePicture == 'misc') %}
+                            <img class="profile-image"
+                                 src="{{ asset("uploads/profiles/") }}{{ user.profilePicture }}">
+                        {% else %}
+                            {% set picture = null %}
+                            {% if user.gender == 1 %}
+                                {% set picture = 'avatar-boy.png' %}
+                            {% elseif user.gender == 2 %}
+                                {% set picture = 'avatar-girl.png' %}
+                            {% elseif user.gender == 3 %}
+                                {% set picture = 'avatar-girl.png' %}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <div class="col-6 mt-2 mt-md-4 mb-2 mb-md-4">
+                        <p class="description color-green">
+                            {% if user.userTitle is defined and not (user.userTitle is null) and not (user.userTitle.name == "Keiner") %}
+                                {{ user.userTitle.name }}
+                            {% endif %}
+                            {{ user.firstName }} {{ user.lastName }}
+                        </p>
+                        <a href="{{ path('security_logout') }}">
+                            <div class="icon">
+                                <i class="fas fa-sign-out-alt fa-fw"></i>
+                            </div>
+                            <div class="description">
+                                Abmelden
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <nav class="nav flex-column navbar-custom l-0">
+                            <a href="{{ path('manager_home') }}">
+                                <div class="icon">
+                                    <i class="fas fa-home fa-fw"></i>
+                                </div>
+                                <div class="description">
+                                    My Home
+                                </div>
+                            </a>
+                            <a href="{{ path('manager_choose_survey') }}">
+                                <div class="icon">
+                                    <i class="fas fa-bullseye-pointer fa-fw"></i>
+                                </div>
+                                <div class="description">
+                                    Check&nbsp;<span class="color-green">Y<span
+                                                class="yourneeds-font">O</span>UR</span><span
+                                            class="color-brown">needs</span>
+                                </div>
+                            </a>
+                            <a href="{{ path('contract_new') }}">
+                                <div class="icon">
+                                    <i class="fas fa-plus-circle fa-fw"></i>
+                                </div>
+                                <div class="description">
+                                    Police hinzufügen
+                                </div>
+                            </a>
+                            <a href="{{ path('contracts') }}">
+                                <div class="icon">
+                                    <i class="fas fa-file-signature fa-fw"></i>
+                                </div>
+                                <div class="description">
+                                    Verträge und Dokumente
+                                </div>
+                            </a>
+                            <a href="{{ path('show_damages') }}">
+                                <div class="icon">
+                                    <i class="fas fa-car-crash fa-fw"></i>
+                                </div>
+                                <div class="description">
+                                    Schaden melden
+                                </div>
+                            </a>
+                            <a href="{{ path('manager_personal_data') }}">
+                                <div class="icon">
+                                    <i class="fas fa-user fa-fw"></i>
+                                </div>
+                                <div class="description">
+                                    Meine Daten
+                                </div>
+                            </a>
+                        </nav>
+                        <div class="col-12 mt-4">
+                            <div class="description">
+                                <a href="https://www.facebook.com/YOURneeds-Versicherung" target="_blank"
+                                   rel="noopener noreferrer">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                                <a href="https://twitter.com/yourneedsv" target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="https://www.youtube.com/channel/UCzyUIJ_Eiifcf0pyxO1jBDA"
+                                   target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                                <a href="https://www.instagram.com/yourneeds.versicherung/" target="_blank"
+                                   rel="noopener noreferrer">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <hr>
+                            </div>
+                            <div class="mt-4 nav">
+
+                                <a href="{{ path('faqs_show') }}">
+                                    <div class="description">
+                                        FAQ
+                                    </div>
+                                </a>
+
+                                <a href="{{ path('news') }}">
+                                    <div class="description">
+                                        Blog
+                                    </div>
+                                </a>
+
+
+                                <a href="{{ path('page_imprint') }}">
+                                    <div class="description">
+                                        Impressum
+                                    </div>
+                                </a>
+                                <a href="{{ path('page_privacypolicy') }}">
+                                    <div class="description">
+                                        Datenschutz
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="mt-4 color-grey font-small">
+                                <div class="description">
+                                    Alle Inhalte unterliegen unserem Copyright. ©&nbsp;YOURneeds&nbsp;Versicherungsmakler&nbsp;GmbH
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <nav class="nav flex-column navbar-custom l-0">
+                            {% if not (user is null) and not (user.id is null) and is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('admin_managers') }}">
+                                    <div class="icon">
+                                        <i class="fas fa-pencil-alt fa-1x message"></i>
+                                    </div>
+                                    <div class="description">
+                                        User
+                                    </div>
+                                </a>
+                                <a href="{{ path('admin_companies') }}">
+                                    <div class="icon">
+                                        <i class="fas fa-pencil-alt fa-1x message"></i>
+                                    </div>
+                                    <div class="description">
+                                        Gesellschaften
+                                    </div>
+                                </a>
+                                <a href="{{ path('survey_edit_overview') }}">
+                                    <div class="icon">
+                                        <i class="fas fa-pencil-alt fa-1x message"></i>
+                                    </div>
+                                    <div class="description">
+                                        TAA editieren
+                                    </div>
+                                </a>
+                                <a href="{{ path('faq_edit') }}">
+                                    <div class="icon">
+                                        <i class="fas fa-pencil-alt fa-1x message"></i>
+                                    </div>
+                                    <div class="description">
+                                        FAQ editieren
+                                    </div>
+                                </a>
+                            {% endif %}
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% block content %}
+    {% set show = 1 %}
+    {% if show == 1 %}
+        {% if (user is defined) and not (null == user) and not (null == user.BenefitPartnerMember ) and user.BenefitPartnerMember == true %}
+            <benefitheader>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 text-center">
+                            <div>
+                                {{ user.getBenefitPartnerName }}&nbsp;
+                                <span class="color-green">Benefit</span><span
+                                        class="color-brown">+</span></span>&nbsp;
+                                {{ user.getMemberTypeOfBenefitPartnerType }}
+                                {% if user.BenefitPartnerResponsible == true %}
+                                    Ansprechpartner
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </benefitheader>
+        {% endif %}
+    {% endif %}
+{% endblock %}

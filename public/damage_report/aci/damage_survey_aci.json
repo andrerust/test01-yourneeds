@@ -1,0 +1,512 @@
+{
+  "locale": "de",
+  "title": "Melden eines Schadens in der Haftpflicht",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "privateLiabilityDamage",
+          "elements": [
+            {
+              "type": "html",
+              "name": "question0",
+              "html": {
+                "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/unfallversicherung.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h3 class=\"title2 title2--space\">\nWillkommen im YOURneeds Schaden-Meldeprozess!\n</h3>\n<h4 class=\"title4 title4--space\">Bitte beantworte alle Fragen. Solltest du Bilder zum Schaden zur Hand haben, dann bitte auch diese am Ende der Fragenstrecke hochladen und beschreiben.<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n</div>\n</div>\n"
+              }
+            }
+          ],
+          "readOnly": true
+        }
+      ]
+    },
+    {
+      "name": "questions",
+      "elements": [
+        {
+          "type": "text",
+          "name": "type",
+          "visible": false,
+          "valueName": "type",
+          "titleLocation": "hidden"
+        },
+        {
+          "type": "dropdown",
+          "name": "contracts",
+          "title": {
+            "de": "Bitte wähle deinen Vertrag aus"
+          },
+          "valueName": "contracts",
+          "isRequired": true,
+          "choices": [
+            "item1",
+            "item2",
+            "item3"
+          ],
+          "choicesByUrl": {
+            "url": "/api/contracts/survey/aci/load",
+            "valueName": "id",
+            "titleName": "name"
+          }
+        },
+        {
+          "type": "html",
+          "name": "question3",
+          "html": {
+            "de": "<h2 class=\"title2 title2--space\">Allgemeines Fragen</h2>"
+          }
+        },
+        {
+          "type": "text",
+          "name": "dateOfDamage",
+          "width": "90%",
+          "title": {
+            "de": "Wann ist der Schaden passiert (FORMAT: TT/MM/JJJJ)?"
+          },
+          "valueName": "dateOfDamage",
+          "isRequired": true,
+          "requiredErrorText": {
+            "de": "Bitte Datum eingeben"
+          },
+          "inputType": "date"
+        },
+        {
+          "type": "text",
+          "name": "damageLocation",
+          "title": {
+            "de": "Bitte gib den Schadenort ein"
+          },
+          "valueName": "damageLocation",
+          "isRequired": true
+        },
+        {
+          "type": "dropdown",
+          "name": "kindOfAccident",
+          "title": {
+            "de": "War das ein Berufsunfall oder ein Freizeitunfall?"
+          },
+          "valueName": "kindOfAccident",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "freetime",
+              "text": {
+                "de": "Freizeitunfall"
+              }
+            },
+            {
+              "value": "job",
+              "text": {
+                "de": "Berufsunfall"
+              }
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasPoliceRegistration",
+          "title": {
+            "de": "Wurde der Schaden polizeilich aufgenommen?"
+          },
+          "valueName": "hasPoliceRegistration",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "policeRegistrationNumber",
+          "visibleIf": "{hasPoliceRegistration} notempty and {hasPoliceRegistration} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wie ist das Aktenzeichen und durch welche Dienststelle?"
+          },
+          "valueName": "policeRegistrationNumber",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "personOfCause",
+          "title": {
+            "de": "Bitte gebe den Namen der geschädigten Person ein\n"
+          },
+          "valueName": "personOfCause",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "personOfCauseBirthdate",
+          "width": "90%",
+          "title": {
+            "de": "Bitte gebe das Geburtsdatum der geschädigten Person ein"
+          },
+          "valueName": "personOfCauseBirthdate",
+          "isRequired": true,
+          "requiredErrorText": {
+            "de": "Bitte Datum eingeben"
+          },
+          "inputType": "date"
+        },
+        {
+          "type": "text",
+          "name": "personOfCauseStreet",
+          "title": {
+            "de": "Gebe bitte die Straße und Hausnummer der geschädigten Person ein"
+          },
+          "valueName": "personOfCauseStreet",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "personOfCauseZip",
+          "title": {
+            "de": "Postleitzahl der geschädigten Person"
+          },
+          "valueName": "personOfCauseZip",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "personOfCauseCity",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Ort der geschädigten Person"
+          },
+          "valueName": "personOfCauseCity",
+          "isRequired": true
+        },
+        {
+          "type": "html",
+          "name": "question5",
+          "html": {
+            "de": "<hr>"
+          }
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasMedicalTreatmentByDoctor",
+          "title": {
+            "de": "Ist die geschädigte Person ärztlich behandelt worden?"
+          },
+          "valueName": "hasMedicalTreatmentByDoctor",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "medicalTreatmentByDoctorDateTime",
+          "visibleIf": "{hasMedicalTreatmentByDoctor} = \"yes\"",
+          "title": {
+            "de": "Wann und um welche Uhrzeit war die ärztliche Behandlung?"
+          },
+          "valueName": "medicalTreatmentByDoctorDateTime",
+          "isRequired": true,
+          "inputType": "datetime"
+        },
+        {
+          "type": "text",
+          "name": "medicalTreatmentByDoctorAddress",
+          "visibleIf": "{personOfCauseHasMedicalTreatment} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Bitte gebe den Name und Anschrift des behandelnden Artzes ein"
+          },
+          "valueName": "medicalTreatmentByDoctorAddress",
+          "isRequired": true,
+          "inputType": "datetime"
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasMedicalTreatmentByHospital",
+          "title": {
+            "de": "Ist die geschädigte Person im Krankenhaus stationär behandelt worden?"
+          },
+          "valueName": "hasMedicalTreatmentByHospital",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "medicalTreatmentByHospitalDateFrom",
+          "visibleIf": "{hasMedicalTreatmentByHospital} = \"yes\"",
+          "title": {
+            "de": "Wann war der Aufnahmetag?"
+          },
+          "valueName": "medicalTreatmentByHospitalDateFrom",
+          "isRequired": true,
+          "inputType": "date"
+        },
+        {
+          "type": "text",
+          "name": "medicalTreatmentByHospitalDateUntil",
+          "visibleIf": "{hasMedicalTreatmentByHospital} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wann war der Entlassungstag?"
+          },
+          "valueName": "medicalTreatmentByHospitalDateUntil",
+          "isRequired": true,
+          "inputType": "date"
+        },
+        {
+          "type": "text",
+          "name": "medicalTreatmentByHospitalAddress",
+          "visibleIf": "{hasMedicalTreatmentByHospital} = \"yes\"",
+          "title": {
+            "de": "Bitte gebe den Name und Anschrift des Krankenhauses ein"
+          },
+          "valueName": "medicalTreatmentByHospitalAddress",
+          "inputType": "datetime"
+        },
+        {
+          "type": "html",
+          "name": "question4",
+          "html": {
+            "de": "<hr>"
+          }
+        },
+        {
+          "type": "radiogroup",
+          "name": "praeDisturbanceOfConsciousness",
+          "title": {
+            "de": "Ist der Unfall durch eine vorher eingetretene Bewußtseinsstörung (Ohnmacht, Schwindelanfall oder dergleichen) entstanden?"
+          },
+          "valueName": "praeDisturbanceOfConsciousness",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "praeDrugs",
+          "title": {
+            "de": "Hatte der Verletzte in den letzten 24 Stunden vor dem Unfall Alkohol, Medikamente oder Rauschmittel zu sich genommen?"
+          },
+          "valueName": "praeDrugs",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "praeDrugsBloodSample",
+          "visibleIf": "{praeDrugs} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wurde eine Blutprobe entnommen?"
+          },
+          "valueName": "praeDrugsBloodSample",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "praeInvalidity",
+          "title": {
+            "de": "Führt der Unfall voraussichtlich zu einer Invalidität (dauernden Beeinträchtigung der körperlichen oder geistigen Leistungsfähigkeit)?"
+          },
+          "valueName": "praeInvalidity",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "praeDamagedBodyParts",
+          "title": {
+            "de": "Bitte beschreibe die verletzten Körperteile und Art der Verletzung"
+          },
+          "valueName": "praeDamagedBodyParts",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "description",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question2",
+          "html": {
+            "de": "<h2 class=\"title2 title2--space\">Beschreibung und Kontakt</h2>"
+          }
+        },
+        {
+          "type": "comment",
+          "name": "damageDescription",
+          "title": {
+            "de": "Bitte gib ein, was passiert ist"
+          },
+          "valueName": "damageDescription",
+          "isRequired": true,
+          "rows": 10
+        },
+        {
+          "type": "text",
+          "name": "damageContactNumber",
+          "title": {
+            "de": "Bitte gib uns deine Handynummer an, damit der Versicherer dich da ggf. erreichen kann"
+          },
+          "valueName": "damageContactNumber",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "upload",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question6",
+          "html": {
+            "de": "<h2 class=\"title2 title2--space\">Bereitstellung von Bildmaterial</h2>"
+          }
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "imageUpload",
+          "title": "Upload von Bildern",
+          "columns": [
+            {
+              "name": "tags",
+              "title": "Art der Aufnahme",
+              "cellType": "dropdown",
+              "choices": [
+                "Ort",
+                "Verursacher",
+                "Schaden",
+                "Sonstiges"
+              ]
+            },
+            {
+              "name": "imageFile",
+              "title": "Bilddatei",
+              "cellType": "file"
+            },
+            {
+              "name": "description",
+              "title": "Anmerkung/Beschreibung",
+              "cellType": "comment"
+            }
+          ],
+          "columnMinWidth": "150px",
+          "rowCount": 1,
+          "addRowText": {
+            "default": "Weiteres Bild hochladen",
+            "de": "Weiterer Upload"
+          },
+          "removeRowText": {
+            "de": "löschen"
+          }
+        }
+      ]
+    },
+    {
+      "name": "exit",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question1",
+          "html": {
+            "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-4 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/unfallversicherung.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-8 text-left\">\n<h3 class=\"title2 title2--space\">\nDu kannst die Schadensmeldung jetzt absenden\n</h3>\n<br/>\n<h4 class=\"title4 title4--space\">Sobald du die Schadenmeldung abgeschickt hast, leiten wir diese an die Versicherungsgesellschaft weiter.<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n</div>\n</div>\n"
+          }
+        }
+      ]
+    }
+  ],
+  "showProgressBar": "top",
+  "pagePrevText": {
+    "de": "zurück"
+  },
+  "pageNextText": {
+    "de": "weiter"
+  }
+}

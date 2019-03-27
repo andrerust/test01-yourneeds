@@ -1,0 +1,8 @@
+{% for subEntry in entry %}
+  {% for value in subEntry %}
+    {% for subKey, subValue in value %}
+      {{ subValue }}{{ subKey }}
+    {% endfor %}
+    {% if not loop.last %},{% endif %}
+  {% endfor %}
+{% endfor %}

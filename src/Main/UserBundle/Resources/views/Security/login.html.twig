@@ -1,0 +1,181 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}
+
+
+    {% if isBenefit == false %}
+        YOURneeds Login
+    {% else %}
+        YOURneeds Benefit+ Login
+    {% endif %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    {% include 'includes/header.html.twig' %}
+    <section>
+        <div class="container" id="content">
+            <div class="row" text-center>
+                <div class="col-md-6 offset-md-3">
+                    <br>
+                    <!--
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+                    -->
+                    <h1 class="title1 title1--space text-center">
+                        Login
+                    </h1>
+
+                    {% if hasError == 1 %}
+                        <div>
+                            <h3 class="title3 title3--space text-center">
+                                {{ error }}
+                            </h3>
+                            <!-- error.messageKey|trans(error.messageData, 'security') -->
+                        </div>
+                    {% endif %}
+                    {% if message != '' %}
+                        <h3 class="title3 title3--space text-center">
+                            {{ message }}
+                        </h3>
+                    {% endif %}
+                    <br><br>
+
+                    <div class="form-box">
+                        <form action="{{ path('security_login') }}" method="post" class="form-horizontal">
+                            <div class="container-fluid">
+                                {% if isBenefit == true %}
+                                    <div class="row">
+                                        <div class="col-md-11">
+                                            <nobr>
+                                                <label for="login_form__username"
+                                                       id="login_form_benefit_partner_label"
+                                                       class="control-label">Zu welcher Firma oder welchem Verein
+                                                    oder
+                                                    Verband gehörst du?</label>&nbsp;
+                                                <select name="login_form[benefitPartner]"
+                                                        id="login_form_benefit_partner"
+                                                        class="form-control selectpicker"
+                                                        required>
+                                                    <option value="">Bitte w&auml;hlen</option>
+                                                    {% for benefitPartner in benefitPartners %}
+                                                        <option value="{{ benefitPartner.id }}"/>
+                                                        {{ benefitPartner.name }} ({{ benefitPartner.department }})
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
+                                            </nobr>
+                                        </div>
+                                    </div>
+                                    <input type="hidden"
+                                           name="isBenefit"
+                                           value="benefit">
+                                    <br>
+                                    Bitte beachten: Um von den vergünstigten Konditionen zu profitieren, musst du in der angegebenen Firma mitarbeiten oder im Verein/Verband/Gruppe Mitglied sein.Mit der Teilnahme erlaubst du uns ausdrücklich, dass wir deinen Aktivitätstatus bei deiner Firma/Verein/Verband/Gruppe erfragen dürfen - dies geschieht maximal einmal im Jahr. Natürlich sind deine Vertragsinformationen bei uns vertraulich und deine Firma/Verein/Verband/Gruppe erhält keinerlei Informationen zu deinem Versicherungsschutz!
+                                    <br><br>
+                                    Solltest du aus der Firma/Verein/Verband/Gruppe ausscheiden, wird dein Vertrag bei dem von dir gewählten Tarif auf die normalen Konditionen zu nächsten Hauptfälligkeit umgestellt! – Alternativ macht dein neuer Arbeitgeber auch mit im Benefit+ oder du überzeugst ihn davon. Oder du findest ein neuen Verein/Verband der bei Benefit+ mitmacht oder überzeugst deinen Verein/Verband davon kostenlos mitzumachen.
+                                {% endif %}
+
+
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <nobr>
+                                            <label for="login_form__username"
+                                                   id="login_form__username_Label"
+                                                   class="control-label">Deine E-Mail</label>&nbsp;
+                                            <input value="{{ _username }}"
+                                                   class="form-control"
+                                                   id="login_form__username"
+                                                   name="login_form[_username]"
+                                                   required="required"
+                                                   autofocus
+                                                   type="email">
+                                        </nobr>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    &nbsp;
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <nobr>
+                                            <input type="checkbox"
+                                                   value="{{ termsAccepted }}"
+                                                   id="login_form_terms_accepted"
+                                                   name="login_form[termsAccepted]"
+                                                   required="required"
+                                                    {{ termsAccepted == 1 ? 'checked' : '' }}/> &nbsp;
+                                            <label for="login_form__terms_accepted"
+                                                   id="login_form__terms_accepted_Label">
+                                                Ich habe die <a href="/documents/erstinformation_yourneeds.pdf"
+                                                                target="_blank"><b>Erstinformation</b></a>
+                                                gelesen und runter geladen
+                                            </label>
+                                        </nobr>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    &nbsp;
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <nobr>
+                                            <input type="checkbox"
+                                                   value="{{ privacyPolicyAccepted ? 'checked' : '' }}"
+                                                   id="login_form__privacy_policy_accepted"
+                                                   name="login_form[privacyPolicyAccepted]"
+                                                   required="required"
+                                                    {{ privacyPolicyAccepted == 1 ? 'checked' : '' }}/> &nbsp;
+                                            <label for="login_form__privacy_policy_accepted"
+                                                   id="login_form__privacye_policy_accepted_Label">
+                                                Ich habe die <a href="/documents/datenschutz_yourneeds.pdf"
+                                                                target="_blank">
+                                                    <b>Datenschutzvereinbarung</b></a> gelesen und runter geladen
+                                            </label>
+                                        </nobr>
+                                    </div>
+                                </div>
+                                <!--
+                                <div class="form-group">
+                                   <label for="login_form__password"
+                                          id="login_form__password_Label">Passwort</label>
+                                   <input class="form-control"
+                                          type="password"
+                                          placeholder="Passwort"
+                                          id="login_form__password"
+                                          name="login_form[_password]"
+                                          required="required">
+                                </div>
+                                -->
+                                <input type="hidden"
+                                       name="_csrf_token"
+                                       value="{{ csrf_token('authenticate') }}">
+                                <input type="hidden"
+                                       name="_target_path"
+                                       value="{{ path('homepage') }}">
+                                <button type="submit" class="btn btn--cta btn-lg btn-block mt-3">Einloggen</button>
+                            </div>
+                        </form>
+                        <!--
+                        <p class="mt-5 text-center">
+                            <a href="{{ path('security_forgot_password') }}" class="font-small">Passwort vergessen?</a>
+                        </p>
+                        -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'includes/home.footer.menu.html.twig' %}
+
+{% endblock %}

@@ -1,0 +1,1488 @@
+{
+  "locale": "de",
+  "title": {
+    "default": "Editieren eines Tarifs",
+    "de": "Bedarfscheck Wohngebäudeversicherung"
+  },
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "privateLiability",
+          "elements": [
+            {
+              "type": "html",
+              "name": "question0",
+              "html": {
+                "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/wohngebaeude.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h3 class=\"title2 title2--space\">\nWillkommen beim Check <span class=\"color-green\">Y<span class=\"yourneeds-font\">O</span>UR</span><span\n                      class=\"color-brown\">needs</span>-Bedarfcheck!\n</h3>\n<h4 class=\"title4 title4--space\">Es geht los! Nimm dir eine Moment Zeit und erhalte von uns eine Empfehlung, welche Versicherungen für dich Sinn ergeben und welche nicht. Mit der Hilfefunktion kannst du die jeweilige Erklärung der einzelnen Frage erhalten.\n<br><br>\n            <button type=\"button\" onclick=\"survey.nextPage()\" class=\"btn btn--cta\">\n               <i class=\"fas fa-angle-right\"></i> Los geht es!\n            </button>\n<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n</div>\n</div>\n"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 1",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question3",
+          "html": {
+            "de": "<h4 class=\"title4 title4--space\">Sollte deine Adresse nicht aufgeführt sein, kannst du diese in deinen persönlichen Daten hinzufügen. \n<br><br>\n<a href=\"/manager/personal\">\n         <button type=\"button\" class=\"btn btn--cta\">\n               <i class=\"fas fa-angle-right\"></i> Zu meinem Profil\n            </button>\n</a>\n</h4>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "address",
+          "title": {
+            "de": "Bitte wähle eine deiner Adressen aus"
+          },
+          "isRequired": true,
+          "choices": [
+            "item1",
+            "item2",
+            "item3"
+          ],
+          "choicesByUrl": {
+            "url": "/api/address/all/load",
+            "valueName": "id",
+            "titleName": "name"
+          }
+        }
+      ],
+      "questionTitleLocation": "top",
+      "navigationButtonsVisibility": "show"
+    },
+    {
+      "name": "Screen 2",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "isHistoricalMonument",
+          "title": {
+            "de": "Steht dein Gebäude unter Denkmalschutz?"
+          },
+          "valueName": "isHistoricalMonument",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "html",
+          "name": "isMonumentalProtectionText",
+          "visibleIf": "{isHistoricalMonument} = \"yes\"",
+          "startWithNewLine": false,
+          "html": {
+            "de": "<b>Leider kein automatisches Angebot möglich</b>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "livingHow",
+          "title": {
+            "de": "Was für ein Haus möchtest du versichern?"
+          },
+          "valueName": "livingHow",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "apartmentHouse",
+              "text": {
+                "de": "Mehrfamilienhaus"
+              }
+            },
+            {
+              "value": "singleFamilyHouse",
+              "text": {
+                "de": "Einfamilienhaus"
+              }
+            },
+            {
+              "value": "duplexHouse",
+              "text": {
+                "de": "Zweifamilienhaus"
+              }
+            },
+            {
+              "value": "semiDetachedHouse",
+              "text": {
+                "de": "Doppelhaushälfte"
+              }
+            },
+            {
+              "value": "townHouse",
+              "text": {
+                "de": "Reihenhaus"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "rating",
+          "name": "proceedToCommunicationBox",
+          "visibleIf": "{livingHow} = \"MultiFamilyHome\"",
+          "title": {
+            "de": "Bitte per Kommunikationsbox anfragen"
+          },
+          "valueName": "proceedToCommunicationBox",
+          "rateValues": [
+            {
+              "value": "item1",
+              "text": {
+                "de": "Weiter zur Kommunikationsbox"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "livingHowConstructionClass",
+          "visibleIf": "{livingHow} notempty",
+          "title": {
+            "de": "Bauartklasse"
+          },
+          "valueName": "livingHowConstructionClass",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "BakI",
+              "text": {
+                "de": "massive Bauweise mit harter Dachung (BAK I)"
+              }
+            },
+            {
+              "value": "BakII",
+              "text": {
+                "de": "Stahl/Glas Bauweise mit harter Dachung (BAK II)"
+              }
+            },
+            {
+              "value": "FghI",
+              "text": {
+                "de": "Fertighaus, massiv mit harter Dachung (FHG I) "
+              }
+            },
+            {
+              "value": "FghII",
+              "text": {
+                "de": "Fertighaus, massiv mit harter Dachung (FHG II)"
+              }
+            },
+            {
+              "value": "FghIII",
+              "text": {
+                "de": "Fertighaus mit harter Dachung (FHG III)"
+              }
+            },
+            {
+              "value": "BakIII",
+              "text": {
+                "de": "Holzhaus oder Lehmfachwerk mit harter Dachung (BAK III) "
+              }
+            },
+            {
+              "value": "BakIV_V",
+              "text": {
+                "de": "weiche Dachung (BAK IV oder V)"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 3",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "roofType",
+          "title": {
+            "de": "Um was für ein Dach handelt es sich?"
+          },
+          "valueName": "roofType",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "gabledRoof",
+              "text": {
+                "de": "Giebeldach"
+              }
+            },
+            {
+              "value": "flatRoof",
+              "text": {
+                "de": "Flachdach"
+              }
+            },
+            {
+              "value": "other",
+              "text": {
+                "de": "Sonstiges"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 4",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "levelCount",
+          "title": {
+            "de": "Wie viele Geschosse (ohne Keller) gibt es?"
+          },
+          "valueName": "levelCount",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "one",
+              "text": {
+                "de": "1"
+              }
+            },
+            {
+              "value": "two",
+              "text": {
+                "de": "2"
+              }
+            },
+            {
+              "value": "three",
+              "text": {
+                "de": "3"
+              }
+            },
+            {
+              "value": "four",
+              "text": {
+                "de": "4"
+              }
+            },
+            {
+              "value": "five",
+              "text": {
+                "de": "5"
+              }
+            },
+            {
+              "value": "six",
+              "text": {
+                "de": "6"
+              }
+            },
+            {
+              "value": "seven",
+              "text": {
+                "de": "7"
+              }
+            },
+            {
+              "value": "eight",
+              "text": {
+                "de": "8"
+              }
+            },
+            {
+              "value": "nine",
+              "text": {
+                "de": "9"
+              }
+            },
+            {
+              "value": "ten",
+              "text": {
+                "de": "10"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "unitCount",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wie viele Wohneinheiten gibt es?"
+          },
+          "valueName": "unitCount",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "Screen 5",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "isAtticConverted",
+          "title": {
+            "de": "Wie ist das Dachgeschoss ausgebaut?"
+          },
+          "valueName": "isAtticConverted",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "undeveloped",
+              "text": {
+                "de": "nicht ausgebaut"
+              }
+            },
+            {
+              "value": "expanded",
+              "text": {
+                "de": "ausgebaut"
+              }
+            },
+            {
+              "value": "partlyExpanded",
+              "text": {
+                "de": "teilweise ausgebaut"
+              }
+            },
+            {
+              "value": "noAttic",
+              "text": {
+                "de": "kein Dachgeschoss"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "text",
+          "name": "howManySquareMetersAttic",
+          "visibleIf": "{isAtticConverted} = \"expanded\" or {isAtticConverted} = \"partlyExpanded\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wie viel Quadratmeter hat das Dachgeschoss?"
+          },
+          "valueName": "howManySquareMetersAttic",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "squareMetersMainFloors",
+          "title": {
+            "de": "Wie viel Quadratmeter hat das Erd- und/oder Obergeschoss(e)?"
+          },
+          "valueName": "squareMetersMainFloors",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "Screen 6",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "hasCellar",
+          "title": {
+            "de": "Hat das Haus ein Keller?"
+          },
+          "valueName": "hasCellar",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "text",
+          "name": "hasCellarSquareMeters",
+          "visibleIf": "{hasCellar} = \"yes\"",
+          "title": {
+            "de": "Wie viel Quadratmeter hat das Kellergeschoss?"
+          },
+          "valueName": "hasCellarSquareMeters",
+          "isRequired": true,
+          "validators": [
+            {
+              "type": "expression",
+              "text": {
+                "default": "Die Gesamtfläche des Kellergeschosses muss kleiner sein, als die Wohnfläche im Kellergeschoss.",
+                "de": "Die Wohnfläche im Keller muss kleiner sein, als dessen Gesamtfläche."
+              },
+              "expression": "{hasCellarSquareMetersLivingSpace} <= {hasCellarSquareMeters}"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "hasCellarSquareMetersLivingSpace",
+          "visibleIf": "{hasCellar} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wie viel Quadratmeter Wohnfläche gibt es im Kellergeschoss?"
+          },
+          "valueName": "hasCellarSquareMetersLivingSpace",
+          "isRequired": true,
+          "validators": [
+            {
+              "type": "expression",
+              "text": "Die Wohnfläche im Keller muss kleiner sein, als dessen Gesamtfläche.",
+              "expression": "{hasCellarSquareMetersLivingSpace} <= {hasCellarSquareMeters}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 7",
+      "elements": [
+        {
+          "type": "text",
+          "name": "yearOfConstruction",
+          "title": {
+            "de": "Welches Baujahr ist dein Gebäude?"
+          },
+          "valueName": "yearOfConstruction",
+          "isRequired": true,
+          "validators": [
+            {
+              "type": "numeric",
+              "text": {
+                "de": "Das Baujahr muss zwischen 1500 und 2025 liegen"
+              },
+              "minValue": 1500,
+              "maxValue": 2025
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "isRenovated",
+          "title": {
+            "de": "Wurde etwas am Haus komplett saniert?"
+          },
+          "valueName": "isRenovated",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 8",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "renovatedRoof",
+          "visibleIf": "{isRenovated} = \"yes\"",
+          "title": {
+            "de": "Das Dach?"
+          },
+          "valueName": "renovatedRoof",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "text",
+          "name": "renovatedRoofYear",
+          "visibleIf": "{renovatedRoof} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wann wurde das Dach renoviert?"
+          },
+          "valueName": "renovatedRoofYear",
+          "isRequired": true
+        },
+        {
+          "type": "radiogroup",
+          "name": "renovatedHeater",
+          "visibleIf": "{isRenovated} = \"yes\"",
+          "title": {
+            "de": "Die Heizung?"
+          },
+          "valueName": "renovatedHeater",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "text",
+          "name": "renovatedHeaterYear",
+          "visibleIf": "{renovatedHeater} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wann wurde die Heizung renoviert?"
+          },
+          "valueName": "renovatedHeaterYear",
+          "isRequired": true
+        },
+        {
+          "type": "radiogroup",
+          "name": "renovatedWaterSanitary",
+          "visibleIf": "{isRenovated} = \"yes\"",
+          "title": {
+            "de": "Wasser / Sanitär?"
+          },
+          "valueName": "renovatedWaterSanitary",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "text",
+          "name": "renovatedWaterSanitaryYear",
+          "visibleIf": "{renovatedWaterSanitary} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wann wurde Wasser / Sanitär renoviert?"
+          },
+          "valueName": "renovatedWaterSanitaryYear",
+          "isRequired": true
+        },
+        {
+          "type": "radiogroup",
+          "name": "renovatedElectronics",
+          "visibleIf": "{isRenovated} = \"yes\"",
+          "title": {
+            "de": "Elektroanlage und Leitungen? "
+          },
+          "valueName": "renovatedElectronics",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "text",
+          "name": "renovatedElectronicsYear",
+          "visibleIf": "{renovatedElectronics} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wann wurden Elektroanlagen renoviert?"
+          },
+          "valueName": "renovatedElectronicsYear",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "Screen 9",
+      "elements": [
+        {
+          "type": "checkbox",
+          "name": "equipmentUpgrade",
+          "title": {
+            "de": "Hast du höherwertige Ausstattung in deinem Haus?\t"
+          },
+          "valueName": "equipmentUpgrade",
+          "choices": [
+            {
+              "value": "copperRoof",
+              "text": {
+                "de": "Naturschieferdach/Kupferdach"
+              }
+            },
+            {
+              "value": "naturalStone",
+              "text": {
+                "de": "Naturstein- oder Keramitklinker"
+              }
+            },
+            {
+              "value": "preciousWoodCladding",
+              "text": {
+                "de": "Stuckarbeiten/Edelholzverkleidung"
+              }
+            },
+            {
+              "value": "naturalStoneFloor",
+              "text": {
+                "de": "Natursteinboden oder hochwertiger Parkett"
+              }
+            },
+            {
+              "value": "lightMetal",
+              "text": {
+                "de": "Leichtmetall-/Holzsprossenfenster"
+              }
+            },
+            {
+              "value": "preciousWoodDoors",
+              "text": {
+                "de": "Edelholztüren"
+              }
+            },
+            {
+              "value": "highQualitySanitaryFacilities",
+              "text": {
+                "de": "Hochwertige sanitäre Einrichtung oder Schwimmbad"
+              }
+            },
+            {
+              "value": "heatPump",
+              "text": {
+                "de": "Wärmepumpe"
+              }
+            },
+            {
+              "value": "solarSystem",
+              "text": {
+                "de": "Solaranlage"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 10",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "hasGarage",
+          "title": {
+            "de": "Gibt es Garagen außerhalb des Gebäudes?"
+          },
+          "valueName": "hasGarage",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "garageCount",
+          "visibleIf": "{hasGarage} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wie viele?"
+          },
+          "valueName": "garageCount",
+          "isRequired": true,
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Seite 10b",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "hasCarport",
+          "title": {
+            "de": "Gibt es Carports?"
+          },
+          "valueName": "hasCarport",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "carportCount",
+          "visibleIf": "{hasCarport} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wie viele?"
+          },
+          "valueName": "carportCount",
+          "isRequired": true,
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 11",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "hasOutbuildings",
+          "title": {
+            "de": "Gibt es frei stehende Nebengebäude?"
+          },
+          "valueName": "hasOutbuildings",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "text",
+          "name": "hasOutbuildingsSquareMeters",
+          "visibleIf": "{hasOutbuildings} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wie viel Quadratmeter ist die Grundfläche des Nebengebäudes?"
+          },
+          "valueName": "hasOutbuildingsSquareMeters",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "Screen 12-elementar",
+      "elements": [
+        {
+          "type": "checkbox",
+          "name": "elementary",
+          "title": {
+            "de": "Es sind alle Gefahren (Feuer, Leitungswasser und Sturm) mitversichert, ggf. wähle bitte ab"
+          },
+          "valueName": "elementary",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "fire",
+              "text": {
+                "de": "Feuer abwählen"
+              }
+            },
+            {
+              "value": "water",
+              "text": {
+                "de": "Leitungswasser abwählen"
+              }
+            },
+            {
+              "value": "stormAndHail",
+              "text": {
+                "de": "Sturm und Hagel abwählen"
+              }
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "elementary",
+          "title": {
+            "de": "Möchtest du auch Elementarschaden (z.B. Rückstau - Voraussetzung: funktionsfähiges Rückstauventil) mitversichern?"
+          },
+          "valueName": "elementary",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 13",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "includeAllDangers",
+          "title": {
+            "de": "Wünscht du, dass alle Gefahren - auch unbenannte - mitversichert sind - eine sogenannte Allgefahrendeckung?"
+          },
+          "valueName": "includeAllDangers",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 14",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "includeGlas",
+          "title": {
+            "de": "Möchtest du das Glas am Gebäude mitversichern?"
+          },
+          "valueName": "includeGlas",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 15",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "includeCarelessness",
+          "title": {
+            "de": "Möchtest du Schäden durch grobe Fahrlässigkeit mitversichert haben?"
+          },
+          "valueName": "includeCarelessness",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 17",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "hasHeatPump",
+          "title": {
+            "de": "Hast du ein Wärmepumpe/Solaranlage und möchtest Schäden durch Wasser oder sonstige wärmetragende Flüssigkeiten mitversichert haben?\t"
+          },
+          "valueName": "hasHeatPump",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasPhotovoltaic",
+          "title": {
+            "de": "Hast du eine Photovoltaikanlage auf deinem Grundstück?"
+          },
+          "valueName": "hasPhotovoltaic",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 18",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "includeGraffiti",
+          "title": {
+            "de": "Schäden durch Graffiti mitversichern?"
+          },
+          "valueName": "includeGraffiti",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 19",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "includeDamagebyBreakIn",
+          "title": {
+            "de": "Gebäudebeschädigungen durch einen Einbruch mitversichern?"
+          },
+          "valueName": "includeDamagebyBreakIn",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 20",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "includeOnsideDrainagePipes",
+          "title": {
+            "de": "Ableitungsrohre auf dem Versicherungsgrundstück mitversichern?"
+          },
+          "valueName": "includeOnsideDrainagePipes",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "includeOutsideDrainagePipes",
+          "title": {
+            "de": "Ableitungsrohre außerhalb des Versicherungsgrundstückes mitversichern?"
+          },
+          "valueName": "includeOutsideDrainagePipes",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Seite 21",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "includePipeBlockadeRemovement",
+          "title": {
+            "de": "Beseitigung einer Rohrverstopfung mitversichern?"
+          },
+          "valueName": "includePipeBlockadeRemovement",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Seite 21a",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "protectionAgainsLossOfRent",
+          "visible": false,
+          "title": {
+            "de": "Möchtest du eine Mietausfallabsicherung?"
+          },
+          "valueName": "protectionAgainsLossOfRent",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ],
+      "visible": false
+    },
+    {
+      "name": "Seite 21b",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "automaticBenefitImprovements",
+          "visible": false,
+          "title": {
+            "de": "Möchtest du, dass künftige Leistungsverbesserungen gelten automatisch?"
+          },
+          "valueName": "automaticBenefitImprovements",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ],
+      "visible": false
+    },
+    {
+      "name": "Seite 22",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "retention",
+          "title": {
+            "de": "Wünschst du eine Selbstbeteiligung?"
+          },
+          "valueName": "retention",
+          "isRequired": true,
+          "choices": [
+            "nein",
+            "250",
+            "500",
+            "1000",
+            "2000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Seite 23",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "hasPreviousCases",
+          "title": {
+            "de": "Hattest du in den letzten 5 Jahren eine Wohngebäudeversicherung?"
+          },
+          "valueName": "hasPreviousCases",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "previousCases",
+          "title": {
+            "de": "Hattest du Schäden in den letzten 5 Jahren?"
+          },
+          "valueName": "previousCases",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "0",
+              "text": {
+                "de": "Keine Schäden"
+              }
+            },
+            {
+              "value": "waterDamage",
+              "text": {
+                "de": "Leitungswasserschaden"
+              }
+            },
+            {
+              "value": "stormDamage",
+              "text": {
+                "de": "Sturmschaden"
+              }
+            },
+            {
+              "value": "otherDamage",
+              "text": {
+                "de": "Sonstiger Schaden"
+              }
+            },
+            {
+              "value": "twoDamages",
+              "text": {
+                "de": "2 Schäden"
+              }
+            },
+            {
+              "value": "threeOrMoreDamages",
+              "text": {
+                "de": "3 oder mehr Schäden"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Seite 24",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "shellFireInsurance",
+          "title": {
+            "de": "Wünschst du eine Rohbaufeuerversicherung?"
+          },
+          "valueName": "shellFireInsurance",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "shellFireInsuranceTimeInterval",
+          "visibleIf": "{shellFireInsurance} = \"yes\"",
+          "title": {
+            "de": "Für welchen Zeitraum?"
+          },
+          "valueName": "shellFireInsuranceTimeInterval",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "12month",
+              "text": {
+                "de": "12 Monte"
+              }
+            },
+            {
+              "value": "18month",
+              "text": {
+                "de": "18 Monate"
+              }
+            },
+            {
+              "value": "24month",
+              "text": {
+                "de": "24 Monate"
+              }
+            }
+          ]
+        }
+      ],
+      "visible": false
+    },
+    {
+      "name": "sentinel",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "everythinkOk",
+          "title": {
+            "de": "Hast du alle Fragen mit deinen Wünschen beantwortet?"
+          },
+          "valueName": "everythinkOk",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "exit",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question2",
+          "html": {
+            "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/wohngebaeude.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h4 class=\"title4 title4--space\">Wir kalkulieren nun die zu dir passenden Versicherungen.<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n            <button type=\"button\" onclick=\"survey.completeLastPage()\" class=\"btn btn--cta\">\n               Zum Angebot - los geht es!\n            </button>\n<br><br>\n\n</div>\n</div>\n"
+          }
+        }
+      ],
+      "visibleIf": "{everythingOk} = \"yes\""
+    },
+    {
+      "name": "exit messenger",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question4",
+          "html": {
+            "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/wohngebaeude.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h4 class=\"title4 title4--space\">Welche Wünsche sind noch offen, bzw. welche Fragen nicht beantwortet? Schreibe uns hier über unsere Kontaktbox Deine Wünsche/Fragen.<br><br>\nSollten doch alle deine Wünsche/Fragen erfüllt sein, kommst du mit \"Absenden\" zu deinem Angebot.\n<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n<a href=\"/manager/messages\">\n            <button type=\"button\" class=\"btn btn--cta\">\n               Schreib eine Nachricht an uns!\n            </button>\n</a>\n<br><br>\n\n</div>\n</div>\n"
+          }
+        }
+      ],
+      "visibleIf": "{everythingOk} = \"no\""
+    }
+  ],
+  "showProgressBar": "top",
+  "goNextPageAutomatic": true,
+  "pagePrevText": {
+    "de": "zurück"
+  },
+  "pageNextText": {
+    "de": "weiter"
+  }
+}

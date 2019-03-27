@@ -1,0 +1,500 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}Neuen Vertrag hinzufügen{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+      <style>
+          span.step {
+              border: 1px solid #74b959;
+              border-radius: 0.8em;
+              -moz-border-radius: 0.8em;
+              -webkit-border-radius: 0.8em;
+              color: #74b959;
+              display: inline-block;
+              font-weight: bold;
+              line-height: 1.4em;
+              margin-right: 6px;
+              text-align: center;
+              width: 1.6em;
+          }
+      </style>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="/build/yourneeds-admin.js"></script>
+      <script>
+          (function () {
+              'use strict';
+              window.addEventListener('load', function () {
+// Fetch all the forms we want to apply custom Bootstrap validation styles to
+                  var forms = document.getElementsByClassName('needs-validation');
+// Loop over them and prevent submission
+                  var validation = Array.prototype.filter.call(forms, function (form) {
+                      form.addEventListener('submit', function (event) {
+                          if (form.checkValidity() === false) {
+                              event.preventDefault();
+                              event.stopPropagation();
+                          } else {
+                              $("div[id='success_message']").addClass('visible');
+                          }
+                          form.classList.add('was-validated');
+                      }, false);
+                  });
+              }, false);
+          })();
+
+          function visibilityCheck() {
+              if (document.getElementById('edit_contract_form_status').value == 2) {
+                  document.getElementById('isVisible').style.visibility = 'visible';
+              } else {
+                  document.getElementById('isVisible').style.visibility = 'hidden';
+              }
+          }
+
+          function submitForm() {
+              document.getElementById("edit_contract_form").submit();
+          }
+      </script>
+  {% endblock %}
+
+{% block content %}
+
+    <section class="content-body">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-12">
+                    <div class="text-center">
+                        <h1 class="title1 title1--space">
+                            Vertrag/Police hinzufügen
+                            <button tabindex="0" class="btn btn-sm btn--help m0" role="button"
+                                    data-toggle="info" title="Hilfe neue Police anlegen"
+                                    data-content="Neue Police anlegen">
+                                <i class="fas fa-info-circle"></i>
+                            </button>
+                        </h1>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="text-center info-box">
+
+                        {% if userAgeToLow == true or addressFlag == true %}
+                            {% if userAgeToLow == true %}
+                                <div class="col-12">
+                                    <div class="row manager-content-box text-center">
+                                        <h5 class="title3 title3--space color-red">
+                                    <span class="step">
+                                        <i class="fas fa-info fa-1x"></i>
+                                    </span>
+                                            Du hast angegeben, dass du keine 18 Jahre alt bist und kannst demnach keine
+                                            Versicherungsverträge
+                                            abschließen.<br>
+                                            Wenn Du doch älter als 18 Jahre bist, dann ändere dies gern in deinen
+                                            persönlichen
+                                            Eintellungen.
+                                            <br>
+                                            <a href="{{ path('manager_personal_data', {
+                                            }) }}">
+                                                <i class="fa fa-edit"></i> Persönliche Daten (bearbeiten)
+                                            </a>
+                                        </h5>
+                                        <hr>
+                                        <hr>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                </div>
+                            {% endif %}
+                            {% if (addressFlag == true) %}
+                                <div class="col-12 text-center">
+                                    <h5 class="title3 title3--space">
+                                <span class="step">
+                                    <i class="fas fa-info fa-1x"></i>
+                                </span>
+                                        Wir benötigen zur Übernahme eines Vertrages und für das Maklermandat Deinen
+                                        Namen und Deine Adresse.<br>
+                                        Bitte ergänze diese zuvor.
+                                        <br>
+                                        <br>
+                                        <a href="{{ path('manager_personal_data', {
+                                        }) }}">
+                                            <i class="fa fa-edit"></i> Persönliche Daten (bearbeiten)
+                                        </a>
+                                    </h5>
+                                </div>
+                            {% endif %}
+                        {% else %}
+                            <b>Hilfe zur Datumsauswahl</b>
+                            <br>
+                            Variante 1: ins Feld klicken und Datum eingeben oder<br>
+                            Variante 2: Kalender &ouml;ffnen, Jahreszahl anklicken und zu Deinem Geburtsjahr scrollen
+                            <br><br>
+                        {% endif %}
+
+                    </div>
+                </div>
+                <div class="col-12">
+                    &nbsp;
+                </div>
+                {% if userAgeToLow == false and addressFlag == false %}
+                    <div class="col-12">
+                        <div class="form-box">
+                            <form name="edit_contract_form"
+                                  role="form"
+                                  id="edit_contract_form"
+                                  class="needs-validation"
+                                  method="post"
+                                  action="{{ path('contract_new', {
+                                  }) }}"
+                                  data-toggle="validator"
+                                  enctype="multipart/form-data">
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-4 mb-3">
+                                        <label for="edit_contract_form_type">Sparte</label>
+                                        <select name="edit_contract_form[contractType]"
+                                                id="edit_contract_form_contract_type"
+                                                class="form-control selectpicker"
+                                                required>
+                                            <option value="">Bitte w&auml;hlen</option>
+                                            {% for contractType in contractTypes %}
+                                                <option value="{{ contractType.id }}"/>
+                                                {{ contractType.name }} ({{ contractType.shortName }})
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+
+                                        <div class="valid-feedback">
+                                            Prima
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4 mb-3">
+                                        <label for="edit_contract_form_payment_interval">Zahlweise</label>
+                                        <select name="edit_contract_form[paymentInterval]"
+                                                id="edit_contract_form_payment_interval"
+                                                class="form-control selectpicker"
+                                                required>
+                                            <option value="">Bitte w&auml;hlen</option>
+                                            {% for paymentInterval in paymentIntervals %}
+                                                <option value="{{ paymentInterval.id }}"/>
+                                                {{ paymentInterval.name }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+
+                                        <div class="valid-feedback">
+                                            Prima
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Bitte eingeben
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4 mb-3">
+                                        <label for="edit_contract_form_payment_fee">Prämie in EUR</label>
+                                        <input class="form-control"
+                                               type="text"
+                                               name="edit_contract_form[paymentFee]"
+                                               id="edit_contract_form_payment_fee"
+                                               placeholder="Betrag"
+                                               value="{{ contract.paymentFee }}"
+                                               required
+                                        />
+
+                                        <div class="valid-feedback">
+                                            Prima
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-4 mb-3">
+                                        <label for="edit_contract_form_company">Gesellschaft</label>
+                                        <select name="edit_contract_form[company]"
+                                                id="edit_contract_form_company"
+                                                class="form-control selectpicker"
+                                                required>
+                                            <option value="">Bitte w&auml;hlen</option>
+                                            {% for company in companies %}
+                                                <option value="{{ company.id }}"/>
+                                                {{ company.name }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+
+                                        <div class="valid-feedback">
+                                            Prima
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4 mb-3">
+                                        <label for="edit_contract_form_status">Status</label>
+                                        <select name="edit_contract_form[status]"
+                                                id="edit_contract_form_status"
+                                                class="form-control selectpicker"
+                                                onclick="javascript:visibilityCheck();"
+                                                required>
+                                            <option value="">Bitte w&auml;hlen</option>
+                                            {% for status in statusSet %}
+                                                <option value="{{ status.id }}"/>
+                                                {{ status.name }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+
+                                        <div class="valid-feedback">
+                                            Prima
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Bitte eingeben
+                                        </div>
+                                    </div>
+                                    <div id="isVisible" class="form-group col-md-4 mb-3" style="visibility:hidden;">
+                                        <label for="edit_contract_form_date_canceled">Kündigungsdatum
+                                            (TT/MM/JJJJ)</label>
+                                        <input class="form-control"
+                                               type="date"
+                                               name="edit_contract_form[dateCanceled]"
+                                               id="edit_contract_form_date_canceled"
+                                               placeholder="00.00.0000"
+                                               pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}"
+                                               value="{{ contract.dateCanceled }}"
+                                        />
+
+                                        <div class="valid-feedback">
+                                            Prima
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-4 mb-3">
+                                        <label for="edit_contract_form_tariff_name">Tarifname</label>
+                                        <input class="form-control"
+                                               type="text"
+                                               name="edit_contract_form[tariffName]"
+                                               id="edit_contract_form_tariff_name"
+                                               placeholder="Tarifname"
+                                               value="{{ contract.tariffName }}"
+                                               required
+                                        />
+
+                                        <div class="valid-feedback">
+                                            Prima
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4 mb-3">
+                                        <label for="edit_contract_form_insurance_number">VSNR</label>
+                                        <input class="form-control"
+                                               type="text"
+                                               name="edit_contract_form[insuranceNumber]"
+                                               id="edit_contract_form_insurance_number"
+                                               placeholder="Versicherungsnummer"
+                                               value="{{ contract.insuranceNumber }}"
+                                               required
+                                        />
+
+                                        <div class="valid-feedback">
+                                            Prima
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-4 mb-3">
+                                        <label for="edit_contract_form_payment_interval">Laufzeit</label>
+                                        <select name="edit_contract_form[runtime]"
+                                                id="edit_contract_form_runtime"
+                                                class="form-control selectpicker"
+                                                required>
+                                            <option value="">Bitte w&auml;hlen</option>
+                                            {% for runtime in runtimes %}
+                                                <option value="{{ runtime.id }}"/>
+                                                {{ runtime.name }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+
+                                        <div class="valid-feedback">
+                                            Prima
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Bitte eingeben
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 mb-3">
+                                        <label for="edit_contract_form_dateRuntimeBegin">Versicherungsbeginn
+                                            (TT/MM/JJJJ)</label>
+                                        <input class="form-control"
+                                               type="date"
+                                               name="edit_contract_form[dateRuntimeBegin]"
+                                               id="edit_contract_form_dateRuntimeBegin"
+                                               placeholder="00.00.0000"
+                                               pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}"
+                                               value="{{ contract.dateRuntimeBegin }}"
+                                               required
+                                        />
+
+                                        <div class="valid-feedback">
+                                            Prima
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 mb-3">
+                                        <label for="edit_contract_form_date_runtime_end">Versicherungsende
+                                            (TT/MM/JJJJ)</label>
+                                        <input class="form-control"
+                                               type="date"
+                                               name="edit_contract_form[dateRuntimeEnd]"
+                                               id="edit_contract_form_date_runtime_end"
+                                               placeholder="00.00.0000"
+                                               pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}"
+                                               value="{{ contract.dateRuntimeEnd }}"
+                                               required
+                                        />
+
+                                        <div class="valid-feedback">
+                                            Prima
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--
+                            <div class="form-row">
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="edit_contract_form_date_protection_begin">
+                                        VersSchutz bis (TT.MM.JJJJ)
+                                    </label>
+                                    <input class="form-control"
+                                           type="date"
+                                           name="edit_contract_form[dateProtectionBegin]"
+                                           id="edit_contract_form_date_protection_begin"
+                                           placeholder="00.00.0000"
+                                           pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}"
+                                           value="{{ contract.dateProtectionBegin }}"
+                                            />
+
+                                    <div class="valid-feedback">
+                                        Prima
+                                    </div>
+                                    <div class="invalid-feedback">
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <label for="edit_contract_form_date_protection_end">
+                                        Leistung bis (TT.MM.JJJJ)
+                                    </label>
+                                    <input class="form-control"
+                                           type="date"
+                                           name="edit_contract_form[dateProtectionEnd]"
+                                           id="edit_contract_form_date_protection_end"
+                                           placeholder="00.00.0000"
+                                           pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}"
+                                           value="{{ contract.dateProtectionEnd }}"
+                                            />
+
+                                    <div class="valid-feedback">
+                                        Prima
+                                    </div>
+                                    <div class="invalid-feedback">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 mb-3">
+                                        <label for="edit_company_form_isActive">Aktiviert</label>
+
+                                        <div class="radio" id="edit_contract_form_isActive">
+                                            <input type="radio"
+                                                   id="edit_contract_form_isActive_1"
+                                                   name="edit_contract_form[isActive]"
+                                                   value="1"
+                                                    {{ contract.isActive == 1 ? 'checked' : '' }}/>
+                                            <label for="edit_contract_form_isActive_1"
+                                                   class="required">Ja</label>
+                                        </div>
+                                        <div class="radio">
+                                            <input type="radio" class="radio"
+                                                   id="edit_contract_form_isActive_0"
+                                                   name="edit_contract_form[isActive]"
+                                                   value="0"
+                                                    {{ contract.isActive != 1 ? 'checked' : '' }}/>
+                                            <label for="edit_contract_form_isActive_0"
+                                                   class="required">Nein</label>
+                                        </div>
+                                        <div class="valid-feedback">
+                                            Prima
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 mb-3">
+                                    </div>
+                                </div>
+                                -->
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 mb-3">
+                                        <!-- TOKEN -->
+                                        <input class="form-control"
+                                               type="hidden"
+                                               name="edit_contract_form[_token]"
+                                               id="edit_contract_form__token"
+                                               value="{{ form._token.vars.value }}"/>
+
+                                        <div class="valid-feedback">
+                                            Prima
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6 mb-3">
+                                        <div class="horizontally-spacer10">&nbsp;</div>
+                                        <!--
+                                       <div class="alert alert-success" role="alert" id="success_message">
+                                          <i class="fas fa-check"></i>
+                                          Daten erfolgreich ge&auml;ndert
+                                       </div>
+                                       -->
+                                        <a href="{{ path('manager_home', {
+                                        }) }}">
+                                            <button type="button"
+                                                    id="edit_contract_form_quit"
+                                                    name="edit_contract_form[quit]"
+                                                    class="btn btn--danger">Abbrechen
+                                            </button>
+                                        </a>
+                                        <button type="submit"
+                                                id="edit_contract_form_save"
+                                                onClick="this.disabled=true; this.value='Sending...'; submitForm(); return false;"
+                                                name="edit_contract_form[save]"
+                                                class="btn btn--cta">Vertrag speichern
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

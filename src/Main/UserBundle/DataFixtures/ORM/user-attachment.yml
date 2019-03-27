@@ -1,0 +1,15 @@
+Main\UserBundle\Entity\UserAchievement:
+    userachievement_{1..100}:
+        user: '@user_*'
+        achievement: '@achievement_*'
+        wonAt: '<dateTimeBetween("-90 days", "now")>'
+        updatedAt: '<dateTimeBetween("-180 days", "now")>'
+        createdAt: '<dateTimeBetween("-180 days", "now")>'
+
+Main\UserBundle\Entity\UserActivity:
+    useractivity_{1..300}:
+        activity: '@activity_<numberBetween(1, 4)>'
+        user: '@user_*'
+        contextId: <numberBetween(1, 300)>
+        updatedAt: '<dateTimeBetween("-180 days", "now")>'
+        createdAt: '<dateTimeBetween("-180 days", "now")>'

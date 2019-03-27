@@ -1,0 +1,3761 @@
+{
+  "locale": "de",
+  "title": {
+    "default": "Editieren eines Tarifs",
+    "de": "Bedarfscheck KFZ"
+  },
+  "pages": [
+    {
+      "name": "Intro",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "privateLiability",
+          "elements": [
+            {
+              "type": "html",
+              "name": "question0",
+              "html": {
+                "de": "<article class='intro'>\n<h3>Es geht los!</h3>\n<p>Willkommen im YOURneeds Bedarfscheck. Nimm dir eine Moment Zeit und erhalte von uns eine Empfehlung, welche Versicherungen für dich Sinn ergeben und welche nicht. Mit der Hilfefunktion kannst du die jeweilige Erklärung der einzelnen Frage erhalten.\n<br/><br/>\n<b>Möchtest du jetzt mit dem Bedarfscheck starten?</b></p>\n</article>"
+              }
+            }
+          ],
+          "title": {
+            "de": "KFZ-Versicherung"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Screen 1",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "reason",
+          "title": {
+            "de": "Was ist der Beratungsanlass?"
+          },
+          "valueName": "reason",
+          "choices": [
+            {
+              "value": "changeInsurerNewVehicle",
+              "text": {
+                "de": "Versichererwechsel mit neuem Fahrzeug"
+              }
+            },
+            {
+              "value": "changeInsurerExistingVehicle",
+              "text": {
+                "de": "Versichererwechsel mit bestehendem Fahrzeug"
+              }
+            },
+            {
+              "value": "secondVehicle",
+              "text": {
+                "de": "Zweitwagen"
+              }
+            },
+            {
+              "value": "insuringVehicleFirstTime",
+              "text": {
+                "de": "Erstmalig ein Fahrzeug versichern"
+              }
+            },
+            {
+              "value": "changeRequestExistingPolicy",
+              "text": {
+                "de": "Änderungsantrag für bestehende Police (dasselbe Fahrzeug und derselbe Versicherer)"
+              }
+            },
+            {
+              "value": "recommissioning",
+              "text": {
+                "de": "Wiederinbetriebnahme"
+              }
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "newVehicleSecondCarRegulation",
+          "title": {
+            "de": "Möchtest du dein neues Fahrzeug nach der Zweitwagenregelung eingestuft bekommen?"
+          },
+          "valueName": "newVehicleSecondCarRegulation",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ],
+      "questionTitleLocation": "top",
+      "description": {
+        "de": "Allgemeine Informationen "
+      },
+      "navigationButtonsVisibility": "show"
+    },
+    {
+      "name": "Screen 2",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "vehicleType",
+          "title": {
+            "de": "Um was für ein Fahrzeug handelt es sich?"
+          },
+          "valueName": "vehicleType",
+          "choices": [
+            {
+              "value": "car",
+              "text": {
+                "de": "Auto"
+              }
+            },
+            {
+              "value": "motorcycle",
+              "text": {
+                "de": "Motorrad"
+              }
+            }
+          ]
+        }
+      ],
+      "description": {
+        "de": "Bitte gib hier alle Deckungssummen ein."
+      }
+    },
+    {
+      "name": "Screen 3",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "job",
+          "title": {
+            "de": "Was ist dein Beruf?"
+          },
+          "valueName": "job",
+          "choices": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "industry",
+          "title": {
+            "de": "In welcher Branche arbeitest du?"
+          },
+          "valueName": "industry",
+          "choices": [
+            "A",
+            "B"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 4",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "question2",
+          "title": {
+            "de": "Was ist deine übliche Arbeitsweise?"
+          },
+          "valueName": "vehicleType",
+          "choices": [
+            {
+              "value": "misc",
+              "text": {
+                "de": "Sonstiges"
+              }
+            },
+            {
+              "value": "innerServiceWithourCar",
+              "text": {
+                "de": "Innendienst (ohne berufliche Nutzung des Fahrzeuges)"
+              }
+            },
+            {
+              "value": "innerServiceOthers",
+              "text": {
+                "de": "Innendienst (anders als genannt)"
+              }
+            },
+            {
+              "value": "outerServiceSalesRepresentative",
+              "text": {
+                "de": "Aussendienst (Handelsvertreter)"
+              }
+            },
+            {
+              "value": "outerServiceOthers",
+              "text": {
+                "de": "Aussendienst (anders als genannt)"
+              }
+            },
+            {
+              "value": "managingDirectorStaffed",
+              "text": {
+                "de": "Geschäftsführer (Angestellt)"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "employer",
+          "title": {
+            "de": "Wer ist dein Arbeitgeber?"
+          },
+          "valueName": "employer",
+          "choices": [
+            {
+              "value": "misc",
+              "text": {
+                "de": "Sonstiges"
+              }
+            },
+            {
+              "value": "bayrischeVersorgungskammer",
+              "text": {
+                "de": "Bayrische Versorgungskammer"
+              }
+            },
+            {
+              "value": "bundesgrenzschutz",
+              "text": {
+                "de": "Bundesgrenzschutz"
+              }
+            },
+            {
+              "value": "bundeswehr",
+              "text": {
+                "de": "Bundeswehr"
+              }
+            },
+            {
+              "value": "dekratuev",
+              "text": {
+                "de": "DEKRA/TÜV"
+              }
+            },
+            {
+              "value": "deutscheBahn",
+              "text": {
+                "de": "Deutsche Bahn"
+              }
+            },
+            {
+              "value": "deutschesRotesKreuz",
+              "text": {
+                "de": "Deutsches Rotes Kreuz"
+              }
+            },
+            {
+              "value": "genossenschaftlicherFinanzverbund",
+              "text": {
+                "de": "Genossenschaftl. Finanzverbund oder deren Töchter"
+              }
+            },
+            {
+              "value": "justizvollzug",
+              "text": {
+                "de": "Justizvollzug"
+              }
+            },
+            {
+              "value": "lbs",
+              "text": {
+                "de": "LBS"
+              }
+            },
+            {
+              "value": "lufthansa",
+              "text": {
+                "de": "Lufthansa"
+              }
+            },
+            {
+              "value": "polizeit",
+              "text": {
+                "de": "Polizei"
+              }
+            },
+            {
+              "value": "polizeigewerkschaft",
+              "text": {
+                "de": "Polizeigewerkschaft"
+              }
+            },
+            {
+              "value": "post",
+              "text": {
+                "de": "Post"
+              }
+            },
+            {
+              "value": "postbank",
+              "text": {
+                "de": "Postbank"
+              }
+            },
+            {
+              "value": "privatisierteBetriebeNach1994",
+              "text": {
+                "de": "privatisierte Betriebe nach 01.01.94"
+              }
+            },
+            {
+              "value": "telekom",
+              "text": {
+                "de": "Telekom"
+              }
+            },
+            {
+              "value": "tochterunternehmenSeit1994",
+              "text": {
+                "de": "Tochterunternehmen der seit dem 01.01.94 privatisierten Unternehmen"
+              }
+            },
+            {
+              "value": "zollbehoerde",
+              "text": {
+                "de": "Zollbehörde"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 5",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "euDriverLicence",
+          "title": {
+            "de": "Bist du im Besitz des EU-Führerscheins?"
+          },
+          "valueName": "euDriverLicence",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "html",
+          "name": "question1",
+          "html": {
+            "de": "<b>Von wann ist dein Führerschein?</b>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "driverLicenceDay",
+          "title": {
+            "de": "Tag"
+          },
+          "valueName": "driverLicenceDay",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "driverLicenceMonth",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Monat"
+          },
+          "valueName": "driverLicenceMonth",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "driverLicenceYear",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Jahr"
+          },
+          "valueName": "driverLicenceYear",
+          "isRequired": true,
+          "choices": [
+            "1974",
+            "1990",
+            "2000",
+            "2003"
+          ]
+        },
+        {
+          "type": "html",
+          "name": "question3",
+          "html": {
+            "de": "<b>Dein Geburtsdatum?</b>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "birthdayDay",
+          "title": {
+            "de": "Tag"
+          },
+          "valueName": "birthdayDay",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "birthdayMonth",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Monat"
+          },
+          "valueName": "birthdayMonth",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "birthdayYear",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Jahr"
+          },
+          "valueName": "birthdayYear",
+          "isRequired": true,
+          "choices": [
+            "1974",
+            "1990",
+            "2000",
+            "2003"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 6",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "familyStatus",
+          "title": {
+            "de": "Dein Familienstand?"
+          },
+          "valueName": "familyStatus",
+          "choices": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "jobStatus",
+          "title": {
+            "de": "Beruflicher Status?"
+          },
+          "valueName": "jobStatus",
+          "choices": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "centralTrafficRegister",
+          "title": {
+            "de": "Hast du Punkte in Flensburger Verkehrszentralregister?"
+          },
+          "valueName": "centralTrafficRegister",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 7",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "doAccompaniedDriving",
+          "title": {
+            "de": "Machst du begleitetes fahren?"
+          },
+          "valueName": "doAccompaniedDriving",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "didOfficialDrivingSafetyTraining",
+          "title": {
+            "de": "Hast du schon mal ein offizielles Fahrsicherheitstraining gemacht?"
+          },
+          "valueName": "didOfficialDrivingSafetyTraining",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "haveOwnerOccupiedHousing",
+          "title": {
+            "de": "Hast du selebstgenutztes Wohneigentum?"
+          },
+          "valueName": "haveOwnerOccupiedHousing",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "question4",
+          "title": {
+            "de": "Wo parkt das Fahrzeug überwiegend nachts?"
+          },
+          "valueName": "jobStatus",
+          "choices": [
+            {
+              "value": "lockableDoubleGarage",
+              "text": {
+                "de": "abschließbare Einzel-/Doppelgarage"
+              }
+            },
+            {
+              "value": "undergroundApartmentBuilding",
+              "text": {
+                "de": "abschließbare Tiefgarage im Mehrfamilienhaus"
+              }
+            },
+            {
+              "value": "lockableBoxPallet",
+              "text": {
+                "de": "Tiefgarage mit abschließbarer Gitterbox"
+              }
+            },
+            {
+              "value": "securedSite",
+              "text": {
+                "de": "gesichertes Grundstück"
+              }
+            },
+            {
+              "value": "carport",
+              "text": {
+                "de": "Carport"
+              }
+            },
+            {
+              "value": "privateDriveway",
+              "text": {
+                "de": "Private Einfahrt"
+              }
+            },
+            {
+              "value": "publicUndergroundParking",
+              "text": {
+                "de": "Öffentliche Tiefgarage"
+              }
+            },
+            {
+              "value": "publicParking",
+              "text": {
+                "de": "öffentl. Straße/Parkplatz"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 8",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "findVehicleBy",
+          "title": {
+            "de": "Wie wollen wir dein Fahrzeug finden?"
+          },
+          "valueName": "findVehicleBy",
+          "choices": [
+            {
+              "value": "searchByHSNAndTSN",
+              "text": {
+                "de": "Fahrzeugsuche mit HSN und TSN"
+              }
+            },
+            {
+              "value": "byBrandAnModel",
+              "text": {
+                "de": "Nach Marke und Modell"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "text",
+          "name": "hsn",
+          "visibleIf": "{findVehicleBy} = \"searchByHSNAndTSN\"",
+          "title": {
+            "de": "Bitte gib die HSN ein"
+          },
+          "valueName": "hsn"
+        },
+        {
+          "type": "text",
+          "name": "question5",
+          "visibleIf": "{findVehicleBy} = \"searchByHSNAndTSN\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Bitte gib die TSN ein"
+          },
+          "valueName": "hsn"
+        },
+        {
+          "type": "dropdown",
+          "name": "brandOfCar",
+          "visibleIf": "{findVehicleBy} = \"byBrandAnModel\"",
+          "title": {
+            "de": "Welche Marke hat dein Auto?"
+          },
+          "valueName": "brandOfCar",
+          "choices": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "modelOfCar",
+          "visibleIf": "{findVehicleBy} = \"byBrandAnModel\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Modellreihe"
+          },
+          "valueName": "modelOfCar",
+          "choices": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "fuelType",
+          "visibleIf": "{findVehicleBy} = \"byBrandAnModel\"",
+          "title": {
+            "de": "Kraftstoffart"
+          },
+          "valueName": "fuelType",
+          "choices": [
+            {
+              "value": "petrol",
+              "text": {
+                "de": "Benzin/Super"
+              }
+            },
+            {
+              "value": "diesel",
+              "text": {
+                "de": "Diesel"
+              }
+            },
+            {
+              "value": "misc",
+              "text": {
+                "de": "Sonstiges (Gas, Alkohol, Hybrid, EL)"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "horsepowerOfCar",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wieviel PS hat dein Auto?"
+          },
+          "valueName": "horsepowerOfCar"
+        }
+      ]
+    },
+    {
+      "name": "Screen 9",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "carTypeNames",
+          "title": {
+            "de": "Bitte klicke auf einen von den angezeigten Fahrezeugenamen"
+          },
+          "valueName": "carTypeNames",
+          "choices": [
+            {
+              "value": "item1",
+              "text": {
+                "de": "A"
+              }
+            },
+            {
+              "value": "item2",
+              "text": {
+                "de": "B"
+              }
+            },
+            {
+              "value": "item3",
+              "text": {
+                "de": "C"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 10",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "damageByEcessiveExertion",
+          "title": {
+            "de": "Dein Fahrzeug ist ein Neuwagen oder Gebrauchtwagen (Hierzu zählt auch Tageszulassung) "
+          },
+          "valueName": "damageByEcessiveExertion",
+          "choices": [
+            {
+              "value": "newCar",
+              "text": {
+                "de": "Neuwagen"
+              }
+            },
+            {
+              "value": "UsedCar",
+              "text": {
+                "de": "Gebrauchtwagen"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "text",
+          "name": "approximateValue",
+          "title": {
+            "de": "Ungefähre Neuwert des Fahrzeuges?"
+          },
+          "valueName": "approximateValue"
+        },
+        {
+          "type": "dropdown",
+          "name": "ownerOfCar",
+          "title": {
+            "de": "Halter des Fahrzeuges?"
+          },
+          "valueName": "ownerOfCar",
+          "choices": [
+            {
+              "value": "policyHolder",
+              "text": {
+                "de": "Versicherungsnehmer"
+              }
+            },
+            {
+              "value": "partner",
+              "text": {
+                "de": " Partner, Sohn/Tochter"
+              }
+            },
+            {
+              "value": "handycappedChild",
+              "text": {
+                "de": "behindertes Kind"
+              }
+            },
+            {
+              "value": "handycappedParent",
+              "text": {
+                "de": "behindertes Elternteil"
+              }
+            },
+            {
+              "value": "parentOfPolicyHolder",
+              "text": {
+                "de": "Elternteil des VN"
+              }
+            },
+            {
+              "value": "otherPersonInside",
+              "text": {
+                "de": "andere  Person in häuslicher Gemeinschaft"
+              }
+            },
+            {
+              "value": "managingDirector",
+              "text": {
+                "de": "Geschäftsführer/Gesellschafter/Inhaber"
+              }
+            },
+            {
+              "value": "companyOfPolicyHolder",
+              "text": {
+                "de": "Firma des VN"
+              }
+            },
+            {
+              "value": "lessor",
+              "text": {
+                "de": "Leasinggeber"
+              }
+            },
+            {
+              "value": "employeeOfManufacturer",
+              "text": {
+                "de": "Werksangehöriger eines Autoherstellers"
+              }
+            },
+            {
+              "value": "creditor",
+              "text": {
+                "de": "Kreditgeber"
+              }
+            },
+            {
+              "value": "carTrader",
+              "text": {
+                "de": "Kfz-Händler"
+              }
+            },
+            {
+              "value": "misc",
+              "text": {
+                "de": "sonstiger abweichender Halter "
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 11",
+      "elements": [
+        {
+          "type": "text",
+          "name": "firstRegistrationOfCar",
+          "title": {
+            "de": "Erstzulassung des Fahrzeuges (Datumsformat: Tag/Monat/Jahr)?"
+          },
+          "valueName": "firstRegistrationOfCar"
+        },
+        {
+          "type": "text",
+          "name": "startOfInsurance",
+          "title": {
+            "de": "Versicherungsbeginn (Datumsformat: Tag/Monat/Jahr)?"
+          },
+          "valueName": "startOfInsurance"
+        },
+        {
+          "type": "radiogroup",
+          "name": "seasonalLicensePlate",
+          "title": {
+            "de": "Saisonkennzeichen?"
+          },
+          "valueName": "seasonalLicensePlate",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "text",
+          "name": "seasonalLicensePlateStart",
+          "visibleIf": "{seasonalLicensePlate} = \"yes\"",
+          "title": {
+            "de": "Saisonkenzeichen Anfangsmonat?"
+          },
+          "valueName": "seasonalLicensePlateStart"
+        },
+        {
+          "type": "text",
+          "name": "seasonalLicensePlateEnd",
+          "visibleIf": "{seasonalLicensePlate} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Saisonkenzeichen Endmonat?"
+          },
+          "valueName": "seasonalLicensePlateEnd"
+        }
+      ]
+    },
+    {
+      "name": "Screen 12",
+      "elements": [
+        {
+          "type": "text",
+          "name": "licensePlateNumber",
+          "title": {
+            "de": "Bitte gib dein Kennzeichen ein"
+          },
+          "valueName": "licensePlateNumber"
+        },
+        {
+          "type": "text",
+          "name": "yearlyMileage",
+          "title": {
+            "de": "Jährliche Fahrleistung in Tausend KM?"
+          },
+          "valueName": "yearlyMileage"
+        },
+        {
+          "type": "text",
+          "name": "currentKM",
+          "title": {
+            "de": "Aktueller KM Stand?"
+          },
+          "valueName": "currentKM"
+        }
+      ]
+    },
+    {
+      "name": "Screen 13",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "usageOfVehicle",
+          "title": {
+            "de": "Nutzung des Fahrzeuges?"
+          },
+          "valueName": "usageOfVehicle",
+          "choices": [
+            {
+              "value": "onlyPrivate",
+              "text": {
+                "de": "Nur privat (inkl. Arbeitsweg)"
+              }
+            },
+            {
+              "value": "onlyBusiness",
+              "text": {
+                "de": "nur geschäftlich"
+              }
+            },
+            {
+              "value": "privateAndBusiness",
+              "text": {
+                "de": "privat und geschäftlich"
+              }
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "usageOfVehicleFocus",
+          "visibleIf": "{usageOfVehicle} = \"privateAndBusiness\"",
+          "title": {
+            "de": "Mehr privat oder mehr geschäftlich?"
+          },
+          "valueName": "usageOfVehicleFocus",
+          "choices": [
+            {
+              "value": "privateFocus",
+              "text": {
+                "de": "mehr privat"
+              }
+            },
+            {
+              "value": "businessFocus",
+              "text": {
+                "de": "mehr geschäftlich"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "usageOfVehicleOnlyBusinss",
+          "visibleIf": "{usageOfVehicleFocus} = \"businessFocus\" or {usageOfVehicle} = \"onlyBusiness\"",
+          "title": {
+            "de": "Zweck der gewerblichen Fahrten?"
+          },
+          "valueName": "usageOfVehicleOnlyBusinss",
+          "choices": [
+            {
+              "value": "gewerblichFuerKundenbesuche",
+              "text": {
+                "de": "gewerblich für Kundendienst/Kundenbesuche"
+              }
+            },
+            {
+              "value": "gewerblichZurUnentgeltlichenWarenauslieferung",
+              "text": {
+                "de": "gewerblich zur unentgeltlichen Warenauslieferung"
+              }
+            },
+            {
+              "value": "gewerblichZurEntgeltlichenWarenauslieferung",
+              "text": {
+                "de": "gewerblich zur entgeltlichen Warenauslieferung"
+              }
+            },
+            {
+              "value": "gewerblichFuerSozialeZwecke",
+              "text": {
+                "de": "gewerblich für soziale Zwecke"
+              }
+            },
+            {
+              "value": "gewerblicheFahrtenVonHandelUndHandwerk",
+              "text": {
+                "de": "gewerbliche Fahrten von Handel und Handwerk"
+              }
+            },
+            {
+              "value": "misc",
+              "text": {
+                "de": "gewerblich für sonstige Zwecke"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 14",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "whoIsDriving",
+          "title": {
+            "de": "Wer fährt alles das Auto?"
+          },
+          "valueName": "whoIsDriving",
+          "choices": [
+            {
+              "value": "policyHolder",
+              "text": {
+                "de": "Versicherungsnehmer"
+              }
+            },
+            {
+              "value": "policyHolderAndOther",
+              "text": {
+                "de": "Versicherungsnehmer und weitere Fahrer"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 15",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "hasOtherDrivers",
+          "title": {
+            "de": "Kannst du die weiteren Fahrer benennen?"
+          },
+          "valueName": "hasOtherDrivers",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "text",
+          "name": "ageOfYoungestDriver",
+          "visibleIf": "{hasOtherDrivers} = \"no\"",
+          "title": {
+            "de": "Wie ist das Alter des jüngsten Fahrers?"
+          },
+          "valueName": "ageOfYoungestDriver"
+        },
+        {
+          "type": "checkbox",
+          "name": "hasOtherDriversWho",
+          "visibleIf": "{hasOtherDrivers} = \"yes\"",
+          "title": {
+            "de": "Weitere Fahrer?"
+          },
+          "valueName": "hasOtherDriversWho",
+          "choices": [
+            {
+              "value": "partner",
+              "text": {
+                "de": "Ehe-/Lebenspartner"
+              }
+            },
+            {
+              "value": "childs",
+              "text": {
+                "de": "Kinder"
+              }
+            },
+            {
+              "value": "misc",
+              "text": {
+                "de": "Sonstige Fahrer"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 16",
+      "elements": [
+        {
+          "type": "html",
+          "name": "htmlTitelOtherDriversPartner1",
+          "visibleIf": "{hasOtherDriversWho} = [\"partner\"]",
+          "html": {
+            "de": "<b><h3>Weitere Fahrer - Ehe-Lebenspartner - Seite 1</h3></b>"
+          }
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasOtherDriversWhoPartnerEUDrivingLicence",
+          "visibleIf": "{hasOtherDriversWho} = [\"partner\"]",
+          "title": {
+            "de": "Besitz des EU Führerscheins?"
+          },
+          "valueName": "hasOtherDriversWhoPartnerEUDrivingLicence",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "html",
+          "name": "question8",
+          "visibleIf": "{hasOtherDriversWho} = [\"partner\"]",
+          "html": {
+            "de": "<b>Von wann ist der Führerschein?</b>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoPartnerEUDrivingLicenceDateDay",
+          "visibleIf": "{hasOtherDriversWhoPartnerEUDrivingLicence} = \"yes\"",
+          "title": {
+            "de": "Tag"
+          },
+          "valueName": "hasOtherDriversWhoPartnerEUDrivingLicenceDateDay",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoPartnerEUDrivingLicenceDateMonth",
+          "visibleIf": "{hasOtherDriversWhoPartnerEUDrivingLicence} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Monat"
+          },
+          "valueName": "hasOtherDriversWhoPartnerEUDrivingLicenceDateMonth",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoPartnerEUDrivingLicenceDateYear",
+          "visibleIf": "{hasOtherDriversWhoPartnerEUDrivingLicence} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Jahr"
+          },
+          "valueName": "hasOtherDriversWhoPartnerEUDrivingLicenceDateYear",
+          "isRequired": true,
+          "choices": [
+            "1974",
+            "1990",
+            "2000",
+            "2003"
+          ]
+        },
+        {
+          "type": "html",
+          "name": "question12",
+          "visibleIf": "{hasOtherDriversWho} = [\"partner\"]",
+          "html": {
+            "de": "<b>Das Geburtsdatum?</b>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoEUDrivingLicenceBirthdateDay",
+          "visibleIf": "{hasOtherDriversWho} = [\"partner\"]",
+          "title": {
+            "de": "Tag"
+          },
+          "valueName": "hasOtherDriversWhoEUDrivingLicenceBirthdateDay",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoEUDrivingLicenceBirthdateMonth",
+          "visibleIf": "{hasOtherDriversWho} = [\"partner\"]",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Monat"
+          },
+          "valueName": "hasOtherDriversWhoEUDrivingLicenceBirthdateMonth",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoEUDrivingLicenceBirthdateYear",
+          "visibleIf": "{hasOtherDriversWho} = [\"partner\"]",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Jahr"
+          },
+          "valueName": "hasOtherDriversWhoEUDrivingLicenceBirthdateYear",
+          "isRequired": true,
+          "choices": [
+            "1974",
+            "1990",
+            "2000",
+            "2003"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Seite 16b",
+      "elements": [
+        {
+          "type": "html",
+          "name": "htmlTitelOtherDriversChilds1",
+          "visibleIf": "{hasOtherDriversWho} = [\"childs\"]",
+          "html": {
+            "de": "<b><h3>Weitere Fahrer - Kinder - Seite 1</h3></b>"
+          }
+        },
+        {
+          "type": "text",
+          "name": "hasOtherDriversWhoChildsNumberOfChilds",
+          "visibleIf": "{hasOtherDriversWho} = [\"childs\"]",
+          "title": {
+            "de": "Anzahl der Kinder"
+          },
+          "valueName": "hasOtherDriversWhoChildsNumberOfChilds"
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasOtherDriversWhoChildsEUDrivingLicence",
+          "visibleIf": "{hasOtherDriversWho} = [\"childs\"]",
+          "title": {
+            "de": "Besitz des EU Führerscheins?"
+          },
+          "valueName": "hasOtherDriversWhoChildsEUDrivingLicence",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "html",
+          "name": "titleHasOtherDriversWhoPartner2",
+          "visibleIf": "{hasOtherDriversWho} = [\"childs\"]",
+          "html": {
+            "de": "<b>Von wann ist der Führerschein?</b>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoChildsEUDrivingLicenceDateDay",
+          "visibleIf": "{hasOtherDriversWhoPartnerEUDrivingLicence} = \"yes\"",
+          "title": {
+            "de": "Tag"
+          },
+          "valueName": "hasOtherDriversWhoChildsEUDrivingLicenceDateDay",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoChildsEUDrivingLicenceDateMonth",
+          "visibleIf": "{hasOtherDriversWhoPartnerEUDrivingLicence} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Monat"
+          },
+          "valueName": "hasOtherDriversWhoChildsEUDrivingLicenceDateMonth",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoChildsEUDrivingLicenceDateYear",
+          "visibleIf": "{hasOtherDriversWhoPartnerEUDrivingLicence} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Jahr"
+          },
+          "valueName": "hasOtherDriversWhoChildsEUDrivingLicenceDateYear",
+          "isRequired": true,
+          "choices": [
+            "1974",
+            "1990",
+            "2000",
+            "2003"
+          ]
+        },
+        {
+          "type": "html",
+          "name": "titleHasOtherDriversWhoPartner3",
+          "visibleIf": "{hasOtherDriversWho} = [\"partner\"]",
+          "html": {
+            "de": "<b>Das Geburtsdatum?</b>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoChildsEUDrivingLicenceBirthdateDay",
+          "visibleIf": "{hasOtherDriversWho} = [\"partner\"]",
+          "title": {
+            "de": "Tag"
+          },
+          "valueName": "hasOtherDriversWhoChildsEUDrivingLicenceBirthdateDay",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoChildsEUDrivingLicenceBirthdateMonth",
+          "visibleIf": "{hasOtherDriversWho} = [\"partner\"]",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Monat"
+          },
+          "valueName": "hasOtherDriversWhoChildsEUDrivingLicenceBirthdateMonth",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoChildsEUDrivingLicenceBirthdateYear",
+          "visibleIf": "{hasOtherDriversWho} = [\"partner\"]",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Jahr"
+          },
+          "valueName": "hasOtherDriversWhoChildsEUDrivingLicenceBirthdateYear",
+          "isRequired": true,
+          "choices": [
+            "1974",
+            "1990",
+            "2000",
+            "2003"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 16c",
+      "elements": [
+        {
+          "type": "html",
+          "name": "htmlTitelOtherDriversMisc1",
+          "visibleIf": "{hasOtherDriversWho} = [\"misc\"]",
+          "html": {
+            "de": "<b><h3>Weitere Fahrer - Sonstige - Seite 1</h3></b>"
+          }
+        },
+        {
+          "type": "text",
+          "name": "hasOtherDriversWhoNumberOfMisc",
+          "visibleIf": "{hasOtherDriversWho} = [\"misc\"]",
+          "title": {
+            "de": "Anzahl sonstige Fahrer"
+          },
+          "valueName": "hasOtherDriversWhoNumberOfMisc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasOtherDriversWhoMiscEUDrivingLicence",
+          "visibleIf": "{hasOtherDriversWho} = [\"misc\"]",
+          "title": {
+            "de": "Besitz des EU Führerscheins?"
+          },
+          "valueName": "hasOtherDriversWhoMiscEUDrivingLicence",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "html",
+          "name": "titleHasOtherDriversWhoChilds2",
+          "visibleIf": "{hasOtherDriversWho} = [\"misc\"]",
+          "html": {
+            "de": "<b>Von wann ist der Führerschein?</b>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoMiscEUDrivingLicenceDateDay",
+          "visibleIf": "{hasOtherDriversWho} = [\"misc\"]",
+          "title": {
+            "de": "Tag"
+          },
+          "valueName": "hasOtherDriversWhoMiscEUDrivingLicenceDateDay",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoMiscEUDrivingLicenceDateMonth",
+          "visibleIf": "{hasOtherDriversWho} = [\"misc\"]",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Monat"
+          },
+          "valueName": "hasOtherDriversWhoMiscEUDrivingLicenceDateMonth",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoMiscEUDrivingLicenceDateYear",
+          "visibleIf": "{hasOtherDriversWho} = [\"misc\"]",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Jahr"
+          },
+          "valueName": "hasOtherDriversWhoMiscEUDrivingLicenceDateYear",
+          "isRequired": true,
+          "choices": [
+            "1974",
+            "1990",
+            "2000",
+            "2003"
+          ]
+        },
+        {
+          "type": "html",
+          "name": "titleHasOtherDriversWhoChilds3",
+          "visibleIf": "{hasOtherDriversWho} = [\"misc\"]",
+          "html": {
+            "de": "<b>Das Geburtsdatum?</b>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoMiscEUDrivingLicenceBirthdateDay",
+          "visibleIf": "{hasOtherDriversWho} = [\"misc\"]",
+          "title": {
+            "de": "Tag"
+          },
+          "valueName": "hasOtherDriversWhoMiscEUDrivingLicenceBirthdateDay",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoMiscEUDrivingLicenceBirthdateMonth",
+          "visibleIf": "{hasOtherDriversWho} = [\"misc\"]",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Monat"
+          },
+          "valueName": "hasOtherDriversWhoMiscEUDrivingLicenceBirthdateMonth",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoMiscEUDrivingLicenceBirthdateYear",
+          "visibleIf": "{hasOtherDriversWho} = [\"misc\"]",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Jahr"
+          },
+          "valueName": "hasOtherDriversWhoMiscEUDrivingLicenceBirthdateYear",
+          "isRequired": true,
+          "choices": [
+            "1974",
+            "1990",
+            "2000",
+            "2003"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 17",
+      "elements": [
+        {
+          "type": "html",
+          "name": "htmlTitelOtherDriversPartner2",
+          "visibleIf": "{hasOtherDriversWho} = [\"partner\"]",
+          "html": {
+            "de": "<b><h3>Weitere Fahrer - Ehe-Lebenspartner - Seite 2</h3></b>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoPartnerJob",
+          "visibleIf": "{hasOtherDriversWho} = [\"partner\"]",
+          "title": {
+            "de": "Beruflicher Status?"
+          },
+          "valueName": "hasOtherDriversWhoPartnerJob",
+          "choices": [
+            {
+              "value": "angestellter",
+              "text": {
+                "de": "Angestellte/r"
+              }
+            },
+            {
+              "value": "arbeiter",
+              "text": {
+                "de": "Arbeiter/in"
+              }
+            },
+            {
+              "value": "angestellterOeffentlich",
+              "text": {
+                "de": "Angestellte/r im öffentlichen Dienst"
+              }
+            },
+            {
+              "value": "arbeiterOeffentlich",
+              "text": {
+                "de": "Arbeiter/in im öffentlichen Dienst"
+              }
+            },
+            {
+              "value": "beamter",
+              "text": {
+                "de": "Beamter(in)"
+              }
+            },
+            {
+              "value": "beamterRichter",
+              "text": {
+                "de": "Beamter(in)/ Richter/in auf Lebenszeit"
+              }
+            },
+            {
+              "value": "selbstaendiger",
+              "text": {
+                "de": "Selbstständige/r"
+              }
+            },
+            {
+              "value": "freiberufler",
+              "text": {
+                "de": "Freiberufler/in"
+              }
+            },
+            {
+              "value": "landwirt",
+              "text": {
+                "de": " Landwirt/in"
+              }
+            },
+            {
+              "value": "bessoldat",
+              "text": {
+                "de": "Bessoldat/in"
+              }
+            },
+            {
+              "value": "zeitsoldat",
+              "text": {
+                "de": "Zeitsoldat/in"
+              }
+            },
+            {
+              "value": "hausmann",
+              "text": {
+                "de": "Hausmann/-frau"
+              }
+            },
+            {
+              "value": "schueler",
+              "text": {
+                "de": "Schüler/in"
+              }
+            },
+            {
+              "value": "student",
+              "text": {
+                "de": "Student/in"
+              }
+            },
+            {
+              "value": "auszubildender",
+              "text": {
+                "de": "Auszubildende/r"
+              }
+            },
+            {
+              "value": "berufsfreiwilligendienst",
+              "text": {
+                "de": "Berufsfreiwilligendienst"
+              }
+            },
+            {
+              "value": "rentner",
+              "text": {
+                "de": "Rentner/in"
+              }
+            },
+            {
+              "value": "pensionaer",
+              "text": {
+                "de": "Pensionär/in"
+              }
+            },
+            {
+              "value": "ohneArbeit",
+              "text": {
+                "de": "z.Z. ohne Berufstätigkeit"
+              }
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasOtherDriversWhoPartnerCentralTrafficRegister",
+          "visibleIf": "{hasOtherDriversWho} = [\"partner\"]",
+          "title": {
+            "de": "Punkte in Flensburger Verkehrszentralregister?"
+          },
+          "valueName": "hasOtherDriversWhoPartnerCentralTrafficRegister",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasOtherDriversWhoPartnerSameHousehold",
+          "visibleIf": "{hasOtherDriversWho} = [\"childs\"]",
+          "title": {
+            "de": "Lebt mit dir in einem Haushalt?"
+          },
+          "valueName": "hasOtherDriversWhoPartnerSameHousehold",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 17b",
+      "elements": [
+        {
+          "type": "html",
+          "name": "htmlTitelOtherDriversChilds2",
+          "visibleIf": "{hasOtherDriversWho} = [\"childs\"]",
+          "html": {
+            "de": "<b><h3>Weitere Fahrer - Kinder - Seite 2</h3></b>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoFamilyStatus",
+          "visibleIf": "{hasOtherDriversWho} = [\"childs\"]",
+          "title": {
+            "de": "Der Familienstand?"
+          },
+          "valueName": "hasOtherDriversWhoFamilyStatus",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "single",
+              "text": {
+                "de": "ledig"
+              }
+            },
+            {
+              "value": "married",
+              "text": {
+                "de": "verheiratet"
+              }
+            },
+            {
+              "value": "divorced",
+              "text": {
+                "de": "geschieden"
+              }
+            },
+            {
+              "value": "widowed",
+              "text": {
+                "de": "verwitwet"
+              }
+            },
+            {
+              "value": "cohabitationRelationship",
+              "text": {
+                "de": "eheähnliche Lebensgemeinschaft"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoChildsJob",
+          "visibleIf": "{hasOtherDriversWho} = [\"childs\"]",
+          "title": {
+            "de": "Beruflicher Status?"
+          },
+          "valueName": "hasOtherDriversWhoChildsJob",
+          "choices": [
+            {
+              "value": "angestellter",
+              "text": {
+                "de": "Angestellte/r"
+              }
+            },
+            {
+              "value": "arbeiter",
+              "text": {
+                "de": "Arbeiter/in"
+              }
+            },
+            {
+              "value": "angestellterOeffentlich",
+              "text": {
+                "de": "Angestellte/r im öffentlichen Dienst"
+              }
+            },
+            {
+              "value": "arbeiterOeffentlich",
+              "text": {
+                "de": "Arbeiter/in im öffentlichen Dienst"
+              }
+            },
+            {
+              "value": "beamter",
+              "text": {
+                "de": "Beamter(in)"
+              }
+            },
+            {
+              "value": "beamterRichter",
+              "text": {
+                "de": "Beamter(in)/ Richter/in auf Lebenszeit"
+              }
+            },
+            {
+              "value": "selbstaendiger",
+              "text": {
+                "de": "Selbstständige/r"
+              }
+            },
+            {
+              "value": "freiberufler",
+              "text": {
+                "de": "Freiberufler/in"
+              }
+            },
+            {
+              "value": "landwirt",
+              "text": {
+                "de": " Landwirt/in"
+              }
+            },
+            {
+              "value": "bessoldat",
+              "text": {
+                "de": "Bessoldat/in"
+              }
+            },
+            {
+              "value": "zeitsoldat",
+              "text": {
+                "de": "Zeitsoldat/in"
+              }
+            },
+            {
+              "value": "hausmann",
+              "text": {
+                "de": "Hausmann/-frau"
+              }
+            },
+            {
+              "value": "schueler",
+              "text": {
+                "de": "Schüler/in"
+              }
+            },
+            {
+              "value": "student",
+              "text": {
+                "de": "Student/in"
+              }
+            },
+            {
+              "value": "auszubildender",
+              "text": {
+                "de": "Auszubildende/r"
+              }
+            },
+            {
+              "value": "berufsfreiwilligendienst",
+              "text": {
+                "de": "Berufsfreiwilligendienst"
+              }
+            },
+            {
+              "value": "rentner",
+              "text": {
+                "de": "Rentner/in"
+              }
+            },
+            {
+              "value": "pensionaer",
+              "text": {
+                "de": "Pensionär/in"
+              }
+            },
+            {
+              "value": "ohneArbeit",
+              "text": {
+                "de": "z.Z. ohne Berufstätigkeit"
+              }
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasOtherDriversWhoChildsCentralTrafficRegister",
+          "visibleIf": "{hasOtherDriversWho} = [\"childs\"]",
+          "title": {
+            "de": "Punkte in Flensburger Verkehrszentralregister?"
+          },
+          "valueName": "hasOtherDriversWhoChildsCentralTrafficRegister",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasOtherDriversChildsMiscSameHousehold",
+          "visibleIf": "{hasOtherDriversWho} = [\"childs\"]",
+          "title": {
+            "de": "Lebt mit dir in einem Haushalt?"
+          },
+          "valueName": "hasOtherDriversChildsMiscSameHousehold",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 17c",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question7",
+          "visibleIf": "{hasOtherDriversWho} = [\"misc\"]",
+          "html": {
+            "de": "<b><h3>Weitere Fahrer - Sonstige - Seite 2</h3></b>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoMiscFamilyStatus",
+          "visibleIf": "{hasOtherDriversWho} = [\"misc\"]",
+          "title": {
+            "de": "Der Familienstand?"
+          },
+          "valueName": "hasOtherDriversWhoMiscFamilyStatus",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "single",
+              "text": {
+                "de": "ledig"
+              }
+            },
+            {
+              "value": "married",
+              "text": {
+                "de": "verheiratet"
+              }
+            },
+            {
+              "value": "divorced",
+              "text": {
+                "de": "geschieden"
+              }
+            },
+            {
+              "value": "widowed",
+              "text": {
+                "de": "verwitwet"
+              }
+            },
+            {
+              "value": "cohabitationRelationship",
+              "text": {
+                "de": "eheähnliche Lebensgemeinschaft"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "hasOtherDriversWhoMiscJob",
+          "visibleIf": "{hasOtherDriversWho} = [\"misc\"]",
+          "title": {
+            "de": "Beruflicher Status?"
+          },
+          "valueName": "hasOtherDriversWhoMiscJob",
+          "choices": [
+            {
+              "value": "angestellter",
+              "text": {
+                "de": "Angestellte/r"
+              }
+            },
+            {
+              "value": "arbeiter",
+              "text": {
+                "de": "Arbeiter/in"
+              }
+            },
+            {
+              "value": "angestellterOeffentlich",
+              "text": {
+                "de": "Angestellte/r im öffentlichen Dienst"
+              }
+            },
+            {
+              "value": "arbeiterOeffentlich",
+              "text": {
+                "de": "Arbeiter/in im öffentlichen Dienst"
+              }
+            },
+            {
+              "value": "beamter",
+              "text": {
+                "de": "Beamter(in)"
+              }
+            },
+            {
+              "value": "beamterRichter",
+              "text": {
+                "de": "Beamter(in)/ Richter/in auf Lebenszeit"
+              }
+            },
+            {
+              "value": "selbstaendiger",
+              "text": {
+                "de": "Selbstständige/r"
+              }
+            },
+            {
+              "value": "freiberufler",
+              "text": {
+                "de": "Freiberufler/in"
+              }
+            },
+            {
+              "value": "landwirt",
+              "text": {
+                "de": " Landwirt/in"
+              }
+            },
+            {
+              "value": "bessoldat",
+              "text": {
+                "de": "Bessoldat/in"
+              }
+            },
+            {
+              "value": "zeitsoldat",
+              "text": {
+                "de": "Zeitsoldat/in"
+              }
+            },
+            {
+              "value": "hausmann",
+              "text": {
+                "de": "Hausmann/-frau"
+              }
+            },
+            {
+              "value": "schueler",
+              "text": {
+                "de": "Schüler/in"
+              }
+            },
+            {
+              "value": "student",
+              "text": {
+                "de": "Student/in"
+              }
+            },
+            {
+              "value": "auszubildender",
+              "text": {
+                "de": "Auszubildende/r"
+              }
+            },
+            {
+              "value": "berufsfreiwilligendienst",
+              "text": {
+                "de": "Berufsfreiwilligendienst"
+              }
+            },
+            {
+              "value": "rentner",
+              "text": {
+                "de": "Rentner/in"
+              }
+            },
+            {
+              "value": "pensionaer",
+              "text": {
+                "de": "Pensionär/in"
+              }
+            },
+            {
+              "value": "ohneArbeit",
+              "text": {
+                "de": "z.Z. ohne Berufstätigkeit"
+              }
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasOtherDriversWhoMiscCentralTrafficRegister",
+          "visibleIf": "{hasOtherDriversWho} = [\"misc\"]",
+          "title": {
+            "de": "Punkte in Flensburger Verkehrszentralregister?"
+          },
+          "valueName": "hasOtherDriversWhoMiscCentralTrafficRegister",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasOtherDriversChildsMiscSameHousehold",
+          "visibleIf": "{hasOtherDriversWho} = [\"misc\"]",
+          "title": {
+            "de": "Lebt mit dir in einem Haushalt?"
+          },
+          "valueName": "hasOtherDriversChildsMiscSameHousehold",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 18",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "scopeOfInsurance",
+          "title": {
+            "de": "Welchen Versicherungsumfang wünschst du dir?"
+          },
+          "valueName": "scopeOfInsurance",
+          "choices": [
+            {
+              "value": "liabilityOnly",
+              "text": {
+                "de": "Nur Haftpflicht"
+              }
+            },
+            {
+              "value": "liabilityAndPartialCoverage",
+              "text": {
+                "de": "Haftpflicht und Teilkasko"
+              }
+            },
+            {
+              "value": "liabilityAndComprehensiveCover",
+              "text": {
+                "de": "Haftpflicht und Vollkasko"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "scopeOfInsurancePartialCoverage",
+          "visibleIf": "{scopeOfInsurance} = \"liabilityAndPartialCoverage\" or {scopeOfInsurance} = \"liabilityAndComprehensiveCover\"",
+          "title": {
+            "de": "Deine Selbstbeteiligung in der Teilkasko?"
+          },
+          "valueName": "scopeOfInsurancePartialCoverage",
+          "choices": [
+            "0",
+            "150",
+            "300",
+            "500"
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "question9",
+          "visibleIf": "{scopeOfInsurance} = \"liabilityAndComprehensiveCover\"",
+          "title": {
+            "de": "Deine Selbstbeteiligung in der Vollkasko?"
+          },
+          "valueName": "scopeOfInsurancePartialCoverage",
+          "choices": [
+            "0",
+            "150",
+            "300",
+            "500",
+            "1000",
+            "2500"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 19",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "hasPreInsurance",
+          "title": {
+            "de": "Hast du eine Vorversicherung?"
+          },
+          "valueName": "hasPreInsurance",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "question6",
+          "visibleIf": "{hasPreInsurance} = \"yes\"",
+          "title": {
+            "de": "Vorversicherung bei?"
+          },
+          "choices": [
+            {
+              "value": "a",
+              "text": {
+                "de": "A"
+              }
+            },
+            {
+              "value": "b",
+              "text": {
+                "de": "B"
+              }
+            },
+            {
+              "value": "c",
+              "text": {
+                "de": "C"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "preInsuranceCompany",
+          "visibleIf": "{hasPreInsurance} = \"yes\"",
+          "title": {
+            "de": "Seit wann bist du bei diesem Versicherer?"
+          },
+          "valueName": "preInsuranceCompany",
+          "choices": [
+            {
+              "value": "upToOneYear",
+              "text": {
+                "de": "Bis zu einem Jahr"
+              }
+            },
+            {
+              "value": "moreThanOneYear",
+              "text": {
+                "de": " Länger als ein Jahr"
+              }
+            },
+            {
+              "value": "moreThanThreeYears",
+              "text": {
+                "de": "Länger als 3 Jahre"
+              }
+            },
+            {
+              "value": "moreThanFiveYears",
+              "text": {
+                "de": "Länger als 5 Jahre"
+              }
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "cancellationByInsurer",
+          "title": {
+            "de": "Kündigung durch den Versicherer?"
+          },
+          "valueName": "cancellationByInsurer",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 20",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "lossesPaidByInsurer",
+          "title": {
+            "de": "Vom Versicherer in den letzten drei Jahren bezahlte Schäden?"
+          },
+          "valueName": "lossesPaidByInsurer",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "html",
+          "name": "question17",
+          "visibleIf": "{lossesPaidByInsurer} = \"yes\"",
+          "html": {
+            "de": "<b>Datum von Schaden 1?</b>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "lossesPaidByInsurerDamage1Day",
+          "visibleIf": "{lossesPaidByInsurer} = \"yes\"",
+          "title": {
+            "de": "Tag"
+          },
+          "valueName": "lossesPaidByInsurerDamage1Day",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "lossesPaidByInsurerDamage1Month",
+          "visibleIf": "{lossesPaidByInsurer} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Monat"
+          },
+          "valueName": "lossesPaidByInsurerDamage1Month",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "lossesPaidByInsurerDamage1Year",
+          "visibleIf": "{lossesPaidByInsurer} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Jahr"
+          },
+          "valueName": "lossesPaidByInsurerDamage1Year",
+          "isRequired": true,
+          "choices": [
+            "1974",
+            "1990",
+            "2000",
+            "2003"
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "lossesPaidByInsurerKindOfDamage1",
+          "visibleIf": "{lossesPaidByInsurer} = \"yes\"",
+          "title": {
+            "de": "Art des Schadens?"
+          },
+          "valueName": "lossesPaidByInsurerKindOfDamage1",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "liability",
+              "text": {
+                "de": "Haftpflicht"
+              }
+            },
+            {
+              "value": "partialCover",
+              "text": {
+                "de": "Teilkasko"
+              }
+            },
+            {
+              "value": "fullCover",
+              "text": {
+                "de": "Vollkasko"
+              }
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "additionalDamage1",
+          "title": {
+            "de": "Weiteren Schaden hinzufügen?"
+          },
+          "valueName": "additionalDamage1",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 20b",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question11",
+          "visibleIf": "{lossesPaidByInsurer} = \"yes\"",
+          "html": {
+            "de": "<b>Datum von Schaden 2?</b>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "lossesPaidByInsurerDamage2Day",
+          "visibleIf": "{lossesPaidByInsurer} = \"yes\"",
+          "title": {
+            "de": "Tag"
+          },
+          "valueName": "lossesPaidByInsurerDamage2Day",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "lossesPaidByInsurerDamage2Month",
+          "visibleIf": "{lossesPaidByInsurer} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Monat"
+          },
+          "valueName": "lossesPaidByInsurerDamage2Month",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "AA"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "BB"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "CC"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "DD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "lossesPaidByInsurerDamage2Year",
+          "visibleIf": "{lossesPaidByInsurer} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Jahr"
+          },
+          "valueName": "lossesPaidByInsurerDamage2Year",
+          "isRequired": true,
+          "choices": [
+            "1974",
+            "1990",
+            "2000",
+            "2003"
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "lossesPaidByInsurerKindOfDamage2",
+          "visibleIf": "{lossesPaidByInsurer} = \"yes\"",
+          "title": {
+            "de": "Art des Schadens?"
+          },
+          "valueName": "lossesPaidByInsurerKindOfDamage2",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "liability",
+              "text": {
+                "de": "Haftpflicht"
+              }
+            },
+            {
+              "value": "partialCover",
+              "text": {
+                "de": "Teilkasko"
+              }
+            },
+            {
+              "value": "fullCover",
+              "text": {
+                "de": "Vollkasko"
+              }
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "additionalDamage2",
+          "title": {
+            "de": "Weiteren Schaden hinzufügen?"
+          },
+          "valueName": "additionalDamage2",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Seite 21",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "noClaimsBonusClassLiability",
+          "title": {
+            "de": "Schadenfreiheitsklasse in (jeweiliges Jahr - hier 2018) Haftpflicht?"
+          },
+          "valueName": "noClaimsBonusClassLiability",
+          "choices": [
+            {
+              "value": "m",
+              "text": {
+                "de": "M"
+              }
+            },
+            "0",
+            {
+              "value": "s",
+              "text": {
+                "de": "S"
+              }
+            },
+            {
+              "value": "sf12",
+              "text": {
+                "de": "SF 1/2"
+              }
+            },
+            {
+              "value": "sf1to35",
+              "text": {
+                "de": "SF1 bis SF35"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "noClaimsBonusClassFullyComprehensive",
+          "title": {
+            "de": "Schadenfreiheitsklasse in (jeweiliges Jahr - hier 2018) Haftpflicht?"
+          },
+          "valueName": "noClaimsBonusClassFullyComprehensive",
+          "choices": [
+            {
+              "value": "m",
+              "text": {
+                "de": "M"
+              }
+            },
+            "0",
+            {
+              "value": "s",
+              "text": {
+                "de": "S"
+              }
+            },
+            {
+              "value": "sf12",
+              "text": {
+                "de": "SF 1/2"
+              }
+            },
+            {
+              "value": "sf1to35",
+              "text": {
+                "de": "SF1 bis SF35"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Seite 22",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "choiceOfWorkshop",
+          "title": {
+            "de": "In der Kaskoversicherung - möchtest du im Schadenfall deine eigene Wahl der Werkstatt treffen?"
+          },
+          "valueName": "choiceOfWorkshop",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "childsUnder17InHousehold",
+          "title": {
+            "de": "Für weitere Rabatte noch ein paar Fragen: Leben Kinder unter 17 Jahren in deinem Haushalt?"
+          },
+          "valueName": "childsUnder17InHousehold",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasBahncard",
+          "title": {
+            "de": "Hast du eine Bahncard?"
+          },
+          "valueName": "hasBahncard",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "hasBahncardType",
+          "visibleIf": "{hasBahncard} = \"yes\"",
+          "title": {
+            "de": "Art der Bahncard?"
+          },
+          "valueName": "hasBahncardType",
+          "choices": [
+            {
+              "value": "bahncard25",
+              "text": {
+                "de": "Bahncard 25"
+              }
+            },
+            {
+              "value": "bahncard25Comfort",
+              "text": {
+                "de": "Bahncard 25 inkl. bahn.comfort"
+              }
+            },
+            {
+              "value": "bahncard50",
+              "text": {
+                "de": "Bahncard 50"
+              }
+            },
+            {
+              "value": "bahncard50Comfort",
+              "text": {
+                "de": "Bahncard 50 inkl. bahn.comfort"
+              }
+            },
+            {
+              "value": "bahncard100Comfort",
+              "text": {
+                "de": "Bahncard 100 inkl. bahn.comfort"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 23",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "inAutomobileClub",
+          "title": {
+            "de": "Bist du in einem Automobilclub?"
+          },
+          "valueName": "inAutomobileClub",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "inAutomobileClubWhich",
+          "visibleIf": "{inAutomobileClub} = \"yes\"",
+          "title": {
+            "de": "Welcher Automobilclub?"
+          },
+          "valueName": "inAutomobileClubWhich",
+          "choices": [
+            {
+              "value": "adad",
+              "text": {
+                "de": "ADAC"
+              }
+            },
+            {
+              "value": "avd",
+              "text": {
+                "de": "AvD"
+              }
+            },
+            {
+              "value": "ace",
+              "text": {
+                "de": "ACE"
+              }
+            },
+            {
+              "value": "acv",
+              "text": {
+                "de": "ACV"
+              }
+            },
+            {
+              "value": "misc",
+              "text": {
+                "de": "Sonstiger"
+              }
+            },
+            {
+              "value": "vcd",
+              "text": {
+                "de": "VCD"
+              }
+            },
+            {
+              "value": "arcd",
+              "text": {
+                "de": "ARCD"
+              }
+            }
+          ]
+        },
+        {
+          "type": "html",
+          "name": "question10",
+          "visibleIf": "{inAutomobileClub} = \"yes\"",
+          "html": {
+            "de": "<b>Seit wann?</b>"
+          }
+        },
+        {
+          "type": "text",
+          "name": "inAutomobileClubDateMonth",
+          "visibleIf": "{inAutomobileClub} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Monat"
+          },
+          "valueName": "inAutomobileClubDateMonth"
+        },
+        {
+          "type": "text",
+          "name": "inAutomobileClubDateYear",
+          "visibleIf": "{inAutomobileClub} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Jahr"
+          },
+          "valueName": "inAutomobileClubDateYear"
+        }
+      ]
+    },
+    {
+      "name": "Seite 24",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "hasMotorcycle",
+          "title": {
+            "de": "Hast du auch ein Motorrad?"
+          },
+          "valueName": "hasMotorcycle",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Seite 25",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "includeCoverLetter",
+          "title": {
+            "de": "Möchtest du eine Versicherung bei der ein Schutzbrief inklusive ist?"
+          },
+          "valueName": "includeCoverLetter",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Seite 26",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "gap",
+          "title": {
+            "de": "Wünschst du eine GAP-Deckung?"
+          },
+          "valueName": "gap",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Seite 27",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "mallorcaPolice",
+          "title": {
+            "de": "Wünschst du eine Mallorca Police?"
+          },
+          "valueName": "mallorcaPolice",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Seite 28",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "coverGrossNegligence",
+          "title": {
+            "de": "Möchtest du die grobe Fahrlässigkeit mitversichert haben?"
+          },
+          "valueName": "coverGrossNegligence",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Seite 29",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "includeMartenBite",
+          "title": {
+            "de": "Willst du den Marderbiss mitversichert haben?"
+          },
+          "valueName": "includeMartenBite",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Seite 30",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "animalCollision",
+          "title": {
+            "de": "Möchtest du Zusammenstöße mit jedem Tier mitversichert haben?"
+          },
+          "valueName": "animalCollision",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Seite 31",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "includeDriverProtectionCover",
+          "title": {
+            "de": "Willst du eine Fahrerschutzabdeckung mit einschließen?"
+          },
+          "valueName": "includeDriverProtectionCover",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Seite 32",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "eVBInstantServiceOnline",
+          "title": {
+            "de": "Möchtest du den eVB Sofort-Service-Online nutzen?"
+          },
+          "valueName": "eVBInstantServiceOnline",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Seite 33",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "includeDiscountSave",
+          "title": {
+            "de": "Wünschst du einen Rabattretter?"
+          },
+          "valueName": "includeDiscountSave",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    }
+  ],
+  "showProgressBar": "top",
+  "goNextPageAutomatic": true,
+  "pagePrevText": {
+    "de": "\uf104"
+  },
+  "pageNextText": {
+    "de": "\uf105"
+  }
+}

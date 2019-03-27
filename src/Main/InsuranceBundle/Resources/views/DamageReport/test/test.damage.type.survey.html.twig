@@ -1,0 +1,299 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}TEST Env - YOURneeds damage reporting{% endblock %}
+
+{% block stylesheets %}
+   {{ parent() }}
+   <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+   <link rel="stylesheet" href="/build/surveyCore.css">
+{% endblock %}
+
+{% block javascripts %}
+   {{ parent() }}
+   <script src="/build/yourneeds-manager.js"></script>
+   <script src="/build/surveyCore.js"></script>
+   <!--
+     -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+   <script type="text/javascript" src="/build/libs/customwidget.js"></script>
+   <script src="https://unpkg.com/surveyjs-widgets"></script>
+   <script>
+      handleSpinner = function (elem, preloader, $time) {
+         doSpinner = function (elem, preloader) {
+            $(preloader).show();
+            console.log("handleSpinnerBox e:" + elem + " _ p:" + preloader + " successful");
+            $("#survey-spinner").addClass("visible");
+            $("#survey-proceed-title").addClass("visible");
+            setTimeout(function () {
+               $("#survey-proceed-title").removeClass("visible");
+               $("#survey-spinner").removeClass("visible");
+               $("#survey-proceed-button").addClass("visible");
+            }, ($time * 1000));
+         }
+         doSpinner(elem, preloader);
+      }
+      saveSurvey = function (json) {
+         var url = "{{ path('test_damage_type_report_save', {
+              'type' : type
+           }) }}";
+         console.log("try to save survey via " + url + " ... ");
+         $.ajax({
+            type: "PUT",
+            contentType: 'application/json',
+            url: url,
+            dataType: 'json',
+            cache: false,
+            data: JSON.stringify({
+               structure: json
+            }),
+            error: function (data) {
+            },
+            success: function (data) {
+               if (data.status == 200) {
+                  console.log("Result: ");
+                  console.log(data);
+               }
+            }
+         })
+      }
+
+      showSurveyResult = function (json) {
+         document
+             .querySelector('#surveyResult')
+             .innerHTML = "Resultat der Formulareingabe in JSON: " + JSON.stringify(json.data) + "</p>";
+         var element = $('#surveyFollow');
+         element.addClass('visible');
+      }
+      /*
+       */
+
+   </script>
+{% endblock %}
+
+{% block content %}
+
+   <div class="col-menu col-menu--small1">
+      {% include 'includes/manager.navigation.html.twig' %}
+   </div>
+   <section class="content-body" id="survey">
+      <div class="container">
+         <div class="row justify-content-start">
+            <div class="col-md-1 nopadding">
+               <img class="img" src="/build/static/images/binoculars_square.png">
+            </div>
+            <div class="col text-right mt-2 hover pointer text-center">Schadensmeldung aufgeben</div>
+            <div class="col-md-1 nopadding text-right">
+               <img class="img" src="/build/static/images/cross_square.png">
+            </div>
+         </div>
+
+         <!-- survey content begin -->
+         <div class="row justify-content-start">
+            <div class="col-12 text-center pt-2">
+               {% set insuranceTitle = '' %}
+               {% if type == 'pli' %}
+                  {% set insuranceTitle = 'Privathaftpflicht' %}
+               {% elseif type == 'hci' %}
+                  {% set insuranceTitle = 'Hausrat' %}
+               {% elseif type == 'lpi' %}
+                  {% set insuranceTitle = 'Rechtsschutz' %}
+               {% elseif type == 'rbi' %}
+                  {% set insuranceTitle = 'Wohngebäude' %}
+               {% elseif type == 'aci' %}
+                  {% set insuranceTitle = 'Unfall' %}
+               {% elseif type == 'ali' %}
+                  {% set insuranceTitle = 'Tierhalterhaftplicht' %}
+               {% endif %}
+
+               <h1 class="title1 title1--space">{{ insuranceTitle }}</h1>
+               <hr>
+            </div>
+         </div>
+         <div class="row no-gutters mt-3 mb-3 sv_nav">
+            <button type="button" onclick="survey.prevPage();" class="btn">
+               <i class="fas fa-angle-left"></i>
+            </button>
+            <button type="button" onclick="survey.nextPage();" class="btn">
+               <i class="fas fa-angle-right"></i>
+            </button>
+         </div>
+         <div class="row justify-content-start">
+            <div class="col-12 text-center">
+               <div class="container-survey">
+                  <span id="surveyProgress"></span>
+                  <!--
+                  <a class="btn" id="surveyPrev" href="#" onclick="survey.prevPage();">zur&uuml;ck</a>
+                  <a id="surveyNext" href="#" onclick="survey.nextPage();">weiter</a>
+                  <a id="surveyComplete" href="#" onclick="survey.completeLastPage();">Fertigstellen</a>
+                  -->
+                  <div id="surveyElement"></div>
+                  <div id="survey-spinner">
+                     <!--
+                        <h2 class="title2 title2--space">Speichere deine Antworten!</h2>
+                     -->
+                     <div class="outer"></div>
+                     <div class="inner"></div>
+                  </div>
+                  <div id="surveyResult">
+                  </div>
+                  <div id="surveyFollow" class="text-center">
+
+                     <div id="survey-proceed-title">
+                        <h2 class="title2 title2--space">Speichere deine Antworten!</h2>
+
+                     </div>
+                     <a href="{{ path('manager_profile') }}" id="survey-proceed-button" class="btn btn--cta">
+                   <span>
+                      Zurück zu Deinem Profil
+                   </span>
+                     </a>
+
+                     <div class="horizontally-spacer100">&nbsp;</div>
+                  </div>
+                  <script>
+                     //var structure = $('.structure').data('structure');
+                     //Survey.Survey.cssType = "bootstrap";
+
+                     //add file type into matrix columns (run-time)
+                     Survey.matrixDropdownColumnTypes.file = {
+                        properties: ["showPreview", "imageHeight", "imageWidth"]
+                     };
+                     //add tagbox into matrix columns (run-time)
+                     Survey.matrixDropdownColumnTypes.tagbox = {
+                        properties: [
+                           "choices", "choicesOrder", "choicesByUrl", "otherText"
+                        ],
+                        onCellQuestionUpdate: (function (cellQuestion, column, question, data) {
+                           Survey
+                               .matrixDropdownColumnTypes
+                               .dropdown
+                               .onCellQuestionUpdate(cellQuestion, column, question, data);
+                        })
+                     };
+
+                     Survey
+                         .StylesManager
+                         .applyTheme("darkblue");
+                     survey = new Survey.Model({{ structure|raw }});
+                     Survey.defaultStandardCss.progressBar = "bar-green";
+                     Survey.defaultStandardCss.progress = "progress";
+
+                     survey
+                         .onComplete
+                         .add(function (survey, options) {
+                            handleSpinner('#survey-proceed-button', '#survey-proceed-spinner', 3);
+                         });
+                     survey
+                         .onComplete
+                         .add(function (result) {
+                            document
+                                .querySelector('#surveyResult')
+                                .innerHTML = "Resultat der Formulareingabe in JSON: " + JSON.stringify(result.data) + "</p>";
+                            var element = $('#surveyFollow');
+                            element.addClass('visible')
+                         });
+                     survey
+                         .onComplete
+                         .add(function (result) {
+                            saveSurvey(result.data);
+                         });
+                     survey
+                         .onUpdateQuestionCssClasses
+                         .add(function (survey, options) {
+                            var classes = options.cssClasses
+
+                            classes.root = "sq-root";
+                            classes.title = "sq-title";
+                            classes.item = "sq-item";
+                            classes.label = "sq-label";
+
+                            if (options.question.isRequired) {
+                               classes.title = "sq-title sq-title-required";
+                               classes.root = "sq-root sq-root-required";
+                            }
+
+                            if (options.question.getType() === "checkbox") {
+                               classes.root = "sq-root sq-root-cb";
+                            }
+                         });
+
+                     $("#surveyElement").Survey({
+                        model: survey,
+                        onCurrentPageChanged: onCurrentPageChanged,
+                        onValueChanged: onValueChanged
+                     });
+
+                     function onCurrentPageChanged(survey) {
+                        {% if type == 'aci' %}
+                        if (survey.currentPage.name == "Screen 3") {
+                           // 				console.log(survey.getQuestionByName('nfrontend').value)
+                           // 				console.log(survey.getQuestionByName('nportal').value)
+                           // 				console.log(survey.getQuestionByName('nsearch').value)
+
+                           var name = 'birthdayYear';
+                           var question = survey.getQuestionByName(name);
+
+                           var startYear = 1930;
+                           var currentYear = new Date().getFullYear();
+                           var years = []
+                           for (var i = startYear; i <= currentYear; i++) {
+                              years.push(i);
+                           }
+                           question.choices = years;
+
+                           var name = 'birthdayMonth';
+                           var question = survey.getQuestionByName(name);
+
+                           var monthNames = ["Januar", "Februar", "Maerz", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+                           question.choices = monthNames;
+
+                           var name = 'birthdayDay';
+                           var question = survey.getQuestionByName(name);
+
+                           var startDay = 1;
+                           var lastDay = 31;
+                           var days = []
+                           for (var i = startDay; i <= lastDay; i++) {
+                              days.push(i);
+                           }
+                           question.choices = days;
+
+                           //console.log(days);
+                           //console.log(" --- ");
+                           //console.log(survey.getQuestionByName(name).items);
+                           survey.render();
+                        }
+                        {%  endif %}
+                     }
+                     function onValueChanged(survey) {
+                        {% if type == 'aci' %}
+                        if (survey.getQuestionByName('onlyMyselfCount') &&
+                            survey.getQuestionByName('onlyMyselfCount').value > 0) {
+                           //if (survey.currentPage.name == "Seite 1") {
+                           //console.log(survey.getQuestionByName('onlyMyselfCount').value);
+                           // 				console.log(survey.getQuestionByName('nfrontend').value)
+                           // 				console.log(survey.getQuestionByName('nportal').value)
+                           // 				console.log(survey.getQuestionByName('nsearch').value)
+
+                           addFields('onlyMyselfCountNames',
+                               survey.getQuestionByName('onlyMyselfCount').value);
+                        }
+                        {%  endif %}
+                     }
+
+                     function addFields(name, n) {
+                        //console.log(survey.getQuestionByName(name).items);
+                        var question = survey.getQuestionByName(name);
+                        survey.getQuestionByName(name).items = [];
+
+                        for (var i = 0; i < n; i++) {
+                           question.addItem(name + " " + i, "Vorname " + (i + 1));
+                        }
+                     }
+                  </script>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+{% endblock %}

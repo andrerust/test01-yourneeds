@@ -1,0 +1,169 @@
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+  locale: de
+  cache_type: array
+  #cache_type: file_system
+  upload_profiles: '%kernel.root_dir%/../public/uploads/profiles'
+  upload_logos: '%kernel.root_dir%/../public/uploads/logos'
+  upload_image: '%kernel.root_dir%/../_uploads'
+  jms_serializer.camel_case_naming_strategy.class: JMS\Serializer\Naming\IdenticalPropertyNamingStrategy
+
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    public: false       # Allows optimizing the container by removing unused services; this also means
+    # fetching services directly from the container via $container->get() won't work.
+    # The best practice is to be explicit about your dependencies anyway.
+
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  #App\:
+  #    resource: '../src/*'
+  #    exclude: '../src/{Entity,Migrations,Tests,Kernel.php}'
+
+  # controllers are imported separately to make sure services can be injected
+  # as action arguments even if you don't extend any base controller class
+  #App\Controller\:
+  #    resource: '../src/Controller'
+  #    tags: ['controller.service_arguments']
+
+  AppBundle\:
+    resource: '../src/AppBundle/*'
+    lazy: true
+    exclude: '../src/AppBundle/{Entity}'
+
+  AppBundle\Controller\:
+    resource: '../src/AppBundle/Controller'
+    lazy: true
+    public: true
+    tags: ['controller.service_arguments']
+
+  Main\AdminBundle\:
+    resource: '../src/Main/AdminBundle/*'
+    lazy: true
+    exclude: '../src/Main/AdminBundle/{Entity}'
+
+  Main\AdminBundle\Controller\:
+    resource: '../src/Main/AdminBundle/Controller/*'
+    lazy: true
+    public: true
+    tags: ['controller.service_arguments']
+
+  Main\UserBundle\:
+    resource: '../src/Main/UserBundle/*'
+    lazy: true
+    exclude: '../src/Main/UserBundle/{Entity}'
+
+  Main\UserBundle\Controller\:
+    resource: '../src/Main/UserBundle/Controller/*'
+    lazy:  true
+    public: true
+    tags: ['controller.service_arguments']
+
+  Main\InsuranceBundle\:
+    resource: '../src/Main/InsuranceBundle/*'
+    lazy: true
+    exclude: '../src/Main/InsuranceBundle/{Entity}'
+
+  Main\InsuranceBundle\Controller\:
+    resource: '../src/Main/InsuranceBundle/Controller/*'
+    lazy: true
+    public: true
+    tags: ['controller.service_arguments']
+
+  Main\UserBundle\Doctrine\HashPasswordListener:
+    tags: { name: doctrine.event_subscriber }
+    lazy: true
+
+  #AppBundle\DataFixtures\ORM\:
+  #  resource: '../src/AppBundle/DataFixtures/ORM/*'
+  #  lazy: true
+  #  tags: [doctrine.fixture.orm]
+
+  AppBundle\Form\TypeExtension\HelpFormExtension:
+    lazy: true
+    tags:
+      - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
+
+  #app.service.file_uploader:
+  #  class: AppBundle\Service\UploadService
+  #  lazy: true
+  #  arguments: ['%upload_profiles%', '%upload_logos%']
+  #  public: true
+
+  #kernel.listener.exception_listener:
+  #    class: AppBundle\Listener\CustomExceptionListener
+  #    calls:
+  #        - [ setKernel, [ '@kernel' ] ]
+  #        - [ setTemplating, [ '@twig' ] ]
+  #        - [ setTranslator, [ '@translator' ] ]
+  #        - [ setToken, ['@security.token_storage'] ]
+  #        - [ setEntityManager, [ '@doctrine.orm.default_entity_manager' ] ]
+  #        - [ setRequest, [ '@?request=' ] ]
+  #        - [ setDefaultLocale, ['%locale%'] ]
+  #    tags:
+  #       - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+
+  app.security.voter.view_profile:
+    class: Main\UserBundle\Security\Voter\ViewProfileVoter
+    lazy: true
+    tags:
+      - { name: security.voter }
+  app.security.voter.view_choose_survey:
+    class: Main\UserBundle\Security\Voter\ViewChooseSurveyVoter
+    lazy: true
+    tags:
+      - { name: security.voter }
+  app.security.voter.view_do_survey:
+    class: Main\UserBundle\Security\Voter\ViewDoSurveyVoter
+    lazy: true
+    tags:
+      - { name: security.voter }
+  app.security.voter.save_survey:
+    class: Main\UserBundle\Security\Voter\SaveSurveyVoter
+    lazy: true
+    tags:
+      - { name: security.voter }
+  app.security.voter.view_survey_result:
+    class: Main\UserBundle\Security\Voter\ViewSurveyResultVoter
+    lazy: true
+    tags:
+      - { name: security.voter }
+  app.security.voter.choose_payment:
+    class: Main\UserBundle\Security\Voter\ChoosePaymentVoter
+    lazy: true
+    tags:
+      - { name: security.voter }
+  app.security.voter.do_application:
+    class: Main\UserBundle\Security\Voter\DoApplicationVoter
+    lazy: true
+    tags:
+      - { name: security.voter }
+  app.security.voter.do_use_builder:
+    class: Main\UserBundle\Security\Voter\DoAdminImportVoter
+    lazy: true
+    tags:
+      - { name: security.voter }
+  app.security.voter.can_upload_document:
+    class: Main\UserBundle\Security\Voter\CanDoUploadDocumentVoter
+    lazy: true
+    tags:
+      - { name: security.voter }
+  app.security.voter.do_admin_import:
+    class: Main\UserBundle\Security\Voter\DoUseBuilderVoter
+    lazy: true
+    tags:
+      - { name: security.voter }
+  app.security.voter.use_benefit:
+    class: Main\UserBundle\Security\Voter\UseBenefitVoter
+    lazy: true
+    tags:
+      - { name: security.voter }
+  app.security.voter.edit_benefit:
+    class: Main\UserBundle\Security\Voter\EditBenefitVoter
+    lazy: true
+    tags:
+      - { name: security.voter }

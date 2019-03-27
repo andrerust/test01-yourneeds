@@ -1,0 +1,104 @@
+{
+  "locale": "de",
+  "title": "Melden eines Schadens in der Haftpflicht",
+  "completedHtml": {
+    "de": "<h3 class=\"title2 title2--space\">\nDeine Dokumente sind nun hinzugefügt\n</h3>"
+  },
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "privateLiabilityDamage",
+          "elements": [
+            {
+              "type": "html",
+              "name": "question0",
+              "html": {
+                "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/privathaftpflicht.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h3 class=\"title2 title2--space\">\nWillkommen beim YOURneeds Dokumenten-Upload!\n</h3>\n<h4 class=\"title4 title4--space\">Bitte nutze die vorhandenen Formulare zum hochladen von Dokumenten. Du kannst mehrere gleichzeitig hochladen. Bitte gib die Art des Dokuments an und eine kurze Beschreibung.<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n</div>\n</div>\n"
+              }
+            }
+          ],
+          "readOnly": true
+        }
+      ]
+    },
+    {
+      "name": "upload",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question7",
+          "html": {
+            "de": "<h2 class=\"title2 title2--space\">Bereitstellung von Bildmaterial</h2>"
+          }
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "imageUpload",
+          "title": "Upload von Bildern",
+          "columns": [
+            {
+              "name": "tags",
+              "title": "Art des Dokuments",
+              "cellType": "dropdown",
+              "choices": [
+                {
+                  "value": "identityCard",
+                  "text": {
+                    "de": "Personalausweis"
+                  }
+                },
+                {
+                  "value": "misc",
+                  "text": {
+                    "de": "Sonstige"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "imageFile",
+              "title": "Datei",
+              "cellType": "file"
+            },
+            {
+              "name": "description",
+              "title": "Anmerkung",
+              "cellType": "comment"
+            }
+          ],
+          "columnMinWidth": "150px",
+          "rowCount": 1,
+          "addRowText": {
+            "default": "Weitere Datei hochladen",
+            "de": "Weiterer Upload"
+          },
+          "removeRowText": {
+            "de": "löschen"
+          }
+        }
+      ]
+    },
+    {
+      "name": "exit",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question1",
+          "html": {
+            "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-4 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/privathaftpflicht.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-8 text-left\">\n<h3 class=\"title2 title2--space\">\nDu kannst den Upload jetzt durchführen\n</h3>\n<br/>\n<h4 class=\"title4 title4--space\">Du findest diese Dokumente in Deiner Vertrags- und Dokumentenübersicht.<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n</div>\n</div>\n"
+          }
+        }
+      ]
+    }
+  ],
+  "showProgressBar": "top",
+  "pagePrevText": {
+    "de": "zurück"
+  },
+  "pageNextText": {
+    "de": "weiter"
+  }
+}

@@ -1,0 +1,4 @@
+services:
+#    main_insurance.example:
+#        class: Main\InsuranceBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

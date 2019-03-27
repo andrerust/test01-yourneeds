@@ -1,0 +1,412 @@
+{% extends 'MainAdminBundle:Admin:_admin.main.html.twig' %}
+
+{% block title %}Admin tariff edit{% endblock %}
+
+  {% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('components/bootstrapvalidator/dist/css/bootstrapValidator.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/admin.css') }}">
+  {% endblock %}
+
+  {% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('components/bootstrapvalidator/dist/js/bootstrapValidator.min.js') }}"></script>
+    <script src="{{ asset('js/admin/admin.js') }}"></script>
+  {% endblock %}
+
+{% block content %}
+  <section id="admin-tariff-edit">
+    <div id="page-box">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="well well-sm">
+            <div class="col-12">
+              <!--
+              {{ form_start(form) }}
+              {{ form_widget(form) }}
+              {{ form_end(form) }}
+              -->
+              <div class="row">
+                <div class="panel panel-success">
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      <h3 class="title3 title3--space">Editieren eines Tarifs</h3>
+                      <sub>Zuletzt aktualisiert: {{ tariff.updatedAt|date("d.m Y") }}</sub>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <form name="edit_tariff_form"
+                          id="edit_tariff_form"
+                          class="well form-horizontal edit_tariff_form"
+                          method="post"
+                          action="{{ path('admin_tariff_edit', {
+                            'id' : tariff.id
+                          }) }}"
+                          novalidate="novalidate">
+
+                      <fieldset>
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+
+                          <!-- COMPANY -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">Gesellschaft</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 selectContainer">
+                              <div class="input-group">
+                                <span class="input-group-addon">
+                                  <i class="fa fa-file-text-o fa-1x"></i>
+                                </span>
+                                <select name="edit_tariff_form[company]"
+                                        id="edit_tariff_form_company"
+                                        class="form-control selectpicker"
+                                        disabled
+                                        >
+                                  <option value=" ">Bitte w&auml;hlen</option>
+                                  {% for entry in companies %}
+                                    <option value="{{ entry.id }}" {{ entry.id == tariff.company.id ? 'selected="selected"' : '' }}>
+                                      {{ entry.name }}
+                                    </option>
+                                  {% endfor %}
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- NAME -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">Tarif-Name</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                              <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="fa fa-file-text-o fa-1x"></i>
+                              </span>
+                                <input class="form-control"
+                                       type="text"
+                                       name="edit_tariff_form[name]"
+                                       id="edit_tariff_form_name"
+                                       placeholder="Name"
+                                       value="{{ tariff.name }}"
+                                       required/>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- DESCRIPTION-->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">Beschreibung</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                              <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="fa fa-file-text-o fa-1x"></i>
+                              </span>
+                                <input id="edit_tariff_form_description"
+                                       class="form-control"
+                                       type="text"
+                                       name="edit_tariff_form[description]"
+                                       placeholder="Beschreibung"
+                                       value="{{ tariff.description }}"
+                                       required/>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- AMOUNT OF COVERAGE -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">
+                              Deckungssumme Personensch&auml;den mind.
+                            </label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+
+                              {% for key, param in tariff.amountCoveredBodyInjury %}
+                                <div class="col-4">
+                                  <input id="edit_tariff_form_amountCoveredBodyInjury"
+                                         type="checkbox"
+                                         name="edit_tariff_form[amountCoveredBodyInjury][]"
+                                         value="{{ key }}"
+                                         class="form-check-input"
+                                          {{ param==1 ? 'checked' : '' }}
+                                          >
+                                  <label class="form-check-label"
+                                         for="edit_tariff_form_amountCoveredBodyInjury">{{ key }}</label>
+                                </div>
+                              {% endfor %}
+                            </div>
+                          </div>
+
+                          <!-- RATE -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">
+                              Deckungssummen Sachsch&auml;den mind.
+                            </label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                              {% for key, param in tariff.amountCoveredMaterialDamage %}
+                                <div class="col-4">
+                                  <input id="edit_tariff_form_amountCoveredMaterialDamage"
+                                         type="checkbox"
+                                         name="edit_tariff_form[amountCoveredMaterialDamage][]"
+                                         value="{{ key }}"
+                                         class="form-check-input"
+                                          {{ param==1 ? 'checked' : '' }}
+                                          >
+                                  <label class="form-check-label"
+                                         for="edit_tariff_form_amountCoveredMaterialDamage">{{ key }}</label>
+                                </div>
+                              {% endfor %}
+                              <span class="help-block">Rate in Verbindung mit Zahlungszeitraum!</span>
+                            </div>
+                          </div>
+
+                          <!-- RATE INTERVAL -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">
+                              Deckungssummen Verm&ouml;gensch&auml;den mind.
+                            </label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                              {% for key, param in tariff.amountCoveredFinancialDamage %}
+                                <div class="col-4">
+                                  <input id="amountCoveredFinancialDamage"
+                                         type="checkbox"
+                                         name="edit_tariff_form[amountCoveredFinancialDamage][]"
+                                         value="{{ key }}"
+                                         class="form-check-input"
+                                          {{ param==1 ? 'checked' : '' }}
+                                          >
+                                  <label class="form-check-label"
+                                         for="edit_tariff_form_amountCoveredFinancialDamage">{{ key }}</label>
+                                </div>
+                              {% endfor %}
+                            </div>
+                          </div>
+
+
+                          <!-- RETENTION -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">
+                              Nicht deliktf&auml;hige Kinder mind.
+                            </label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                              {% for key, param in tariff.amountCoveredJungKids %}
+                                {% set checked = false %}
+                                {% if param==1 or (not param is null and param != 0) %}
+                                  {% set checked = true %}
+                                {% endif %}
+                                <div class="col-4">
+                                  <div class="row">
+                                    <input id="edit_tariff_form_amountCoveredJungKids"
+                                           type="checkbox"
+                                           name="edit_tariff_form[amountCoveredJungKids][]"
+                                           value="{{ key }}"
+                                           class="form-check-input"
+                                            {{ checked ? 'checked' : '' }}
+                                            >
+                                    <label class="form-check-label"
+                                           for="edit_tariff_form_amountCoveredJungKids">{{ key }}</label>
+                                  </div>
+                                  <div class="row">
+                                    {% for subKey, subParam in param %}
+                                      SB ({{ key }}): <input class="form-control checkbox-input"
+                                                             type="text"
+                                                             name="edit_tariff_form[amountCoveredJungKids_subParam]"
+                                                             id="edit_tariff_form_amountCoveredJungKids_subParam"
+                                                             placeholder="Name"
+                                                             value="{{ subParam }}"/>
+                                    {% endfor %}
+                                  </div>
+                                </div>
+                              {% endfor %}
+                            </div>
+
+                            <!-- DISCOUNT NAME -->
+                            <div class="form-group">
+                              <label class="col-sm-3 col-md-3 col-lg-3 control-label">
+                                Discountname
+                              </label>
+
+                              <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                                {% for key, param in tariff.includeInternship %}
+                                  <div class="col-4">
+                                    <input id="edit_tariff_form_includeInternship"
+                                           type="checkbox"
+                                           name="edit_tariff_form[includeInternship][]"
+                                           value="{{ key }}"
+                                           class="form-check-input"
+                                            {{ param==1 ? 'checked' : '' }}
+                                           disabled
+                                            >
+                                  </div>
+                                {% endfor %}
+                              </div>
+                            </div>
+
+                            <!-- DISCOUNT IN PERCENT -->
+                            <div class="form-group">
+                              <label class="col-sm-3 col-md-3 col-lg-3 control-label">
+                                Discount in Prozent
+                              </label>
+
+                              <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                                {% for key, param in tariff.badDeptLoss %}
+                                  <div class="col-4">
+                                    <input id="edit_tariff_form_badDeptLoss"
+                                           type="checkbox"
+                                           name="edit_tariff_form[badDeptLoss][]"
+                                           value="{{ key }}"
+                                           class="form-check-input"
+                                            {{ param==1 ? 'checked' : '' }}
+                                           disabled
+                                            >
+                                  </div>
+                                {% endfor %}
+                              </div>
+                            </div>
+
+                            <!-- AGE FROM AND UNTIL -->
+                            <div class="form-group">
+                              <label class="col-sm-3 col-md-3 col-lg-3 control-label">Discount in Prozent</label>
+
+                              <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                                <div class="input-group">
+
+                                  <div class="form-check form-check-inline" data-toggle="buttons">
+                                    {% for key, param in tariff.dataExchange %}
+                                      <div class="col-4">
+                                        <input id="edit_tariff_form_dataExchange"
+                                               type="checkbox"
+                                               name="edit_tariff_form[dataExchange][]"
+                                               value="{{ key }}"
+                                               class="form-control form-check-input"
+                                                {{ param==1 ? 'checked' : '' }}
+                                                >
+                                      </div>
+                                    {% endfor %}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <label class="col-sm-3 col-md-3 col-lg-3 control-label">Discount in Prozent</label>
+
+                              <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                                {% for key, param in tariff.ownResidentialHomeLivingIn %}
+                                  <div class="col-4">
+                                    <input id="edit_tariff_form_ownResidentialHomeLivingIn"
+                                           type="checkbox"
+                                           name="edit_tariff_form[ownResidentialHomeLivingIn][]"
+                                           value="{{ key }}"
+                                           class="form-check-input"
+                                            {{ param==1 ? 'checked' : '' }}
+                                            >
+                                  </div>
+                                {% endfor %}
+                              </div>
+                            </div>
+
+                            <!-- IS ACTIVE -->
+                            <div class="form-group">
+                              <label class="col-12 col-sm-3 col-md-3 col-lg-3 control-label">Aktiviert</label>
+
+                              <div class="col-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-11 col-sm-3 col-md-8 col-lg-8">
+                                <div class="radio" id="edit_tariff_form_isActive">
+                                  <input type="radio"
+                                         id="edit_tariff_form_isActive_1"
+                                         name="edit_tariff_form[isActive]"
+                                         required="required"
+                                         value="1"
+                                          {{ tariff.isActive == 1 ? 'checked' : '' }}/>
+                                  <label for="edit_tariff_form_isActive_1" class="required">Ja</label>
+                                </div>
+                                <div class="radio">
+                                  <input type="radio" class="radio"
+                                         id="edit_tariff_form_isActive_0"
+                                         name="edit_tariff_form[isActive]"
+                                         required="required"
+                                         value="0"
+                                          {{ tariff.isActive != 1 ? 'checked' : '' }}/>
+                                  <label for="edit_tariff_form_isActive_0" class="required">Nein</label>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Success message -->
+                            <div class="alert alert-success" role="alert" id="success_message">
+                              Success <i class="glyphicon glyphicon-thumbs-up"></i>
+                              Daten erfolgreich ge&auml;ndert
+                            </div>
+
+                            <!-- Button -->
+                            <div class="form-group">
+                              <label class="hidden-xs hidden-sm col-md-4 col-lg-4 control-label"></label>
+
+                              <div class="col-6 col-sm-6 col-md-3 col-lg-3 text-left">
+                                <a href="{{ path('admin_tariff_id', {
+                                  'id' : tariff.id
+                                }) }}">
+                                  <button type="button"
+                                          id="edit_tariff_form_quit"
+                                          name="edit_tariff_form[quit]"
+                                          class="btn btn-default">Abbrechen
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                  </button>
+                                </a>
+                              </div>
+                              <div class="col-6 col-sm-6 col-md-5 col-lg-5 text-right">
+                                <button type="submit"
+                                        id="edit_tariff_form_save"
+                                        name="edit_tariff_form[save]"
+                                        class="btn btn-default">Daten speichern
+                                  <span class="glyphicon glyphicon-send"></span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-sm-6 col-md-6 col-lg-6">
+                            <!-- NOTE -->
+                            <div class="form-group">
+                              <label class="col-12 col-sm-12 col-md-2 col-lg-2 control-label">Notiz</label>
+
+                              <div class="col-12 col-sm-12 col-md-10 col-lg-10 inputGroupContainer">
+                                <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                              </span>
+                                <textarea class="form-control"
+                                          name="edit_tariff_form[note]"
+                                          id="edit_tariff_form_note"
+                                          placeholder="Notiz"
+                                          rows="16">{{ tariff.note }}</textarea>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- TOKEN -->
+                            <div class="form-group">
+                              <input class="form-control"
+                                     type="hidden"
+                                     name="edit_tariff_form[_token]"
+                                     id="edit_tariff_form__token"
+                                     value="{{ form._token.vars.value }}"/>
+                            </div>
+
+                          </div>
+                      </fieldset>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.container -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

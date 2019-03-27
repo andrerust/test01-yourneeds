@@ -1,0 +1,13 @@
+{
+  "build/yourneeds-base.js": "/build/yourneeds-base.js",
+  "build/yourneeds-base.css": "/build/yourneeds-base.css",
+  "build/surveyCore.js": "/build/surveyCore.js",
+  "build/surveyCore.css": "/build/surveyCore.css",
+  "build/yourneeds-manager.js": "/build/yourneeds-manager.js",
+  "build/yourneeds-manager.css": "/build/yourneeds-manager.css",
+  "build/yourneeds-home.js": "/build/yourneeds-home.js",
+  "build/yourneeds-home.css": "/build/yourneeds-home.css",
+  "build/yourneeds-mm-base.js": "/build/yourneeds-mm-base.js",
+  "build/yourneeds-mm-base.css": "/build/yourneeds-mm-base.css",
+  "build/survey.js": "/build/survey.js"
+}

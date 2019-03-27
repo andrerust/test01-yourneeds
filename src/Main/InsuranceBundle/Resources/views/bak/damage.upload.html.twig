@@ -1,0 +1,340 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds user profil{% endblock %}
+
+  {% block stylesheets %}
+     {{ parent() }}
+     <!-- bootstrap 4.x is supported. You can also use the bootstrap css 3.3.x versions -->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all"
+           rel="stylesheet" type="text/css"/>
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/css/fileinput.min.css" media="all"
+           rel="stylesheet" type="text/css"/>
+     <link rel="stylesheet" href="{{ asset('build/yourneeds-profile.css') }}"/>
+     <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+     <style>
+
+        /*!
+        * bootstrap-fileinput v4.4.9
+        * http://plugins.krajee.com/file-input
+        *
+        * Krajee Explorer Font Awesome 4.x theme style for bootstrap-fileinput. Load this theme file after loading
+        * font awesome 4.x CSS and `fileinput.css`.
+        *
+        * Author: Kartik Visweswaran
+        * Copyright: 2014 - 2018, Kartik Visweswaran, Krajee.com
+        *
+        * Licensed under the BSD 3-Clause
+        * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
+        */
+        .theme-explorer-fa .file-upload-indicator, .theme-explorer-fa .file-drag-handle, .theme-explorer-fa .explorer-frame .kv-file-content, .theme-explorer-fa .file-actions, .explorer-frame .file-preview-other {
+           text-align: center;
+        }
+
+        .theme-explorer-fa .file-thumb-progress .progress, .theme-explorer-fa .file-thumb-progress .progress-bar {
+           height: 13px;
+           font-size: 11px;
+           line-height: 13px;
+        }
+
+        .theme-explorer-fa .file-upload-indicator, .theme-explorer-fa .file-drag-handle {
+           position: absolute;
+           display: inline-block;
+           top: 0;
+           right: 3px;
+           width: 16px;
+           height: 16px;
+           font-size: 16px;
+        }
+
+        .theme-explorer-fa .file-thumb-progress .progress, .theme-explorer-fa .explorer-caption {
+           display: block;
+        }
+
+        .theme-explorer-fa .explorer-frame td {
+           vertical-align: middle;
+           text-align: left;
+        }
+
+        .theme-explorer-fa .explorer-frame .kv-file-content {
+           width: 80px;
+           height: 80px;
+           padding: 5px;
+        }
+
+        .theme-explorer-fa .file-actions-cell {
+           position: relative;
+           width: 120px;
+           padding: 0;
+        }
+
+        .theme-explorer-fa .file-thumb-progress .progress {
+           margin-top: 5px;
+        }
+
+        .theme-explorer-fa .explorer-caption {
+           color: #777;
+        }
+
+        .theme-explorer-fa .kvsortable-ghost {
+           opacity: 0.6;
+           background: #e1edf7;
+           border: 2px solid #a1abff;
+        }
+
+        .theme-explorer-fa .file-preview .table {
+           margin: 0;
+        }
+
+        .theme-explorer-fa .file-error-message ul {
+           padding: 5px 0 0 20px;
+        }
+
+        .explorer-frame .file-preview-text {
+           display: inline-block;
+           color: #428bca;
+           border: 1px solid #ddd;
+           font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+           outline: none;
+           padding: 8px;
+           resize: none;
+        }
+
+        .explorer-frame .file-preview-html {
+           display: inline-block;
+           border: 1px solid #ddd;
+           padding: 8px;
+           overflow: auto;
+        }
+
+        .explorer-frame .file-other-icon {
+           font-size: 2.6em;
+        }
+
+        @media only screen and (max-width: 767px) {
+           .theme-explorer-fa .table, .theme-explorer-fa .table tbody, .theme-explorer-fa .table tr, .theme-explorer-fa .table td {
+              display: block;
+              width: 100% !important;
+           }
+
+           .theme-explorer-fa .table {
+              border: none;
+           }
+
+           .theme-explorer-fa .table tr {
+              margin-top: 5px;
+           }
+
+           .theme-explorer-fa .table tr:first-child {
+              margin-top: 0;
+           }
+
+           .theme-explorer-fa .table td {
+              text-align: center;
+           }
+
+           .theme-explorer-fa .table .kv-file-content {
+              border-bottom: none;
+              padding: 4px;
+              margin: 0;
+           }
+
+           .theme-explorer-fa .table .kv-file-content .file-preview-image {
+              max-width: 100%;
+              font-size: 20px;
+           }
+
+           .theme-explorer-fa .file-details-cell {
+              border-top: none;
+              border-bottom: none;
+              padding-top: 0;
+              margin: 0;
+           }
+
+           .theme-explorer-fa .file-actions-cell {
+              border-top: none;
+              padding-bottom: 4px;
+           }
+
+           .theme-explorer-fa .explorer-frame .explorer-caption {
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              left: 0;
+              right: 0;
+              margin: auto;
+           }
+        }
+
+        /*noinspection CssOverwrittenProperties*/
+        .file-zoom-dialog .explorer-frame .file-other-icon {
+           font-size: 22em;
+           font-size: 50vmin;
+        }
+     </style>
+
+  {% endblock %}
+
+  {% block javascripts %}
+     {{ parent() }}
+     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+     <!-- piexif.min.js is needed for auto orienting image files OR when restoring exif data in resized images and when you
+         wish to resize images before upload. This must be loaded before fileinput.min.js -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/js/plugins/piexif.min.js"
+             type="text/javascript"></script>
+     <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
+         This must be loaded before fileinput.min.js -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/js/plugins/sortable.min.js"
+             type="text/javascript"></script>
+     <!-- purify.min.js is only needed if you wish to purify HTML content in your preview for
+         HTML files. This must be loaded before fileinput.min.js -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/js/plugins/purify.min.js"
+             type="text/javascript"></script>
+     <!-- popper.min.js below is needed if you use bootstrap 4.x. You can also use the bootstrap js
+        3.3.x versions without popper.min.js. -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+     <!-- bootstrap.min.js below is needed if you wish to zoom and preview file content in a detail modal
+         dialog. bootstrap 4.x is supported. You can also use the bootstrap js 3.3.x versions. -->
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+             type="text/javascript"></script>
+     <!-- the main fileinput plugin file -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/js/fileinput.min.js"></script>
+     <!-- optionally uncomment line below for loading your theme assets for a theme like Font Awesome (`fa`) -->
+     <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/themes/fa/theme.min.js"></script -->
+     <!-- optionally if you need translation for your language then include  locale file as mentioned below -->
+     <script>
+        $(document).ready(function () {
+           /*!
+            * bootstrap-fileinput v4.4.9
+            * http://plugins.krajee.com/file-input
+            *
+            * Krajee Explorer Font Awesome theme configuration for bootstrap-fileinput.
+            * Load this theme file after loading `fileinput.js`. Ensure that
+            * font awesome assets and CSS are loaded on the page as well.
+            *
+            * Author: Kartik Visweswaran
+            * Copyright: 2014 - 2018, Kartik Visweswaran, Krajee.com
+            *
+            * Licensed under the BSD 3-Clause
+            * https://github.com/kartik-v/bootstrap-fileinput/blob/master/LICENSE.md
+            */
+           (function ($) {
+              "use strict";
+              var teTagBef = '<tr class="file-preview-frame {frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
+                  ' data-template="{template}"', teContent = '<td class="kv-file-content">\n';
+              $.fn.fileinputThemes['explorer-fa'] = {
+                 layoutTemplates: {
+                    preview: '<div class="file-preview {class}">\n' +
+                    '    {close}' +
+                    '    <div class="{dropClass}">\n' +
+                    '    <table class="table table-bordered table-hover"><tbody class="file-preview-thumbnails">\n' +
+                    '    </tbody></table>\n' +
+                    '    <div class="clearfix"></div>' +
+                    '    <div class="file-preview-status text-center text-success"></div>\n' +
+                    '    <div class="kv-fileinput-error"></div>\n' +
+                    '    </div>\n' +
+                    '</div>',
+                    footer: '<td class="file-details-cell"><div class="explorer-caption" title="{caption}">{caption}</div> ' +
+                    '{size}{progress}</td><td class="file-actions-cell">{indicator} {actions}</td>',
+                    actions: '{drag}\n' +
+                    '<div class="file-actions">\n' +
+                    '    <div class="file-footer-buttons">\n' +
+                    '        {upload} {download} {delete} {zoom} {other} ' +
+                    '    </div>\n' +
+                    '</div>',
+                    zoomCache: '<tr style="display:none" class="kv-zoom-cache-theme"><td>' +
+                    '<table class="kv-zoom-cache">{zoomContent}</table></td></tr>',
+                    fileIcon: '<i class="fa fa-file kv-caption-icon"></i> '
+                 },
+                 previewMarkupTags: {
+                    tagBefore1: teTagBef + '>' + teContent,
+                    tagBefore2: teTagBef + ' title="{caption}">' + teContent,
+                    tagAfter: '</td>\n{footer}</tr>\n'
+                 },
+                 previewSettings: {
+                    image: {height: "60px"},
+                    html: {width: "100px", height: "60px"},
+                    text: {width: "100px", height: "60px"},
+                    video: {width: "auto", height: "60px"},
+                    audio: {width: "auto", height: "60px"},
+                    flash: {width: "100%", height: "60px"},
+                    object: {width: "100%", height: "60px"},
+                    pdf: {width: "100px", height: "60px"},
+                    other: {width: "100%", height: "60px"}
+                 },
+                 frameClass: 'explorer-frame',
+                 fileActionSettings: {
+                    removeIcon: '<i class="fa fa-trash"></i>',
+                    uploadIcon: '<i class="fa fa-upload"></i>',
+                    uploadRetryIcon: '<i class="fa fa-repeat"></i>',
+                    downloadIcon: '<i class="fa fa-download"></i>',
+                    zoomIcon: '<i class="fa fa-search-plus"></i>',
+                    dragIcon: '<i class="fa fa-arrows"></i>',
+                    indicatorNew: '<i class="fas fa-plus-circle text-warning"></i>',
+                    indicatorSuccess: '<i class="fas fa-check-circle text-success"></i>',
+                    indicatorError: '<i class="fa fa-exclamation-circle text-danger"></i>',
+                    indicatorLoading: '<i class="fa fa-hourglass text-muted"></i>'
+                 },
+                 previewZoomButtonIcons: {
+                    prev: '<i class="fas fa-caret-left fa-lg"></i>',
+                    next: '<i class="fas fa-caret-right fa-lg"></i>',
+                    toggleheader: '<i class="fa fa-fw fa-arrows-v"></i>',
+                    fullscreen: '<i class="fa fa-fw fa-arrows-alt"></i>',
+                    borderless: '<i class="fa fa-fw fa-external-link"></i>',
+                    close: '<i class="fa fa-fw fa-remove"></i>'
+                 },
+                 previewFileIcon: '<i class="fa fa-file"></i>',
+                 browseIcon: '<i class="fa fa-folder-open"></i>',
+                 removeIcon: '<i class="fa fa-trash"></i>',
+                 cancelIcon: '<i class="fas fa-ban"></i>',
+                 uploadIcon: '<i class="fa fa-upload"></i>',
+                 msgValidationErrorIcon: '<i class="fa fa-exclamation-circle"></i> '
+              };
+           })(window.jQuery);
+        });
+     </script>
+  {% endblock %}
+
+{% block content %}
+
+<div class="col-menu col-menu--small">
+   {% include '@MainUserBundle/Manager/profile/includes/manager.internal.nav.html.twig' %}
+</div>
+<section class="content-body" id="profile">
+  <div class="container">
+    <div class="row justify-content-start margintop10">
+          <h3><span class="color-green">Schadensmeldung Medien-Upload</span></h3>
+       </div>
+       <div class="container kv-main">
+          <form enctype="multipart/form-data">
+             <div class="file-loading">
+                <input id="kv-explorer" type="file" multiple>
+             </div>
+             <br>
+          </form>
+          <script>
+             $(document).ready(function () {
+                $("#kv-explorer").fileinput({
+                   'theme': 'explorer-fa',
+                   'uploadUrl': '/manager/{{ userId }}/damage/{{ type }}/upload/do'
+                });
+             });
+          </script>
+          <div class="col-12 mt-3 mb-2">
+             <hr>
+          </div>
+          <a href="{{ path('damage_type_report_upload_finish', {
+             'id': userId,
+             'type': type
+          }) }}" id="survey-proceed-button" class="btn btn--cta">
+                <span>
+                   Abschließen
+                </span>
+          </a>
+       </div>
+
+    </div>
+ </div>
+</section>
+
+{% endblock %}

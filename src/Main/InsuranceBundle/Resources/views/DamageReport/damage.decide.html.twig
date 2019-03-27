@@ -1,0 +1,176 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds decide kind of damage{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+  {% endblock %}
+
+{% block content %}
+
+    <section class="content-body" id="profile">
+        <div class="container">
+            <div class="col-12 text-center pt-2">
+                <h1 class="title1 title1--space">Schadensmeldung aufgeben</h1>
+                <h5 class="title3 title3--space">
+                    Hier kannst du Schadensmeldungen für Verträge aufgeben, die du bereits hinterlegt hast.
+                </h5>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% set classActivePli = 'inactive' %}
+                    {% if isAllowed.pli == 1 %}
+                    {% set classActivePli = 'active' %}
+                    <a href="{{ path('damage_type_report', {
+                        'type': 'pli'
+                    }) }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item {{ classActivePli }}" id="Private_Haftpflicht">
+                                <div class="image-container">
+                                    <img src="/build/static/images/privathaftpflicht.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Private Haftpflicht
+                                    </h2>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% set classActiveHci = 'inactive' %}
+                    {% if isAllowed.hci == 1 %}
+                    {% set classActiveHci= 'active' %}
+                    <a href="{{ path('damage_type_report', {
+                        'type': 'hci'
+                    }) }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item {{ classActiveHci }}" id="Hausrate">
+                                <div class="image-container">
+                                    <img src="/build/static/images/start/start_damage.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Hausrat
+                                    </h2>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% set classActiveRbi = 'inactive' %}
+                    {% if isAllowed.rbi == 1 %}
+                    {% set classActiveRbi= 'active' %}
+                    <a href="{{ path('damage_type_report', {
+                        'type': 'rbi'
+                    }) }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item {{ classActiveRbi }}" id="Wohngebäude">
+                                <div class="image-container">
+                                    <img src="/build/static/images/wohngebaeude.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Wohngebäude
+                                    </h2>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% set classActiveAci = 'inactive' %}
+                    {% if isAllowed.aci == 1 %}
+                    {% set classActiveAci = 'active' %}
+                    <a href="{{ path('damage_type_report', {
+                        'type': 'aci'
+                    }) }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item {{ classActiveAci }}" id="Unfall">
+                                <div class="image-container">
+                                    <img src="/build/static/images/unfallversicherung.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Unfall
+                                    </h2>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% set classActiveAli = 'inactive' %}
+                    {% if isAllowed.ali == 1 %}
+                    {% set classActiveAli= 'active' %}
+                    <a href="{{ path('damage_type_report', {
+                        'type': 'ali'
+                    }) }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item {{ classActiveAli }}" id="Tierhalter Haftpflicht">
+                                <div class="image-container">
+                                    <img src="/build/static/images/tierhaftpflicht.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Tierhalter Haftpflicht
+                                    </h2>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% set classActiveLpi = 'inactive' %}
+                    {% if isAllowed.lpi == 1 %}
+                    {% set classActiveLpi = 'active' %}
+                    <a href="{{ path('damage_type_report', {
+                        'type': 'lpi'
+                    }) }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item {{ classActiveLpi }}" id="Rechtschutz">
+                                <div class="image-container">
+                                    <img src="/build/static/images/rechtsschutz.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Rechtsschutz
+                                    </h2>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    <a href="javascript:void(0);" class="no-hover-underline full-width disabled">
+                        <div class="item" id="Kfz">
+                            <div class="image-container">
+                                <img src="/build/static/images/kfz.jpg">
+                            </div>
+                            <div class="text-center p-4">
+                                <h2 class="title2">
+                                    Kfz
+                                </h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

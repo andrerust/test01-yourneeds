@@ -1,0 +1,421 @@
+{% extends 'MainAdminBundle:Admin:_admin.main.html.twig' %}
+
+{% block title %}Admin user new{% endblock %}
+
+  {% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('components/bootstrapvalidator/dist/css/bootstrapValidator.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/admin.css') }}">
+  {% endblock %}
+
+  {% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('components/bootstrapvalidator/dist/js/bootstrapValidator.min.js') }}"></script>
+    <script src="{{ asset('js/admin/admin.js') }}"></script>
+  {% endblock %}
+
+{% block content %}
+  <section id="admin-user-edit">
+    <div id="page-box">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="well well-sm">
+            <div class="col-12">
+              <!--
+              {{ form_start(form) }}
+              {{ form_widget(form) }}
+              {{ form_end(form) }}
+              -->
+              <div class="row">
+                <div class="panel panel-success">
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      <h3 class="title3 title3--space">Neu anlegen eines Nutzers</h3>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <form name="new_user_form"
+                          id="new_user_form"
+                          class="well form-horizontal new_user_form"
+                          method="post"
+                          action="{{ path('admin_user_new') }}"
+                          novalidate="novalidate">
+                      <fieldset>
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+
+                          <!-- Select GENDER -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">Geschlecht</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 selectContainer">
+                              <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="fas fa-users"></i>
+                              </span>
+                                <select name="new_user_form[gender]"
+                                        id="new_user_form_gender"
+                                        class="form-control selectpicker"
+                                        required>
+                                  <option value=" ">Bitte w&auml;hlen</option>
+                                  <option value="1">Mann</option>
+                                  <option value="2">Frau</option>
+                                  <option value="3">Inter</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- SALUTATION -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">Titel</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 selectContainer">
+                              <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <select name="new_user_form[userTitle]"
+                                        id="new_user_form_userTitle"
+                                        class="form-control selectpicker">
+                                  <option value=" ">Bitte w&auml;hlen</option>
+                                  {% for title in titles %}
+                                    <option value="{{ title.id }}" {{ title.name == '-' ? 'selected="selected"' : '' }}>
+                                      {{ title.name }}
+                                    </option>
+                                  {% endfor %}
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- FIRST NAME -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">First Name</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                              <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-user"></i>
+                              </span>
+                                <input class="form-control"
+                                       type="text"
+                                       name="new_user_form[firstName]"
+                                       id="new_user_form_firstName"
+                                       placeholder="Vorname"
+                                       value=""
+                                       required/>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- LAST NAME -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">Last Name</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                              <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-user"></i>
+                              </span>
+                                <input class="form-control"
+                                       type="text"
+                                       name="new_user_form[lastName]"
+                                       id="new_user_form_lastName"
+                                       placeholder="Nachname"
+                                       value=""
+                                       required/>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- MAIL -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">E-Mail</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                              <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-envelope"></i>
+                              </span>
+                                <input class="form-control"
+                                       type="text"
+                                       name="new_user_form[email]"
+                                       id="new_user_form_email"
+                                       placeholder="E-Mail"
+                                       value=""
+                                       required/>
+                              </div>
+                              <span class="help-block">Wir ben&ouml;tigen deine E-Mail f&uuml;r die Zustellung von Dokumenten</span>
+                            </div>
+                          </div>
+
+                          <!-- MOBILE NUMBER -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">Mobilnummer</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                              <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-earphone"></i>
+                              </span>
+                                <input class="form-control"
+                                       type="text"
+                                       name="new_user_form[phoneNumber]"
+                                       id="new_user_form_phoneNumber"
+                                       placeholder="Mobilnummer"
+                                       value=""
+                                       required/>
+                              </div>
+                              <span class="help-block">SICHERHEIT schreiben wir gro&szlig;, weswegen wir dir Zugang &uuml;ber deine Mobilnummer gew&auml;hren</span>
+                            </div>
+                          </div>
+
+                          <!-- Username -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">Username</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                              <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-user"></i>
+                              </span>
+                                <input class="form-control"
+                                       type="text"
+                                       name="new_user_form[userName]"
+                                       id="new_user_form_userName"
+                                       placeholder="Login-Name (optional)"
+                                       value=""
+                                       required/>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- STATUS -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">Status</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 selectContainer">
+                              <div class="input-group">
+                                <span class="input-group-addon">
+                                  <i class="glyphicon glyphicon-user"></i>
+                                </span>
+                                <select name="edit_user_form[familyStatus]"
+                                        id="edit_user_form_familyStatus"
+                                        class="form-control selectpicker">
+                                  <option value=" ">Bitte w&auml;hlen</option>
+                                  {% for familyState in familyStatus %}
+                                    <option value="{{ familyState.id }}" }}>
+                                      {{ familyState.name }}
+                                    </option>
+                                  {% endfor %}
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- JOB -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">Berufsgruppe</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 selectContainer">
+                              <div class="input-group">
+                                <span class="input-group-addon">
+                                  <i class="glyphicon glyphicon-user"></i>
+                                </span>
+                                <select name="edit_user_form[jobGroup]"
+                                        id="edit_user_form_jobGroup"
+                                        class="form-control selectpicker">
+                                  <option value=" ">Bitte w&auml;hlen</option>
+                                  {% for jobGroup in jobGroups %}
+                                    <option value="{{ jobGroup.id }}" }}>
+                                      {{ jobGroup.name }}
+                                    </option>
+                                  {% endfor %}
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- EMPLOYER -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">Arbeitgeber</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                              <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-eur"></i>
+                              </span>
+                                <input class="form-control"
+                                       type="text"
+                                       name="new_user_form[employer]"
+                                       id="new_user_form_employer"
+                                       placeholder="Arbeitgeber"
+                                       value=""/>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- IS ACTIVE -->
+                          <div class="form-group">
+                            <label class="col-12 col-sm-3 col-md-3 col-lg-3 control-label">Aktiviert</label>
+
+                            <div class="col-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-11 col-sm-3 col-md-8 col-lg-8">
+                              <div class="radio" id="new_user_form_isActive">
+                                <input type="radio"
+                                       id="new_user_form_isActive_1"
+                                       name="new_user_form[isActive]"
+                                       required="required"
+                                       value="1"/>
+                                <label for="new_user_form_isActive_1" class="required">Ja</label>
+                              </div>
+                              <div class="radio">
+                                <input type="radio" class="radio"
+                                       id="new_user_form_isActive_0"
+                                       name="new_user_form[isActive]"
+                                       required="required"
+                                       value="0"/>
+                                <label for="new_user_form_isActive_0" class="required">Nein</label>
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <!-- IS BLOCKED -->
+                          <div class="form-group">
+                            <label class="col-12 col-sm-3 col-md-3 col-lg-3 control-label">Blockiert</label>
+
+                            <div class="col-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-11 col-sm-3 col-md-8 col-lg-8">
+                              <div class="radio" id="new_user_form_isBlocked">
+                                <input type="radio"
+                                       id="new_user_form_isBlocked_1"
+                                       name="new_user_form[isBlocked]"
+                                       required="required"
+                                       value="1"/>
+                                <label for="new_user_form_isBlocked_1" class="required">Ja</label>
+                              </div>
+                              <div class="radio">
+                                <input type="radio"
+                                       id="new_user_form_isBlocked_0"
+                                       name="new_user_form[isBlocked]"
+                                       required="required"
+                                       value="0"/>
+                                <label for="new_user_form_isBlocked_0" class="required">Nein</label>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- COINS -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">InsurCoins</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                              <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-star"></i>
+                              </span>
+                                <input class="form-control"
+                                       type="number"
+                                       name="new_user_form[coins]"
+                                       id="new_user_form_coins"
+                                       placeholder="InsurCoins"/>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- RECEIVE NEWSLETTER -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">Newsletter</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                              <div class="radio">
+                                <input type="checkbox"
+                                       id="new_user_form_receiveNewsletter"
+                                       name="new_user_form[receiveNewsletter]"/>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- TERMS ACCEPTED -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">Terms accepted</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                              <div class="radio">
+                                <input type="checkbox"
+                                       id="new_user_form_termsAccepted"
+                                       name="new_user_form[termsAccepted]"/>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Success message -->
+                          <div class="alert alert-success" role="alert" id="success_message">
+                            Success <i class="glyphicon glyphicon-thumbs-up"></i>
+                            Daten erfolgreich ge&auml;ndert
+                          </div>
+
+                          <!-- Button -->
+                          <div class="form-group">
+                            <label class="hidden-xs hidden-sm col-md-4 col-lg-4 control-label"></label>
+
+                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 text-left">
+                              <a href="{{ path('admin_users') }}">
+                                <button type="button"
+                                        id="new_user_form_quit"
+                                        name="new_user_form[quit]"
+                                        class="btn">Abbrechen
+                                  <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                              </a>
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-5 col-lg-5 text-right">
+                              <button type="submit"
+                                      id="new_user_form_save"
+                                      name="new_user_form[save]"
+                                      class="btn">Daten speichern
+                                <span class="glyphicon glyphicon-send"></span>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                          <!-- NOTE -->
+                          <div class="form-group">
+                            <label class="col-12 col-sm-12 col-md-2 col-lg-2 control-label">Notiz</label>
+
+                            <div class="col-12 col-sm-12 col-md-10 col-lg-10 inputGroupContainer">
+                              <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                              </span>
+                                <textarea class="form-control"
+                                          name="new_user_form[note]"
+                                          id="new_user_form_note"
+                                          placeholder="Notiz"
+                                          rows="16"></textarea>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- TOKEN -->
+                          <div class="form-group">
+                            <input class="form-control"
+                                   type="hidden"
+                                   name="new_user_form[_token]"
+                                   id="new_user_form__token"
+                                   value="{{ form._token.vars.value }}"/>
+                          </div>
+
+                        </div>
+                      </fieldset>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.container -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

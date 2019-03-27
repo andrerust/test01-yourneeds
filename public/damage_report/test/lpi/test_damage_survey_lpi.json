@@ -1,0 +1,124 @@
+{
+  "locale": "de",
+  "title": "Melden eines Schadens in der Haftpflicht",
+  "pages": [
+    {
+      "name": "Intro",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "privateLiabilityDamage",
+          "elements": [
+            {
+              "type": "html",
+              "name": "question0",
+              "html": {
+                "de": "<h2 class=\"title2\">\nWillkommen im YOURneeds Schaden-Meldeprozess (Rechtschutz)!\n</h2>\n<br/>\n<h4>Bitte beantworte alle Fragen. Solltest du Bilder zum Schaden zur Hand haben, dann bitte auch diese am Ende der Fragenstrecke hochladen und beschreiben.<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team</h4>"
+              }
+            },
+            {
+              "type": "html",
+              "name": "question4",
+              "html": {
+                "de": "<div class=\"item banner\">\n                                    <img src=\"/build/static/images/rechtsschutz.jpg\" class=\"cover\">\n                                </div>"
+              }
+            },
+            {
+              "type": "html",
+              "name": "question1",
+              "html": {
+                "de": "\n                                    \n                                "
+              }
+            }
+          ],
+          "readOnly": true
+        }
+      ]
+    },
+    {
+      "name": "Screen 1",
+      "elements": [
+        {
+          "type": "text",
+          "name": "dateOfDamage",
+          "width": "90%",
+          "title": {
+            "de": "Wann ist der Schaden passiert?"
+          },
+          "valueName": "dateOfDamage",
+          "defaultValue": "2019-12-01",
+          "requiredErrorText": {
+            "de": "Bitte Datum eingeben"
+          },
+          "inputType": "date"
+        }
+      ],
+      "questionTitleLocation": "top",
+      "navigationButtonsVisibility": "show"
+    },
+    {
+      "name": "Screen 3",
+      "elements": [
+        {
+          "type": "comment",
+          "name": "damageDescription",
+          "title": {
+            "de": "Bitte gebe ein was passiert ist"
+          },
+          "valueName": "damageDescription",
+          "defaultValue": "Hey, das ist ja eine lange Geschichte!\n\nAlso, ich war da und da....und dann habe ich...\n\nuuu..\n\nu....\n\n\nund...\n\n\nDann!",
+          "rows": 10
+        },
+        {
+          "type": "text",
+          "name": "damageContactNumber",
+          "title": {
+            "de": "Bitte gib uns deine Handynummer an, damit der Versicherer dich da ggf. erreichen kann"
+          },
+          "valueName": "damageContactNumber",
+          "defaultValue": "+49152851222212"
+        }
+      ]
+    },
+    {
+      "name": "Screen 6",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel2",
+          "elements": [
+            {
+              "type": "html",
+              "name": "question5",
+              "html": {
+                "de": "<h2 class=\"title2\">\nDu kannst die Schadensmeldung jetzt absenden\n</h2>\n<br/>\n<h4>Sobald du die Schadenmeldung abgeschickt hast, leiten wir diese an die Versicherungsgesellschaft weiter.<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team</h4>"
+              }
+            },
+            {
+              "type": "html",
+              "name": "question6",
+              "html": {
+                "de": "<div class=\"item banner\">\n                                    <img src=\"/build/static/images/rechtsschutz.jpg\" class=\"cover\">\n                                </div>"
+              }
+            },
+            {
+              "type": "html",
+              "name": "question7",
+              "html": {
+                "de": "\n                                    \n                                "
+              }
+            }
+          ],
+          "readOnly": true
+        }
+      ]
+    }
+  ],
+  "showProgressBar": "top",
+  "pagePrevText": {
+    "de": "zurück"
+  },
+  "pageNextText": {
+    "de": "weiter"
+  }
+}

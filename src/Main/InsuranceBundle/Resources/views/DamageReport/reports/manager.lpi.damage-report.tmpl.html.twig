@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            outline: none !important;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+            font-weight: 400;
+            color: #3c3c3c;
+            line-height: 16px;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 28px;
+        }
+    </style>
+
+</head>
+
+<body lang=EN-US link=blue vlink="#954F72">
+<h2><strong>Schadenmeldung &ndash; Rechtsschutz</strong></h2>
+
+<p>&nbsp;</p>
+
+<p>
+    <img src="{{ pathToLogo }}" data-yn-toggle-logo class="d-none" style="width: 200px;">
+</p>
+<br><br>
+
+<p>YOURneeds Versicherungsmakler GmbH <br/> Nardinistra&szlig;e 8 <br/> 76764 Rheinzabern</p>
+
+<p><strong> vom </strong> {{ dateTime }} <strong> Agentur </strong> {{ agencyNumber }}<br/><br/></p>
+
+<p><strong>AN DIE</strong> {{ company['name'] }}<br/><br/></p>
+
+<p><strong>Reicht f&uuml;r den Kunden</strong></p>
+
+<p>
+    <strong>Anrede/Name:</strong> {{ salutation }} {{ user.firstName }} {{ user.lastName }}<br/>
+    <strong>Geb-Datum:</strong> {{ user.birthdate|date("d.m.Y") }} <br/>
+    <strong>Adresse:</strong> {{ address['street'] }} {{ address['streetNumber'] }}
+    , {{ address['postalCode'] }} {{ address['cityName'] }}<br/>
+    <strong>MobilNr.:</strong> {{ requestData['damageContactNumber'] }} <br/>
+    <strong>E-Mail:</strong> {{ user.email }} <br/>
+    <br/>
+    f&uuml;r welchen ein aktuelles <strong>Maklermandat vom {{ mandateDate|date("d.m.Y") }}</strong>
+    vorliegt, folgende durch den Kunden eingegebene Schadenmeldung ein.
+</p>
+
+<p><strong> Versicherungsnummer:</strong> {{ insuranceNumber }}</p>
+
+<p><strong> Schadendatum:</strong> {{ requestData['dateOfDamage'] }}</p>
+
+<p><strong> Konto f&uuml;r die Erstattung:</strong></p>
+
+<p>Kontoinhaber: {{ user.firstName }} {{ user.lastName }}</p>
+
+<p>IBAN: {{ bankAccount['iban'] }}&nbsp; <br/>
+    BIC: {{ bankAccount['bic'] }}&nbsp; <br/>
+    Kreditinstitut: {{ bankAccount['bank'] }}<br/>
+    <br/>
+</p>
+<p>
+    <strong> Schadenhergang: </strong><br>
+    {{ requestData['damageDescription'] }}
+</p>
+
+<p>&nbsp;</p>
+
+<p>Mit der Bitte um schnellstm&ouml;gliche Bearbeitung des Schadens!</p>
+<p style="line-height: 30px;">
+<div style="width: auto; height: 120px; overflow: hidden;">
+    <img src="{{ pathToResponsible }}" style="width: auto; height: 160px;">
+</div>
+<br>Rheinzabern, {{ date }} <br>
+________________________________________________________<br>
+Ort, Datum - Makler<br>
+gez. Bjarke M.-O. Pahrmann (der Gesch&auml;ftsf&uuml;hrer)
+</p>
+
+</body>
+</html>

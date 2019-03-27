@@ -1,0 +1,14 @@
+twig:
+    paths:
+        '%kernel.project_dir%/templates': templates
+        '%kernel.project_dir%/src/Main/AdminBundle/Resources/views': MainAdminBundle
+        '%kernel.project_dir%/src/Main/InsuranceBundle/Resources/views': MainInsuranceBundle
+        '%kernel.project_dir%/src/Main/UserBundle/Resources/views': MainUserBundle
+        '%kernel.project_dir%/src/AppBundle/Resources/views': AppBundle
+    debug: '%kernel.debug%'
+    #exception_controller: AppBundle:Exception:showAction
+    strict_variables: '%kernel.debug%'
+    cache: false
+    charset: UTF-8
+    number_format:
+        thousands_separator: '.'

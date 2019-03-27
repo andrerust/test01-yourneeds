@@ -1,0 +1,350 @@
+{% extends 'static.home.html.twig' %}
+
+{% block title %}YOURneeds Benefit+ Anmeldung eines Partners {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+    <link rel="stylesheet" href="/build/surveyCore.css">
+
+    <style>
+        .sv_p_root {
+            text-align: left;
+        }
+
+        .sv_nav .btn,
+        .sv_matrix_dynamic_button {
+            width: 125px;
+        }
+
+        .sv_q_file_remove_button {
+            width: 60px;
+            padding-top: 10px;
+        }
+
+        .sv_nav .btn,
+        .sv_matrix_dynamic_button,
+        .sv_q_file_remove_button {
+            height: 25px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .sv_nav .btn {
+            -moz-box-shadow: 0 0 15px #b19f9e;
+            -webkit-box-shadow: 0 0 15px #b19f9e;
+            box-shadow: 0 0 15px #b19f9e;
+            background: #74b959;
+            background: -moz-linear-gradient(left, #74b959 0%, #6fbc85 100%);
+            background: -webkit-linear-gradient(left, #74b959 0%, #6fbc85 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, #74b959), color-stop(100%, #6fbc85));
+            background: -o-linear-gradient(left, #74b959 0%, #6fbc85 100%);
+            background: -ms-linear-gradient(left, #74b959 0%, #6fbc85 100%);
+            background: linear-gradient(to right, #74b959 0%, #6fbc85 100%);
+        }
+
+        .sv_nav .btn:before {
+            background: #68a750;
+            background: -moz-linear-gradient(left, #68a750 0%, #64a978 100%);
+            background: -webkit-linear-gradient(left, #68a750 0%, #64a978 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, #68a750), color-stop(100%, #64a978));
+            background: -o-linear-gradient(left, #68a750 0%, #64a978 100%);
+            background: -ms-linear-gradient(left, #68a750 0%, #64a978 100%);
+            background: linear-gradient(to right, #68a750 0%, #64a978 100%);
+        }
+
+        .signature-pad {
+            background-color: #FFFFFF;
+        }
+
+        #proceed-text {
+            visibility: hidden;
+        }
+
+        .hidden {
+            visibility: hidden;
+        }
+
+        .visible {
+            visibility: visible;
+        }
+
+        .sv_container .sv_body .sv_p_root .sjs_sp_controls .sjs_sp_clear {
+            position: absolute;
+            color: #ffffff;
+            background-color: #cc0000;
+            top: -280px;
+            left: 3px;
+        }
+
+        @media (min-width: 768px) {
+            .sv_container .sv_body .sv_p_root #sq_121 {
+                overflow: visible;
+                height: 540px;
+                width: 960px;
+            }
+        }
+
+        /*
+          ##Device = Low Resolution Tablets, Mobiles (Landscape)
+          ##Screen = B/w 481px to 767px
+        */
+        @media (min-width: 481px) and (max-width: 767px) {
+            .sv_container .sv_body .sv_p_root #sq_102 {
+                overflow: visible;
+                height: 540px;
+                width: 480px;
+            }
+        }
+
+        table {
+            background-color: transparent;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/build/yourneeds-manager.js"></script>
+    <script src="/build/surveyCore.js"></script>
+    <!--
+      -->
+    <script type="text/javascript" src="/build/libs/customwidget.js"></script>
+    <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/dependencyLibs/inputmask.dependencyLib.js"></script>
+    <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/inputmask.js"></script>
+    <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/inputmask.extensions.js"></script>
+    <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/inputmask.numeric.extensions.js"></script>
+    <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/inputmask.date.extensions.js"></script>
+    <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/inputmask.phone.extensions.js"></script>
+    <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/phone-codes/phone.js"></script>
+    <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/phone-codes/phone-be.js"></script>
+    <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/phone-codes/phone-ru.js"></script>
+    <script src="https://unpkg.com/surveyjs-widgets"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+    <script src="https://unpkg.com/surveyjs-widgets"></script>
+    <script>
+
+        handleSpinner = function (elem, preloader, $time) {
+            doSpinner = function (elem, preloader) {
+                $(preloader).show();
+                //console.log("handleSpinnerBox e:" + elem + " _ p:" + preloader + " successful");
+                $("#survey-spinner").addClass("visible");
+                $("#survey-proceed-title").addClass("visible");
+                setTimeout(function () {
+                    $("#survey-proceed-title").removeClass("visible");
+                    $("#survey-spinner").removeClass("visible");
+                    $("#survey-proceed-button").addClass("visible");
+                }, ($time * 1000));
+            }
+            doSpinner(elem, preloader);
+        }
+        saveSurvey = function (json) {
+            var url = "{{ path('benefitplus_partner_save', {
+            }) }}";
+            console.log("saveSurvey called with url:" + url + " successful");
+            $.ajax({
+                type: "PUT",
+                contentType: 'application/json',
+                url: url,
+                dataType: 'json',
+                cache: false,
+                data: JSON.stringify({
+                    structure: json
+                }),
+                error: function (data) {
+                },
+                success: function (data) {
+                    if (data.status == 200) {
+                        console.log(data);
+                        attachLink(data.documentId);
+                    }
+                }
+            })
+        }
+
+        showSurveyResult = function (json) {
+            document
+                .querySelector('#surveyResult')
+                .innerHTML = "Resultat der Formulareingabe in JSON: " + JSON.stringify(json.data) + "</p>";
+            var element = $('#surveyFollow');
+            element.addClass('visible');
+        }
+
+        function attachLink(id) {
+            var str = "Vertrag herunterladen";
+            console.log(id);
+            var link = "/benefitplus/contract/download/" + id;
+            console.log(link);
+            var result = str.link(link);
+            console.log(result);
+            document.getElementById("downloadLink").innerHTML = result;
+            console.log(result);
+        }
+
+    </script>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12 text-center pt-2">
+                    <h1 class="title1 title1--space">
+                        <span class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span
+                                class="color-brown">needs</span> Benefit+ Registrierung
+                    </h1>
+                </div>
+            </div>
+            <div class="row justify-content-start">
+                <div class="col-12 text-center">
+                    <div class="container-survey">
+                        <span id="surveyProgress"></span>
+                        <div id="surveyElement"></div>
+                        <div id="survey-spinner">
+                            <!--
+                               <h2 class="title2 title2--space">Speichere deine Antworten!</h2>
+                            -->
+                            <div class="outer"></div>
+                            <div class="inner"></div>
+                        </div>
+                        <div id="surveyResult">
+                        </div>
+                        <div id="surveyFollow" class="text-center">
+
+                            <div id="survey-proceed-title">
+                                <h2 class="title2 title2--space">Speichere deine Registrierung!</h2>
+
+                            </div>
+                            <div class="row proceed-show-btn">
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <h3 class="title3 title3--space">
+                                            Vertrag wird erzeugt!&nbsp;&nbsp;Bitte einen Moment Geduld.<br>
+                                            <p id="downloadLink"></p>
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div cylass="row">
+                                    <div class="col-12 text-right">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div cylass="row">
+                                    <div class="col-12 text-right">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div cylass="row">
+                                    <div class="col-12 text-right">
+                                        <a href="{{ path('security_login', {
+                                            'isBenefit': 'benefit'
+                                        }) }}" id="survey-proceed-button" class="btn btn--cta">
+                                     <span>
+                                        Zum Login für Mitarbeiter/Mitglieder
+                                     </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            //var structure = $('.structure').data('structure');
+                            //Survey.Survey.cssType = "bootstrap";
+
+                            //add file type into matrix columns (run-time)
+                            Survey.matrixDropdownColumnTypes.file = {
+                                properties: ["showPreview", "imageHeight", "imageWidth"]
+                            };
+                            //add tagbox into matrix columns (run-time)
+                            Survey.matrixDropdownColumnTypes.tagbox = {
+                                properties: [
+                                    "choices", "choicesOrder", "choicesByUrl", "otherText"
+                                ],
+                                onCellQuestionUpdate: (function (cellQuestion, column, question, data) {
+                                    Survey
+                                        .matrixDropdownColumnTypes
+                                        .dropdown
+                                        .onCellQuestionUpdate(cellQuestion, column, question, data);
+                                })
+                            };
+
+                            Survey.CustomWidgetCollection.Instance.addCustomWidget(widget);
+
+                            Survey
+                                .StylesManager
+                                .applyTheme("darkblue");
+                            window.survey = new Survey.Model({{ structure|raw }});
+                            Survey.defaultStandardCss.progressBar = "bar-green";
+                            Survey.defaultStandardCss.progress = "progress";
+
+                            survey
+                                .onComplete
+                                .add(function (survey, options) {
+                                    handleSpinner('#survey-proceed-button', '#survey-proceed-spinner', 3);
+                                });
+                            survey
+                                .onComplete
+                                .add(function (result) {
+                                    /*document
+                                     .querySelector('#surveyResult')
+                                     .innerHTML = "Resultat der Formulareingabe in JSON: " + JSON.stringify(result.data) + "</p>";
+                                     */
+                                    var element = $('#surveyFollow');
+                                    element.addClass('visible')
+                                });
+                            survey
+                                .onComplete
+                                .add(function (result) {
+                                    saveSurvey(result.data);
+                                });
+                            survey
+                                .onUpdateQuestionCssClasses
+                                .add(function (survey, options) {
+                                    var classes = options.cssClasses
+
+                                    classes.root = "sq-root";
+                                    classes.title = "sq-title";
+                                    classes.item = "sq-item";
+                                    classes.label = "sq-label";
+
+                                    if (options.question.isRequired) {
+                                        classes.title = "sq-title sq-title-required";
+                                        classes.root = "sq-root sq-root-required";
+                                    }
+
+                                    if (options.question.getType() === "checkbox") {
+                                        classes.root = "sq-root sq-root-cb";
+                                    }
+                                });
+
+                            $("#surveyElement").Survey({
+                                model: survey,
+                                onCurrentPageChanged: onCurrentPageChanged,
+                                onValueChanged: onValueChanged
+                            });
+
+                            function onCurrentPageChanged(survey) {
+
+                            }
+
+                            function onValueChanged(survey) {
+                            }
+
+                            function addFields(name, n) {
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="horizontally-spacer100">&nbsp;</div>
+            <div class="horizontally-spacer100">&nbsp;</div>
+            <div class="horizontally-spacer100">&nbsp;</div>
+            <div class="horizontally-spacer100">&nbsp;</div>
+            <div class="horizontally-spacer100">&nbsp;</div>
+            <div class="horizontally-spacer100">&nbsp;</div>
+            <div class="horizontally-spacer100">&nbsp;</div>
+        </div>
+    </section>
+{% endblock %}

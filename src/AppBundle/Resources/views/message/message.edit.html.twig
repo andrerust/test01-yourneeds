@@ -1,0 +1,316 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds messages{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+      <link rel="stylesheet" href="/build/yourneeds-admin.css"/>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="{{ asset('build/libs/jquery.min.js') }}"></script>
+      <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+
+      <script>
+          (function ($) {
+              $.fn.charCounter = function (max, settings) {
+                  max = max || 100;
+                  settings = $.extend({
+                      container: "<span></span>",
+                      classname: "charcounter",
+                      format: "(%1 characters remaining)",
+                      pulse: true,
+                      delay: 0
+                  }, settings);
+                  var p, timeout;
+
+                  function count(el, container) {
+                      el = $(el);
+                      if (el.val().length > max) {
+                          el.val(el.val().substring(0, max));
+                          if (settings.pulse && !p) {
+                              pulse(container, true);
+                          }
+                          ;
+                      }
+                      ;
+                      if (settings.delay > 0) {
+                          if (timeout) {
+                              window.clearTimeout(timeout);
+                          }
+                          timeout = window.setTimeout(function () {
+                              container.html(settings.format.replace(/%1/, (max - el.val().length)));
+                          }, settings.delay);
+                      } else {
+                          container.html(settings.format.replace(/%1/, (max - el.val().length)));
+                      }
+                  };
+
+                  function pulse(el, again) {
+                      if (p) {
+                          window.clearTimeout(p);
+                          p = null;
+                      }
+                      ;
+                      el.animate({opacity: 0.1}, 100, function () {
+                          $(this).animate({opacity: 1.0}, 100);
+                      });
+                      if (again) {
+                          p = window.setTimeout(function () {
+                              pulse(el)
+                          }, 200);
+                      }
+                      ;
+                  };
+
+                  return this.each(function () {
+                      var container;
+                      if (!settings.container.match(/^<.+>$/)) {
+                          // use existing element to hold counter message
+                          container = $(settings.container);
+                      } else {
+                          // append element to hold counter message (clean up old element first)
+                          $(this).next("." + settings.classname).remove();
+                          container = $(settings.container)
+                                  .insertAfter(this)
+                                  .addClass(settings.classname);
+                      }
+                      $(this)
+                              .unbind(".charCounter")
+                              .bind("keydown.charCounter", function () {
+                                  count(this, container);
+                              })
+                              .bind("keypress.charCounter", function () {
+                                  count(this, container);
+                              })
+                              .bind("keyup.charCounter", function () {
+                                  count(this, container);
+                              })
+                              .bind("focus.charCounter", function () {
+                                  count(this, container);
+                              })
+                              .bind("mouseover.charCounter", function () {
+                                  count(this, container);
+                              })
+                              .bind("mouseout.charCounter", function () {
+                                  count(this, container);
+                              })
+                              .bind("paste.charCounter", function () {
+                                  var me = this;
+                                  setTimeout(function () {
+                                      count(me, container);
+                                  }, 10);
+                              });
+                      if (this.addEventListener) {
+                          this.addEventListener('input', function () {
+                              count(this, container);
+                          }, false);
+                      }
+                      ;
+                      count(this, container);
+                  });
+              };
+
+          })(jQuery);
+
+          $(function () {
+              $("#edit_message_form_body").charCounter(320, {container: "#counter"});
+          });
+
+      </script>
+  {% endblock %}
+
+{% block content %}
+
+    <section class="content-body">
+        <div class="container">
+            <div class="row justify-content-start admin-content-box-title-box">
+                <div class="col-1">
+                    &nbsp;
+                </div>
+                <div class="col-10 text-center pt-2">
+                    <h1 class="title1 title1--space">
+                        Nachrichten
+                    </h1>
+                </div>
+                <div class="col-1">
+                    &nbsp;
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-box">
+
+                        <div class="form-row">
+                            <div class="col-12 col-md-6">
+                                <h2 class="titl2 title2--space">Verfassen</h2>
+
+                                <form name="edit_message_form"
+                                      role="form"
+                                      id="edit_message_form"
+                                      class="needs-validation"
+                                      method="post"
+                                      action="{{ path('manager_messages', {
+                                      }) }}"
+                                      data-toggle="validator"
+                                      enctype="multipart/form-data">
+
+                                    <div class="form-group">
+                                        <label for="edit_message_form_message_type">Kategorie</label>
+                                        <select name="edit_message_form[messageType]"
+                                                id="edit_message_form_message_type"
+                                                class="form-control selectpicker"
+                                                required>
+                                            <option value="">Bitte w&auml;hlen</option>
+                                            {% for messageType in messageTypes %}
+                                               <option value="{{ messageType.id }}" />
+                                                  {{ messageType.name }}
+                                               </option>
+                                            {% endfor %}
+                                        </select>
+
+                                        <div class="valid-feedback">
+                                            Prima
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12 mb-3">
+                                        <label for="edit_message_form_subject">Betreff</label>
+                                        <input class="form-control"
+                                               type="text"
+                                               name="edit_message_form[subject]"
+                                               id="edit_message_form_subject"
+                                               placeholder="Betreff"
+                                               required
+                                                />
+
+                                        <div class="valid-feedback">
+                                            Prima
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12 mb-3">
+                                        <h6 class="pull-right" id="counter">320 characters remaining</h6>
+                                        <label for="edit_message_form_body">Nachricht</label>
+                                 <textarea rows="10" class="form-control counted"
+                                           name="edit_message_form[body]"
+                                           id="edit_message_form_body"
+                                           required
+                                         /></textarea>
+                                        <div class="valid-feedback">
+                                            Prima
+                                        </div>
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12 mb-3">
+                                        <div class="horizontally-spacer10">&nbsp;</div>
+                                        <div class="alert alert-success" role="alert" id="success_message">
+                                            <i class="fas fa-check"></i>
+                                            Daten erfolgreich ge&auml;ndert
+                                        </div>
+                                        <a href="{{ path('manager_home', {
+                                            'id' : user.id
+                                        }) }}">
+                                            <input class="form-control"
+                                                   type="hidden"
+                                                   name="edit_message_form[_token]"
+                                                   id="edit_message_form__token"
+                                                   value="{{ form._token.vars.value }}"/>
+
+                                            <button type="button"
+                                                    id="edit_contract_form_quit"
+                                                    name="edit_contract_form[quit]"
+                                                    class="btn btn-danger">Abbrechen
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </a>
+                                        <button type="submit"
+                                                id="edit_contract_form_save"
+                                                name="edit_contract_form[save]"
+                                                class="btn btn--cta">Nachricht senden
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group special-table bootstrap-table">
+                                    <div class="fixed-table-toolbar">
+                                        <h2 class="titl2 title2--space">Lesen</h2>
+                                    </div>
+                                    <div class="fixed-table-container">
+                                        <table class="table"
+                                               id="table"
+                                               data-toggle="table"
+                                               data-toolbar="#toolbar"
+                                               data-search="true"
+                                               data-search-text=""
+                                               data-show-columns="false"
+                                               data-show-toggle="false"
+                                               data-click-to-select="true"
+                                               data-filter-control="false"
+                                               data-filter-show-clear="false"
+                                               data-show-export="false"
+                                               data-pagination="true"
+                                                >
+                                            <thead>
+                                            <tr>
+                                                <th data-field="detail" class="text-center" data-sortable="false"
+                                                    data-switchable="false">
+                                                </th>
+                                                <th data-field="detail" class="text-center" data-sortable="false"
+                                                    data-switchable="false">Kategorie
+                                                </th>
+                                                <th data-field="type" data-filter-control="input"
+                                                    data-sortable="true"
+                                                    data-editable="false" data-switchable="false">Betreff
+                                                </th>
+                                                <th data-field="last_update" data-filter-control="input"
+                                                    data-sortable="true">
+                                                    Datum
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for message in messages %}
+                                                <tr>
+                                                    {% set counter = message.id %}
+                                                    <td class="text-center">
+                                                        <a href="{{ path('manager_message_read', {
+                                                            'id': message.id
+                                                        }) }}" class="btn"
+                                                           data-toggle="tooltip"
+                                                           data-placement="right">
+                                                            <i class="fas fa-search"></i>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        {{ message.messageType.name }}
+                                                    </td>
+                                                    <td class="text-left">
+                                                        {{ message.subject }}
+                                                    </td>
+                                                    <td>
+                                                        {{ message.updatedAt|date("d.m.Y H:m:s") }}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

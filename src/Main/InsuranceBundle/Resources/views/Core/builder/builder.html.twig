@@ -1,0 +1,109 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}Survey builder{% endblock %}
+
+  {% block stylesheets %}
+     {{ parent() }}
+     <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+     <link rel="stylesheet" href="{{ asset('assets/builder/surveyeditor.css') }}" type="text/css" rel="stylesheet"/>
+     <link rel="stylesheet" href="{{ asset('build/surveyCore.css') }}">
+     <script src="https://unpkg.com/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+     <style>
+        .btn-green {
+           background-color: #1ab394;
+           color: #fff;
+           border-radius: 3px;
+        }
+
+        .btn-green:hover, .btn-green:focus {
+           background-color: #18a689;
+           color: #fff;
+        }
+
+        .panel-footer {
+           padding: 0 15px;
+           border: none;
+           text-align: right;
+           background-color: #fff;
+        }
+
+        .svd_commercial_container {
+           display: none;
+        }
+
+        .survey-top-left-header {
+           width: 1920px;
+        }
+     </style>
+  {% endblock %}
+
+
+  {% block javascripts %}
+     {{ parent() }}
+     <script src="https://unpkg.com/jquery"></script>
+     <script src="https://surveyjs.azureedge.net/1.0.48/survey.jquery.js"></script>
+
+
+     <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+     <script src="{{ asset('assets/js/builder/knockout-min.js') }}"></script>
+     <script src="{{ asset('assets/js/builder/survey.ko.js') }}"></script>
+     <script src="{{ asset('assets/js/builder/ace.min.js') }}" type="text/javascript"
+             charset="utf-8"></script>
+     <script src="{{ asset('assets/js/builder/ext-language_tools.js') }}" type="text/javascript"
+             charset="utf-8"></script>
+     <script src="{{ asset('assets/js/builder/surveyeditor.js') }}"></script>
+
+     <script type="text/javascript" src="/build/libs/customwidget.js"></script>
+     <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/dependencyLibs/inputmask.dependencyLib.js"></script>
+     <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/inputmask.js"></script>
+     <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/inputmask.extensions.js"></script>
+     <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/inputmask.numeric.extensions.js"></script>
+     <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/inputmask.date.extensions.js"></script>
+     <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/inputmask.phone.extensions.js"></script>
+     <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/phone-codes/phone.js"></script>
+     <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/phone-codes/phone-be.js"></script>
+     <script src="https://unpkg.com/inputmask@3.3.11/dist/inputmask/phone-codes/phone-ru.js"></script>
+     <script src="https://unpkg.com/surveyjs-widgets"></script>
+  {% endblock %}
+
+{% block content %}
+
+   <section id="survey">
+      <div class="container">
+         <div class="row">
+            <div class="container-survey">
+               <div id="editorElement" style="width: 100%; position: absolute; left: 25px;"></div>
+            </div>
+
+            <script type="text/javascript">
+               SurveyEditor.StylesManager.applyTheme("bootstrap");
+
+               var editorOptions = {};
+               var editor = new SurveyEditor.SurveyEditor("editorElement", editorOptions);
+               editor.text = {{ structure|raw }};
+               editor.toolbox
+                   .changeCategories([
+                      {
+                         name: "panel",
+                         category: "Panels"
+                      }, {
+                         name: "paneldynamic",
+                         category: "Panels"
+                      }, {
+                         name: "matrix",
+                         category: "Matrix"
+                      }, {
+                         name: "matrixdropdown",
+                         category: "Matrix"
+                      }, {
+                         name: "matrixdynamic",
+                         category: "Matrix"
+                      }
+                   ]);
+
+            </script>
+         </div>
+      </div>
+   </section>
+
+{% endblock %}

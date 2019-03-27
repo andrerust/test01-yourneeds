@@ -1,0 +1,8 @@
+# See https://symfony.com/doc/current/email/dev_environment.html
+swiftmailer:
+    transport:        smtp.gmail.com
+    username:         andre.rust@intertects.com
+    password:         Jari.1010
+    host:             localhost
+    port:             465
+    auth-mode:        login

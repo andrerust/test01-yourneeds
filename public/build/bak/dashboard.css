@@ -1,0 +1,28 @@
+#tooling{
+  float: right;
+}
+.clear{
+  display: block;
+  width: 13px;
+  height: 13px;
+  position: absolute;
+  opacity: 0.6;
+  z-index: 100;
+  top: 50%;
+  right: 26px;
+  margin-top: -10px;
+  cursor: pointer;
+}
+.clear > i{
+  font-size: 1.5em;
+}
+.clear > i:hover{
+  color: hsl(0, 0%, 75%);
+}.canvas {
+  border-radius: 6px;
+  border: 1px solid #CCCCCC;
+  -moz-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvYm9vdHN0cmFwLXRhYmxlL2Rpc3QvZXh0ZW5zaW9ucy9jbGljay1lZGl0LXJvdy9ib290c3RyYXAtdGFibGUtY2xpY2stZWRpdC1yb3cuY3NzIiwid2VicGFjazovLy8uL3B1YmxpYy9hc3NldHMvY3NzL2FkbWluL2Rhc2hib2FyZC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxhQUFhO0NBQ2Q7QUFDRDtFQUNFLGVBQWU7RUFDZixZQUFZO0VBQ1osYUFBYTtFQUNiLG1CQUFtQjtFQUNuQixhQUFhO0VBQ2IsYUFBYTtFQUNiLFNBQVM7RUFDVCxZQUFZO0VBQ1osa0JBQWtCO0VBQ2xCLGdCQUFnQjtDQUNqQjtBQUNEO0VBQ0UsaUJBQWlCO0NBQ2xCO0FBQ0Q7RUFDRSx1QkFBdUI7Q0NuQnpCO0VBQ0UsbUJBQW1CO0VBQ25CLDBCQUEwQjtFQUMxQixnREFBZ0Q7RUFDaEQsbURBQW1EO0VBQ25ELDJDQUEyQyIsImZpbGUiOiJkYXNoYm9hcmQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiI3Rvb2xpbmd7XG4gIGZsb2F0OiByaWdodDtcbn1cbi5jbGVhcntcbiAgZGlzcGxheTogYmxvY2s7XG4gIHdpZHRoOiAxM3B4O1xuICBoZWlnaHQ6IDEzcHg7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgb3BhY2l0eTogMC42O1xuICB6LWluZGV4OiAxMDA7XG4gIHRvcDogNTAlO1xuICByaWdodDogMjZweDtcbiAgbWFyZ2luLXRvcDogLTEwcHg7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cbi5jbGVhciA+IGl7XG4gIGZvbnQtc2l6ZTogMS41ZW07XG59XG4uY2xlYXIgPiBpOmhvdmVye1xuICBjb2xvcjogaHNsKDAsIDAlLCA3NSUpO1xufVxuXG5cbi8vIFdFQlBBQ0sgRk9PVEVSIC8vXG4vLyAuL25vZGVfbW9kdWxlcy9ib290c3RyYXAtdGFibGUvZGlzdC9leHRlbnNpb25zL2NsaWNrLWVkaXQtcm93L2Jvb3RzdHJhcC10YWJsZS1jbGljay1lZGl0LXJvdy5jc3MiLCIuY2FudmFzIHtcclxuICBib3JkZXItcmFkaXVzOiA2cHg7XHJcbiAgYm9yZGVyOiAxcHggc29saWQgI0NDQ0NDQztcclxuICAtbW96LWJveC1zaGFkb3c6IDNweCAzcHggNXB4IHJnYmEoMCwgMCwgMCwgMC40KTtcclxuICAtd2Via2l0LWJveC1zaGFkb3c6IDNweCAzcHggNXB4IHJnYmEoMCwgMCwgMCwgMC40KTtcclxuICBib3gtc2hhZG93OiAzcHggM3B4IDVweCByZ2JhKDAsIDAsIDAsIDAuNCk7XHJcbn1cblxuXG4vLyBXRUJQQUNLIEZPT1RFUiAvL1xuLy8gLi9wdWJsaWMvYXNzZXRzL2Nzcy9hZG1pbi9kYXNoYm9hcmQuY3NzIl0sInNvdXJjZVJvb3QiOiIifQ==*/

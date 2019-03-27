@@ -1,0 +1,356 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}Admin user address edit{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+      <link rel="stylesheet" href="/build/yourneeds-admin.css"/>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="/build/yourneeds-admin.js"></script>
+      <script>
+          (function () {
+              'use strict';
+              window.addEventListener('load', function () {
+// Fetch all the forms we want to apply custom Bootstrap validation styles to
+                  var forms = document.getElementsByClassName('needs-validation');
+// Loop over them and prevent submission
+                  var validation = Array.prototype.filter.call(forms, function (form) {
+                      form.addEventListener('submit', function (event) {
+                          if (form.checkValidity() === false) {
+                              event.preventDefault();
+                              event.stopPropagation();
+                          } else {
+                              $("div[id='success_message']").addClass('visible');
+                          }
+                          form.classList.add('was-validated');
+                      }, false);
+                  });
+              }, false);
+          })();
+      </script>
+  {% endblock %}
+
+{% block content %}
+
+    <section class="content-body" id="admin-user">
+        <div class="container">
+            <div class="row justify-content-start">
+                <div class="col-12 text-center pt-2">
+                    <h1 class="title1 title1--space">Adresse bearbeiten</h1>
+                    <button tabindex="0" class="btn btn-sm btn--help m0" role="button"
+                            data-toggle="info" title="Hilfe Adresse modifizieren"
+                            data-content="Adresse modifizieren">
+                        <i class="fas fa-info-circle"></i>
+                    </button>
+                    <p>Zuletzt aktualisiert: {{ address.updatedAt|date("d.m Y") }}</p>
+                </div>
+            </div>
+            <div class="row justify-content-start">
+                <div class="col-12 text-center pt-2">
+                    <h5 class="title2 title2--space">
+                        <i class="fas fa-info-circle"></i> Bearbeite die Adresse
+                    </h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="container admin-content-box-title">
+                    <div class="row justify-content-start">
+                        <!--
+       {{ form_start(form) }}
+       {{ form_widget(form) }}
+       {{ form_end(form) }}
+       <input type="file" id="edit_user_form_profilePicture" name="edit_user_form[profilePicture]"
+              required="required">
+         -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-box">
+                                    <form name="edit_address_form"
+                                          id="edit_address_form"
+                                          class="needs-validation"
+                                          data-toggle="validator"
+                                          method="post"
+                                          action="{{ path('admin_address_edit', {
+                                              'type': 'company',
+                                              'id': address.id
+                                          }) }}"
+                                          novalidate="novalidate"
+                                          enctype="multipart/form-data">
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6 mb-3">
+                                                <label for="edit_address_form_name">Art der Adresse</label>
+
+                                                <div class="radio" id="edit_address_form_type_box">
+                                                    <input type="radio"
+                                                           id="edit_address_form_type_1"
+                                                           name="edit_address_form[type]"
+                                                           required="required"
+                                                           required
+                                                           value="1"
+                                                            {{ address.type.id == 1 ? 'checked' : '' }}/>
+                                                    <label for="edit_address_form_type_1"
+                                                           class="required">Privat</label>
+                                                </div>
+                                                <div class="radio">
+                                                    <input type="radio" class="radio"
+                                                           id="edit_address_form_type_2"
+                                                           name="edit_address_form[type]"
+                                                           required="required"
+                                                           required
+                                                           value="2"
+                                                            {{ address.type.id == 2 ? 'checked' : '' }}/>
+                                                    <label for="edit_address_form_type_2"
+                                                           class="required">Geschäftlich</label>
+                                                </div>
+                                                <div class="valid-feedback">
+                                                    Prima
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6 mb-3">
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6 mb-3">
+                                                <label for="edit_address_form_street">Straße</label>
+                                                <input class="form-control"
+                                                       type="text"
+                                                       name="edit_address_form[street]"
+                                                       id="edit_address_form_street"
+                                                       placeholder="Straße"
+                                                       value="{{ address.street }}"
+                                                       required
+                                                />
+
+                                                <div class="valid-feedback">
+                                                    Prima
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                    Bitte eingeben
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6 mb-3">
+                                                <label for="edit_address_form_street_number">Hausnummer</label>
+                                                <input class="form-control"
+                                                       type="text"
+                                                       name="edit_address_form[streetNumber]"
+                                                       id="edit_address_form_street_number"
+                                                       placeholder="Abteilung"
+                                                       value="{{ address.streetNumber }}"
+                                                       required
+                                                />
+
+                                                <div class="valid-feedback">
+                                                    Prima
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6 mb-3">
+                                                <label for="edit_address_form_contactPerson">PLZ</label>
+                                                <input class="form-control"
+                                                       type="text"
+                                                       name="edit_address_form[postalCode]"
+                                                       id="edit_address_form_postal_code"
+                                                       placeholder="PLZ"
+                                                       value="{{ address.postalCode }}"
+                                                       required/>
+
+                                                <div class="valid-feedback">
+                                                    Prima
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6 mb-3">
+                                                <label for="edit_address_form_city">Ort</label>
+                                                <select name="edit_address_form[city]"
+                                                        id="edit_address_form_city"
+                                                        class="form-control selectpicker"
+                                                        required>
+                                                    <option value="">Bitte w&auml;hlen</option>
+                                                    <option value="new">Neuer Ort</option>
+                                                    {% for city in cities %}
+                                                        <option value="{{ city.id }}"
+                                                                {{ address.city.id == city.id ? 'selected' : '' }}/>
+                                                        {{ city.name }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
+                                                <input class="form-control"
+                                                       type="text"
+                                                       name="edit_address_form[customCity]"
+                                                       id="edit_address_form_custom_city"
+                                                       placeholder="Ergänzung Orte"
+                                                       value=""
+                                                />
+
+                                                <div class="valid-feedback">
+                                                    Prima
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6 mb-3">
+                                                <label for="edit_address_form_website">Land</label>
+                                                <select name="edit_address_form[country]"
+                                                        id="edit_address_form_country"
+                                                        class="form-control selectpicker"
+                                                        required>
+                                                    <option value="">Bitte w&auml;hlen</option>
+                                                    {% for country in countries %}
+                                                        <option value="{{ country.id }}"
+                                                                {{ address.country.id == country.id ? 'selected' : '' }}/>
+                                                        {{ country.name }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
+
+                                                <div class="valid-feedback">
+                                                    Prima
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6 mb-3">
+                                                <label for="edit_address_form_street_number">Adresszusatz</label>
+                                                <input class="form-control"
+                                                       type="text"
+                                                       name="edit_address_form[additionalInfo]"
+                                                       id="edit_address_form_additional_info"
+                                                       placeholder="Adresszusatz"
+                                                       value="{{ address.additionalInfo }}"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6 mb-3">
+                                                <label for="edit_company_form_isActive">Aktiviert</label>
+
+                                                <div class="radio" id="edit_address_form_isActive">
+                                                    <input type="radio"
+                                                           id="edit_address_form_isActive_1"
+                                                           name="edit_address_form[isActive]"
+                                                           value="1"
+                                                            {{ address.isActive == 1 ? 'checked' : '' }}/>
+                                                    <label for="edit_address_form_isActive_1"
+                                                           class="required">Ja</label>
+                                                </div>
+                                                <div class="radio">
+                                                    <input type="radio" class="radio"
+                                                           id="edit_address_form_isActive_0"
+                                                           name="edit_address_form[isActive]"
+                                                           value="0"
+                                                           required
+                                                            {{ address.isActive != 1 ? 'checked' : '' }}/>
+                                                    <label for="edit_address_form_isActive_0"
+                                                           class="required">Nein</label>
+                                                </div>
+                                                <div class="valid-feedback">
+                                                    Prima
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6 mb-3">
+                                                <label for="edit_company_form_isActive">Blockiert</label>
+
+                                                <div class="radio" id="edit_address_form_isActive">
+                                                    <input type="radio"
+                                                           id="edit_address_form_is_blocked_1"
+                                                           name="edit_address_form[isBlocked]"
+                                                           value="1"
+                                                           required
+                                                            {{ address.isBlocked == 1 ? 'checked' : '' }}/>
+                                                    <label for="edit_address_form_is_blocked_1"
+                                                           class="required">Ja</label>
+                                                </div>
+                                                <div class="radio">
+                                                    <input type="radio" class="radio"
+                                                           id="edit_address_form_is_blocked_0"
+                                                           name="edit_address_form[isBlocked]"
+                                                           value="0"
+                                                           required
+                                                            {{ address.isBlocked != 1 ? 'checked' : '' }}/>
+                                                    <label for="edit_address_form_is_blocked_0"
+                                                           class="required">Nein</label>
+                                                </div>
+                                                <div class="valid-feedback">
+                                                    Prima
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6 mb-3">
+                                                <!-- TOKEN -->
+                                                <input class="form-control"
+                                                       type="hidden"
+                                                       name="edit_address_form[_token]"
+                                                       id="edit_address_form__token"
+                                                       value="{{ form._token.vars.value }}"/>
+
+                                                <div class="valid-feedback">
+                                                    Prima
+                                                </div>
+                                                <div class="invalid-feedback">
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-6 mb-3">
+                                                <div class="horizontally-spacer10">&nbsp;</div>
+                                                <!--
+                                                <div class="alert alert-success" role="alert" id="success_message">
+                                                    <i class="fas fa-check"></i>
+                                                    Daten erfolgreich ge&auml;ndert
+                                                </div>
+                                                -->
+                                                {% if isCompany == true %}
+                                                <a href="{{ path('admin_company', {
+                                                    'id' : id
+                                                }) }}">
+                                                    {% endif %}
+                                                    <button type="button"
+                                                            id="edit_address_form_quit"
+                                                            name="edit_address_form[quit]"
+                                                            class="btn">
+                                                        <i class="fas fa-times"></i>&nbsp;Abbrechen
+                                                    </button>
+                                                </a>
+                                                <button type="submit"
+                                                        id="edit_address_form_save"
+                                                        name="edit_address_form[save]"
+                                                        class="btn btn--cta">
+                                                    <i class="fas fa-check"></i>&nbsp;Daten speichern
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

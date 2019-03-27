@@ -1,0 +1,457 @@
+{% extends '@MainAdminBundle/_admin.main.html.twig' %}
+
+{% block title %}YOURneeds admin dashboard{% endblock %}
+
+  {% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/dashboard.css') }}">
+  {% endblock %}
+
+  {% block javascripts %}
+    <script src="{{ asset('build/dashboard.js') }}"></script>
+  {% endblock %}
+
+{% block content %}
+
+  <section id="admin-dashboard">
+    <div id="page-box">
+      <div class="container-fluid">
+
+        <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                          aria-hidden="true">x</span></button>
+                <h3 id="modale-titre">Fantastisch! Du hast ein Achievement erhalten!
+                </h3>
+                <br><br>
+
+                <p>
+                  Du hast uns &uuml;ber Soziale Netzwerke weiter empfohlen und gewinnst das
+                  <br>
+
+                <div><img src="{{ asset("images/achievements/element4.png") }}"
+                          style="height: 100px; width: auto;"><b>Freundschafts-Achievement</b></div>
+                <br>
+                in H&ouml;he Level 2.
+                </p>
+              </div>
+              <div class="modal-body">
+
+              </div>
+              <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Close</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="well well-sm">
+            <div class="col-10 col-sm-10 col-md-10 col-lg-10">
+              <legend>
+                Dashboard
+              </legend>
+            </div>
+            <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+              Letztes Login<br>
+              {{ lastSecurityLog }}
+            </div>
+            <div class="container-fluid">
+              <div class="row">
+                <br><br>
+              </div>
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                  <h3 class="title3 title3--space">
+                    Meine letztenAktivit&auml;ten
+                  </h3>
+
+                  <div class="row">
+                    <div class="special-table">
+                      <table class="table-responsive"
+                             id="table-activities"
+                             data-toggle="table"
+                             data-search="true"
+                             data-click-to-select="false"
+                             data-filter-control="true"
+                             data-filter-show-clear="true"
+                             data-show-export="false"
+                             data-pagination="true"
+                              >
+                        <thead>
+                        <tr>
+                          <th class="text-center">Art</th>
+                          <th>Datum</th>
+                          <th>Beschreibung</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for activity in activities %}
+                          <tr>
+                            <td class="text-center">
+                              <div class="activity-icon">
+                                {% if activity.context == 'document' %}
+                                  <i class="far fa-file-text fa-1x"></i>
+                                {% elseif activity.context == 'communication' %}
+                                  <i class="fas fa-phone fa-1x"></i>
+                                {% elseif activity.context == 'case' %}
+                                  <i class="fas fa-camera fa-1x"></i>
+                                {% elseif activity.context == 'calculator' %}
+                                  <i class="fas fa-calculator fa-1x"></i>
+                                {% endif %}
+                              </div>
+                            </td>
+                            <td class="activity-text">
+                              {{ activity.createdAt|date("Y/m/d H:m:s") }}
+                            </td>
+                            <td class="activity-text">
+                              {{ activity.shortDescription }}
+                            </td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                  <h3 class="title3 title3--space">
+                    Meine ToDos
+                  </h3>
+
+                  <div class="row">
+                    <div class="special-table">
+                      <table class="table-responsive"
+                             id="table-activities"
+                             data-toggle="table"
+                             data-search="true"
+                             data-click-to-select="false"
+                             data-filter-control="true"
+                             data-filter-show-clear="true"
+                             data-show-export="false"
+                             data-pagination="true"
+                              >
+                        <thead>
+                        <tr>
+                          <th class="text-center">tbd</th>
+                          <th>tbd</th>
+                          <th>tbd</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                          <td class="text-center">
+                            tbd
+                          </td>
+                          <td class="activity-text">
+                            tbd
+                          </td>
+                          <td class="activity-text">
+                            tbd
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <br>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                      <h3 class="title3 title3--space">
+                        Achievement/Errungenchaften-Test (Modal)
+                      </h3>
+                      Jedes Modal wird nur einmalig angezeigt, wenn eine Errungenschaft (Gamification) erreicht
+                      wurde.<br>
+                      Mit diesen Schaltfl&auml;chen kannst Du das Modal erneut starten, wenn Du die Seite anschlie&szlig;end<br>
+                      refreshst.
+                      <button type="button" class="btn" onClick="window.location.href=window.location.href">
+                        2. Seite anschlie&szlig;end neu laden
+                      </button>
+                      <button type="button" class="btn btn--danger" onclick="destroySession()">
+                        1. Session zur&uuml;cksetzen (Modal)
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <br>
+              </div>
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                  <h3 class="title3 title3--space">
+                    Gesamtentwicklung
+                  </h3>
+                  <canvas id="canvas-line" class="canvas"></canvas>
+                  <br>
+                  <!--
+                  <button id="randomizeData">Randomize Data</button>
+                  <button id="addDataset">Add Dataset</button>
+                  <button id="removeDataset">Remove Dataset</button>
+
+                  <button id="addData">Add Month</button>
+                  <button id="removeData">Remove Month</button>
+                  -->
+                  <div class="table-responsive">
+                    <table class="table-responsive"
+                           id="table-line"
+                           data-toggle="table"
+                           data-search="false"
+                           data-click-to-select="false"
+                           data-filter-control="false"
+                           data-filter-show-clear="false"
+                           data-show-export="false"
+                           data-pagination="false"
+                            >
+                      <thead>
+                      <tr>
+                        <th class="text-center">[Actions]</th>
+                        <th class="text-center">Jan.</th>
+                        <th class="text-center">Feb.</th>
+                        <th class="text-center">Mar.</th>
+                        <th class="text-center">Apr.</th>
+                        <th class="text-center">May</th>
+                        <th class="text-center">June</th>
+                        <th class="text-center">July</th>
+                        <th class="text-center">Aug.</th>
+                        <th class="text-center">Sept.</th>
+                        <th class="text-center">Oct.</th>
+                        <th class="text-center">Nov.</th>
+                        <th class="text-center">Dec.</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td>
+                          <a href="#" data-toggle="modal" data-target="#modChart"
+                             data-source="65.1,510.47,80.00,81.11,56.67,55.45,40.88,20.45,40.108,80.66,88.24,61.01"
+                             data-target-source="50">
+                            <span class="glyphicon glyphicon-signal"></span> Example 1
+                          </a>
+                        </td>
+                        <td id="chart-1">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <a href="#" data-toggle="modal" data-target="#modChart"
+                             data-source="70,12,20,100,44,12,20,20,20,10,5,0" data-target-source="24">
+                            <span class="glyphicon glyphicon-signal"></span> Example 2
+                          </a>
+                        </td>
+                        <td id="chart-2">
+                        </td>
+                      </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                  <h3 class="title3 title3--space">
+                    Verteilung Versicherungen im Jahr 2018
+                  </h3>
+                  <canvas id="canvas-pie" class="canvas"></canvas>
+                  <br>
+
+                  <h3 class="title3 title3--space">
+                    Beispiel 2
+                  </h3>
+                  <canvas id="canvas-sample" class="canvas"></canvas>
+                </div>
+              </div>
+              <div class="row">
+                <br>
+              </div>
+
+              <div class="row">
+                <br>
+              </div>
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                  <table class="table-responsive"
+                         id="table-line"
+                         data-toggle="table"
+                         data-search="false"
+                         data-click-to-select="false"
+                         data-filter-control="false"
+                         data-filter-show-clear="false"
+                         data-show-export="false"
+                         data-pagination="false"
+                          >
+                    <thead>
+                    <tr>
+                      <th class="text-center">[Actions]</th>
+                      <th class="text-center">Sample head 1</th>
+                      <th class="text-center">Sample head 2</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>
+                        <a href="{{ path('admin_dashboard') }}" class="btn">
+                          <span><i class="fas fa-pencil-alt"></i></span>
+                        </a>
+                      </td>
+                      <td class="text-right">Sample content 1 (newest users)</td>
+                      <td class="text-right">Sample content 2</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                  <div class="row">
+                    <h3 class="title3 title3--space">
+                      Nachrichten von Nutzern
+                    </h3>
+
+                    <div class="chat-panel panel panel-default">
+                      <div class="panel-heading">
+                        <i class="fas fa-comments fa-fw"></i> Chat
+                        <div class="btn-group pull-right">
+                          <button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown">
+                            <i class="fas fa-chevron-down"></i>
+                          </button>
+                          <ul class="dropdown-menu slidedown">
+                            <li>
+                              <a href="#">
+                                <i class="fas fa-refresh fa-fw"></i> Refresh
+                              </a>
+                            </li>
+                            <li>
+                              <a href="#">
+                                <i class="fas fa-check-circle fa-fw"></i> Available
+                              </a>
+                            </li>
+                            <li>
+                              <a href="#">
+                                <i class="fas fa-times fa-fw"></i> Busy
+                              </a>
+                            </li>
+                            <li>
+                              <a href="#">
+                                <i class="far fa-clock fa-fw"></i> Away
+                              </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                              <a href="#">
+                                <i class="fas fa-sign-out-alt fa-fw"></i> Sign Out
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <!-- /.panel-heading -->
+                      <div class="panel-body">
+                        <ul class="chat">
+                          <li class="left clearfix">
+                <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar"
+                                             class="img-circle"/>
+                                    </span>
+
+                            <div class="chat-body clearfix">
+                              <div class="header">
+                                <strong class="primary-font">Jack Sparrow</strong>
+                                <small class="pull-right text-muted">
+                                  <i class="far fa-clock fa-fw"></i> 12 mins ago
+                                </small>
+                              </div>
+                              <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                dolor, quis ullamcorper ligula sodales.
+                              </p>
+                            </div>
+                          </li>
+                          <li class="right clearfix">
+                <span class="chat-img pull-right">
+                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar"
+                                             class="img-circle"/>
+                                    </span>
+
+                            <div class="chat-body clearfix">
+                              <div class="header">
+                                <small class=" text-muted">
+                                  <i class="far fa-clock fa-fw"></i> 13 mins ago
+                                </small>
+                                <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                              </div>
+                              <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                dolor, quis ullamcorper ligula sodales.
+                              </p>
+                            </div>
+                          </li>
+                          <li class="left clearfix">
+                <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar"
+                                             class="img-circle"/>
+                                    </span>
+
+                            <div class="chat-body clearfix">
+                              <div class="header">
+                                <strong class="primary-font">Jack Sparrow</strong>
+                                <small class="pull-right text-muted">
+                                  <i class="far fa-clock fa-fw"></i> 14 mins ago
+                                </small>
+                              </div>
+                              <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                dolor, quis ullamcorper ligula sodales.
+                              </p>
+                            </div>
+                          </li>
+                          <li class="right clearfix">
+                <span class="chat-img pull-right">
+                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar"
+                                             class="img-circle"/>
+                                    </span>
+
+                            <div class="chat-body clearfix">
+                              <div class="header">
+                                <small class=" text-muted">
+                                  <i class="far fa-clock fa-fw"></i> 15 mins ago
+                                </small>
+                                <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                              </div>
+                              <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                dolor, quis ullamcorper ligula sodales.
+                              </p>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                      <!-- /.panel-body -->
+                      <div class="panel-footer">
+                        <div class="input-group">
+                          <input id="btn-input" type="text" class="form-control input-sm"
+                                 placeholder="Type your message here..."/>
+              <span class="input-group-btn">
+                                    <button class="btn btn--warning btn-sm" id="btn-chat">
+                                      Send
+                                    </button>
+                                </span>
+                        </div>
+                      </div>
+                      <!-- /.panel-footer -->
+                    </div>
+                    <!-- /.panel .chat-panel -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+{% endblock %}

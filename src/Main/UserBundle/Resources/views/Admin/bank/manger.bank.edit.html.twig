@@ -1,0 +1,224 @@
+{% extends '@MainAdminBundle/_admin.main.html.twig' %}
+
+{% block title %}Admin user bank edit{% endblock %}
+
+  {% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/admin-edit.css') }}">
+  {% endblock %}
+
+  {% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/survey/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/js/lib/bootstrapValidator.min.js') }}"></script>
+    <script>
+      $(document).ready(function () {
+        $('.edit_bank_form').bootstrapValidator({
+          feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+          },
+          submitButtons: 'button[type="submit"]',
+          fields: {}
+        })
+                .on('success.form.bv', function (e) {
+                  //console.log("done");
+                  $('#edit_bank_form_quit').prop('disabled', true);
+                  $('#edit_bank_form_save').prop('disabled', true);
+                  $('#success_message').slideDown({opacity: "show"}, "slow")
+                });
+      });
+    </script>
+  {% endblock %}
+
+{% block content %}
+  <section id="admin-user-bank-edit">
+    <div id="page-box">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="well well-sm">
+            <div class="col-12">
+              <!--
+              {{ form_start(form) }}
+              {{ form_widget(form) }}
+              {{ form_end(form) }}
+              -->
+              <div class="row">
+                <div class="panel panel-success">
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      <h3 class="title3 title3--space">Editieren der Bankinformationn des Nutzers {{ user.firstName }} {{ user.lastName }}</h3>
+                      <sub>Zuletzt aktualisiert: {{ bank.updatedAt|date("d.m Y") }}</sub>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <form name="edit_bank_form"
+                          id="edit_bank_form"
+                          class="well form-horizontal edit_bank_form"
+                          method="post"
+                          action="{{ path('admin_user_id_bank_bid_edit', {
+                            'id' : user.id,
+                            'bid' : bank.id
+                          }) }}"
+                          novalidate="novalidate"
+                            >
+                      <fieldset>
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+
+                          <!-- IBAN -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">IBAN</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                              <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-bank"></i>
+                              </span>
+                                <input class="form-control"
+                                       type="text"
+                                       name="edit_bank_form[iban]"
+                                       id="edit_bank_form_iban"
+                                       placeholder="IBAN"
+                                       value="{{ bank.iban }}"
+                                       required
+                                        />
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- BIC -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">BIC</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                              <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-bank"></i>
+                              </span>
+                                <input class="form-control"
+                                       type="text"
+                                       name="edit_bank_form[bic]"
+                                       id="edit_bank_form_bic"
+                                       placeholder="BIC"
+                                       value="{{ bank.bic }}"
+                                       required
+                                        />
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- BANK -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">Bank</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 inputGroupContainer">
+                              <div class="input-group">
+                              <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-bank"></i>
+                              </span>
+                                <input class="form-control"
+                                       type="text"
+                                       name="edit_bank_form[bank]"
+                                       id="edit_bank_form_bank"
+                                       placeholder="Bank"
+                                       value="{{ bank.bank }}"
+                                       required
+                                        />
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- COUNTRY -->
+                          <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-3 control-label">Land</label>
+
+                            <div class="col-sm-9 col-md-9 col-lg-9 selectContainer">
+                              <div class="input-group">
+                                <span class="input-group-addon">
+                                  <i class="glyphicon glyphicon-globe"></i>
+                                </span>
+                                <select name="edit_bank_form[country]"
+                                        id="edit_bank_form_country"
+                                        class="form-control selectpicker"
+                                        required
+                                        >
+                                  <option value=" ">Bitte w&auml;hlen</option>
+                                  {% for country in countries %}
+                                    <option value="{{ country.id }}" {{ country.id == bank.country.id ? 'selected="selected"' : '' }}>
+                                      {{ country.name }}
+                                    </option>
+                                  {% endfor %}
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Success message -->
+                          <div class="alert alert-success" role="alert" id="success_message">
+                            Success <i class="glyphicon glyphicon-thumbs-up"></i>
+                            Daten erfolgreich ge&auml;ndert
+                          </div>
+
+                          <!-- Button -->
+                          <div class="form-group">
+                            <label class="hidden-xs hidden-sm col-md-4 col-lg-4 control-label"></label>
+
+                            <div class="col-6 col-sm-6 col-md-3 col-lg-3 text-left">
+                              <a href="{{ path('admin_user_id', {
+                                'id' : user.id
+                              }) }}">
+                                <button type="button"
+                                        id="edit_bank_form_quit"
+                                        name="edit_bank_form[quit]"
+                                        class="btn">Abbrechen
+                                  <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                              </a>
+                            </div>
+                            <div class="col-6 col-sm-6 col-md-5 col-lg-5 text-right">
+                              <button type="submit"
+                                      id="edit_bank_form_save"
+                                      name="edit_bank_form[save]"
+                                      class="btn">Daten speichern
+                                <span class="glyphicon glyphicon-send"></span>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                          <!-- NOTE -->
+                          <div class="form-group">
+                            <label class="col-12 col-sm-12 col-md-2 col-lg-2 control-label">Hinweis</label>
+
+                            <div class="col-12 col-sm-12 col-md-10 col-lg-10 inputGroupContainer">
+                              Evtl. Google Maps einbinden?
+
+                            </div>
+                          </div>
+
+                          <!-- TOKEN -->
+                          <div class="form-group">
+                            <input class="form-control"
+                                   type="hidden"
+                                   name="edit_bank_form[_token]"
+                                   id="edit_bank_form__token"
+                                   value="{{ form._token.vars.value }}"/>
+                          </div>
+
+                        </div>
+                      </fieldset>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.container -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

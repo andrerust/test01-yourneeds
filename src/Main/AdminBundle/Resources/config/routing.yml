@@ -1,0 +1,4 @@
+main_admin_homepage:
+    resource: "@MainAdminBundle/Controller"
+    type:     annotation
+

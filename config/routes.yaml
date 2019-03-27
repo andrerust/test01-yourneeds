@@ -1,0 +1,15 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+admin:
+    resource: "@MainAdminBundle/Resources/config/routing.yml"
+
+insurance:
+    resource: "@MainInsuranceBundle/Resources/config/routing.yml"
+
+user:
+    resource: "@MainUserBundle/Resources/config/routing.yml"
+
+homepage:
+    resource: "@AppBundle/Resources/config/routing.yml"

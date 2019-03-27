@@ -1,0 +1,99 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds admin users{% endblock %}
+
+  {% block stylesheets %}
+     {{ parent() }}
+     <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+     <link rel="stylesheet" href="{{ asset('build/yourneeds-admin.css') }}">
+  {% endblock %}
+
+  {% block javascripts %}
+     {{ parent() }}
+     <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+     <script src="{{ asset('build/yourneeds-admin.js') }}"></script>
+     <script>
+        $(document).ready(function () {
+           $("button[name='toggle']").addClass('toggleIcon');
+        });
+     </script>
+  {% endblock %}
+
+{% block content %}
+
+<header>
+    {% include 'includes/admin-header.html.twig' %}
+</header>
+
+<section class="content-body" id="manager-activities">
+    <div class="container">
+        <div class="row justify-content-start">
+           <div class="col-12 text-center pt-2">
+              <h1 class="title1 title1--space">Übersicht Aktivitätsdaten</h1>
+           </div>
+        </div>
+        <div class="special-table">
+           <div id="toolbar">
+              <!--
+              <select class="form-control">
+                 <option value="">Export Basic</option>
+                 <option value="all">Export All</option>
+                 <option value="selected">Export Selected</option>
+              </select>
+              -->
+           </div>
+           <table class="table"
+                  id="table"
+                  data-toggle="table"
+                  data-toolbar="#toolbar"
+                  data-search="true"
+                  data-search-text=""
+                  data-show-columns="false"
+                  data-show-toggle="false"
+                  data-click-to-select="true"
+                  data-filter-control="false"
+                  data-filter-show-clear="false"
+                  data-show-export="false"
+                  data-pagination="true"
+               >
+              <thead>
+              <tr>
+                 <th data-field="operation" data-checkbox="true" data-sortable="true">&nbsp;</th>
+                 <th data-field="actions" class="text-center" data-sortable="true"
+                     data-switchable="false">Aktivität
+                 </th>
+                 <th data-field="name" data-filter-control="input" data-sortable="true"
+                     data-editable="false" data-switchable="false">Beschreibung
+                 </th>
+                 <th data-field="last_update" data-filter-control="input" data-sortable="true">
+                    Aktualisierung
+                 </th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for activity in activities %}
+                 {% set counter = activity.id %}
+                 <tr>
+                    <td class="bs-checkbox">
+                       <input data-index="{{ counter }}" name="btSelectItem" type="checkbox">
+                    </td>
+                    <td>
+                       <div class="pic-list">
+                          {{ activity.shortDescription }}
+                       </div>
+                    </td>
+                    <td>
+                       {{ activity.description }}
+                    </td>
+                    <td>
+                       {{ activity.updatedAt }}
+                    </td>
+                 </tr>
+              {% endfor %}
+              </tbody>
+           </table>
+        </div>
+     </div>
+</section>
+
+{% endblock %}

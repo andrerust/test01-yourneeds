@@ -1,0 +1,288 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds Your Contracts{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+      <style>
+          .content-body {
+              min-width: 400px;
+          }
+      </style>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="/build/yourneeds-manager.js"></script>
+  {% endblock %}
+
+{% block content %}
+
+    <section class="content-body">
+        <div class="container">
+            <div class="row justify-content-start">
+                <div class="col-12 text-center pt-2">
+                    <h1 class="title1 title1--space">Meine Verträge/Dokumente</h1>
+                </div>
+            </div>
+            <div class="row justify-content-start">
+                <div class="col-12 pt-2 text-left">
+                    <a class="btn btn--cta" href="{{ path('contract_new') }}">
+                        <i class="fas fa-plus fa-1x message"></i>&nbsp;&nbsp;<span>Bestehenden Vertrag hinzufügen</span>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 pt-2 text-left">
+                    &nbsp; &nbsp;
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="special-table table-responsive">
+                        <table class="table"
+                               id="table-address"
+                               data-toggle="table"
+                               data-toolbar="#toolbar"
+                               data-search="false"
+                               data-click-to-select="false"
+                               data-filter-control="false"
+                               data-filter-show-clear="false"
+                               data-show-export="false"
+                               data-pagination="false"
+                        >
+                            <thead>
+                            <tr>
+                                <!--
+                                <th data-field="operation" data-checkbox="true" data-sortable="true">&nbsp;</th>
+
+                                <th data-field="detail" class="text-center" data-sortable="false"
+                                    data-switchable="false">Detail
+                                </th>
+                               -->
+                                <th scope="col" data-field="type" data-filter-control="input"
+                                    data-sortable="true"
+                                    data-editable="false" data-switchable="false">Sparte<br>VSNR
+                                </th>
+                                <th scope="col" data-field="type" data-filter-control="input"
+                                    data-sortable="true"
+                                    data-editable="false" data-switchable="false">Tarifname
+                                </th>
+                                <th scope="col" data-field="type" data-filter-control="input"
+                                    data-sortable="true"
+                                    data-editable="false" data-switchable="false">Gesellschaft
+                                </th>
+                                <th scope="col" data-field="payment" data-filter-control="input"
+                                    data-sortable="true"
+                                    data-editable="false" data-switchable="false">Prämie<br>(Zahlweise)
+                                </th>
+                                <th scope="col" data-field="last_update" data-filter-control="input"
+                                    data-sortable="true">
+                                    Beginn<br>
+                                    Ende
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if false == contractListIsEmpty %}
+                                {% for contract in contracts %}
+                                    {% set counter = contract.id %}
+                                    <tr>
+                                        <!--
+                            <td class="bs-checkbox">
+                                <input data-index="{{ counter }}" name="btSelectItem" type="checkbox">
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ path('contract_edit', {
+                                            'cid': contract.id
+                                        }) }}" class="btn"
+                                   data-toggle="tooltip"
+                                   data-placement="right">
+                                    <span><i class="fas fa-pencil-alt"></i></span>
+                                </a>
+                            </td>
+                            -->
+                                        <td>
+                                            {{ contract.contractType.shortName }}<br>
+                                            <b>{{ contract.insuranceNumber }}</b>
+                                        </td>
+                                        <td>
+                                            Tarif: <b>{{ contract.tariffName }}</b>
+                                        </td>
+                                        <td>
+                                            <b>{{ contract.company.publicName }}</b><br>
+                                            <span style="font-size: 11px;">
+                                                {% if null != contract.company.addresses %}
+                                                    {% for address in contract.company.addresses %}
+                                                        {% if null != address.street
+                                                            and null != address.streetNumber
+                                                            and null != address.postalCode
+                                                            and null != address.city %}
+                                                            {{ address.street }}&nbsp;
+                                                            {{ address.streetNumber }}<br>
+                                                                {{ address.postalCode }}&nbsp;
+                                                                {{ address.city }}<br>
+                                                            {{ contract.company.emailgeneral }}<br>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            {{ contract.paymentFee }}<br>
+                                            (
+                                            {% if contract.paymentInterval == 1 %}
+                                                mtl
+                                            {% elseif contract.paymentInterval == 3 %}
+                                                vjhrl
+                                            {% elseif contract.paymentInterval == 6 %}
+                                                hjhrl
+                                            {% elseif contract.paymentInterval == 12 %}
+                                                jhrl
+                                            {% endif %}
+                                            )
+                                        </td>
+                                        <td>
+                                            {{ contract.dateRuntimeBegin|date("d.m.Y") }}<br>
+                                            {{ contract.dateRuntimeEnd|date("d.m.Y") }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center">
+                                        Noch keine Einträge
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-left">
+                    &nbsp;
+                </div>
+                <!--
+            <div class="col-12 text-center pt-2">
+                <h1 class="title1 title1--space">Übersicht Dokumente</h1>
+            </div>
+            -->
+            </div>
+            <div class="row">
+                <div class="col-12 text-left">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-left">
+                    <a class="btn btn--cta" href="{{ path('manager_document_upload') }}">
+                        <i class="fas fa-plus fa-1x message"></i>&nbsp;&nbsp;<span>Neues Dokument hochladen</span>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                &nbsp;
+            </div>
+            <div class="row">
+                <div class="col-12 text-left">
+                    <div class="special-table table-responsive">
+                        <!--
+                    <div id="toolbar">
+                        <select class="form-control">
+                           <option value="">Export Basic</option>
+                           <option value="all">Export All</option>
+                           <option value="selected">Export Selected</option>
+                        </select>
+                    </div>
+                        -->
+                        <table class="table"
+                               id="table"
+                               data-toggle="table"
+                               data-toolbar="#toolbar"
+                               data-search="true"
+                               data-search-text=""
+                               data-show-columns="false"
+                               data-show-toggle="false"
+                               data-click-to-select="true"
+                               data-filter-control="false"
+                               data-filter-show-clear="false"
+                               data-show-export="false"
+                               data-pagination="true"
+                        >
+                            <thead>
+                            <tr>
+                                <!--
+                                <th data-field="operation" data-checkbox="true" data-sortable="true">&nbsp;</th>
+                                 -->
+                                <th scope="col" data-field="type" data-filter-control="input" data-sortable="true"
+                                    data-editable="false" data-switchable="false">Dokumentenname
+                                </th>
+                                <th scope="col" data-field="type" data-filter-control="input" data-sortable="true"
+                                    data-editable="false" data-switchable="false">Typ
+                                </th>
+                                <th scope="col" data-field="document" data-filter-control="input" data-sortable="true"
+                                    data-editable="false" data-switchable="false">Angelegt am
+                                </th>
+                                <th scope="col" data-field="download" class="text-center" data-sortable="true"
+                                    data-switchable="false">
+                                    Download
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if false == documentListIsEmpty %}
+                                {% for document in documentList %}
+                                    <tr>
+                                        {% set counter = document.id %}
+                                        <!--
+                            <td class="bs-checkbox">
+                                <input data-index="{{ counter }}" name="btSelectItem" type="checkbox">
+                            </td>
+                            -->
+                                        <td>
+                                            {{ document.name }}
+                                        </td>
+                                        <td>
+                                            {{ document.documentTypeName }}
+                                        </td>
+                                        <td>
+                                            {{ document.updatedAt }}
+                                            <br>
+                                            <br>
+                                        </td>
+                                        <td class="">
+                                            {% if null != document.documentId %}
+                                                <a href="{{ path('document_download', {
+                                                    'id': document.documentId
+                                                }) }}" class="btn btn--cta">
+                                                    Download
+                                                </a>
+                                            {% else %}
+                                                Kein Download verfügbar
+                                            {% endif %}
+                                            <br>
+                                            <br>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center">
+                                        Noch keine Einträge
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

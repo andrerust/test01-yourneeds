@@ -1,0 +1,7 @@
+admin_insurance_web:
+    resource: "@MainInsuranceBundle/Controller/Admin"
+    type:     annotation
+
+damage_reporting_web:
+    resource: "@MainInsuranceBundle/Controller"
+    type:     annotation

@@ -1,0 +1,270 @@
+// Variables
+
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/mixins/breakpoints";
+
+@function tint($color, $percentage) {
+    @return mix(#fff, $color, $percentage);
+}
+
+@function shade($color, $percentage) {
+    @return mix(#000, $color, $percentage);
+}
+
+@mixin blur($size: $yn-unit-250) {
+    -webkit-filter: blur($size);
+    filter: blur($size);
+}
+
+@mixin edges-leave {
+    border-radius: ($yn-unit-250) $yn-unit;    
+}
+
+@mixin edges-round {
+    border-radius: $yn-unit;    
+}
+
+@mixin transition($time: .25) {
+    -o-transition: all $time+s linear;
+    -ms-transition: all $time+s linear;
+    -moz-transition: all $time+s linear;
+    -webkit-transition: all $time+s linear;
+    transition: all $time+s linear;
+}
+
+@mixin background-gradient($colorFirst, $colorSecond, $colorThird: false) {
+    @if ($colorThird) {
+        background: $colorSecond;
+        background: -moz-linear-gradient(left, $colorFirst 0%, $colorSecond 50%, $colorThird 100%);
+        background: -webkit-linear-gradient(left, $colorFirst 0%, $colorSecond 50%, $colorThird 100%);
+        background: -webkit-gradient(left top, right top, color-stop(0%, $colorFirst), color-stop(50%, $colorSecond), color-stop(100%, $colorThird));
+        background: -o-linear-gradient(left, $colorFirst 0%, $colorSecond 50%, $colorThird 100%); 
+        background: -ms-linear-gradient(left, $colorFirst 0%, $colorSecond 50%, $colorThird 100%); 
+        background: linear-gradient(to right, $colorFirst 0%, $colorSecond 50%, $colorThird 100%);
+    } @else {
+        background: $colorFirst;
+        background: -moz-linear-gradient(left, $colorFirst 0%, $colorSecond 100%);
+        background: -webkit-linear-gradient(left, $colorFirst 0%, $colorSecond 100%);
+        background: -webkit-gradient(left top, right top, color-stop(0%, $colorFirst), color-stop(100%, $colorSecond));
+        background: -o-linear-gradient(left, $colorFirst 0%, $colorSecond 100%); 
+        background: -ms-linear-gradient(left, $colorFirst 0%, $colorSecond 100%); 
+        background: linear-gradient(to right, $colorFirst 0%, $colorSecond 100%);
+    }
+}
+
+@mixin shadow-box {
+	-moz-box-shadow: $yn-shadow;
+	-webkit-box-shadow: $yn-shadow;
+    box-shadow: $yn-shadow;
+}
+
+@mixin shadow-text {
+    text-shadow: $yn-shadow;
+}
+
+@mixin shadow-svg {
+    -webkit-filter: drop-shadow($yn-shadow); 
+    filter: drop-shadow($yn-shadow);
+}
+
+@mixin numbers-uppercase {
+    -moz-font-feature-settings: "lnum";
+    -webkit-font-feature-settings: "lnum";
+    font-feature-settings: "lnum";
+}
+
+
+// Colors
+
+//$yn-color-green: #74b959;
+$yn-color-green: #6fbc85;
+$yn-color-green-5: tint($yn-color-green, 95%);
+$yn-color-green-secondary: #6fbc85;
+$yn-color-brown: #623f3c;
+
+$yn-color-blue-light: #39b3d7;
+$yn-color-blue: #288bce;
+$yn-color-blue-dark: #00498f;
+$yn-color-yellow: #e2d810;
+$yn-color-red: #d43f3a;
+$yn-color-orange: #f0ad4e;
+$yn-color-orange-dark: #66512c;
+$yn-color-violet: #50368d;
+$yn-color-white: #fff;
+$yn-color-black: #000;
+
+$yn-color-grey-3: #c0b8b0;//#ccc;
+$yn-color-grey-1: tint($yn-color-grey-3, 95%);
+$yn-color-grey-2: tint($yn-color-grey-3, 40%);
+$yn-color-grey-4: shade($yn-color-grey-3, 10%);
+$yn-color-grey-5: shade($yn-color-grey-3, 30%);
+$yn-color-grey-6: shade($yn-color-grey-3, 40%);
+$yn-color-grey-7: shade($yn-color-grey-3, 45%);
+$yn-color-grey-8: shade($yn-color-grey-3, 70%);
+
+$yn-color-grey-80: tint($yn-color-grey-3, 20%);
+$yn-color-greengrey: mix($yn-color-green-5, $yn-color-grey-1);
+
+
+// Font sizes
+
+$yn-font-size: 14px;
+$yn-font-size-xxlarge: round($yn-font-size * 3);
+$yn-font-size-xlarge: round($yn-font-size * 1.5);
+$yn-font-size-large: round($yn-font-size * 1.125);
+$yn-font-size-small: round($yn-font-size * .75); 
+
+
+// Line heights
+
+$yn-line-height: round($yn-font-size * 1.5);
+$yn-line-height-xxlarge: round($yn-font-size-xxlarge * 1.25);
+$yn-line-height-xlarge: round($yn-font-size-xlarge * 1.5);
+$yn-line-height-large: round($yn-font-size-large * 1.5);
+$yn-line-height-small: round($yn-font-size-small * 1.5);
+
+
+// Units
+
+$yn-unit: round($yn-font-size / 3); 
+$yn-unit-250: $yn-unit * 2.5;
+$yn-unit-400: $yn-unit * 4;
+$yn-unit-800: $yn-unit * 8;
+$yn-unit-1600: $yn-unit * 16;
+
+$yn-font-family: 'ff-tisa-sans-web-pro', 'Tisa Sans Pro', sans-serif;
+
+$yn-shadow: 0 0 15px tint($yn-color-brown, 50%);
+
+$yn-shade-factor: 10%;
+$yn-tint-factor: 10%;
+
+
+@mixin title1 {
+    font-size: $yn-font-size-xxlarge;
+    line-height: $yn-line-height-xxlarge;
+    font-weight: 700;
+}
+
+@mixin title2 {
+    font-size: $yn-font-size-xlarge;
+    font-weight: 300;
+    line-height: $yn-line-height-xlarge;
+}
+
+@mixin btn {
+    @include background-gradient($yn-color-grey-3, $yn-color-grey-4);
+    @include edges-leave();
+    @include transition();
+    @include media-breakpoint-down(xs) {
+        width: 100%;
+        text-align: center;
+        font-size: $yn-font-size;
+        white-space: normal;
+    }    
+    @include media-breakpoint-down(sm) {
+        font-size: $yn-font-size-large;
+    }    
+    color: $yn-color-white;
+    padding: .5em 1em;
+    display: inline-block;
+    font-weight: 700;
+    position: relative;
+    z-index: 100;
+    border: none !important;
+    font-size: inherit;
+    line-height: inherit;
+    text-decoration: none;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  
+    &:before {
+        @include background-gradient(shade($yn-color-grey-3, $yn-shade-factor), shade($yn-color-grey-4, $yn-shade-factor));
+        @include transition();
+        border-radius: inherit;
+        content: '';    
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0; 
+        left: 0;
+        opacity: 0;
+        width: 100%;
+        z-index: -100;
+    }
+  
+    &:hover {
+        border: none;
+        cursor: pointer;
+        color: $yn-color-white;
+        text-decoration: none;
+
+        &:before {
+            opacity: 1;
+        }
+    }    
+    
+    &#{&}--cta {
+        @include shadow-box();
+        @include background-gradient($yn-color-green, $yn-color-green-secondary);
+     
+        &:before {
+            @include background-gradient(shade($yn-color-green, $yn-shade-factor), shade($yn-color-green-secondary, $yn-shade-factor));
+        }
+    }  
+    
+    &#{&}--large {
+        @include media-breakpoint-up(lg) {
+            font-size: $yn-font-size-large;
+            line-height: $yn-line-height-large;
+        } 
+        font-weight: bolder;
+    }
+    
+    &#{&}--help {
+        font-size: $yn-font-size;
+        line-height: 1;
+        width: auto;
+        padding: 0 !important;
+        background: transparent;
+        background-color: transparent !important;
+        color: $yn-color-grey-3;
+        border-radius: 0;
+        
+        &:before {
+            background: transparent;
+        }
+
+        &:hover {
+            background: transparent;
+            color: $yn-color-black;
+            
+            &:before {
+                background: transparent;
+            }
+        }
+    }
+
+    &[disabled],
+    &.disabled {
+        color: $yn-color-grey-2 !important;
+        background: none !important;
+        background-color: $yn-color-grey-80 !important;
+        box-shadow: none;
+            
+        &:before {
+            background: none;
+        }
+        
+        &:hover {
+            background: none;
+            background-color: $yn-color-grey-80 !important;
+            cursor: default;
+            
+            &:before {
+                background: none;
+            }
+        }
+    }
+}

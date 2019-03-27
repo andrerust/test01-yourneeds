@@ -1,0 +1,884 @@
+{
+  "locale": "de",
+  "title": "Editieren eines Tarifs",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "privateLiability",
+          "elements": [
+            {
+              "type": "html",
+              "name": "question0",
+              "html": {
+                "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/hausrat.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h3 class=\"title2\">\nWillkommen beim Check <span class=\"color-green\">Y<span class=\"yourneeds-font\">O</span>UR</span><span\n                      class=\"color-brown\">needs</span>-Bedarfcheck!\n</h3>\n<h4 class=\"title4 title4--space\">Es geht los! Nimm dir eine Moment Zeit und erhalte von uns eine Empfehlung, welche Versicherungen für dich Sinn ergeben und welche nicht. Mit der Hilfefunktion kannst du die jeweilige Erklärung der einzelnen Frage erhalten.\n<br><br>\n         <button type=\"button\" onclick=\"survey.nextPage()\" class=\"btn btn--cta\">\n               <i class=\"fas fa-angle-right\"></i> Los geht es!\n            </button>\n<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n</div>\n</div>\n"
+              }
+            }
+          ],
+          "title": {
+            "de": "Hausratversicherung"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Screen 1",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question3",
+          "html": {
+            "de": "<h4 class=\"title4 title4--space\">Sollte deine Adresse nicht aufgeführt sein, kannst du diese in deinen persönlichen Daten hinzufügen. \n<br><br>\n<a href=\"/manager/personal\">\n         <button type=\"button\" class=\"btn btn--cta\">\n               <i class=\"fas fa-angle-right\"></i> Zu meinem Profil\n            </button>\n</a>\n</h4>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "address",
+          "title": {
+            "de": "Bitte wähle eine deiner Adressen aus"
+          },
+          "isRequired": true,
+          "choices": [
+            "item1",
+            "item2",
+            "item3"
+          ],
+          "choicesByUrl": {
+            "url": "/api/address/all/load",
+            "valueName": "id",
+            "titleName": "name"
+          }
+        }
+      ],
+      "questionTitleLocation": "top",
+      "navigationButtonsVisibility": "show"
+    },
+    {
+      "name": "Screen 2a",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "livingHow",
+          "title": {
+            "de": "Wie wohnst du?"
+          },
+          "valueName": "livingHow",
+          "isRequired": true,
+          "choices": [
+            "Mehrfamilienhaus",
+            "Einfamilienhaus",
+            "Zweifamilienhaus",
+            "Doppelhaushälfte",
+            "Reihenhaus"
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "text",
+          "name": "livingHowSquareMeter",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Auf wie viel Wohnfläche in Quadratmeter lebst du?"
+          },
+          "valueName": "livingHowSquareMeter",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "livingHowSquareMeterCellar",
+          "visibleIf": "{livingHow}  \"Mehrfamilienhaus\" and {livingHowSquareMeter} > 0",
+          "title": {
+            "de": "Wie viel Quadratmeter Wohnfläche sind davon im Keller?"
+          },
+          "valueName": "livingHowSquareMeterCellar",
+          "isRequired": true,
+          "validators": [
+            {
+              "type": "expression",
+              "text": {
+                "default": "Die Wohnfläche im Keller muss kleiner sein, als deine Gesamtwohnfläche",
+                "de": "Die Wohnfläche im Keller muss kleiner sein, als deine Gesamtwohnfläche und die Gesamtfläche  des Kellers"
+              },
+              "expression": "{livingHowSquareMeterCellar} <= {livingHowSquareMeter} && {livingHowSquareMeterCellar} <= {livingHowSquareMeterCellarSize}"
+            },
+            {
+              "type": "expression",
+              "text": "Die Wohnfläche im Keller muss kleiner sein, als die Gesamtfläche im Keller",
+              "expression": "{livingHowSquareMeterCellar} <= {livingHowSquareMeter}"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "livingHowSquareMeterCellarSize",
+          "visibleIf": "{livingHow}  \"Mehrfamilienhaus\" and {livingHowSquareMeter} > 0",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wie groß ist die Grundfläche des Kellers in Quadratmetern?"
+          },
+          "valueName": "livingHowSquareMeterCellarSize",
+          "isRequired": true,
+          "validators": [
+            {
+              "type": "expression",
+              "text": "Die Gesamtfläche des Kellers muss größer sein, als die Wohnfläche im Keller",
+              "expression": "{livingHowSquareMeterCellarSize} >= {livingHowSquareMeterCellar}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 2b",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "livingHowConstructionClass",
+          "visibleIf": "{livingHow} notempty",
+          "title": {
+            "de": "Bauartklasse"
+          },
+          "valueName": "livingHowConstructionClass",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "BakI",
+              "text": {
+                "de": "massive Bauweise mit harter Dachung (BAK I)"
+              }
+            },
+            {
+              "value": "BakII",
+              "text": {
+                "de": "Stahl/Glas Bauweise mit harter Dachung (BAK II)"
+              }
+            },
+            {
+              "value": "FghI_FghII",
+              "text": {
+                "de": "Fertighaus, massiv mit harter Dachung (FHG I, FHG II) "
+              }
+            },
+            {
+              "value": "FghIII",
+              "text": {
+                "de": "Fertighaus mit harter Dachung (FHG III)"
+              }
+            },
+            {
+              "value": "BakIII",
+              "text": {
+                "de": "Holzhaus oder Lehmfachwerk mit harter Dachung (BAK III) "
+              }
+            },
+            {
+              "value": "BakIV_V",
+              "text": {
+                "de": "weiche Dachung (BAK IV oder V)"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 3",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "publicService",
+          "title": {
+            "de": "Arbeitest du im öffentlichen Dienst?"
+          },
+          "valueName": "publicService",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ],
+      "visible": false
+    },
+    {
+      "name": "Screen 4",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "calculateSum",
+          "title": {
+            "de": "Sollen wir für dich die Versicherungssumme ermitteln?\t"
+          },
+          "valueName": "calculateSum",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "expression",
+          "name": "calculateSumResult",
+          "visibleIf": "{calculateSum} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Summe in EURO"
+          },
+          "valueName": "calculateSumResult",
+          "expression": "{livingHowSquareMeter}*750",
+          "displayStyle": "none"
+        },
+        {
+          "type": "text",
+          "name": "calculateSumCustom",
+          "visibleIf": "{calculateSum} = \"no\"",
+          "title": {
+            "de": "Wie hoch soll deine Versicherungssumme sein?"
+          },
+          "valueName": "calculateSumCustom"
+        }
+      ]
+    },
+    {
+      "name": "Screen 5",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "bicycleTheft",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Möchtest du Fahrraddiebstahl mitversichern? "
+          },
+          "valueName": "bicycleTheft",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "text",
+          "name": "bicycleTheftSum",
+          "visibleIf": "{bicycleTheft} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wie hoch?"
+          },
+          "valueName": "bicycleTheftSum",
+          "validators": [
+            {
+              "type": "expression",
+              "text": "Fahrraddiebstahl bis 5000 EUR",
+              "expression": "{bicycleTheftSum} <= 5000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 6",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "ceramicHob",
+          "title": {
+            "de": "Möchtest du dein Glas (Cerankochfeld, Duschscheibe) mitversichert haben? \t"
+          },
+          "valueName": "ceramicHob",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 7",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "floodingAndEarthquakes",
+          "title": {
+            "de": "Möchtest du Elementarschäden z.B. durch Überschwemmung / Rückstau oder Erdbeben mitversichern?"
+          },
+          "valueName": "floodingAndEarthquakes",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 8",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "damagesCausedByGrossNegligence",
+          "title": {
+            "de": "Möchtest du Schäden durch grobe Fahrlässigkeit mitversichert haben?"
+          },
+          "valueName": "damagesCausedByGrossNegligence",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 9",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "retention",
+          "title": {
+            "de": "Wünschst du eine Selbstbeteiligung\t"
+          },
+          "valueName": "retention",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ],
+      "visible": false
+    },
+    {
+      "name": "Screen 10",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "previousInsurance",
+          "title": {
+            "de": "Hattest du in den letzten 5 Jahren eine Hausratversicherung?"
+          },
+          "valueName": "previousInsurance",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "previousInsuranceDamage",
+          "visibleIf": "{previousInsurance} = \"yes\"",
+          "title": {
+            "de": "Hattest du Schäden in den letzten 5 Jahren?"
+          },
+          "valueName": "previousInsuranceDamage",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "previousInsuranceDamageCount",
+          "visibleIf": "{previousInsuranceDamage} = \"yes\"",
+          "title": {
+            "de": "Wie viele?"
+          },
+          "valueName": "previousInsuranceDamageCount",
+          "choices": [
+            {
+              "value": "one",
+              "text": {
+                "de": "1"
+              }
+            },
+            {
+              "value": "two",
+              "text": {
+                "de": "2"
+              }
+            },
+            {
+              "value": "three",
+              "text": {
+                "de": "3"
+              }
+            },
+            {
+              "value": "four",
+              "text": {
+                "de": "4"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 11",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "insuredValuables",
+          "title": {
+            "de": "Möchtest du mehr als 20% der Versicherungssumme an Wertsachen versichern?"
+          },
+          "valueName": "insuredValuables",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "text",
+          "name": "insuredValuablesSum",
+          "visibleIf": "{insuredValuables} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wieviel Prozent?"
+          },
+          "valueName": "insuredValuablesSum"
+        }
+      ]
+    },
+    {
+      "name": "Screen 12",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "surgeDamage",
+          "title": {
+            "de": "Möchtest du Überspannungsschäden mitversichern?"
+          },
+          "valueName": "surgeDamage",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 13",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "carTheft",
+          "title": {
+            "de": "Soll ein Diebstahl aus KFZ mitversichert werden?"
+          },
+          "valueName": "carTheft",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 14",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "singeingDamage",
+          "title": {
+            "de": "Sollen Sengschäden mitversichert werden?"
+          },
+          "valueName": "singeingDamage",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 15",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "waterLossDueBurstPipes",
+          "title": {
+            "de": "Soll Wasserverlust infolge Rohrbruch mitversichert werden?"
+          },
+          "valueName": "waterLossDueBurstPipes",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 16",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "hotelCosts",
+          "title": {
+            "de": "Sollen Hotelkosten im Schadenfall mitversichert sein?"
+          },
+          "valueName": "hotelCosts",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 17",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "returnTravelCosts",
+          "title": {
+            "de": "Sollen Rückreisekosten aus dem Urlaub bei großen Schäden mitversichert werden?"
+          },
+          "valueName": "returnTravelCosts",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 18",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "homeOfficeDamage",
+          "title": {
+            "de": "Sollen Schäden im häuslichen Arbeitszimmer mitversichert werden?"
+          },
+          "valueName": "homeOfficeDamage",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 19",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "theftOfGardenFurniture",
+          "title": {
+            "de": "Soll der Diebstahl von Gartenmöbel oder Gartengeräte mitversichert sein?"
+          },
+          "valueName": "theftOfGardenFurniture",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 20",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "pickpocketing ",
+          "title": {
+            "de": "Soll ein Verlust durch Taschen- oder Trickdiebstahl mitversichert werden?"
+          },
+          "valueName": "pickpocketing",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 21",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "everythingOk",
+          "title": {
+            "de": "Hast du alle Fragen mit deinen Wünschen beantwortet?"
+          },
+          "valueName": "everythingOk",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "exit",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question2",
+          "html": {
+            "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/hausrat.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h4 class=\"title4 title4--space\">Wir kalkulieren nun die zu dir passenden Versicherungen.<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n            <button type=\"button\" onclick=\"survey.completeLastPage()\" class=\"btn btn--cta\">\n               Zum Angebot - los geht es!\n            </button>\n<br><br>\n\n</div>\n</div>\n"
+          }
+        }
+      ],
+      "visibleIf": "{everythingOk} = \"yes\""
+    },
+    {
+      "name": "exit messenger",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question1",
+          "html": {
+            "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/hausrat.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h4 class=\"title4 title4--space\">Welche Wünsche sind noch offen, bzw. welche Fragen nicht beantwortet? Schreibe uns hier über unsere Kontaktbox Deine Wünsche/Fragen.<br><br>\nSollten doch alle deine Wünsche/Fragen erfüllt sein, kommst du mit \"Absenden\" zu deinem Angebot.\n<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n<a href=\"/manager/messages\">\n            <button type=\"button\" class=\"btn btn--cta\">\n               Schreib eine Nachricht an uns!\n            </button>\n</a>\n<br><br>\n\n</div>\n</div>\n"
+          }
+        }
+      ],
+      "visibleIf": "{everythingOk} = \"no\""
+    }
+  ],
+  "showProgressBar": "top",
+  "goNextPageAutomatic": true,
+  "pagePrevText": {
+    "de": "zurück"
+  },
+  "pageNextText": {
+    "de": "weiter"
+  }
+}

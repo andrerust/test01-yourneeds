@@ -1,0 +1,304 @@
+Main\UserBundle\Entity\User:
+    user_1:
+        email: schreiber@schreiberfriends.com
+        userName: Sven Schreiber
+        phoneNumber: <phoneNumber()>
+        firstName: Sven
+        lastName: Schreiber
+        gender: <numberBetween(1, 3)>
+        userTitle: '@title_*'
+        jobGroup: '@job_group_*'
+        employer: 'YOURneeds GmbH'
+        familyStatus: '@family_staus_*'
+        plainPassword: lllgo
+        profilePicture: <getUserProfilePicture()>
+        coins: <numberBetween(0, 200)>
+        note: <paragraph()>
+        roles: [ROLE_ADMIN]
+        isActive: 1
+        isBlocked: 0
+        termsAccepted: <boolean(100)>
+        termsAcceptedUpdate: '<dateTimeBetween("-180 days", "now")>'
+        receiveNewsletter: <boolean(100)>
+        receiveNewsletterUpdate: '<dateTimeBetween("-180 days", "now")>'
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'
+
+    user_2:
+        email: andre.rust@intertects.com
+        userName: Andre Rust
+        phoneNumber: <phoneNumber()>
+        firstName: Andre
+        lastName: Rust
+        gender: <numberBetween(1, 3)>
+        userTitle: '@title_*'
+        jobGroup: '@job_group_*'
+        employer: 'YOURneeds GmbH'
+        familyStatus: '@family_staus_*'
+        plainPassword: lllgo
+        profilePicture: <getUserProfilePicture()>
+        coins: <numberBetween(0, 200)>
+        note: <paragraph()>
+        roles: [ROLE_ADMIN]
+        isActive: 1
+        isBlocked: 0
+        termsAccepted: <boolean(100)>
+        termsAcceptedUpdate: '<dateTimeBetween("-180 days", "now")>'
+        receiveNewsletter: <boolean(100)>
+        receiveNewsletterUpdate: '<dateTimeBetween("-180 days", "now")>'
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'
+
+    user_{3..20}:
+        email: test_<current()>@test.com
+        userName: <userName()>
+        phoneNumber: <phoneNumber()>
+        firstName: <firstName()>
+        lastName: <lastName()>
+        gender: <numberBetween(1, 3)>
+        userTitle: '@title_*'
+        jobGroup: '@job_group_*'
+        employer: <company()>
+        familyStatus: '@family_staus_*'
+        plainPassword: lllgo
+        profilePicture: <getUserProfilePicture()>
+        coins: <numberBetween(0, 200)>
+        note: <paragraph()>
+        roles: [<randomRole()>]
+        isActive: <boolean(80)>
+        isBlocked: <boolean(10)>
+        termsAccepted: <boolean(90)>
+        termsAcceptedUpdate: '<dateTimeBetween("-180 days", "now")>'
+        receiveNewsletter: <boolean(50)>
+        receiveNewsletterUpdate: '<dateTimeBetween("-180 days", "now")>'
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'
+
+Main\UserBundle\Entity\User:
+    testuser_3:
+        email: andre.rust_2@intertects.com
+        userName: 'Test Empty'
+        phoneNumber: <phoneNumber()>
+        firstName: 'Sample first name'
+        lastName: 'Sample last name'
+        gender: <numberBetween(1, 3)>
+        userTitle: '@title_*'
+        jobGroup: '@job_group_*'
+        employer: 'Sample company'
+        familyStatus: '@family_staus_*'
+        plainPassword: lllgo
+        profilePicture: <getUserProfilePicture()>
+        coins: 0
+        note: <paragraph()>
+        roles: [ROLE_USER]
+        isActive: 1
+        isBlocked: 0
+        termsAccepted: <boolean(100)>
+        termsAcceptedUpdate: '<dateTimeBetween("-180 days", "now")>'
+        receiveNewsletter: true
+        receiveNewsletterUpdate: '<dateTimeBetween("-180 days", "now")>'
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'
+
+#----------------------------------------
+#----------------- FAMILY STATUS
+Main\UserBundle\Entity\FamilyStatus:
+    family_staus_none:
+        name: 'Nicht angegeben'
+        isDefault: 1
+    family_staus_single:
+        name: 'Single'
+        isDefault: 0
+    family_staus_married:
+        name: 'Verheiratet'
+        isDefault: 0
+    family_staus_widowed:
+        name: 'Verwitwet'
+        isDefault: 0
+    family_staus_divorced:
+        name: 'Geschieden'
+        isDefault: 0
+
+Main\UserBundle\Entity\Title:
+    title_none:
+        name: 'Keiner'
+        isActive: 1
+        isDefault: 1
+    title_dr:
+        name: 'Dr.'
+        isActive: 1
+        isDefault: 0
+    title_prof:
+        name: 'Prof.'
+        isActive: 1
+        isDefault: 0
+    title_prof_dr:
+        name: 'Prof. Dr.'
+        isActive: 1
+        isDefault: 0
+
+Main\UserBundle\Entity\Address:
+    address_{1..20}:
+        user: '@user_*'
+        additionalInfo: 80%? <sentence()>
+        street: 'Sample Street'
+        streetNumber: <numberBetween(1, 200)>
+        postalCode: <numberBetween(20000, 50000)>
+        city: '@city_*'
+        country: '@country_*'
+        type: 1
+        isActive: 1
+        isBlocked: 0
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'
+
+Main\UserBundle\Entity\BankAccount:
+    bankaccount_{1..40}:
+        user: '@user_*'
+        iban: <bankAccountNumber()>
+        bic: <swiftBicNumber()>
+        bank: <word()>
+        country: '@country_*'
+        isActive: 1
+        isBlocked: 0
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'
+
+Main\UserBundle\Entity\City:
+    city_{1..11}:
+        name: <city()>
+        isActive: <boolean(90)>
+        isDefault: '0'
+    city_heidelberg:
+        name: 'Heidelberg'
+        isActive: 1
+        isDefault: '0'
+    city_rossdorf:
+        name: 'Rossdorf'
+        isActive: 1
+        isDefault: '0'
+    city_kappeln:
+        name: 'Kappeln'
+        isActive: 1
+        isDefault: '0'
+    city_frankfurt_main:
+        name: 'Frankfurt am Main'
+        isActive: 1
+        isDefault: '0'
+    city_bad_kreuznach:
+        name: 'Frankfurt am Main'
+        isActive: 1
+        isDefault: '0'
+    city_waldenburg:
+        name: 'Waldenburg'
+        isActive: 1
+        isDefault: '0'
+    city_westerstede:
+        name: 'Westerstede'
+        isActive: 1
+        isDefault: '0'
+
+Main\UserBundle\Entity\Country:
+    country_de:
+        name: 'Deutschland'
+        isActive: <boolean(100)>
+        isDefault: '1'
+    country_ch:
+        name: 'Schweiz'
+        isActive: 1
+        isDefault: 0
+    country_A:
+        name: 'Oesterreich'
+        isActive: <boolean(100)>
+        isDefault: 0
+
+#----------------------------------------
+#----------------- JOB GROUP
+Main\UserBundle\Entity\JobGroup:
+    job_group_none:
+        name: 'Nicht angegeben'
+        isDefault: 1
+    job_group_1:
+        name: 'Angestellte/r'
+        isDefault: 0
+    job_group_2:
+        name: 'Arbeiter/in'
+        isDefault: 0
+    job_group_3:
+        name: 'Facharbeiter/in'
+        isDefault: 0
+    job_group_4:
+        name: 'Beamter/Beamtin'
+        isDefault: 0
+    job_group_5:
+        name: 'Berufssoldat/in'
+        isDefault: 0
+    job_group_6:
+        name: 'Hausfrau/-mann'
+        isDefault: 0
+    job_group_7:
+        name: 'Student/in'
+        isDefault: 0
+    job_group_8:
+        name: 'Ohne Beschaeftigung'
+        isDefault: 0
+    job_group_9:
+        name: 'Selbst. Freiberufler'
+        isDefault: 0
+    job_group_10:
+        name: 'Gesellschafter (Geschaeftsfuehrer)'
+        isDefault: 0
+    job_group_11:
+        name: 'Rentner/in'
+        isDefault: 0
+    job_group_12:
+        name: 'Auszubildender'
+        isDefault: 0
+
+Main\UserBundle\Entity\Achievement:
+    achievement_{1..10}:
+        title: <title()>
+        achievementType: <sentence()>
+        mainImage: element<numberBetween(1, 10)>.png
+        mainText: <paragraph()>
+        isActive: <boolean(90)>
+        activeFrom: '<dateTimeBetween("-200 days", "+10 days")>'
+        activeUntil: '<dateTimeBetween("-200 days", "+300 days")>'
+
+Main\UserBundle\Entity\UserAchievement:
+    userachievement_{1..100}:
+        user: '@user_*'
+        achievement: '@achievement_*'
+        wonAt: '<dateTimeBetween("-90 days", "now")>'
+        updatedAt: '<dateTimeBetween("-180 days", "now")>'
+        createdAt: '<dateTimeBetween("-180 days", "now")>'
+
+Main\UserBundle\Entity\Activity:
+    activity_1:
+        shortDescription: You added a document
+        context: document
+        createdAt: '<dateTimeBetween("-480 days", "now")>'
+    activity_2:
+        shortDescription: You deleted a document
+        context: document
+        createdAt: '<dateTimeBetween("-480 days", "now")>'
+    activity_3:
+        shortDescription: You wrote a message
+        context: communication
+        createdAt: '<dateTimeBetween("-480 days", "now")>'
+    activity_4:
+        shortDescription: You reported a insurance case
+        context: case
+        createdAt: '<dateTimeBetween("-480 days", "now")>'
+    activity_5:
+        shortDescription: You have an open calculator case. Want to finish it?
+        context: calculator
+        createdAt: '<dateTimeBetween("-480 days", "now")>'
+
+Main\UserBundle\Entity\UserActivity:
+    useractivity_{1..300}:
+        activity: '@activity_<numberBetween(1, 4)>'
+        user: '@user_*'
+        contextId: <numberBetween(1, 300)>
+        updatedAt: '<dateTimeBetween("-180 days", "now")>'
+        createdAt: '<dateTimeBetween("-180 days", "now")>'

@@ -1,0 +1,416 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds Resultatseite{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('build/yourneeds-mm-base.css') }}"/>
+    <style type="text/css">
+
+        .result-header-row.stats {
+            height: 45px;
+        }
+
+        .price {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .tariff {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .result-column {
+            padding: 2px;
+        }
+
+        .result-column-inner {
+            border-radius: 12px;
+            border: 1px solid #333333;
+            padding: 3px;
+            background-color: #ffffff;
+            height: 100%;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-body">
+        <div class="container">
+            <div class="row justify-content-start" style="margin-top: 10px;">
+                <div class="col-12 text-center pt-2">
+                    <h1 class="title1 title3--space">
+                        {% set insuranceTitle = '' %}
+                        {% if type == 'pli' %}
+                            {% set insuranceTitle = 'Privathaftpflicht' %}
+                        {% elseif type == 'hci' %}
+                            {% set insuranceTitle = 'Hausrat' %}
+                        {% elseif type == 'lpi' %}
+                            {% set insuranceTitle = 'Rechtsschutz' %}
+                        {% elseif type == 'rbi' %}
+                            {% set insuranceTitle = 'Wohngebäude' %}
+                        {% elseif type == 'aci' %}
+                            {% set insuranceTitle = 'Unfall' %}
+                        {% elseif type == 'ali' %}
+                            {% set insuranceTitle = 'Tierhalterhaftpflicht' %}
+                        {% endif %}
+                        {{ insuranceTitle }}
+                    </h1>
+                    <h2 class="title2 title2--space">
+                        <span class="color-green">Treffe deine Auswahl!</span>
+                    </h2>
+                    <hr>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-3 result-column">
+                    <div class="result-column-inner">
+                        <div class="text-center">Aktueller Schutz</div>
+                        {% if null != currentContracts %}
+                            {% for currentContract in currentContracts %}
+                                <hr>
+                                <br><br>
+                                <div class="company-logo-img-box">
+
+                                    {% if currentContract.exist == 1 %}
+                                        <!--
+                            <img class="img center img-thumbnail" id="insurance_logo_cheapest"
+                                 src="https://res.makler-bund.de/h1/_logos/{{ currentContract.logo }}">
+                                 -->
+                                        <img class="img center img-thumbnail" id="insurance_logo_cheapest"
+                                             src="/uploads/logos/{{ currentContract.logo }}"
+                                             style="">
+                                    {% else %}
+                                        <img class="img center img-thumbnail" id="insurance_logo_cheapest"
+                                             src="/assets/static/placeholder/logo-placeholder.jpg"
+                                             style="width: 75px; height: 75px;">
+                                    {% endif %}
+                                </div>
+
+                                <p class="text-center color-green result-header-row tariff"
+                                   id="insurance_name_cheapest">
+                                    {{ currentContract.tariffName }}
+                                </p>
+                                <p>&nbsp;</p>
+                                <p class="text-center result-header-row price" id="versicherung_preis_guenstig">
+                                    {{ currentContract.fee }} EUR / Jahr
+                                </p>
+                            {% endfor %}
+                            <p class="text-center result-header-row">
+                                <br><br><br>
+                                <a class="btn btn--cta current-insurance" href="{{ path('manager_home') }}">
+                                    <span>Schutz behalten</span>
+                                </a>
+                            </p>
+                        {% else %}
+                            <br><br><br>
+                            <p class="text-center result-header-row">
+                                Keiner vorhanden
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 result-column">
+                    <div class="result-column-inner">
+                        <div class="text-center">Preis-Leistungssieger</div>
+                        <hr>
+                        <br><br>
+                        {% if isEmpty == false %}
+                            <div class="company-logo-img-box">
+                                <img class="img center img-thumbnail" id="insurance_logo_cheapest"
+                                     src="https://res.makler-bund.de/h1/_logos/{{ bestFit.logo }}.png">
+                            </div>
+
+                            <p class="text-center color-green result-header-row tariff" id="insurance_name_cheapest">
+                                {{ bestFit.tariffName }} (id:{{ bestFit.tariffIdTmp }})
+                            </p>
+
+                            <p>&nbsp;</p>
+
+                            <p class="text-center result-header-row price" id="versicherung_preis_guenstig">
+                                {{ bestFit.tmpFee }} EUR / Jahr<br>
+                                <!--{{ bestFit.rankingPerformance }} RP-->
+                            </p>
+
+                            <p class="text-center result-header-row">
+
+                                {% set paymentOk = null %}
+                                {% set paymentUp = null %}
+                                {% if bestFit.payment is defined and not (bestFit.payment is null) %}
+                                    {% set paymentOk = bestFit.payment['zw_erlaubt'] %}
+                                    {% set paymentUp = bestFit.payment['zw_aufschlag'] %}
+                                {% endif %}
+                                <a class="btn btn--cta" href="{{ path('manager_choose_payment', {
+                                    'type': type,
+                                    'tariffId': bestFit.tariffIdTmp
+                                }) }}">
+                                    <span>Zum Antrag</span>
+                                </a>
+                            </p>
+
+                            <div class="col-12">
+                                <ul class="list-group font-small">
+                                    {% for param in bestFit.attributeFit %}
+                                        <li class="attribute-list-entry">
+                                            {# param[0]: key,
+                                                param[1]: value,
+                                                param[2]: match,
+                                                param[3]: enrichment [
+                                                    visibleInResult,
+                                                    resultText,
+                                                    useResultValues
+                                                    ]
+                                             #}
+                                            {% if param[3].visibleInResult is defined and not (param[3].visibleInResult is null) %}
+                                                {% if param[3].visibleInResult == 1 %}
+                                                    <div class="row">
+                                                        <div class="col-2">
+                                                            {% if param[2] == 2 %}
+                                                                <div class="icon-frame check">
+                                                                    <i class="fas fa-check"></i>
+                                                                </div>
+                                                            {% elseif param[2] == 4 %}
+                                                                <div class="icon-frame star">
+                                                                    <i class="fas fa-star"></i>
+                                                                </div>
+                                                            {% else %}
+                                                                <div class="icon-frame minus">
+                                                                    <i class="fas fa-minus"></i>
+                                                                </div>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="col-10">
+                                                            {{ param[3].resultText }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-2">
+                                                            &nbsp;
+                                                        </div>
+                                                        <div class="col-10">
+                                                            {{ param[1] }}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {% endif %}
+                                        </li>
+
+                                    {% endfor %}
+                                </ul>
+
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 result-column">
+                    <div class="result-column-inner">
+                        <div class="text-center">Preissieger</div>
+                        <hr>
+                        <br><br>
+                        {% if isEmpty == false %}
+                            <div class="company-logo-img-box">
+                                <img class="img center img-thumbnail" id="insurance_logo_cheapest"
+                                     src="https://res.makler-bund.de/h1/_logos/{{ cheapest.logo }}.png">
+                            </div>
+                            <p class="text-center color-green result-header-row tariff" id="insurance_name_cheapest">
+                                {{ cheapest.tariffName }} (id:{{ cheapest.tariffIdTmp }})
+                            </p>
+
+                            <p>&nbsp;</p>
+
+                            <p class="text-center result-header-row price" id="versicherung_preis_guenstig">
+                                {{ cheapest.tmpFee }} EUR / Jahr<br>
+                                <!--{{ cheapest.rankingPerformance }} RP-->
+                            </p>
+
+                            <p class="text-center result-header-row">
+                                {% set paymentOk = null %}
+                                {% set paymentUp = null %}
+                                {% if cheapest.payment is defined and not (cheapest.payment is null) %}
+                                    {% set paymentOk = cheapest.payment['zw_erlaubt'] %}
+                                    {% set paymentUp = cheapest.payment['zw_aufschlag'] %}
+                                {% endif %}
+                                <a class="btn btn--cta" href="{{ path('manager_choose_payment', {
+                                    'type': type,
+                                    'tariffId': cheapest.tariffIdTmp
+                                }) }}">
+                                    <span>Zum Antrag</span>
+                                </a>
+                            </p>
+
+                            <div class="col-12">
+                                <ul class="list-group font-small">
+                                    {% for param in cheapest.attributeFit %}
+                                        <li class="attribute-list-entry">
+                                            {# param[0]: key,
+                                                param[1]: value,
+                                                param[2]: match,
+                                                param[3]: enrichment [
+                                                    visibleInResult,
+                                                    resultText,
+                                                    useResultValues
+                                                    ]
+                                             #}
+                                            {% if param[3].visibleInResult is defined and not (param[3].visibleInResult is null) %}
+                                                {% if param[3].visibleInResult == 1 %}
+                                                    <div class="row">
+                                                        <div class="col-2">
+                                                            {% if param[2] == 2 %}
+                                                                <div class="icon-frame check">
+                                                                    <i class="fas fa-check"></i>
+                                                                </div>
+                                                            {% elseif param[2] == 4 %}
+                                                                <div class="icon-frame star">
+                                                                    <i class="fas fa-star"></i>
+                                                                </div>
+                                                            {% else %}
+                                                                <div class="icon-frame minus">
+                                                                    <i class="fas fa-minus"></i>
+                                                                </div>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="col-10">
+                                                            {{ param[3].resultText }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-2">
+                                                            &nbsp;
+                                                        </div>
+                                                        <div class="col-10">
+                                                            {{ param[1] }}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+
+                            </div>
+                        {% else %}
+                            <div class="image-container">
+                                <img src="/build/static/images/start/start_contact.jpg">
+                            </div>
+                            <h3 class="title3 title3--space">
+                                Oops - Wartungsarbeiten...
+                            </h3>
+                            <p class="text-center result-header-row">
+                                ...bei unseren Versicherungspartnern. Wir informieren Dich anschließend mit konkreten
+                                Angeboten.
+                            </p>
+                            <p>
+                                <br><br>
+                                Du kannst uns auch
+                                <a href="{{ path('manager_messages') }}" class="no-hover-underline full-width">
+                                    <b> hier </b>
+                                </a>
+                                eine Nachricht senden.
+                                <br><br>
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3 result-column">
+                    <div class="result-column-inner">
+                        <div class="text-center">Leistungssieger</div>
+                        <hr>
+                        <br><br>
+                        {% if isEmpty == false %}
+                            <div class="company-logo-img-box">
+                                <img class="img center img-thumbnail" id="insurance_logo_cheapest"
+                                     src="https://res.makler-bund.de/h1/_logos/{{ performance.logo }}.png">
+
+                            </div>
+                            <p class="text-center color-green result-header-row tariff" id="insurance_name_cheapest">
+                                {{ performance.tariffName }} (id:{{ performance.tariffIdTmp }})
+                            </p>
+
+                            <p>&nbsp;</p>
+
+                            <p class="text-center result-header-row price" id="versicherung_preis_guenstig">
+                                {{ performance.tmpFee }} EUR / Jahr<br>
+                                <!--{{ performance.rankingPerformance }} RP-->
+                            </p>
+
+                            <p class="text-center result-header-row">
+                                {% set paymentOk = null %}
+                                {% set paymentUp = null %}
+                                {% if performance.payment is defined and not (performance.payment is null) %}
+                                    {% set paymentOk = performance.payment['zw_erlaubt'] %}
+                                    {% set paymentUp = performance.payment['zw_aufschlag'] %}
+                                {% endif %}
+                                <a class="btn btn--cta" href="{{ path('manager_choose_payment', {
+                                    'type': type,
+                                    'tariffId': performance.tariffIdTmp
+                                }) }}">
+                                    <span>Zum Antrag</span>
+                                </a>
+                            </p>
+
+                            <div class="col-12">
+                                <ul class="list-group font-small">
+                                    {% for param in performance.attributeFit %}
+                                        <li class="attribute-list-entry">
+                                            {# param[0]: key,
+                                                param[1]: value,
+                                                param[2]: match,
+                                                param[3]: enrichment [
+                                                    visibleInResult,
+                                                    resultText
+                                                    ]
+                                             #}
+                                            {% if param[3].visibleInResult is defined and not (param[3].visibleInResult is null) %}
+                                                {% if param[3].visibleInResult == 1 %}
+                                                    <div class="row">
+                                                        <div class="col-2">
+                                                            {% if param[2] == 2 %}
+                                                                <div class="icon-frame check">
+                                                                    <i class="fas fa-check"></i>
+                                                                </div>
+                                                            {% elseif param[2] == 4 %}
+                                                                <div class="icon-frame star">
+                                                                    <i class="fas fa-star"></i>
+                                                                </div>
+                                                            {% else %}
+                                                                <div class="icon-frame minus">
+                                                                    <i class="fas fa-minus"></i>
+                                                                </div>
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="col-10">
+                                                            {{ param[3].resultText }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-2">
+                                                            &nbsp;
+                                                        </div>
+                                                        <div class="col-10">
+                                                            {{ param[1] }}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

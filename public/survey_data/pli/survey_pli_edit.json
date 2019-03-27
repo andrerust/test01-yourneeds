@@ -1,0 +1,3209 @@
+{
+  "locale": "de",
+  "title": "Editieren eines Tarifs",
+  "pages": [
+    {
+      "name": "Intro",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "privateLiability",
+          "elements": [
+            {
+              "type": "html",
+              "name": "intro",
+              "html": {
+                "de": "<article class='intro'>\n<h3><i class=\"fa fa-info-circle fa-2x\"></i> Ist es Deine erste Bearbeitung? - dann lese bitte dieses Intro.</h3><div>\n<p><b>ACHTUNG: Mache Dich zuvor mit den Einstellungen vertraut, da Deine Änderungen die Anzeige beim Endkunden verändert.</b></p>\n<br><br><i class=\"fa fa-circle-o\"></i> Die Attribute zu diesem Versicherungstyp sind auf Seiten aufgeteilt\n<br><br><i class=\"fa fa-circle-o\"></i> Du kannst Ja/Nein oder konkrete Einträge auswählen\n<br><br><i class=\"fa fa-circle-o\"></i> Wählst du \"Ja\" aus, erscheint eine Zugehörige Attributsliste\n<br><br><i class=\"fa fa-circle-o\"></i> Über die Attributsliste wählst du die zur Frage gehörenden Attribute aus und trägst einen Wert im nbenstehenden Feld ein\nIst es ein Auswahlfeld, bspw. \"Single mit Kind\" sollen als \"Familie\" gewertet werden, dann trage bitte im nebenstehenden Feld eine \"1\" ein (für true, ja, ist so). Dies ist ein Feature, um Versicherungseigenschaften und -fragen zu standardisieren und den aufwändig abzubildenden Individualisierungsgrad zu verbessern.\n<br><br>\n<p><i class=\"fa fa-exclamation fa-2x\"></i> Achtung - beep! Solltest du bspw.\n<br><br><i class=\"fa fa-circle-o\"></i> Erweiterungswünsche haben\n<br><br><i class=\"fa fa-circle-o\"></i> Attribute, Listen oder Felder ergänzt haben wollen\n<br><br><i class=\"fa fa-circle-o\"></i> Bezeichnungen verändert haben möchtest\n<br><br>\ndann schreibe bitte Deinen Wunsch präzise, mit Angabe der FragenNr. und dem Listenfeld (Auswahl, Inhalt) in eine Liste.\n</p>\n<br>\n<p>Viel Spaß bei Deiner Bearbeitung!</p>\n</article>"
+              }
+            }
+          ],
+          "title": {
+            "de": "Ayyyyyayyyyayyyy - Bearbeiten einer Versicherung"
+          }
+        }
+      ],
+      "title": {
+        "de": "Intro"
+      }
+    },
+    {
+      "name": "general",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "companyId",
+          "title": {
+            "de": "Gesellschaft"
+          },
+          "description": {
+            "de": "Gesellschaften müssen zuvor im Navigationspunkt \"Gesellschaften\", unter \"Versicherungen\", angelegt worden sein"
+          },
+          "valueName": "companyId",
+          "defaultValue": "item1",
+          "choices": [
+            {
+              "value": "item2",
+              "text": "Hanse Merkur"
+            },
+            {
+              "value": "item3",
+              "text": "Medien"
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "text",
+          "name": "tariffName",
+          "title": {
+            "de": "Tarifname"
+          },
+          "description": {
+            "de": "Eindeutiger Name, welcher der ausgewählten Gesellschaft zugeordnet ist"
+          },
+          "valueName": "tariffName",
+          "defaultValue": "Name des Tarifs",
+          "placeHolder": {
+            "de": "Bitte einen eindeutigen Namen eingeben"
+          }
+        },
+        {
+          "type": "radiogroup",
+          "name": "runTime",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Laufzeit 1 Jahr"
+          },
+          "description": {
+            "de": "Laufzeit festlegen"
+          },
+          "valueName": "runTime",
+          "defaultValue": "12",
+          "choices": [
+            {
+              "value": "12",
+              "text": {
+                "de": "1 Jahr"
+              }
+            },
+            {
+              "value": "36",
+              "text": {
+                "de": "3 Jahre"
+              }
+            },
+            {
+              "value": "60",
+              "text": {
+                "de": "5 Jahre"
+              }
+            },
+            {
+              "value": "120",
+              "text": {
+                "de": "10 Jahre"
+              }
+            }
+          ],
+          "colCount": 2
+        },
+        {
+          "type": "panel",
+          "name": "retentionPanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "retention",
+              "width": "30%",
+              "title": {
+                "de": "Selbstbeteiligung"
+              },
+              "valueName": "retention",
+              "defaultValue": "0",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": {
+                    "de": "Ja"
+                  }
+                },
+                {
+                  "value": "0",
+                  "text": {
+                    "de": "Nein"
+                  }
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "retentionAttributes",
+              "visibleIf": "{retention} = \"1\"",
+              "width": "70%",
+              "startWithNewLine": false,
+              "title": {
+                "de": "Attribute: Selbstbeteiligung"
+              },
+              "description": {
+                "de": "Wie hoch ist der Abschlag auf den Beitrag bei einer Selbstbeteiligung n?"
+              },
+              "valueName": "retentionAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "title": {
+                    "de": "bis Summe"
+                  },
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "until100",
+                      "text": {
+                        "default": "Selbstbeteiligung %",
+                        "de": "bis 100"
+                      }
+                    },
+                    {
+                      "value": "until125",
+                      "text": {
+                        "de": "bis 125"
+                      }
+                    },
+                    {
+                      "value": "until150",
+                      "text": {
+                        "de": "bis 150"
+                      }
+                    },
+                    {
+                      "value": "until175",
+                      "text": {
+                        "de": "bis 175"
+                      }
+                    },
+                    {
+                      "value": "until200",
+                      "text": {
+                        "de": "bis 200"
+                      }
+                    },
+                    {
+                      "value": "until225",
+                      "text": {
+                        "de": "bis 225"
+                      }
+                    },
+                    {
+                      "value": "until250",
+                      "text": {
+                        "de": "bis 250"
+                      }
+                    },
+                    {
+                      "value": "until300",
+                      "text": {
+                        "de": "bis 300"
+                      }
+                    },
+                    {
+                      "value": "until400",
+                      "text": {
+                        "de": "bis 400"
+                      }
+                    },
+                    {
+                      "value": "until500",
+                      "text": {
+                        "de": "bis 500"
+                      }
+                    },
+                    {
+                      "value": "until1000",
+                      "text": {
+                        "de": "bis 1000"
+                      }
+                    },
+                    {
+                      "value": "untilP",
+                      "text": {
+                        "de": "Prämientabelle x"
+                      }
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "title": {
+                    "de": "Beitragsabschlag in Prozent"
+                  },
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 1,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Selbstbeteiligung"
+          }
+        },
+        {
+          "type": "panel",
+          "name": "methodOfPaymentPanel",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "methodOfPayment",
+              "width": "30%",
+              "title": {
+                "de": "Zahlungsweise"
+              },
+              "valueName": "methodOfPayment",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": {
+                    "de": "Monatlich"
+                  }
+                },
+                {
+                  "value": "3",
+                  "text": {
+                    "de": "Vierteljährlich"
+                  }
+                },
+                {
+                  "value": "6",
+                  "text": {
+                    "de": "Halbjährlich"
+                  }
+                },
+                {
+                  "value": "12",
+                  "text": {
+                    "de": "Jährlich"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "methodOfPaymentAttributes",
+              "width": "70%",
+              "startWithNewLine": false,
+              "title": {
+                "de": "Attribute: Zahlungsweise"
+              },
+              "description": {
+                "de": "Bitte angeben, ob die Selbstbeteiligung mit Multiplikator oder festem, prozentualem Abschlag kalkuliert wird. Wird das Feld \"Nachlass\" ausgewählt und eine \"1\" hierzu eingetragen, werden alle angegebenen Felder als Nachlass von der Prämie interpretiert, sonst als Zuschlag."
+              },
+              "valueName": "methodOfPaymentAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "title": {
+                    "de": "bis Summe"
+                  },
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "monthlyInPercent",
+                      "text": {
+                        "default": "Selbstbeteiligung %",
+                        "de": "Monatlich in %"
+                      }
+                    },
+                    {
+                      "value": "quarterlyInPercent",
+                      "text": {
+                        "de": "Vierteljährlich in %"
+                      }
+                    },
+                    {
+                      "value": "semiannualInPercent",
+                      "text": {
+                        "de": "Halbjährlich in %"
+                      }
+                    },
+                    {
+                      "value": "yearlyInPercent",
+                      "text": {
+                        "de": "Jährlich in %"
+                      }
+                    },
+                    {
+                      "value": "monthlyWithMultiplier",
+                      "text": {
+                        "de": "Monatlich mit Multiplikator"
+                      }
+                    },
+                    {
+                      "value": "quarterlyWithMultiplier",
+                      "text": {
+                        "de": "Vierteljählich mit Multiplikator"
+                      }
+                    },
+                    {
+                      "value": "semiannualWithMultiplier",
+                      "text": {
+                        "de": "Halbjährlich mit Multiplikator"
+                      }
+                    },
+                    {
+                      "value": "yearlyWithMultiplier",
+                      "text": {
+                        "de": "Jährlich mit Multiplikator"
+                      }
+                    },
+                    {
+                      "value": "isReduction",
+                      "text": {
+                        "de": "Nachlass"
+                      }
+                    }
+                  ],
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "title": {
+                    "de": "Beitragsabschlag in Prozent"
+                  },
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 1,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Zahlung"
+          }
+        },
+        {
+          "type": "panel",
+          "name": "numberOfPreviousCasesPanel",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "numberOfPreviousCases",
+              "width": "30%",
+              "title": {
+                "de": "Vorschäden in den letzten 5 Jahren"
+              },
+              "valueName": "numberOfPreviousCases",
+              "choices": [
+                {
+                  "value": "0",
+                  "text": {
+                    "de": "Keiner"
+                  }
+                },
+                {
+                  "value": "1",
+                  "text": {
+                    "de": "Einer"
+                  }
+                },
+                {
+                  "value": "2",
+                  "text": {
+                    "de": "Zwei"
+                  }
+                },
+                {
+                  "value": "3",
+                  "text": {
+                    "de": "Drei"
+                  }
+                },
+                {
+                  "value": "4",
+                  "text": {
+                    "de": "Mehr als 3"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "numberOfPreviousCasesAttributes",
+              "width": "70%",
+              "startWithNewLine": false,
+              "title": {
+                "de": "Attribute: Anzahl der Vorschäden in den letzten 5 Jahren"
+              },
+              "description": {
+                "de": "Nach Auswahl zzgl. eine \"1\" in das nebenstehende Textfeld einfügen."
+              },
+              "valueName": "numberOfPreviousCasesAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "zeroWithPreDiscount",
+                      "text": {
+                        "default": "Selbstbeteiligung %",
+                        "de": "Keiner"
+                      }
+                    },
+                    {
+                      "value": "oneWithPreDiscount",
+                      "text": {
+                        "de": "Einer mit Vorausrabatt"
+                      }
+                    },
+                    {
+                      "value": "twoWithPreDiscount",
+                      "text": {
+                        "de": "Zwei mit Vorausrabatt"
+                      }
+                    },
+                    {
+                      "value": "threeWithPreDiscount",
+                      "text": {
+                        "de": "Drei mit Vorausrabatt"
+                      }
+                    },
+                    {
+                      "value": "threeAndMoreWithPreDiscount",
+                      "text": {
+                        "de": "Drei und Mehr mit Vorausrabatt"
+                      }
+                    },
+                    {
+                      "value": "twoWithQuestion",
+                      "text": {
+                        "de": "Zwei - Anfragepflichtig"
+                      }
+                    },
+                    {
+                      "value": "threeWithQuestion",
+                      "text": {
+                        "de": "Drei - Anfragepflichtig"
+                      }
+                    },
+                    {
+                      "value": "twoAndMoreWithDecline",
+                      "text": {
+                        "de": "Zwei und mehr mit Ablehnung"
+                      }
+                    },
+                    {
+                      "value": "threeAndMoreWithDecline",
+                      "text": {
+                        "de": "Drei und mehr mit Ablehnung"
+                      }
+                    },
+                    {
+                      "value": "oneWithAdditionalPercent",
+                      "text": {
+                        "de": "Einer mit Beitragszuschlag in n%"
+                      }
+                    },
+                    {
+                      "value": "twoWithAdditionalPercent",
+                      "text": {
+                        "de": "Zwei mit Beitragszuschlag in n%"
+                      }
+                    },
+                    {
+                      "value": "threeWithAdditionalPercent",
+                      "text": {
+                        "de": "Drei mit Beitragszuschlag in n%"
+                      }
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 1,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Vorschäden"
+          }
+        },
+        {
+          "type": "panel",
+          "name": "targetGroupPanel",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "targetGroups",
+              "width": "30%",
+              "title": {
+                "de": "Personenumfang"
+              },
+              "description": {
+                "de": "Bitte alle Zielgruppen sowie die Altersgrenze für Senior dieses Tarifs angeben. "
+              },
+              "valueName": "targetGroups",
+              "defaultValue": [
+                "0"
+              ],
+              "choices": [
+                {
+                  "value": "single",
+                  "text": {
+                    "de": "Single"
+                  }
+                },
+                {
+                  "value": "singleChild",
+                  "text": {
+                    "de": "Single mit Kind"
+                  }
+                },
+                {
+                  "value": "family",
+                  "text": {
+                    "de": "Familie"
+                  }
+                },
+                {
+                  "value": "familyChild",
+                  "text": {
+                    "de": "Familie mit Kind"
+                  }
+                },
+                {
+                  "value": "senior",
+                  "text": {
+                    "de": "Senior"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "targetGroupsAttributes",
+              "width": "70%",
+              "startWithNewLine": false,
+              "title": {
+                "de": "Attribute: Personenumfang"
+              },
+              "description": {
+                "de": "Nach Auswahl zzgl. eine \"1\" in das nebenstehende Textfeld einfügen, wenn Single mit Kind, als Familie eingestuft werden soll."
+              },
+              "valueName": "targetGroupsAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "ageToBeSenior",
+                      "text": {
+                        "de": "Ab welchem Alter Senior?"
+                      }
+                    },
+                    {
+                      "value": "singleChildAsFamily",
+                      "text": {
+                        "de": "Singe mit Kind, als Familie einstufen"
+                      }
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 1,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Zielgruppe(n)"
+          }
+        },
+        {
+          "type": "comment",
+          "name": "note",
+          "title": {
+            "de": "Notizen"
+          },
+          "description": {
+            "de": "Hier kannst du Ergänzungen zum Tarif eintragen, evtl. Updates, Ankündigungen der Gesellschaften und Wünsche, wie die Eingabe eines Tarifs um Spezialitäten dieses Tarifs erweitert werden könnte."
+          },
+          "valueName": "note",
+          "rows": 6
+        },
+        {
+          "type": "html",
+          "name": "question3"
+        },
+        {
+          "type": "radiogroup",
+          "name": "exit1",
+          "title": "Do you want to finish the survey?",
+          "description": {
+            "de": "Only for testing purpose"
+          },
+          "defaultValue": "No",
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "colCount": 0
+        }
+      ],
+      "questionTitleLocation": "top",
+      "title": {
+        "de": "Allgemein"
+      },
+      "navigationButtonsVisibility": "show"
+    },
+    {
+      "name": "amountCoveredMain",
+      "elements": [
+        {
+          "type": "checkbox",
+          "name": "amountCoveredBodyInjury",
+          "title": {
+            "de": "Deckungssumme Personenschäden min."
+          },
+          "valueName": "amountCoveredBodyInjury",
+          "hasOther": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": "1M"
+            },
+            {
+              "value": "2",
+              "text": "2M"
+            },
+            {
+              "value": "3",
+              "text": "3M"
+            },
+            {
+              "value": "4",
+              "text": "4M"
+            },
+            {
+              "value": "5",
+              "text": "5M"
+            },
+            {
+              "value": "7.5",
+              "text": "7.5M"
+            },
+            {
+              "value": "10",
+              "text": "10M"
+            },
+            {
+              "value": "20",
+              "text": "20M"
+            },
+            {
+              "value": "50",
+              "text": "50M"
+            }
+          ],
+          "otherText": {
+            "de": "Neuer Eintrag..."
+          },
+          "colCount": 4
+        },
+        {
+          "type": "checkbox",
+          "name": "amountCoveredMaterialDamage",
+          "title": {
+            "de": "Deckungssummen Sachschäden min."
+          },
+          "description": {
+            "de": "A"
+          },
+          "valueName": "amountCoveredMaterialDamage",
+          "hasOther": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": "1M"
+            },
+            {
+              "value": "2",
+              "text": "2M"
+            },
+            {
+              "value": "3",
+              "text": "3M"
+            },
+            {
+              "value": "4",
+              "text": "4M"
+            },
+            {
+              "value": "5",
+              "text": "5M"
+            },
+            {
+              "value": "7.5",
+              "text": "7.5M"
+            },
+            {
+              "value": "10",
+              "text": "10M"
+            },
+            {
+              "value": "20",
+              "text": "20M"
+            },
+            {
+              "value": "50",
+              "text": "50M"
+            }
+          ],
+          "choicesOrder": "asc",
+          "otherText": {
+            "de": "Neuer Eintrag..."
+          },
+          "colCount": 4
+        },
+        {
+          "type": "checkbox",
+          "name": "amountCoveredFinancialDamage",
+          "title": {
+            "de": "Deckungssummen Vermögensschäden min."
+          },
+          "valueName": "amountCoveredFinancialDamage",
+          "hasOther": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": "1M"
+            },
+            {
+              "value": "2",
+              "text": "2M"
+            },
+            {
+              "value": "3",
+              "text": "3M"
+            },
+            {
+              "value": "4",
+              "text": "4M"
+            },
+            {
+              "value": "5",
+              "text": "5M"
+            },
+            {
+              "value": "7.5",
+              "text": "7.5M"
+            },
+            {
+              "value": "10",
+              "text": "10M"
+            },
+            {
+              "value": "20",
+              "text": "20M"
+            },
+            {
+              "value": "50",
+              "text": "50M"
+            }
+          ],
+          "choicesOrder": "asc",
+          "otherText": {
+            "de": "Neuer Eintrag..."
+          },
+          "colCount": 4
+        },
+        {
+          "type": "panel",
+          "name": "amountCoveredJungKidsPanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "amountCoveredJungKids",
+              "title": {
+                "de": "Nicht deliktfähige Kinder min."
+              },
+              "valueName": "amountCoveredJungKids",
+              "defaultValue": "0",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": "Ja"
+                },
+                {
+                  "value": "0",
+                  "text": "Nein"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "amountCoveredJungKidsAttributes",
+              "visibleIf": "{amountCoveredJungKids} = \"1\"",
+              "title": {
+                "de": "Attribute: Nicht deliktfähige Kinder"
+              },
+              "description": {
+                "de": "Deckungshöhe bitte hier festlegen, mit ergänzenden Attributen, wie Selbstbeteiligung und abgedecktem Schadenstyp"
+              },
+              "valueName": "amountCoveredJungKidsAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "retentionPercentage",
+                      "text": "Selbstbeteiligung %"
+                    },
+                    {
+                      "value": "retentionCurrency",
+                      "text": "Selbstbeteiligung Währung"
+                    },
+                    {
+                      "value": "amount",
+                      "text": {
+                        "de": "Deckungssumme"
+                      }
+                    },
+                    {
+                      "value": "coveredType",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp"
+                      }
+                    },
+                    {
+                      "value": "minimumDamageN",
+                      "text": {
+                        "de": "ab Deckungssumme n"
+                      }
+                    },
+                    {
+                      "value": "maximumDamageN",
+                      "text": {
+                        "de": "bis Deckungssumme n"
+                      }
+                    },
+                    {
+                      "value": "coveredTypeBody",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp: Person"
+                      }
+                    },
+                    {
+                      "value": "coveredTypeMaterial",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp: Sach"
+                      }
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 1,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Mitversicherung von deliktfähigen Kindern"
+          }
+        },
+        {
+          "type": "radiogroup",
+          "name": "includeInternship",
+          "title": {
+            "de": "Fachpraktischer Unterricht/Betriebspraktika"
+          },
+          "valueName": "includeInternship",
+          "defaultValue": "0",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Ja"
+            },
+            {
+              "value": "0",
+              "text": "Nein"
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "panel",
+          "name": "badDeptLossPanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "badDeptLoss",
+              "title": {
+                "de": "Forderungsausfalldeckung"
+              },
+              "valueName": "badDeptLoss",
+              "defaultValue": "0",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": {
+                    "de": "Ja"
+                  }
+                },
+                {
+                  "value": "0",
+                  "text": {
+                    "de": "Nein"
+                  }
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "badDeptLossAttributes",
+              "visibleIf": "{badDeptLoss} =1",
+              "title": {
+                "de": "Attribute: Forderungsausfalldeckung"
+              },
+              "valueName": "badDeptLossAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "retentionPercentage",
+                      "text": "Selbstbeteiligung %"
+                    },
+                    {
+                      "value": "retentionCurrency",
+                      "text": "Selbstbeteiligung Währung"
+                    },
+                    {
+                      "value": "minimumDamageN",
+                      "text": "ab Deckungssumme n"
+                    },
+                    {
+                      "value": "maximumDamageN",
+                      "text": "bis Deckungssumme n"
+                    },
+                    {
+                      "value": "msh",
+                      "text": "MSH"
+                    },
+                    {
+                      "value": "includingSpecialDamageRS",
+                      "text": "inkl. Spezial Schadenersatz RS"
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 1,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Forderungsausfalldeckung"
+          }
+        },
+        {
+          "type": "panel",
+          "name": "dataExchangePanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "dataExchange",
+              "title": {
+                "de": "Elektronischer Datenaustausch/Internetnutzung"
+              },
+              "valueName": "dataExchange",
+              "defaultValue": "0",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": "Ja"
+                },
+                {
+                  "value": "0",
+                  "text": "Nein"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "dataExchangeAttributes",
+              "visibleIf": "{dataExchange} = \"1\"",
+              "title": {
+                "de": "Attribute: Elektronischer Datenaustausch"
+              },
+              "valueName": "dataExchangeAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "retentionPercentage",
+                      "text": "Selbstbeteiligung %"
+                    },
+                    {
+                      "value": "retentionCurrency",
+                      "text": "Selbstbeteiligung Währung"
+                    },
+                    {
+                      "value": "minimumDamageN",
+                      "text": "ab Deckungssumme n"
+                    },
+                    {
+                      "value": "maximumDamageN",
+                      "text": "bis Deckungssumme n"
+                    },
+                    {
+                      "value": "msh",
+                      "text": "MSH"
+                    },
+                    {
+                      "value": "includingSpecialDamageRS",
+                      "text": "inkl. Spezial Schadenersatz RS"
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 1,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Elektronischer Datenaustausch/Internetnutzung"
+          }
+        },
+        {
+          "type": "radiogroup",
+          "name": "exit1",
+          "title": "Do you want to finish the survey?",
+          "description": {
+            "de": "Only for testing purpose"
+          },
+          "defaultValue": "No",
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "colCount": 0
+        }
+      ],
+      "title": {
+        "de": "Deckungssummen"
+      }
+    },
+    {
+      "name": "rentals",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "ownResidentialHomeLivingInPanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "ownResidentialHomeLivingIn",
+              "title": {
+                "de": "Selbstbewohnte eigene oder gemietete Immobilien im Inland"
+              },
+              "valueName": "ownResidentialHomeLivingIn",
+              "defaultValue": "0",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": "Ja"
+                },
+                {
+                  "value": "0",
+                  "text": "Nein"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "ownResidentialHomeLivingInAttributes",
+              "visibleIf": "{ownResidentialHomeLivingIn} = \"1\"",
+              "title": {
+                "de": "Attribute: Selbstbewohnte eigene oder gemietete Immobilien im Inland"
+              },
+              "valueName": "ownResidentialHomeLivingInAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "excludeAppartment0Rooms",
+                      "text": {
+                        "de": "Keine ETW"
+                      }
+                    },
+                    {
+                      "value": "excludeAppartment2Rooms",
+                      "text": {
+                        "de": "Ohne ETW 2 Zm"
+                      }
+                    },
+                    {
+                      "value": "excludeAppartment3Rooms",
+                      "text": {
+                        "de": "Ohne ETW 3 Zm"
+                      }
+                    },
+                    {
+                      "value": "excludeAppartment4Rooms",
+                      "text": {
+                        "de": "Ohne ETW 4 Zm"
+                      }
+                    },
+                    {
+                      "value": "qty",
+                      "text": {
+                        "de": "Anzahl"
+                      }
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 0,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Inland: selbstbewohnte oder gemietete Immobilie"
+          }
+        },
+        {
+          "type": "panel",
+          "name": "ownResidentialHomeRentalOthersPanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "ownResidentialHomeRentalOthers",
+              "title": {
+                "de": "Vermietete Immobilien Inland (Einliegerwohnung, Ferienwohnung, einzelne Zimmer)"
+              },
+              "defaultValue": "0",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": {
+                    "de": "Ja"
+                  }
+                },
+                {
+                  "value": "0",
+                  "text": {
+                    "de": "Nein"
+                  }
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "ownResidentialHomeRentalOthersAttributes",
+              "visibleIf": "{ownResidentialHomeRentalOthers} = \"1\"",
+              "title": {
+                "de": "Attribute: Vermietete Immobilien Inland (Einliegerwohnung, Ferienwohnung, einzelne Zimmer)"
+              },
+              "valueName": "ownResidentialHomeRentalOthersAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "excludeAppartment0Rooms",
+                      "text": {
+                        "de": "Keine ETW"
+                      }
+                    },
+                    {
+                      "value": "excludeAppartment2Rooms",
+                      "text": {
+                        "de": "Ohne ETW 2 Zm"
+                      }
+                    },
+                    {
+                      "value": "excludeAppartment3Rooms",
+                      "text": {
+                        "de": "Ohne ETW 3 Zm"
+                      }
+                    },
+                    {
+                      "value": "excludeAppartment4Rooms",
+                      "text": {
+                        "de": "Ohne ETW 4 Zm"
+                      }
+                    },
+                    {
+                      "value": "qty",
+                      "text": {
+                        "de": "Anzahl"
+                      }
+                    },
+                    {
+                      "value": "holidayFlats",
+                      "text": {
+                        "de": "Ferienwohnungen Menge"
+                      }
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 0,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Inland: vermietete Immobilie"
+          }
+        },
+        {
+          "type": "checkbox",
+          "name": "undevelopedProperties",
+          "title": {
+            "de": "Unbebaute Grundstücke"
+          },
+          "hasOther": true,
+          "choices": [
+            {
+              "value": "1",
+              "text": {
+                "de": "1T"
+              }
+            },
+            {
+              "value": "1.5",
+              "text": {
+                "de": "1,5T"
+              }
+            },
+            {
+              "value": "2",
+              "text": {
+                "de": "2T"
+              }
+            },
+            {
+              "value": "2.5",
+              "text": {
+                "de": "2.5T"
+              }
+            },
+            {
+              "value": "3",
+              "text": {
+                "de": "3T"
+              }
+            },
+            {
+              "value": "4",
+              "text": {
+                "de": "4T"
+              }
+            },
+            {
+              "value": "5",
+              "text": {
+                "de": "5T"
+              }
+            },
+            {
+              "value": "7.5",
+              "text": {
+                "de": "7,5T"
+              }
+            },
+            {
+              "value": "10",
+              "text": {
+                "de": "10T"
+              }
+            },
+            {
+              "value": "25",
+              "text": {
+                "de": "25T"
+              }
+            },
+            {
+              "value": "50",
+              "text": {
+                "de": "50T"
+              }
+            },
+            {
+              "value": "100",
+              "text": {
+                "de": "100T"
+              }
+            },
+            {
+              "value": "250",
+              "text": {
+                "de": "250T"
+              }
+            },
+            {
+              "value": "500",
+              "text": {
+                "de": "500T"
+              }
+            },
+            {
+              "value": "1000",
+              "text": {
+                "de": "1000T"
+              }
+            },
+            {
+              "value": "1000000",
+              "text": {
+                "de": "1000000T"
+              }
+            }
+          ],
+          "colCount": 4
+        },
+        {
+          "type": "radiogroup",
+          "name": "rentedPropertiesAbroad",
+          "title": {
+            "de": "Vermietete Immobilien Ausland (Einliegerwohnung, Ferienwohnung, einzelne Zimmer)"
+          },
+          "valueName": "rentedPropertiesAbroad",
+          "defaultValue": "0",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Ja"
+            },
+            {
+              "value": "0",
+              "text": "Nein"
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "panel",
+          "name": "waterDamageLiabilityAboveGroundPanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "waterDamageLiabilityAboveGround",
+              "title": {
+                "de": "Gewässerschadenhaftspflicht (Heizöltank oberirdisch)"
+              },
+              "valueName": "waterDamageLiabilityAboveGround",
+              "defaultValue": "0",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": {
+                    "de": "Ja"
+                  }
+                },
+                {
+                  "value": "0",
+                  "text": {
+                    "de": "Nein"
+                  }
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "waterDamageLiabilityAboveGroundAttributes",
+              "visibleIf": "{waterDamageLiabilityAboveGround} = \"1\"",
+              "title": {
+                "de": "Attribute: Gewässerschadenhaftspflicht (Heizöltank oberirdisch)"
+              },
+              "valueName": "waterDamageLiabilityAboveGroundAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "minimumLiterN",
+                      "text": {
+                        "de": "ab n Liter"
+                      }
+                    },
+                    {
+                      "value": "maximumLiterN",
+                      "text": {
+                        "de": "bis zu n Liter"
+                      }
+                    },
+                    {
+                      "value": "minimumDamageN",
+                      "text": {
+                        "de": "Min. Deckungssumme"
+                      }
+                    },
+                    {
+                      "value": "maximumDamageN",
+                      "text": {
+                        "de": "Max. Deckungssumme"
+                      }
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 0,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Heizöltank oberirdisch"
+          }
+        },
+        {
+          "type": "panel",
+          "name": "waterDamageLiabilityUndergroundPanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "waterDamageLiabilityUnderground",
+              "title": {
+                "de": "Gewässerschadenhaftspflicht (Heizöltank unterirdisch)"
+              },
+              "defaultValue": "0",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": {
+                    "de": "Ja"
+                  }
+                },
+                {
+                  "value": "0",
+                  "text": {
+                    "de": "Nein"
+                  }
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "waterDamageLiabilityUndergroundAttributes",
+              "visibleIf": "{waterDamageLiabilityUnderground} = \"1\"",
+              "title": {
+                "de": "Gewässerschadenhaftspflicht (Heizöltank unterirdisch)"
+              },
+              "valueName": "waterDamageLiabilityUndergroundAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "minimumLiterN",
+                      "text": {
+                        "de": "ab n Liter"
+                      }
+                    },
+                    {
+                      "value": "maximumLiterN",
+                      "text": {
+                        "de": "bis zu n Liter"
+                      }
+                    },
+                    {
+                      "value": "minimumDamageN",
+                      "text": {
+                        "de": "Min. Deckungssumme"
+                      }
+                    },
+                    {
+                      "value": "maximumDamageN",
+                      "text": {
+                        "de": "Max. Deckungssumme"
+                      }
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 0,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Heizöltank unterirdisch"
+          }
+        },
+        {
+          "type": "radiogroup",
+          "name": "exit1",
+          "title": "Do you want to finish the survey?",
+          "description": {
+            "de": "Only for testing purpose"
+          },
+          "defaultValue": "Yes",
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "colCount": 0
+        }
+      ],
+      "title": {
+        "de": "Immobilien"
+      }
+    },
+    {
+      "name": "amountCoveredDoings",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "takeCareOfDogs",
+          "title": {
+            "de": "Gelegentliches Hüten fremder Hunde"
+          },
+          "valueName": "takeCareOfDogs",
+          "defaultValue": "0",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Ja"
+            },
+            {
+              "value": "0",
+              "text": "Nein"
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "ebikes",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Ebikes"
+          },
+          "valueName": "ebikes",
+          "defaultValue": "0",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Ja"
+            },
+            {
+              "value": "0",
+              "text": "Nein"
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "horsesAndWagons",
+          "title": {
+            "de": "Fremde Pferde/Fuhrwerke"
+          },
+          "valueName": "horsesAndWagons",
+          "defaultValue": "0",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Ja"
+            },
+            {
+              "value": "0",
+              "text": "Nein"
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "gradualDamage",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Allmählichkeitsschäden"
+          },
+          "valueName": "gradualDamage",
+          "defaultValue": "0",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Ja"
+            },
+            {
+              "value": "0",
+              "text": "Nein"
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "panel",
+          "name": "actsOfKindnessPanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "actsOfKindness",
+              "title": {
+                "de": "Gefälligkeitshandlungen"
+              },
+              "valueName": "actsOfKindness",
+              "defaultValue": "0",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": "Ja"
+                },
+                {
+                  "value": "0",
+                  "text": "Nein"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "actsOfKindnessAttributes",
+              "visibleIf": "{actsOfKindness} = \"1\"",
+              "title": {
+                "de": "Attribute: Gefälligkeitshandlungen"
+              },
+              "description": {
+                "de": "Deckungshöhe bitte hier festlegen, mit ergänzenden Attributen, wie Selbstbeteiligung und abgedecktem Schadenstyp"
+              },
+              "valueName": "actsOfKindnessAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "retentionPercentage",
+                      "text": "Selbstbeteiligung %"
+                    },
+                    {
+                      "value": "retentionCurrency",
+                      "text": "Selbstbeteiligung Währung"
+                    },
+                    {
+                      "value": "amount",
+                      "text": {
+                        "de": "Deckungssumme"
+                      }
+                    },
+                    {
+                      "value": "coveredType",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp"
+                      }
+                    },
+                    {
+                      "value": "minimumDamageN",
+                      "text": {
+                        "de": "ab Deckungssumme n"
+                      }
+                    },
+                    {
+                      "value": "maximumDamageN",
+                      "text": {
+                        "de": "bis Deckungssumme n"
+                      }
+                    },
+                    {
+                      "value": "coveredTypeBody",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp: Person"
+                      }
+                    },
+                    {
+                      "value": "coveredTypeMaterial",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp: Sach"
+                      }
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 0,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Gefälligkeitshandlungen"
+          }
+        },
+        {
+          "type": "panel",
+          "name": "damageToMovablesPanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "damageToMovables",
+              "title": {
+                "de": "Beschädigung fremder beweglicher Sachen (gemietet/gepachtet/geliehen)"
+              },
+              "valueName": "damageToMovables",
+              "defaultValue": "0",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": "Ja"
+                },
+                {
+                  "value": "0",
+                  "text": "Nein"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "damageToMovablesAttributes",
+              "visibleIf": "{damageToMovables} = \"1\"",
+              "title": {
+                "de": "Attribute: Beschädigung fremder beweglicher Sachen (gemietet/gepachtet/geliehen)"
+              },
+              "description": {
+                "de": "Deckungshöhe bitte hier festlegen, mit ergänzenden Attributen, wie Selbstbeteiligung und abgedecktem Schadenstyp"
+              },
+              "valueName": "damageToMovablesAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "retentionPercentage",
+                      "text": "Selbstbeteiligung %"
+                    },
+                    {
+                      "value": "retentionCurrency",
+                      "text": "Selbstbeteiligung Währung"
+                    },
+                    {
+                      "value": "amount",
+                      "text": {
+                        "de": "Deckungssumme"
+                      }
+                    },
+                    {
+                      "value": "coveredType",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp"
+                      }
+                    },
+                    {
+                      "value": "minimumDamageN",
+                      "text": {
+                        "de": "ab Deckungssumme n"
+                      }
+                    },
+                    {
+                      "value": "maximumDamageN",
+                      "text": {
+                        "de": "bis Deckungssumme n"
+                      }
+                    },
+                    {
+                      "value": "coveredTypeBody",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp: Person"
+                      }
+                    },
+                    {
+                      "value": "coveredTypeMaterial",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp: Sach"
+                      }
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 0,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Beschädigung fremder beweglicher Sachen"
+          }
+        },
+        {
+          "type": "radiogroup",
+          "name": "exit1",
+          "title": "Do you want to finish the survey?",
+          "description": {
+            "de": "Only for testing purpose"
+          },
+          "defaultValue": "No",
+          "choices": [
+            "Yes",
+            "No"
+          ],
+          "colCount": 0
+        }
+      ],
+      "title": {
+        "de": "Handlungsabdeckungen"
+      }
+    },
+    {
+      "name": "misc",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "lossOfPrivateKeysPanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "lossOfPrivateKeys",
+              "title": {
+                "de": "Verlust privater fremder Schlüssel"
+              },
+              "valueName": "lossOfPrivateKeys",
+              "defaultValue": "0",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": "Ja"
+                },
+                {
+                  "value": "0",
+                  "text": "Nein"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "lossOfPrivateKeysAttributes",
+              "visibleIf": "{lossOfPrivateKeys} = \"1\"",
+              "title": {
+                "de": "Attribute: Verlust privater fremder Schlüssel"
+              },
+              "description": {
+                "de": "Deckungshöhe bitte hier festlegen, mit ergänzenden Attributen, wie Selbstbeteiligung und abgedecktem Schadenstyp"
+              },
+              "valueName": "lossOfPrivateKeysAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "retentionPercentage",
+                      "text": "Selbstbeteiligung %"
+                    },
+                    {
+                      "value": "retentionCurrency",
+                      "text": "Selbstbeteiligung Währung"
+                    },
+                    {
+                      "value": "amount",
+                      "text": {
+                        "de": "Deckungssumme"
+                      }
+                    },
+                    {
+                      "value": "coveredType",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp"
+                      }
+                    },
+                    {
+                      "value": "minimumDamageN",
+                      "text": {
+                        "de": "ab Deckungssumme n"
+                      }
+                    },
+                    {
+                      "value": "maximumDamageN",
+                      "text": {
+                        "de": "bis Deckungssumme n"
+                      }
+                    },
+                    {
+                      "value": "coveredTypeBody",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp: Person"
+                      }
+                    },
+                    {
+                      "value": "coveredTypeMaterial",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp: Sach"
+                      }
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 0,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Verlußt privater fremder Schlüssel"
+          }
+        },
+        {
+          "type": "panel",
+          "name": "lossOfJobKeysPanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "lossOfJobKeys",
+              "title": {
+                "de": "Verlust beruflicher Schlüssel"
+              },
+              "valueName": "lossOfJobKeys",
+              "defaultValue": "0",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": "Ja"
+                },
+                {
+                  "value": "0",
+                  "text": "Nein"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "lossOfJobKeysAttributes",
+              "visibleIf": "{lossOfJobKeys} = \"1\"",
+              "title": {
+                "de": "Attribute: Verlust beruflicher Schlüssel"
+              },
+              "description": {
+                "de": "Deckungshöhe bitte hier festlegen, mit ergänzenden Attributen, wie Selbstbeteiligung und abgedecktem Schadenstyp"
+              },
+              "valueName": "lossOfJobKeysAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "retentionPercentage",
+                      "text": "Selbstbeteiligung %"
+                    },
+                    {
+                      "value": "retentionCurrency",
+                      "text": "Selbstbeteiligung Währung"
+                    },
+                    {
+                      "value": "amount",
+                      "text": {
+                        "de": "Deckungssumme"
+                      }
+                    },
+                    {
+                      "value": "coveredType",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp"
+                      }
+                    },
+                    {
+                      "value": "minimumDamageN",
+                      "text": {
+                        "de": "ab Deckungssumme n"
+                      }
+                    },
+                    {
+                      "value": "maximumDamageN",
+                      "text": {
+                        "de": "bis Deckungssumme n"
+                      }
+                    },
+                    {
+                      "value": "coveredTypeBody",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp: Person"
+                      }
+                    },
+                    {
+                      "value": "coveredTypeMaterial",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp: Sach"
+                      }
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 0,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Verlust beruflicher Schlüssel"
+          }
+        },
+        {
+          "type": "panel",
+          "name": "withParentLivingInHousePanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "withParentLivingInHouse",
+              "title": {
+                "de": "Mit im Haus lebendes Elternteil"
+              },
+              "valueName": "withParentLivingInHouse",
+              "defaultValue": "0",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": "Ja"
+                },
+                {
+                  "value": "0",
+                  "text": "Nein"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "withParentLivingInHouseAttributes",
+              "visibleIf": "{withParentLivingInHouse} = \"1\"",
+              "title": {
+                "de": "Attribute: Mit im Haus lebendes Elternteil"
+              },
+              "description": {
+                "de": "Nach Auswahl zzgl. eine \"1\" in das nebenstehende Textfeld einfügen, wenn Single mit Kind bspw. als Familie eingestuft werden soll."
+              },
+              "valueName": "withParentLivingInHouseAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "family",
+                      "text": {
+                        "default": "Selbstbeteiligung %",
+                        "de": "Bei Familie"
+                      }
+                    },
+                    {
+                      "value": "familyChild",
+                      "text": {
+                        "default": "Selbstbeteiligung Währung",
+                        "de": "Bei Familie mit Kind"
+                      }
+                    },
+                    {
+                      "value": "partner",
+                      "text": {
+                        "de": "Bei Partner"
+                      }
+                    },
+                    {
+                      "value": "senior",
+                      "text": {
+                        "de": "Bei Senior"
+                      }
+                    },
+                    {
+                      "value": "minimumDamageN",
+                      "text": {
+                        "de": "ab Deckungssumme n"
+                      }
+                    },
+                    {
+                      "value": "maximumDamageN",
+                      "text": {
+                        "de": "bis Deckungssumme n"
+                      }
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 0,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Mit im Haus lebendes Elternteil"
+          }
+        },
+        {
+          "type": "panel",
+          "name": "childminderNonCommercialPanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "childminderNonCommercial",
+              "startWithNewLine": false,
+              "title": {
+                "de": "Tagesmutter/Betreuer (nicht gewerblich)"
+              },
+              "valueName": "childminderNonCommercial",
+              "defaultValue": "0",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": "Ja"
+                },
+                {
+                  "value": "0",
+                  "text": "Nein"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "childminderNonCommercialAttributes",
+              "visibleIf": "{childminderNonCommercial} = \"1\"",
+              "startWithNewLine": false,
+              "title": {
+                "de": "Attribute: Tagesmutter/Betreuer (nicht gewerblich)"
+              },
+              "description": {
+                "de": "Nach Auswahl zzgl. eine \"1\" in das nebenstehende Textfeld einfügen, wenn Single mit Kind bspw. als Familie eingestuft werden soll."
+              },
+              "valueName": "childminderNonCommercialAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "title": {
+                    "de": "Max Anzahl Kinder"
+                  },
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "1",
+                      "text": "Selbstbeteiligung %"
+                    },
+                    {
+                      "value": "2",
+                      "text": "Selbstbeteiligung Währung"
+                    },
+                    {
+                      "value": "untilFour",
+                      "text": {
+                        "de": "Bis 4"
+                      }
+                    },
+                    {
+                      "value": "untilFive",
+                      "text": {
+                        "de": "Bis 5"
+                      }
+                    },
+                    {
+                      "value": "untilSix",
+                      "text": {
+                        "de": "Bis 6"
+                      }
+                    },
+                    {
+                      "value": "untilSeven",
+                      "text": {
+                        "de": "Bis 7"
+                      }
+                    },
+                    {
+                      "value": "untilEight",
+                      "text": {
+                        "de": "Bis 8"
+                      }
+                    },
+                    {
+                      "value": "untilNin",
+                      "text": {
+                        "de": "Bis 9"
+                      }
+                    },
+                    {
+                      "value": "tenAndMore",
+                      "text": {
+                        "de": "Ab 10"
+                      }
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 0,
+              "maxRowCount": 10,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Tagesmutter/Betreuer"
+          }
+        },
+        {
+          "type": "radiogroup",
+          "name": "voluntaryWork",
+          "title": {
+            "de": "Ehrenamtliche Tätigkeiten"
+          },
+          "valueName": "voluntaryWork",
+          "defaultValue": "0",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Ja"
+            },
+            {
+              "value": "0",
+              "text": "Nein"
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "panel",
+          "name": "discountBalancingPanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "discountBalancing",
+              "title": {
+                "de": "Rabattausgleich (Kfz-Haftpflicht) Schäden an fremden Kfz durch SFR-Rückstufung"
+              },
+              "valueName": "discountBalancing",
+              "defaultValue": "0",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": "Ja"
+                },
+                {
+                  "value": "0",
+                  "text": "Nein"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "discountBalancingAttributes",
+              "visibleIf": "{discountBalancing} = \"1\"",
+              "title": {
+                "de": "Attribute: Rabattausgleich (Kfz-Haftpflicht) Schäden an fremden Kfz durch SFR-Rückstufung"
+              },
+              "description": {
+                "de": "Deckungshöhe bitte hier festlegen, mit ergänzenden Attributen, wie Selbstbeteiligung und abgedecktem Schadenstyp"
+              },
+              "valueName": "discountBalancingAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "untilOneYear",
+                      "text": {
+                        "default": "Selbstbeteiligung %",
+                        "de": "Bis 1 Jahr"
+                      }
+                    },
+                    {
+                      "value": "untilTwoYears",
+                      "text": {
+                        "default": "Selbstbeteiligung Währung",
+                        "de": "Bis 2 Jahre"
+                      }
+                    },
+                    {
+                      "value": "untilThreeYears",
+                      "text": {
+                        "de": "Bis 3 Jahre"
+                      }
+                    },
+                    {
+                      "value": "untilFourYears",
+                      "text": {
+                        "de": "Bis 4 Jahre"
+                      }
+                    },
+                    {
+                      "value": "untilFiveYears",
+                      "text": {
+                        "de": "Bis 5 Jahre"
+                      }
+                    },
+                    {
+                      "value": "until500",
+                      "text": {
+                        "de": "Bis 500 EUR"
+                      }
+                    },
+                    {
+                      "value": "until1000",
+                      "text": {
+                        "de": "Bis 1000 EUR"
+                      }
+                    },
+                    {
+                      "value": "until1500",
+                      "text": {
+                        "de": "Bis 1500 EUR"
+                      }
+                    },
+                    {
+                      "value": "until2000",
+                      "text": {
+                        "de": "Bis 2000 EUR"
+                      }
+                    },
+                    {
+                      "value": "until2500",
+                      "text": {
+                        "de": "Bis 2500 EUR"
+                      }
+                    },
+                    {
+                      "value": "until3000",
+                      "text": {
+                        "de": "Bis 3000 EUR"
+                      }
+                    },
+                    {
+                      "value": "until4000",
+                      "text": {
+                        "de": "Bis 4000 EUR"
+                      }
+                    },
+                    {
+                      "value": "until5000",
+                      "text": {
+                        "de": "Bis 5000 EUR"
+                      }
+                    },
+                    {
+                      "value": "retentionCurrency",
+                      "text": {
+                        "de": "Selbstbeteiligung Währung"
+                      }
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 0,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Rabattausgleich"
+          }
+        },
+        {
+          "type": "panel",
+          "name": "renovationsPanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "renovations",
+              "title": {
+                "de": "Umbaumaßnahmen min."
+              },
+              "valueName": "renovations",
+              "defaultValue": "0",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": "Ja"
+                },
+                {
+                  "value": "0",
+                  "text": "Nein"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "renovationsAttributes",
+              "visibleIf": "{renovations} = \"1\"",
+              "title": {
+                "de": "Attribute: Umbaumaßnahmen min."
+              },
+              "description": {
+                "de": "Deckungshöhe bitte hier festlegen, mit ergänzenden Attributen, wie Selbstbeteiligung und abgedecktem Schadenstyp"
+              },
+              "valueName": "renovationsAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "retentionPercentage",
+                      "text": "Selbstbeteiligung %"
+                    },
+                    {
+                      "value": "retentionCurrency",
+                      "text": "Selbstbeteiligung Währung"
+                    },
+                    {
+                      "value": "amount",
+                      "text": {
+                        "de": "Deckungssumme"
+                      }
+                    },
+                    {
+                      "value": "coveredType",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp"
+                      }
+                    },
+                    {
+                      "value": "minimumDamageN",
+                      "text": {
+                        "de": "ab Deckungssumme n"
+                      }
+                    },
+                    {
+                      "value": "maximumDamageN",
+                      "text": {
+                        "de": "bis Deckungssumme n"
+                      }
+                    },
+                    {
+                      "value": "coveredTypeBody",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp: Person"
+                      }
+                    },
+                    {
+                      "value": "coveredTypeMaterial",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp: Sach"
+                      }
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 0,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Umbaumaßnahmen"
+          }
+        },
+        {
+          "type": "radiogroup",
+          "name": "surfboards",
+          "title": {
+            "de": "Surfbretter\n"
+          },
+          "valueName": "surfboards",
+          "defaultValue": "0",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Ja"
+            },
+            {
+              "value": "0",
+              "text": "Nein"
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "conditionlUpdate",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Bedingungsupdate\n"
+          },
+          "valueName": "conditionlUpdate",
+          "defaultValue": "0",
+          "choices": [
+            {
+              "value": "1",
+              "text": "Ja"
+            },
+            {
+              "value": "0",
+              "text": "Nein"
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "panel",
+          "name": "tariffIndividualSpecialsPanel",
+          "elements": [
+            {
+              "type": "radiogroup",
+              "name": "tariffIndividualSpecials",
+              "title": {
+                "de": "Besonderheiten des Tarifes\n"
+              },
+              "valueName": "tariffIndividualSpecials",
+              "defaultValue": "0",
+              "choices": [
+                {
+                  "value": "1",
+                  "text": "Ja"
+                },
+                {
+                  "value": "0",
+                  "text": "Nein"
+                }
+              ],
+              "choicesOrder": "asc"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "tariffIndividualSpecialsAttributes",
+              "visibleIf": "{tariffIndividualSpecials} = \"1\"",
+              "title": {
+                "de": "Attribute: Besonderheiten des Tarifes"
+              },
+              "description": {
+                "de": "Deckungshöhe bitte hier festlegen, mit ergänzenden Attributen, wie Selbstbeteiligung und abgedecktem Schadenstyp"
+              },
+              "valueName": "tariffIndividualSpecialsAttributes",
+              "columns": [
+                {
+                  "name": "Attribut",
+                  "cellType": "dropdown",
+                  "choices": [
+                    {
+                      "value": "retentionPercentage",
+                      "text": "Selbstbeteiligung %"
+                    },
+                    {
+                      "value": "retentionCurrency",
+                      "text": "Selbstbeteiligung Währung"
+                    },
+                    {
+                      "value": "amount",
+                      "text": {
+                        "de": "Deckungssumme"
+                      }
+                    },
+                    {
+                      "value": "coveredType",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp"
+                      }
+                    },
+                    {
+                      "value": "minimumDamageN",
+                      "text": {
+                        "de": "ab Deckungssumme n"
+                      }
+                    },
+                    {
+                      "value": "maximumDamageN",
+                      "text": {
+                        "de": "bis Deckungssumme n"
+                      }
+                    },
+                    {
+                      "value": "coveredTypeBody",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp: Person"
+                      }
+                    },
+                    {
+                      "value": "coveredTypeMaterial",
+                      "text": {
+                        "de": "Abgedeckter Schadenstyp: Sach"
+                      }
+                    },
+                    {
+                      "value": "individualAndNameInfringement",
+                      "text": {
+                        "de": "Persönlichkeits- und Namensrechtsverletzung"
+                      }
+                    },
+                    {
+                      "value": "replacementValueAcquisition5000",
+                      "text": {
+                        "de": "Neuwertersatz bis 5.000 € Anschaffungswert im 1. Jahr"
+                      }
+                    },
+                    {
+                      "value": "replacementValueAcquisition3000",
+                      "text": {
+                        "de": "Neuwertersatz bis 3.000 € Anschaffungswert im 1. Jahr"
+                      }
+                    },
+                    {
+                      "value": "replacementValueAcquisition2500",
+                      "text": {
+                        "de": "Neuwertersatz bis 2.500 € Anschaffungswert im 1. Jahr"
+                      }
+                    },
+                    {
+                      "value": "replacementValueAcquisition2000",
+                      "text": {
+                        "de": "Neuwertersatz bis 2.000 € Anschaffungswert im 1. Jahr"
+                      }
+                    },
+                    {
+                      "value": "replacementValueAcquisition500",
+                      "text": {
+                        "de": "Neuwertersatz bis 500 € Anschaffungswert im 1. Jahr"
+                      }
+                    },
+                    {
+                      "value": "bestPerformanceWarrenty",
+                      "text": {
+                        "de": "Best-Leistungs-Garantie"
+                      }
+                    },
+                    {
+                      "value": "discountCompensationFullComprehensiveCoverNoTimeLimit",
+                      "text": {
+                        "de": "Rabattausgleich auch in der Vollkasko ohne zeitliche Befristung"
+                      }
+                    },
+                    {
+                      "value": "discountCompensationFullComprehensiveCoverUntilOneYear",
+                      "text": {
+                        "de": "Rabattausgleich auch in der Vollkasko bis 1 Jahr"
+                      }
+                    },
+                    {
+                      "value": "discountCompensationFullComprehensiveCoverUntilThreeYears",
+                      "text": {
+                        "de": "Rabattausgleich auch in der Vollkasko bis 3 Jahre"
+                      }
+                    },
+                    {
+                      "value": "discountCompensationFullComprehensiveCoverUntilFiveYears",
+                      "text": {
+                        "de": "Rabattausgleich auch in der Vollkasko bis 5 Jahre"
+                      }
+                    },
+                    {
+                      "value": "discountCompensationFullComprehensiveCoverNoTimLimitUpTo1000Retention100",
+                      "text": {
+                        "de": "Rabattausgleich auch bei VK bis 1.000 mit 100 SB"
+                      }
+                    },
+                    {
+                      "value": "discountCompensationFullComprehensiveCoverNoTimLimitUpTo1500Retention150",
+                      "text": {
+                        "de": "Rabattausgleich auch in der Vollkasko ohne zeitliche Befristung bis 1.500 € mit 150 € SB"
+                      }
+                    },
+                    {
+                      "value": "discountCompensationFullComprehensiveCoverNoTimLimitUpTo1500",
+                      "text": {
+                        "de": "Rabattausgleich auch in der Vollkasko ohne zeitliche Befristung bis 1.500 €"
+                      }
+                    },
+                    {
+                      "value": "discountCompensationFullComprehensiveCoverNoAmountLimit",
+                      "text": {
+                        "de": "Rabattausgleich in Vollkasko bis Summe n"
+                      }
+                    },
+                    {
+                      "value": "discountCompensationNoJobUntilOneYear",
+                      "text": {
+                        "de": "Beitragsbefreiung bei Arbeitslosigkeit bis 1 Jahr"
+                      }
+                    },
+                    {
+                      "value": "discountCompensationNoJobUntilTwoYears",
+                      "text": {
+                        "de": "Beitragsbefreiung bei Arbeitslosigkeit bis 2 Jahre"
+                      }
+                    },
+                    {
+                      "value": "noPaymentUnemployment",
+                      "text": {
+                        "de": "Beitragsbefreiung bei Arbeitslosigkeit bis 3 Jahre"
+                      }
+                    },
+                    {
+                      "value": "alsoInsuredJob",
+                      "text": {
+                        "de": "Beruf-, Diensthaftpflicht beitragsfrei mitversichert"
+                      }
+                    }
+                  ],
+                  "choicesOrder": "asc",
+                  "otherText": {
+                    "de": "AAAA"
+                  }
+                },
+                {
+                  "name": "Wert",
+                  "cellType": "text",
+                  "placeHolder": {
+                    "de": "?"
+                  }
+                }
+              ],
+              "cellType": "text",
+              "columnColCount": 2,
+              "rowCount": 0,
+              "confirmDelete": true,
+              "confirmDeleteText": {
+                "de": "Soll die Zeile wirklich gelöscht werden? :-("
+              },
+              "addRowText": {
+                "de": "Attribut hinzufügen"
+              },
+              "removeRowText": {
+                "de": "Weg damit"
+              }
+            }
+          ],
+          "title": {
+            "de": "Besonderheiten des Tarifes"
+          }
+        }
+      ],
+      "title": {
+        "de": "Sonstiges"
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "type": "complete",
+      "operator": "equal",
+      "value": "Yes",
+      "name": "exit1"
+    },
+    {
+      "type": "complete",
+      "operator": "equal",
+      "value": "Yes",
+      "name": "exit2"
+    }
+  ],
+  "showPageNumbers": true,
+  "showProgressBar": "top",
+  "pagePrevText": {
+    "de": "\uf104"
+  },
+  "pageNextText": {
+    "de": "\uf105"
+  }
+}

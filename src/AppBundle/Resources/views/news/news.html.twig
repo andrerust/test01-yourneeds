@@ -1,0 +1,42 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds projects{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+  {% endblock %}
+
+{% block content %}
+
+    <section class="content-body" id="profile">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="container admin-content-box-title">
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <h1 class="title1 title1--space">
+                                        News
+                                    </h1>
+                                </div>
+                                <div class="col-12">
+                                    <p>
+                                        Hier findest Du...
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

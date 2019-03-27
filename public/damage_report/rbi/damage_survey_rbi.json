@@ -1,0 +1,849 @@
+{
+  "locale": "de",
+  "title": "Melden eines Schadens in der Haftpflicht",
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "privateLiabilityDamage",
+          "elements": [
+            {
+              "type": "html",
+              "name": "question0",
+              "html": {
+                "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/wohngebaeude.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h3 class=\"title2 title2--space\">\nWillkommen im YOURneeds Schaden-Meldeprozess (Unfall)!\n</h3>\n<h4 class=\"title4 title4--space\">Bitte beantworte alle Fragen. Solltest du Bilder zum Schaden zur Hand haben, dann bitte auch diese am Ende der Fragenstrecke hochladen und beschreiben.<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n</div>\n</div>\n"
+              }
+            }
+          ],
+          "readOnly": true
+        }
+      ]
+    },
+    {
+      "name": "Screen 2",
+      "elements": [
+        {
+          "type": "text",
+          "name": "type",
+          "visible": false,
+          "valueName": "type",
+          "titleLocation": "hidden"
+        },
+        {
+          "type": "dropdown",
+          "name": "contracts",
+          "title": {
+            "de": "Bitte wähle deinen Vertrag aus"
+          },
+          "valueName": "contracts",
+          "isRequired": true,
+          "choices": [
+            "item1",
+            "item2",
+            "item3"
+          ],
+          "choicesByUrl": {
+            "url": "/api/contracts/survey/rbi/load",
+            "valueName": "id",
+            "titleName": "name"
+          }
+        },
+        {
+          "type": "html",
+          "name": "question5",
+          "html": {
+            "de": "<h2 class=\"title2 title2--space\">Allgemeines Fragen</h2>"
+          }
+        },
+        {
+          "type": "text",
+          "name": "dateOfDamage",
+          "width": "90%",
+          "title": {
+            "de": "Wann ist der Schaden passiert (FORMAT: TT/MM/JJJJ)?"
+          },
+          "valueName": "dateOfDamage",
+          "isRequired": true,
+          "requiredErrorText": {
+            "de": "Bitte Datum eingeben"
+          },
+          "inputType": "date"
+        },
+        {
+          "type": "dropdown",
+          "name": "kindOfDamage",
+          "title": {
+            "de": "Welcher Art ist der Schaden?"
+          },
+          "valueName": "kindOfDamage",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "fire",
+              "text": {
+                "de": "Feuer"
+              }
+            },
+            {
+              "value": "lightning",
+              "text": {
+                "de": "Blitzschlag"
+              }
+            },
+            {
+              "value": "theft",
+              "text": {
+                "de": "Diebstahl/Vandalismus"
+              }
+            },
+            {
+              "value": "elementary",
+              "text": {
+                "de": "Elementar"
+              }
+            },
+            {
+              "value": "glas",
+              "text": {
+                "de": "Glasbruch"
+              }
+            },
+            {
+              "value": "water",
+              "text": {
+                "de": "Leitungswasser"
+              }
+            },
+            {
+              "value": "storm",
+              "text": {
+                "de": "Sturm/Hagel"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Fire A",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question6",
+          "html": {
+            "de": "<h2 class=\"title2 title2--space\">Feuer</h2>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "fireDamageReason",
+          "title": {
+            "de": "Was war der Grund für das Schaden?"
+          },
+          "valueName": "fireDamageReason",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "fire",
+              "text": {
+                "de": "Brand"
+              }
+            },
+            {
+              "value": "lightning",
+              "text": {
+                "de": "Blitzschlag"
+              }
+            },
+            {
+              "value": "explosion",
+              "text": {
+                "de": "Explosion"
+              }
+            }
+          ]
+        }
+      ],
+      "visibleIf": "{kindOfDamage} = \"fire\""
+    },
+    {
+      "name": "Fire B",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question7",
+          "html": {
+            "de": "<h2 class=\"title2 title2--space\">Feuer</h2>"
+          }
+        },
+        {
+          "type": "radiogroup",
+          "name": "fireDamageOpenFire",
+          "title": {
+            "de": "Entstand offenes Feuer?"
+          },
+          "valueName": "fireDamageOpenFire",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "fireDamageExtinguished",
+          "title": {
+            "de": "Wurde es gelöscht?"
+          },
+          "valueName": "fireDamageExtinguished",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "fireDamageExtinguishedBy",
+          "visibleIf": "{fireDamageExtinguished} = \"yes\"",
+          "title": {
+            "de": "Von wem wurde es gelöscht?"
+          },
+          "valueName": "fireDamageExtinguishedBy",
+          "isRequired": true
+        },
+        {
+          "type": "dropdown",
+          "name": "fireDamageExtinguishedHow",
+          "visibleIf": "{fireDamageExtinguished} = \"yes\"",
+          "title": {
+            "de": "Wie wurde es gelöscht?"
+          },
+          "valueName": "fireDamageExtinguishedHow",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "foam",
+              "text": {
+                "de": "Schaum"
+              }
+            },
+            {
+              "value": "halogen",
+              "text": {
+                "de": "Halogen"
+              }
+            },
+            {
+              "value": "sprinklers",
+              "text": {
+                "de": "Sprinkler"
+              }
+            },
+            {
+              "value": "water",
+              "text": {
+                "de": "Sprühwasser"
+              }
+            },
+            {
+              "value": "co2",
+              "text": {
+                "de": "CO2"
+              }
+            },
+            {
+              "value": "powder",
+              "text": {
+                "de": "Pulver"
+              }
+            }
+          ]
+        }
+      ],
+      "visibleIf": "{kindOfDamage} = \"fire\""
+    },
+    {
+      "name": "Lightning A",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question8",
+          "html": {
+            "de": "<h2 class=\"title2 title2--space\">Blitz</h2>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "lightningLocation",
+          "title": {
+            "de": "Wo ist der Blitz eingeschlagen?"
+          },
+          "valueName": "lightningLocation",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "insuranceProperty",
+              "text": {
+                "de": "Versicherungsgrundstück"
+              }
+            },
+            {
+              "value": "neighbouringProperty",
+              "text": {
+                "de": "Nachbargrundstück"
+              }
+            },
+            {
+              "value": "ridge",
+              "text": {
+                "de": "First"
+              }
+            },
+            {
+              "value": "roofArea",
+              "text": {
+                "de": "Dachfläche"
+              }
+            },
+            {
+              "value": "chimney",
+              "text": {
+                "de": "Schornstein"
+              }
+            },
+            {
+              "value": "gable",
+              "text": {
+                "de": "Giebel"
+              }
+            },
+            {
+              "value": "externalAntenna",
+              "text": {
+                "de": "Außenantenne"
+              }
+            },
+            {
+              "value": "misc",
+              "text": {
+                "de": "Sonstiges"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "lightningLocationMisc",
+          "visibleIf": "{lightningLocation} = \"misc\"",
+          "title": {
+            "de": "Woran ist der Blitzschlag zu erkennen?"
+          },
+          "valueName": "lightningLocationMisc",
+          "isRequired": true
+        }
+      ],
+      "visibleIf": "{kindOfDamage} = \"lightning\""
+    },
+    {
+      "name": "Lightning B",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question9",
+          "html": {
+            "de": "<h2 class=\"title2 title2--space\">Blitz</h2>"
+          }
+        },
+        {
+          "type": "text",
+          "name": "lightningSigns",
+          "title": {
+            "de": "Woran ist der Blitzschlag zu erkennen?"
+          },
+          "valueName": "lightningSigns",
+          "isRequired": true
+        },
+        {
+          "type": "radiogroup",
+          "name": "lightningLeadToFire",
+          "title": {
+            "de": "Ist ein Feuer nach dem Blitzschlag ausgebrochen?"
+          },
+          "valueName": "lightningLeadToFire",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ]
+        }
+      ],
+      "visibleIf": "{kindOfDamage} = \"lightning\""
+    },
+    {
+      "name": "Water A",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question10",
+          "html": {
+            "de": "<h2 class=\"title2 title2--space\">Wasser</h2>"
+          }
+        },
+        {
+          "type": "dropdown",
+          "name": "waterReason",
+          "title": {
+            "de": "Wo liegt die Ursache des Wasserschadens?"
+          },
+          "valueName": "waterReason",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "insideBuilding",
+              "text": {
+                "de": "Innerhalb des Gebäudes"
+              }
+            },
+            {
+              "value": "insideProperty",
+              "text": {
+                "de": "Innerhalb des Grundstückes"
+              }
+            },
+            {
+              "value": "outsideProperty",
+              "text": {
+                "de": "Ausserhalb des Grundstückes"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "waterInsideBuildingWhere",
+          "title": {
+            "de": "In welchem Stockwerk und welchem Raum ist der Wasserschaden passiert?"
+          },
+          "valueName": "waterInsideBuildingWhere",
+          "isRequired": true
+        }
+      ],
+      "visibleIf": "{kindOfDamage} = \"water\""
+    },
+    {
+      "name": "Water B",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question11",
+          "html": {
+            "de": "<h2 class=\"title2 title2--space\">Wasser</h2>"
+          }
+        },
+        {
+          "type": "radiogroup",
+          "name": "waterReasonIsPipes",
+          "title": {
+            "de": "Ist der Schaden an den Rohren des Hausanschlusses entstanden?"
+          },
+          "valueName": "waterReasonIsPipes",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "waterReasonPipesOwner",
+          "visibleIf": "{waterReasonIsPipes} = \"yes\"",
+          "title": {
+            "de": "Wenn ja, wer ist der Eigentümer des Hausanschlusses?"
+          },
+          "valueName": "waterReasonPipesOwner",
+          "isRequired": true
+        },
+        {
+          "type": "radiogroup",
+          "name": "waterReasonPipesCostsByUtilityCompany",
+          "visibleIf": "{waterReasonIsPipes} = \"yes\"",
+          "title": {
+            "de": "Trägt das Versorgungsunternehmen die Kosten der Schadenbeseitigung am Hausanschluss?"
+          },
+          "valueName": "waterReasonPipesCostsByUtilityCompany",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ]
+        }
+      ],
+      "visibleIf": "{kindOfDamage} = \"water\""
+    },
+    {
+      "name": "Storm A",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question13",
+          "html": {
+            "de": "<h2 class=\"title2 title2--space\">Sturm</h2>"
+          }
+        },
+        {
+          "type": "text",
+          "name": "stormProof",
+          "title": {
+            "de": "Welche Tatsachen beweisen die Sturmursache?"
+          },
+          "valueName": "stormProof",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "stormDamagedNeighbours",
+          "title": {
+            "de": "Sind in der Nachbarschaft ebenfalls Schäden entstanden und wenn ja, welche?"
+          },
+          "valueName": "stormDamagedNeighbours",
+          "isRequired": true
+        }
+      ],
+      "visibleIf": "{kindOfDamage} = \"storm\""
+    },
+    {
+      "name": "police",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question14",
+          "html": {
+            "de": "Polizei"
+          }
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasPoliceRegistration",
+          "title": {
+            "de": "Wurde der Schaden polizeilich aufgenommen?"
+          },
+          "valueName": "hasPoliceRegistration",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "policeRegistrationNumber",
+          "visibleIf": "{hasPoliceRegistration} notempty and {hasPoliceRegistration} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Wie ist das Aktenzeichen und durch welche Dienststelle?"
+          },
+          "valueName": "policeRegistrationNumber",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "owner",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question15",
+          "html": {
+            "de": "<h2 class=\"title2 title2--space\">Beschädigung und Eigentümer</h2>"
+          }
+        },
+        {
+          "type": "text",
+          "name": "damageLocation",
+          "title": {
+            "de": "Bitte gebe den Schadenort ein, ggf. mit Stockwerk und Raum"
+          },
+          "valueName": "damageLocation",
+          "isRequired": true
+        },
+        {
+          "type": "dropdown",
+          "name": "ownerOfRentalUnit",
+          "title": {
+            "de": "Wer ist der Eigentümer der betroffenen Wohneinheit?"
+          },
+          "valueName": "ownerOfRentalUnit",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "me",
+              "text": {
+                "de": "Du selber"
+              }
+            },
+            {
+              "value": "other",
+              "text": {
+                "de": "Anderer"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "owner detail",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question16",
+          "html": {
+            "de": "<h2 class=\"title2 title2--space\">Beschädigung und Eigentümer</h2>"
+          }
+        },
+        {
+          "type": "text",
+          "name": "owner",
+          "title": {
+            "de": "Bitte gebe den Namen des Eigentümers ein"
+          },
+          "valueName": "owner",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "ownerStreet",
+          "title": {
+            "de": "Gebe bitte die Straße und Hausnummer des Eigentümers ein"
+          },
+          "valueName": "ownerStreet",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "ownerZip",
+          "title": {
+            "de": "Bitte gebe die Postleitzahl des Eigentümers ein"
+          },
+          "valueName": "ownerZip",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "ownerCity",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Bitte gebe den Ort des Eigentümers ein"
+          },
+          "valueName": "ownerCity",
+          "isRequired": true
+        },
+        {
+          "type": "text",
+          "name": "ownerPhoneNumber",
+          "title": {
+            "de": "Bitte gebe die Telefonnummer des Eigentümers ein"
+          },
+          "valueName": "ownerPhoneNumber",
+          "isRequired": true
+        },
+        {
+          "type": "html",
+          "name": "question12",
+          "html": {
+            "de": "<hr>"
+          }
+        },
+        {
+          "type": "text",
+          "name": "damagesBuildingPart",
+          "title": {
+            "de": "Welche Gebäudeteile sind beschädigt?"
+          },
+          "valueName": "damagesBuildingPart",
+          "isRequired": true,
+          "inputType": "datetime"
+        },
+        {
+          "type": "text",
+          "name": "valueOfDamage",
+          "title": {
+            "de": "Wie hoch schätzt du den Schaden?"
+          },
+          "valueName": "valueOfDamage",
+          "isRequired": true,
+          "inputType": "datetime"
+        }
+      ]
+    },
+    {
+      "name": "description",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question3",
+          "html": {
+            "de": "<h2 class=\"title2 title2--space\">Beschreibung und Kontakt</h2>"
+          }
+        },
+        {
+          "type": "comment",
+          "name": "damageDescription",
+          "title": {
+            "de": "Bitte gib ein, was passiert ist"
+          },
+          "valueName": "damageDescription",
+          "isRequired": true,
+          "rows": 10
+        },
+        {
+          "type": "text",
+          "name": "damageContactNumber",
+          "title": {
+            "de": "Bitte gib uns deine Handynummer an, damit der Versicherer dich da ggf. erreichen kann"
+          },
+          "valueName": "damageContactNumber",
+          "isRequired": true
+        }
+      ]
+    },
+    {
+      "name": "upload",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question7",
+          "html": {
+            "de": "<h2 class=\"title2 title2--space\">Bereitstellung von Bildmaterial</h2>"
+          }
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "imageUpload",
+          "title": "Upload von Bildern",
+          "columns": [
+            {
+              "name": "tags",
+              "title": "Art der Aufnahme",
+              "cellType": "dropdown",
+              "choices": [
+                "Ort",
+                "Verursacher",
+                "Schaden",
+                "Sonstiges"
+              ]
+            },
+            {
+              "name": "imageFile",
+              "title": "Bilddatei",
+              "cellType": "file"
+            },
+            {
+              "name": "description",
+              "title": "Anmerkung/Beschreibung",
+              "cellType": "comment"
+            }
+          ],
+          "columnMinWidth": "150px",
+          "rowCount": 1,
+          "addRowText": {
+            "default": "Weiteres Bild hochladen",
+            "de": "Weiterer Upload"
+          },
+          "removeRowText": {
+            "de": "löschen"
+          }
+        }
+      ]
+    },
+    {
+      "name": "exit",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "html",
+              "name": "question2",
+              "html": {
+                "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-4 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/wohngebaeude.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-8 text-left\">\n<h3 class=\"title2 title2--space\">\nDu kannst die Schadensmeldung jetzt absenden\n</h3>\n<br/>\n<h4 class=\"title4 title4--space\">Sobald du die Schadenmeldung abgeschickt hast, leiten wir diese an die Versicherungsgesellschaft weiter.<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n</div>\n</div>\n"
+              }
+            }
+          ],
+          "readOnly": true
+        }
+      ]
+    }
+  ],
+  "showProgressBar": "top",
+  "pagePrevText": {
+    "de": "zurück"
+  },
+  "pageNextText": {
+    "de": "weiter"
+  }
+}

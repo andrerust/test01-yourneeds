@@ -1,0 +1,210 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds admin managers{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+      <style>
+          .pic-list.small {
+              width: 75px;
+              height: auto;
+          }
+      </style>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="/build/yourneeds-manager.js"></script>
+  {% endblock %}
+
+{% block content %}
+
+    <section class="content-body" id="admin-user">
+        <div class="container">
+            <div class="row justify-content-start">
+                <div class="col-12 text-center pt-2">
+                    <h1 class="title1 title1--space">Nutzer bearbeiten</h1>
+                </div>
+            </div>
+            <div class="row justify-content-start">
+                <div class="col-12 text-center pt-2">
+                    <h5 class="title2 title2--space">
+                        <i class="fas fa-info-circle"></i> Einige Versicherungsgesellschaften benötigen
+                        Persönlichen Daten zur Kalkulation von Angeboten.
+                        Wir haben Dir hierfür die Formulare 1. und 2. zur Verfügung gestellt. Nach dem
+                        Ausfüllen kannst du über »Check YOURneeds«
+                        selber deinen optimalen Tarif ermitteln. Formular 3 wird später interessant.
+                        Dein eigener Versicherungsmanager sein.
+                    </h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <!--
+                    <a class="btn">
+                       <span><i class="fas fa-cog"></i> Einstellungen</span>
+                    </a>
+                    -->
+                    <a href="{{ path('admin_manager_new') }}" class="btn">
+                        <span><i class="fas fa-plus"></i> Nutzer neu</span>
+                    </a>
+                </div>
+                <br>
+            </div>
+            <div class="row">
+                <!--<div class="fresh-table toolbar-color-green">-->
+
+                <div class="special-table">
+                    <!--
+                       <div id="toolbar">
+                          <div class="form-inline" role="group">
+                             <select class="form-control">
+                                <option value="">Export Basic</option>
+                                <option value="all">Export All</option>
+                                <option value="selected">Export Selected</option>
+                             </select>
+                          </div>
+                       </div>
+                       -->
+                    <table class="table"
+                           id="table"
+                           data-toggle="table"
+                           data-toolbar="#toolbar"
+                           data-search="true"
+                           data-search-text=""
+                           data-show-columns="true"
+                           data-show-toggle="true"
+                           data-click-to-select="true"
+                           data-filter-control="true"
+                           data-filter-show-clear="true"
+                           data-show-export="true"
+                           data-pagination="true"
+                           data-icons-prefix="glyphicon"
+                           data-show-pagination-switch="true"
+                           data-show-refresh="true"
+                            >
+                        <thead>
+                        <tr>
+                            <th data-field="operation" data-checkbox="true" data-sortable="true">&nbsp;</th>
+                            <th data-field="actions" class="text-center" data-sortable="false"
+                                data-switchable="false">ToDo
+                            </th>
+                            <!--
+                            <th data-field="profilePicture" data-filter-control="" data-sortable="false"
+                                data-switchable="true">Profilbild
+                            </th>
+                            -->
+                            <th data-field="name" data-filter-control="input" data-sortable="true"
+                                data-switchable="false">Name
+                            </th>
+                            <th data-field="address" data-filter-control="input" data-sortable="true">
+                                Kontaktdaten
+                            </th>
+                            <th data-field="insurance" data-filter-control="" data-sortable="true">
+                                Versicherungen
+                            </th>
+                            <th data-field="active" data-filter-control="" data-sortable="true">
+                                Aktiv
+                            </th>
+                            <th data-field="active" data-filter-control="" data-sortable="true">
+                                Blockiert
+                            </th>
+                            <!--
+                            <th data-field="blocked" data-filter-control="" data-sortable="false">Blockiert</th>
+                            -->
+                            <th data-field="last_update" data-filter-control="input" data-sortable="true">
+                                Aktualisierung
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entry in users %}
+                            {% set counter = entry.user.id %}
+                            <tr>
+                                <td class="bs-checkbox">
+                                    <input data-index="{{ counter }}" name="btSelectItem" type="checkbox">
+                                </td>
+                                <td class="text-center">
+                                    <a href="{{ path('admin_manager', {
+                                        'id': entry.user.id
+                                    }) }}" class="btn"
+                                       data-toggle="tooltip"
+                                       data-placement="right">
+                                        <span><i class="fas fa-pencil-alt"></i></span>
+                                    </a>
+                                </td>
+                                <!--
+                                <td>
+                                    <div class="pic-list small">
+                                        <img src="{{ asset("uploads/profiles/") }}{{ entry.user.profilePicture }}"
+                                             class="img-thumbnail">
+                                    </div>
+                                </td>
+                                -->
+                                <td>
+                                    {{ entry.user.lastName }}, {{ entry.user.firstName }}<br>
+                                    {{ entry.user.email }}
+                                </td>
+                                <td>
+                                    {% if user.address is defined and not (user.address is null) %}
+                                        {{ user.address.street }} {{ user.address.streetNumber }}<br>
+                                        {{ user.address.postalCode }} {{ user.address.city.name}}
+                                        <br>
+                                        {{ entry.user.phoneNumber }}
+                                    {% else %}
+                                        <span class="missing">-A-</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% for tariff in entry.userTariffs %}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                {% if tariff.identifier == 'pli' %}
+                                                    <span class="badge badge-info">
+                         {{ tariff.name }} ({{ tariff.shortName }})
+                      </span>
+                                                {% elseif tariff.identifier == 'lpi' %}
+                                                    <span class="badge badge-warning">
+                         {{ tariff.name }} ({{ tariff.shortName }})
+                      </span>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </td>
+                                <td class="status text-center">
+                                    {% if user.isActive == true %}
+                                        <span class="badge badge-success">
+                                  <i class="fas fa-check"></i>
+                               </span>
+                                    {% elseif user.isActive == false %}
+                                        <span class="badge badge-danger">
+                               <i class="fas fa-times"></i>
+                            </span>
+                                    {% endif %}
+                                </td>
+                                <td class="status text-center">
+                                    {% if user.isBlocked == false %}
+                                        <span class="badge badge-success">
+                                  <i class="fas fa-check"></i>
+                               </span>
+                                    {% elseif user.isBlocked == true %}
+                                        <span class="badge badge-danger">
+                               <i class="fas fa-times"></i>
+                            </span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ user.updatedAt|date("d.m.Y") }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

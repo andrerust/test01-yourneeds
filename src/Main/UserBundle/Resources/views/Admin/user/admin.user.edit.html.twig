@@ -1,0 +1,354 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}Admin user edit{% endblock %}
+
+  {% block stylesheets %}
+     {{ parent() }}
+     <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+     <link rel="stylesheet" href="{{ asset('build/yourneeds-admin.css') }}"/>
+  {% endblock %}
+
+  {% block javascripts %}
+     {{ parent() }}
+     <script src="{{ asset('build/yourneeds-admin.js') }}"></script>
+  {% endblock %}
+
+{% block content %}
+
+   <section class="content-body" id="admin-user">
+      <div class="container">
+        <div class="row justify-content-start">
+           <!--
+         {{ form_start(form) }}
+         {{ form_widget(form) }}
+         {{ form_end(form) }}
+         <input type="file" id="edit_user_form_profilePicture" name="edit_user_form[profilePicture]" required="required">
+         -->
+           <div class="col-12 text-center pt-2">
+              <h1 class="title1 title1--space">Update Nutzerdaten</h1>
+
+              <p>Zuletzt aktualisiert: {{ user.updatedAt|date("d.m Y") }}</p>
+           </div>
+        </div>
+
+        <div class="row">
+           <div class="col-12">
+              <form name="edit_user_form"
+                    id="edit_user_form"
+                    class="well form-horizontal edit_user_form"
+                    method="post"
+                    action="{{ path('admin_manager_edit', {
+                       'id' : user.id
+                    }) }}"
+                    novalidate="novalidate"
+                    enctype="multipart/form-data">
+                 <div class="row justify-content-start" style="margin-top:10px;">
+                    <div class="col-12 text-center pt-2"><h3 class="title3 title3--space">Aktuell
+                          erfasste Daten</h3>
+                       <hr>
+
+                       {% if errors is defined and not (errors is null) and not (errors is empty) %}
+                          <div class="row">
+                             <div class="offset-1 col-11">
+                                <h3 class="title3 title3--space title">Da haben sich noch Fehler in der
+                                   Eingabe
+                                   versteckt</h3>
+                                <br>
+                             </div>
+                          </div>
+                          <div class="row">
+                             <div class="offset-1 col-11">
+                                <ul>
+                                   {% for error in errors %}
+                                      <li>{{ error.property }}: {{ error.message }}</li>
+                                   {% endfor %}
+                                </ul>
+                             </div>
+                          </div>
+                       {% endif %}
+                    </div>
+                    <div class="col-2 offset-1 mb-5">
+                       <div class="container" style="padding:0px;">
+                          {% if user.profilePicture is defined and not (user.profilePicture is null) %}
+                             <img class="profile-image"
+                                  src="{{ asset("uploads/profiles/") }}{{ user.profilePicture }}">
+                          {% else %}
+                             {% set picture = null %}
+                             {% if user.gender == 1 %}
+                                {% set picture = 'avatar-boy.png' %}
+                             {% elseif user.gender == 2 %}
+                                {% set picture = 'avatar-girl.png' %}
+                             {% elseif user.gender == 3 %}
+                                {% set picture = 'avatar-girl.png' %}
+                             {% endif %}
+                             <img src="{{ asset("images/static/placeholder/") }}{{ picture }}"
+                                  class="img-thumbnail"/>
+                          {% endif %}
+                       </div>
+                    </div>
+
+                    <div class="col-6">
+                       <label for="file-upload" class="custom-file-upload">
+                          Bild aktualisieren
+                       </label>
+                       <input class="input form-control file"
+                              type="file"
+                              name="edit_user_form[profilePicture]"
+                              id="edit_user_form_profilePicture"
+                           />
+                    </div>
+
+                    <!-- SALUTATION -->
+                    <div class="col-6">
+                       <div class="form-group">
+                          <label for="edit_user_form_userTitle">Titel</label>
+                          <select name="edit_user_form[userTitle]"
+                                  id="edit_user_form_userTitle"
+                                  class="form-control selectpicker">
+                             <option value=" ">Bitte w&auml;hlen</option>
+                             {% for title in titles %}
+                                <option
+                                    value="{{ title.id }}" {{ title.id == user.userTitle.id ? 'selected="selected"' : '' }}>
+                                   {{ title.name }}
+                                </option>
+                             {% endfor %}
+                          </select>
+                       </div>
+                    </div>
+                    <div class="col-6">
+                       <div class="form-group">
+                          {% set genderFirst = null %}
+                          {% set genderSecond = null %}
+                          {% set genderThird = null %}
+                          <label for="edit_user_form_gender">Anrede</label>
+                          <select name="edit_user_form[gender]"
+                                  id="edit_user_form_gender"
+                                  class="form-control selectpicker">
+                             <option value=" ">Bitte w&auml;hlen</option>
+                             {% if user.gender == 1 %}
+                                {% set genderFirst = true %}
+                             {% elseif user.gender == 2 %}
+                                {% set genderSecond = true %}
+                             {% elseif user.gender == 3 %}
+                                {% set genderThird = true %}
+                             {% endif %}
+                             <option value="1" {{ genderFirst ? 'selected="selected"' : '' }}>
+                                Mann
+                             </option>
+                             <option value="2" {{ genderSecond ? 'selected="selected"' : '' }}>
+                                Frau
+                             </option>
+                             <option value="3" {{ genderThird ? 'selected="selected"' : '' }}>
+                                Inter
+                             </option>
+                          </select>
+                       </div>
+
+                    </div>
+
+                    <div class="col-6">
+                       <div class="form-group">
+                          <label for="edit_user_form_lastName"
+                                 id="ProfileNachname_Label">Nachname</label>
+                          <input class="form-control"
+                                 type="text"
+                                 name="edit_user_form[lastName]"
+                                 id="edit_user_form_lastName"
+                                 placeholder="Nachname"
+                                 value="{{ user.lastName }}"
+                                 required/>
+                       </div>
+                    </div>
+                    <div class="col-6">
+                       <div class="form-group">
+                          <label for="edit_user_form_lastName"
+                                 id="ProfileNachname_Label">Vorname</label>
+                          <input class="form-control"
+                                 type="text"
+                                 name="edit_user_form[firstName]"
+                                 id="edit_user_form_firstName"
+                                 placeholder="Vorname"
+                                 value="{{ user.firstName }}"
+                                 required/>
+                       </div>
+                    </div>
+                    <div class="col-6">
+                       <div class="form-group">
+                          <label for="edit_user_form_familyStatus"
+                                 id="ProfileOrt_Label">Status</label>
+                          <select name="edit_user_form[familyStatus]"
+                                  id="edit_user_form_familyStatus"
+                                  class="form-control selectpicker">
+                             <option value=" ">Bitte w&auml;hlen</option>
+                             {% for familyState in familyStatus %}
+                                <option
+                                    value="{{ familyState.id }}" {{ familyState.id == user.familyStatus.id ? 'selected="selected"' : '' }}>
+                                   {{ familyState.name }}
+                                </option>
+                             {% endfor %}
+                          </select>
+                       </div>
+                    </div>
+
+                    <div class="col-6">
+                       <div class="form-group">
+                          <label for="edit_user_form_email" id="ProfileOrt_Label">E-Mail</label>
+                          <input class="form-control"
+                                 type="text"
+                                 name="edit_user_form[email]"
+                                 id="edit_user_form_email"
+                                 placeholder="E-Mail"
+                                 value="{{ user.email }}"
+                                 required/></div>
+
+                    </div>
+                    <div class="col-6">
+                       <div class="form-group">
+                          <label for="edit_user_form_jobGroup" id="ProfileOrt_Label">Beruf</label>
+                          <select name="edit_user_form[jobGroup]"
+                                  id="edit_user_form_jobGroup"
+                                  class="form-control selectpicker">
+                             <option value=" ">Bitte w&auml;hlen</option>
+                             {% for jobGroup in jobGroups %}
+                                <option
+                                    value="{{ jobGroup.id }}" {{ (not (user.jobGroup == null)) and jobGroup.id == user.jobGroup.id ? 'selected="selected"' : '' }}>
+                                   {{ jobGroup.name }}
+                                </option>
+                             {% endfor %}
+                          </select>
+                       </div>
+
+                    </div>
+                    <div class="col-6">
+                       <div class="form-group">
+                          <label for="edit_user_form_birthdate"
+                                 id="ProfileEmail_Label">Geburtsdatum</label>
+                          <input class="form-control"
+                                 type="text"
+                                 name="edit_user_form[birthdate]"
+                                 id="edit_user_form_birthdate"
+                                 placeholder="Geburtsdatum"
+                                 value="{{ user.birthdate }}"
+                                 required/>
+                       </div>
+                    </div>
+                    <div class="col-6">
+                       <div class="form-group">
+                          <label for="edit_user_form_phoneNumber"
+                                 id="ProfilePhone_Label">Mobilnummer</label> <input
+                              class="form-control"
+                              type="text"
+                              name="edit_user_form[phoneNumber]"
+                              id="edit_user_form_phoneNumber"
+                              placeholder="Mobilnummer"
+                              value="{{ user.phoneNumber }}"
+                              required/>
+                       </div>
+                    </div>
+                    <div class="col-6">
+                       <div class="form-group">
+                          <label for="edit_user_form_employer"
+                                 id="ProfilePhone_Label">Mobilnummer</label>
+                          <input class="form-control"
+                                 type="text"
+                                 name="edit_user_form[employer]"
+                                 id="edit_user_form_employer"
+                                 placeholder="Arbeitgeber"
+                                 value="{{ user.employer }}"/>
+                       </div>
+                    </div>
+
+                    <div class="col-6">
+                       <div class="radio" id="edit_user_form_isActive">
+                          <label for="edit_user_form_isActive" class="required">Account
+                             aktiviert</label><br>
+                          <input type="radio"
+                                 id="edit_user_form_isActive_1"
+                                 name="edit_user_form[isActive]"
+                                 required="required"
+                                 value="1"
+                              {{ user.isActive == 1 ? 'checked' : '' }}/>
+                          <label for="edit_user_form_isActive_1" class="required">Ja</label>
+
+                          <div class="radio">
+                             <input type="radio" class="radio"
+                                    id="edit_user_form_isActive_0"
+                                    name="edit_user_form[isActive]"
+                                    required="required"
+                                    value="0"
+                                 {{ user.isActive != 1 ? 'checked' : '' }}/>
+                             <label for="edit_user_form_isActive_0"
+                                    class="required">Nein</label>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="col-6">
+                       <div class="col-offset-1 col-6">
+                          <div class="radio" id="edit_user_form_isBlocked">
+                             <label for="edit_user_form_isBlocked" class="required">Account
+                                blockiert</label><br>
+                             <input type="radio"
+                                    id="edit_user_form_isBlocked_1"
+                                    name="edit_user_form[isBlocked]"
+                                    required="required"
+                                    value="1"
+                                 {{ user.isBlocked == 1 ? 'checked' : '' }}/>
+                             <label for="edit_user_form_isBlocked_1"
+                                    class="required">Ja</label>
+                          </div>
+                          <div class="radio">
+                             <input type="radio"
+                                    id="edit_user_form_isBlocked_0"
+                                    name="edit_user_form[isBlocked]"
+                                    required="required"
+                                    value="0"
+                                 {{ user.isBlocked != 1 ? 'checked' : '' }}/>
+                             <label for="edit_user_form_isBlocked_0"
+                                    class="required">Nein</label>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div class="col-12 text-left">
+                       <div class="row">
+                          <div class="col-6 text-left">
+                             <a href="{{ path('admin_manager', {
+                                'id' : user.id
+                             }) }}" id="edit_user_form_quit"
+                                name="edit_user_form[quit]"
+                                class="btn btn-lg btn-block mt-3">
+                                <span class="fas fa-times"></span>&nbsp;Abbrechen
+                             </a>
+                          </div>
+                          <div class="col-6 text-right">
+                             <button type="submit" id="edit_user_form_save"
+                                     name="edit_user_form[save]"
+                                     class="btn btn-lg btn-block mt-3">
+                                <span class="fas fa-check"></span>&nbsp;Daten speichern
+                             </button>
+                          </div>
+
+                          <div class="col-12">&nbsp;</div>
+                          <input class="form-control"
+                                 type="hidden"
+                                 name="edit_user_form[_token]"
+                                 id="edit_user_form__token"
+                                 value="{{ form._token.vars.value }}"/>
+                          <input class="form-control"
+                                 type="hidden"
+                                 name="edit_user_form[userName]"
+                                 id="edit_user_form_userName"
+                                 value="{{ form._token.vars.value }}"/>
+                       </div>
+                    </div>
+                 </div>
+              </form>
+           </div>
+        </div>
+     </div>
+
+   </section>
+
+
+{% endblock %}

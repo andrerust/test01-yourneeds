@@ -1,0 +1,50 @@
+{% extends 'static.mail.html.twig' %}
+
+{% block title %}YOURneeds projects{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+      <link rel="stylesheet" href="/build/yourneeds-admin.css"/>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+  {% endblock %}
+
+{% block content %}
+    <section id="profile">
+        <div id="content">
+            <div class="row no-gutters">
+                <div class="col-md-12" id="bg-result">
+                    <div class="horizontally-spacer25">&nbsp;</div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="container admin-content-box-title">
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group col-md-6 mb-3">
+                                            Hallo!
+                                            <br><br>
+                                            der Nutzer {{ user.firstName }} {{ user.lastName }} (id: {{ user.id }}), mit
+                                            der E-Mail: {{ user.email }} wurde
+                                            am/um {{ benefitPartner.updatedAt|date("d.m.Y H:m:s") }} für folgenden Benefit+
+                                            Partner
+                                            <br><br>
+                                            {{ benefitPartner.partnerType }} <br>
+                                            {{ benefitPartner.name }} {{ benefitPartner.department }}
+                                            <br><br>
+                                            als Ansprechpartner angemeldet.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

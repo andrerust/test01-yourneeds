@@ -1,0 +1,141 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds decide kind of damage{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+      <style>
+      </style>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+  {% endblock %}
+
+{% block content %}
+
+    <section class="content-body">
+        <div class="container">
+            <div class="row justify-content-start">
+                <div class="col-12 text-center pt-2">
+                    <h1 class="title1 title1--space">Übersicht Schadensmeldungen</h1>
+                </div>
+            </div>
+            <div class="row justify-content-start">
+                <div class="col-12 text-left">
+                    <a class="btn btn--cta" href="{{ path('damage_type_decision') }}">
+                        <i class="fas fa-plus fa-1x message"></i>&nbsp;&nbsp;<span>Neue Schadensmeldung</span>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 pt-2 text-left">
+                    &nbsp;&nbsp;
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="special-table table-responsive">
+                        <!--
+                    <div id="toolbar">
+                        <select class="form-control">
+                           <option value="">Export Basic</option>
+                           <option value="all">Export All</option>
+                           <option value="selected">Export Selected</option>
+                        </select>
+                        -->
+                    </div>
+                    <table class="table"
+                           id="table"
+                           data-toggle="table"
+                           data-toolbar="#toolbar"
+                           data-search="true"
+                           data-search-text=""
+                           data-show-columns="false"
+                           data-show-toggle="false"
+                           data-click-to-select="true"
+                           data-filter-control="false"
+                           data-filter-show-clear="false"
+                           data-show-export="false"
+                           data-pagination="true"
+                    >
+                        <thead>
+                        <tr>
+                            <!--
+                            <th data-field="operation" data-checkbox="true" data-sortable="true">&nbsp;</th>
+                             -->
+                            <th data-field="document_name" data-filter-control="input" data-sortable="true"
+                                data-editable="false" data-switchable="false">
+                                Dokument
+                            </th>
+                            <th data-field="last_update" data-filter-control="input" data-sortable="true">
+                                Gemeldet am
+                            </th>
+                            <th data-field="download" class="" data-sortable="true"
+                                data-switchable="false">
+                                Download
+                            </th>
+                            <th data-field="send_again" class="" data-sortable="true"
+                                data-switchable="false">
+                                Erneut senden
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if false == damageListIsEmpty %}
+                            {% for damage in damageList %}
+                                {% set counter = damage.id %}
+                                <tr>
+                                    <!--
+                        <td class="bs-checkbox">
+                            <input data-index="{{ counter }}" name="btSelectItem" type="checkbox">
+                        </td>
+                        -->
+                                    <td>
+                                        {{ damage.publicName }}
+                                    </td>
+                                    <td>
+                                        {{ damage.updatedAt }}
+                                    </td>
+                                    <td class="">
+                                        {% if null != damage.documentId %}
+                                            <a href="{{ path('document_download', {
+                                                'id': damage.documentId
+                                            }) }}" class="btn btn--cta">
+                                                Download
+                                            </a>
+                                        {% else %}
+                                            Kein Download verfügbar
+                                        {% endif %}
+                                    </td>
+                                    <td class="">
+                                        {% if null != damage.documentId %}
+                                            <a href="{{ path('document_send', {
+                                                'id': damage.documentId
+                                            }) }}" class="btn btn--cta">
+                                                per E-Mail
+                                            </a>
+                                            </a>
+                                        {% else %}
+                                            Kein Versenden verfügbar
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="text-center">
+                                    Noch keine Einträge
+                                </td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,300 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds admin company{% endblock %}
+
+  {% block stylesheets %}
+     {{ parent() }}
+     <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+  {% endblock %}
+
+  {% block javascripts %}
+     {{ parent() }}
+     <script src="/build/yourneeds-manager.js"></script>
+  {% endblock %}
+
+{% block content %}
+
+   <section class="content-body" id="admin-user">
+      <div class="container">
+        <div class="row justify-content-start">
+           <div class="col-12 text-center pt-2">
+              <h1 class="title1 title1--space">
+                 Übersicht Gesellschaftsdaten
+                 <button tabindex="0" class="btn btn-sm btn--help m0" role="button"
+                         data-toggle="info" title="Hilfe Gesellschaftsübersicht"
+                         data-content="In dieser Liste werden sämtliche Gesellschaften angezeigt. Über der Liste befinden sich Filter, Datenexport und Suche.">
+                    <i class="fas fa-info-circle"></i>
+                 </button>
+              </h1>
+           </div>
+        </div>
+        <div class="row">
+           <div class="col-6">
+              <div class="container-fluid">
+                 <div class="text-box">
+                    <div class="row">
+                       <div class="col-12">
+                    <span class="logo-image">
+                      {% if company.logo is defined and not (company.logo is null) %}
+                         <img src="{{ asset("uploads/logos/") }}{{ company.logo }}"
+                              class="img-thumbnail"/>
+                      {% else %}
+                         {% set picture = 'avatar-girl.png' %}
+                         <img src="{{ asset("uploads/logos/") }}{{ picture }}"
+                              class="img-thumbnail"/>
+                      {% endif %}
+                    </span>
+                       </div>
+                    </div>
+                    <div class="row">
+                       <div class="col-12">
+                          <div class="horizontally-spacer25">&nbsp;</div>
+                          <ul class="list-group">
+
+                             <li class="list-group-item">
+                                Sichtbarer Name der Gesellschaft: {{ company.publicName }}
+                             </li>
+                             <li class="list-group-item">
+                                Abteilung: {{ company.department }}
+                             </li>
+                             <li class="list-group-item">
+                                Ansprechpartner: {{ company.contactPerson }}
+                             </li>
+                             <li class="list-group-item">
+                                Fax: {{ company.faxNumber }}
+                             </li>
+                             <li class="list-group-item">
+                                Fax: {{ company.website }}
+                             </li>
+                             <li class="list-group-item">
+                                <hr>
+                             </li>
+                             <li class="list-group-item">
+                                TelNr. Allgemein (Hotline): {{ company.phoneNumberGeneral }}
+                             </li>
+                             <li class="list-group-item">
+                                TelNr. Schaden Allgemein: {{ company.phoneDamageReportGeneral }}
+                             </li>
+                             <li class="list-group-item">
+                                TelNr. Schaden Kfz: {{ company.phoneDamageReportCar }}
+                             </li>
+                             <li class="list-group-item">
+                                TelNr. Schaden RS: {{ company.phoneDamageReportLaw }}
+                             </li>
+                             <li class="list-group-item">
+                                TelNr. Schaden KV: {{ company.phoneDamageReportHealth }}
+                             </li>
+                             <li class="list-group-item">
+                                <hr>
+                             </li>
+                             <li class="list-group-item">
+                                E-Mail Allgemein: {{ company.emailGeneral }}
+                             </li>
+                             <li class="list-group-item">
+                                E-Mail Antrag (Vermittlerservice): {{ company.emailBrokerService }}
+                             </li>
+                             <li class="list-group-item">
+                                E-Mail Bestandsübertragung: {{ company.emailTransfer }}
+                             </li>
+                             <li class="list-group-item">
+                                E-Mail Schaden: {{ company.emailDamageReport }}
+                             </li>
+                             <li class="list-group-item">
+                                <hr>
+                             </li>
+                             <li class="list-group-item">
+                                Gesellschaft aktiviert:
+                                {% if company.isActive == 1 %}
+                                   <span class="label label-success"><i
+                                          class="fas fa-check"></i></span>
+                                {% else %}
+                                   <span class="label label-danger"><i
+                                          class="fas fa-times"></i></span>
+                                {% endif %}
+                             </li>
+                             <li class="list-group-item">
+                                <div class="row">
+                                   <div class="col-6">
+                                      &nbsp;
+                                   </div>
+
+                                   <div class="col-6 text-right">
+                                      <a class="" href="{{ path('admin_company_edit', {
+                                         'id': company.id
+                                      }) }}">
+                                         <i class="fas fa-pencil-alt fa-1x message"></i>&nbsp;&nbsp;<span>Editieren</span>
+                                      </a>
+                                   </div>
+                                </div>
+                             </li>
+                          </ul>
+                       </div>
+                    </div>
+                    <div class="row">
+                       <div class="col-12">
+                          <div class="text-box">
+                             <h2 class="title2 title2--space">Interne Informationen</h2>
+
+                             <div class="row text-left">
+                                <div class="col-12">
+                                   <div class="horizontally-spacer10">&nbsp;</div>
+                                   <ul class="list-group">
+
+                                      <li class="list-group-item">
+                                         Pin zur Courtageabrechnung: {{ company.brokerCourtagePin }}
+                                      </li>
+                                      <li class="list-group-item">
+                                         Link zum Maklerportal: {{ company.linkBrokerPortal }}
+                                      </li>
+                                      <li class="list-group-item">
+                                         Benutzername
+                                         Maklerportal: {{ company.brokerPortalUsername }}
+                                      </li>
+                                      <li class="list-group-item">
+                                         Passwort Maklerportal: {{ company.brokerPortalPassword }}
+                                      </li>
+                                      <li class="list-group-item">
+                                         E-Mail Provision: {{ company.emailProvisions }}
+                                      </li>
+                                      <li class="list-group-item">
+                                         MBP Vermittlernummer: {{ company.mbpBrokerNo }}
+                                      </li>
+                                      <li class="list-group-item">
+                                         <div class="row">
+                                            <div class="col-6">
+                                               &nbsp;
+                                            </div>
+
+                                            <div class="col-6 text-right">
+                                               <a class="" href="{{ path('admin_company_edit', {
+                                                  'id': company.id
+                                               }) }}">
+
+                                                  <i class="fas fa-pencil-alt fa-1x message"></i>&nbsp;&nbsp;<span>Editieren</span>
+                                               </a>
+                                            </div>
+                                         </div>
+                                      </li>
+                                   </ul>
+                                </div>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+           <div class="col-md-6">
+              <div class="row">
+                 <div class="col-12">
+                    <div class="text-box">
+                       <div class="horizontally-spacer10">&nbsp;</div>
+                       <div class="row">
+                          <div class="col-12">
+                             <h2 class="title2 title2--space">Adressen</h2>
+                          </div>
+                       </div>
+                       <div class="row">
+                          <div class="col-6">
+                          </div>
+                          <div class="col-6 text-right">
+                             <a class="" href="{{ path('admin_address_new', {
+                                'type': 'company',
+                                'sourceId': company.id
+                             }) }}">
+                                <i class="fas fa-plus fa-1x message"></i>&nbsp<span>Neue Adresse</span>
+                             </a>
+                          </div>
+                       </div>
+
+                       {% if company.addresses is defined and not (company.addresses is null) and not (company.addresses is empty) %}
+                       {% for address in company.addresses %}
+                          <div class="row text-left">
+                             <div class="col-12">
+                                <div class="horizontally-spacer10">&nbsp;</div>
+                                <h3 class="title3 title3--space">
+                                   {% if not (address.type is empty) %}
+                                      Typ: {{ address.type.name }}
+                                   {% else %}
+                                      Kein Adresstyp festgelegt
+                                   {% endif %}
+                                </h3>
+                                <ul class="list-group">
+                                   <li class="list-group-item">
+                                      Straße/NH: {{ address.street }} {{ address.streetNumber }}
+                                   </li>
+                                   <li class="list-group-item">
+                                      PLZ/Ort: {{ address.postalCode }} {{ address.city.name }}
+                                   </li>
+                                   <li class="list-group-item">
+                                      Land: {{ address.country.name }}
+                                   </li>
+                                   <li class="list-group-item">
+                                      <div class="row">
+                                         <div class="col-md-6">
+                                            De-/Aktiviert/:
+                                            {% if address.isActive == 1 %}
+                                               <span class="label label-success"><i
+                                                      class="fas fa-check"></i></span>
+                                            {% else %}
+                                               <span class="label label-danger"><i
+                                                      class="fas fa-times"></i></span>
+                                            {% endif %}
+                                         </div>
+                                         <div class="col-md-6">
+                                            Admin Blockiert:
+                                            {% if address.isBlocked== 1 %}
+                                               <span class="label label-success"><i
+                                                      class="fas fa-check"></i></span>
+                                            {% else %}
+                                               <span class="label label-danger"><i
+                                                      class="fas fa-times"></i></span>
+                                            {% endif %}
+                                         </div>
+                                      </div>
+                                   </li>
+                                   <li class="list-group-item">
+                                      <div class="row">
+                                         <div class="col-6">
+                                            <!--<div class="horizontally-spacer25">&nbsp;</div>-->
+                                            <a class="" href="{{ path('admin_address_delete', {
+                                               'id': address.id
+                                            }) }}"
+                                               onclick="return confirm('Wirklich löschen?');">
+
+                                               <i class="fas fa-times fa-1x message"></i>&nbsp;&nbsp;<span>Löschen</span>
+                                            </a>
+                                         </div>
+
+                                         <div class="col-6">
+                                            <a class="" href="{{ path('admin_address_edit', {
+                                               'type': 'company',
+                                               'id': address.id
+                                            }) }}">
+
+                                               <i class="fas fa-pencil-alt fa-1x message"></i>&nbsp;&nbsp;<span>Editieren</span>
+                                            </a>
+                                         </div>
+                                      </div>
+                                   </li>
+                                </ul>
+                             </div>
+                          </div>
+                       {% endfor %}
+                       {% else %}
+                       <div class="row text-left">
+                          <div class="col-12">
+                             <div class="horizontally-spacer10">&nbsp;</div>
+                                   - Keine Adressen angelegt
+                          </div>
+                          {% endif %}
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+   </section>
+
+{% endblock %}

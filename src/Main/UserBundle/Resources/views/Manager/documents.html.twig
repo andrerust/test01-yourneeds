@@ -1,0 +1,119 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds user profil{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+  {% endblock %}
+
+{% block content %}
+
+    <section class="content-body">
+        <div class="container">
+            <div class="row justify-content-start">
+                <div class="col-12 text-center pt-2">
+                    <h1 class="title1 title1--space">Übersicht Dokumente</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-left">
+                    <a class="btn btn--cta" href="{{ path('manager_documents') }}">
+                        <i class="fas fa-plus fa-1x message"></i>&nbsp;&nbsp;<span>Neues Dokument hochladen (inaktiv)</span>
+                    </a>
+                </div>
+            </div>
+            <div class="special-table mt-md-3">
+                <div id="toolbar">
+                    <!--
+                    <select class="form-control">
+                       <option value="">Export Basic</option>
+                       <option value="all">Export All</option>
+                       <option value="selected">Export Selected</option>
+                    </select>
+                    -->
+                </div>
+                <table class="table"
+                       id="table"
+                       data-toggle="table"
+                       data-toolbar="#toolbar"
+                       data-search="true"
+                       data-search-text=""
+                       data-show-columns="false"
+                       data-show-toggle="false"
+                       data-click-to-select="true"
+                       data-filter-control="false"
+                       data-filter-show-clear="false"
+                       data-show-export="false"
+                       data-pagination="true"
+                        >
+                    <thead>
+                    <tr>
+                        <!--
+                        <th data-field="operation" data-checkbox="true" data-sortable="true">&nbsp;</th>
+                         -->
+                        <th data-field="type" data-filter-control="input" data-sortable="true"
+                            data-editable="false" data-switchable="false">Typ
+                        </th>
+                        <th data-field="document" data-filter-control="input" data-sortable="true"
+                            data-editable="false" data-switchable="false">Dokument
+                        </th>
+                        <th data-field="document" data-filter-control="input" data-sortable="true"
+                            data-editable="false" data-switchable="false">Angelegt am
+                        </th>
+                        <th data-field="download" class="text-center" data-sortable="true"
+                            data-switchable="false">
+                            Download
+                        </th>
+                        <th data-field="send_again" class="text-center" data-sortable="true"
+                            data-switchable="false">
+                            Erneut senden
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for document in documentList %}
+                        {% set counter = document.id %}
+                        <tr>
+                            <!--
+                            <td class="bs-checkbox">
+                                <input data-index="{{ counter }}" name="btSelectItem" type="checkbox">
+                            </td>
+                            -->
+                            <td>
+                                {{ document.documentTypeName }}
+                            </td>
+                            <td class="text-left">
+                                {{ document.name }}
+                            </td>
+                            <td>
+                                {{ document.updatedAt }}
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ path('document_download', {
+                                    'id': document.id
+                                }) }}" class="btn btn--cta">
+                                    Download
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ path('document_send', {
+                                    'id': document.id
+                                }) }}" class="btn btn--cta">
+                                    per E-Mail
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

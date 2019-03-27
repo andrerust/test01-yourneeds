@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/build/static/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/build/static/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/build/static/images/favicon-16x16.png">
+    <link rel="manifest" href="/build/static/images/site.webmanifest">
+    <link rel="mask-icon" href="/build/static/images/safari-pinned-tab.svg" color="#74b959">
+    <link rel="shortcut icon" href="/build/static/images/favicon.ico">
+    <meta name="msapplication-TileColor" content="#74b959">
+    <meta name="msapplication-config" content="/build/static/images/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+
+    <meta property="og:image:width" content="1600">
+    <meta property="og:image:height" content="1365">
+    <meta property="og:description"
+          content="Mit YOURneeds hast du deinen Versicherungsmanager in deiner Hosentasche oder Handtasche und schonst die Umwelt. Erstaunlich, was wir gemeinsam sparen k&ouml;nnen!">
+    <meta property="og:title" content="Versichere dich selbst! &ndash; YOURneeds Versicherungsmakler GmbH">
+    <meta property="og:url" content="https://www.nachhaltigkeit-versicherung.de">
+    <meta property="og:image" content="/build/static/images/family.jpg">
+
+    <meta name="description"
+          content="Mit YOURneeds hast du deinen Versicherungsmanager in deiner Hosentasche oder Handtasche und schonst die Umwelt. Erstaunlich, was wir gemeinsam sparen k&ouml;nnen!">
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+
+    <title>
+        {% block title %}Versichere Dich selbst! – YOURneeds GmbH{% endblock %}
+    </title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="/build/yourneeds-base.css"/>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.6.3/css/all.css"
+              integrity="sha384-LRlmVvLKVApDVGuspQFnRQJjkv0P7/YFrw84YYQtmYG4nK8c+M+NlmYDCv0rKWpG"
+              crossorigin="anonymous">
+        <style>
+            .description a {
+                padding: 10px;
+            }
+
+            .description i {
+                width: 25px;
+                height: auto;
+            }
+
+        </style>
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="/build/libs/popper.min.js" crossorigin="anonymous"></script>
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <script src="/build/yourneeds-base.js"></script>
+    {% endblock %}
+</head>
+<!--<body onresize="checkSize()">-->
+<body>
+<script>
+
+</script>
+{% if app.environment == 'dev' %}
+    <h3 style="position:absolute; top: 0;left:0; color: #cccccc;z-index: 500000;">DEV-Environment</h3>
+{% elseif app.environment == 'test' %}
+    <h3 style="position:absolute; top: 0;left:0; color: #cccccc;z-index: 500000;">TEST-Environment</h3>
+{% elseif app.environment == 'prod' %}
+    <h3 style="position:absolute; top: 0;left:0; color: #cccccc;z-index: 500000;"></h3>
+{% endif %}
+{% set _path = app.request.get('_controller')|split(':') %}
+{% set controller = _path[0] %}
+{% include 'includes/home.header.html.twig' %}
+{% block content %}{% endblock %}
+{% if controller != 'AppBundle\Controller\MainController' and is_granted('ROLE_USER') %}
+    <div class="mobilerow">
+        <a href="{{ path('manager_home') }}">
+            <i class="fas fa-home fa-fw"></i>
+        </a>
+        <a href="{{ path('manager_choose_survey') }}">
+            <i class="fas fa-bullseye-pointer fa-fw"></i>
+        </a>
+        <a href="{{ path('contract_new') }}">
+            <i class="fas fa-plus-circle fa-fw"></i>
+        </a>
+        <a href="{{ path('show_damages') }}">
+            <i class="fas fa-car-crash fa-fw"></i>
+        </a>
+        <a href="javascript:void(0);" data-yn-toggle-col-menu>
+            <i class="fas fa-bars fa-fw"></i>
+        </a>
+    </div>
+{% endif %}
+</body>
+</html>

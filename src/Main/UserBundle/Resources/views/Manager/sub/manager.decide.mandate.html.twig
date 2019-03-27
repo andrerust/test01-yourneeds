@@ -1,0 +1,256 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds sign mandate{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+      <style>
+          .signature-pad {
+              background-color: #FFFFFF;
+          }
+
+          #proceed-text {
+              visibility: hidden;
+          }
+
+          .hidden {
+              visibility: hidden;
+          }
+
+          .visible {
+              visibility: visible;
+          }
+
+          canvas {
+              width: 640px;
+              height: 480px;
+          }
+      </style>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+      <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+
+      <script>
+          function attachLink(userId, documentName) {
+              var str = "Unterzeichnetes Mandat hier herunterladen";
+              var result = str.link("/manager/" + userId + "/document/download/" + documentName);
+              document.getElementById("downloadLink").innerHTML = result;
+              console.log(result);
+          }
+
+          saveSign = function (json) {
+              {% if null != redirectLink and 'contract' == redirectLink %}
+              var url = "{{ path('manager_contract_sign_mandate_save', {'type': type}) }}";
+              {% else %}
+              var url = "{{ path('manager_sign_mandate_save', {'type': type, 'tariffId': tariffId}) }}";
+              //window.location.href = "/manager/{{ type }}/result/{{ tariffId }}";
+              {% endif %}
+              //var url = "/manager/mandate/save/{{ type }}/{{ tariffId }}";
+              //console.log("saveSurvey called with url:" + url + " successful");
+              var url2 = "{{ projectDir }}";
+              //console.log("Json: " + json);
+              $.ajax({
+                  type: "PUT",
+                  contentType: 'application/json',
+                  url: url,
+                  dataType: 'json',
+                  cache: false,
+                  data: JSON.stringify({
+                      sign: json
+                  }),
+                  error: function (data) {
+                      //console.log("Result: Mist!");
+                  },
+                  success: function (data) {
+                      if (data.status == 200) {
+                          $(".proceed-hide-btn").addClass("hidden");
+                          $(".proceed-show-btn").addClass("visible");
+                          //attachLink(data.pathUserId, data.documentName);
+                          $("#save-sign").addClass("hidden");
+                          $("#proceed-text").removeClass("hidden");
+                          $("#clear-text").addClass("hidden");
+                          $("#proceed-text").addClass("visible");
+
+                          {% if null != redirectLink and 'contract' == redirectLink %}
+                          window.location.href = "{{ path('contract_new_mail', {'id': id}) }}";
+                          {% else %}
+                          //window.location.href = "{{ path('contracts', {'type': type, 'tariffId': tariffId}) }}";
+                          window.location.href = "/manager/{{ type }}/result/{{ tariffId }}";
+                          {% endif %}
+                          //console.log(lastId);
+                      }
+                  }
+              })
+          }
+      </script>
+  {% endblock %}
+
+{% block content %}
+
+    <section class="content-body">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12 text-center pt-2">
+                    <h1 class="title1 title1--space">
+                        <span class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span
+                                class="color-brown">needs</span>&nbsp;Maklermandat
+                    </h1>
+                </div>
+            </div>
+            <div class="row justify-content-start">
+                <div class="col-12 text-center pt-2">
+                    {% set insuranceTitle = '' %}
+                    {% if type == 'pli' %}
+                        {% set insuranceTitle = 'Privathaftpflicht' %}
+                    {% elseif type == 'hci' %}
+                        {% set insuranceTitle = 'Hausrat' %}
+                    {% elseif type == 'lpi' %}
+                        {% set insuranceTitle = 'Rechtsschutz' %}
+                    {% elseif type == 'rbi' %}
+                        {% set insuranceTitle = 'Wohngebäude' %}
+                    {% elseif type == 'aci' %}
+                        {% set insuranceTitle = 'Unfall' %}
+                    {% elseif type == 'ali' %}
+                        {% set insuranceTitle = 'Tierhalterhaftplicht' %}
+                    {% endif %}
+                    <!--
+                    <h1 class="title1 title1--space">{{ insuranceTitle }}</h1>
+                    -->
+                    <span class="textgreen">
+                 Nur noch der letzte Schritt!
+                            </span>
+                    Damit du YOURneeds aktiv nutzen kannst, brauchen wir deine Unterschrift unter der Maklervollmacht.
+                    <br>
+                    Mit deiner Unterschrift zum Maklermandat erlaubst du uns deinen Vertrag rechtlich im System zu
+                    führen und diesen zu betreuen.
+                    Du kannst das Maklermandat anschließend im Kundenordner sehen.
+                    <br>Ein Muster des Maklermandats findest du <a href="/documents/yourneeds_mandatsmuster.pdf"
+                                                                   target="_blank">> hier < </a>.
+                    <br>
+                    <br>
+                    </span>
+                    <br>
+                    <hr>
+                    <br>
+                    </span>
+                </div>
+            </div>
+            <div class="row justify-content-start">
+
+                <div class="col-12 text-center">
+                    <div class="container-fluid text-center">
+                        <div class="row justify-content-start">
+                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs justify-content-start">
+                                &nbsp;
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 justify-content-start">
+                                <div class="wrapper justify-content-start">
+                                    <canvas id="signature-pad" class="signature-pad" width="640"
+                                            height="480" style="text-align: center">
+                                    </canvas>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs justify-content-start">
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div class="row">
+                            <br>
+                            <br>
+                            <hr>
+                        </div>
+                        <div class="row proceed-hide-btn">
+                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs justify-content-start">
+                                &nbsp;
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 justify-content-start">
+                                <div class="row">
+                                    <div class="col-12" id="proceed-text">
+                                        {% if null != redirectLink and 'contract' == redirectLink %}
+                                            Wir leiten Dich zu Deinen Verträgen und Dokumenten weiter.
+                                        {% else %}
+                                            Das Mandat befindet sich nun in deinen Dokumenten.<br>
+                                            Bitte habe etwas Geduld. Wir kalkulieren das Ergebnis.
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 text-left">
+                                        <button id="clear" class="btn btn--cta">
+                                            Inhalt löschen
+                                        </button>
+                                    </div>
+                                    <div class="col-5 text-right">
+                                        <button id="save-sign" class="btn btn--cta">
+                                            Weiter zum Ergebnis
+                                        </button>
+                                    </div>
+                                    <div class="col-1 text-right">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs justify-content-start">
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div class="row">
+                            <br>
+                            <hr>
+                        </div>
+                        <!--
+                        <div class="row proceed-show-btn">
+                            <div class="col-6">
+                                <p style="margin-top: 10px;" id="downloadLink"></p>
+                            </div>
+                            <div class="col-5">
+                                <a href="{{ path('manager_show_result', {
+                            'type': type,
+                            'tariffId': tariffId
+                        }) }}" id="survey-proceed-button" class="btn btn--cta">
+                         <span>
+                            Zum Antrag
+                         </span>
+                                </a>
+                            </div>
+                            <div class="col-1">
+                                &nbsp;
+                            </div>
+                        </div>
+                        -->
+
+                        <script>
+
+                            var signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
+                                backgroundColor: 'rgba(255, 255, 255, 0)',
+                                penColor: 'rgb(0, 0, 0)'
+                            });
+                            var saveButton = document.getElementById('save-sign');
+                            var cancelButton = document.getElementById('clear');
+
+                            saveButton.addEventListener('click', function (event) {
+                                if (signaturePad.isEmpty()) {
+                                    return alert("Bitte unterzeichne bevor du weiter gehst!");
+                                }
+
+                                var data = signaturePad.toDataURL('image/png');
+                                //console.log(data);
+                                saveSign(data);
+                            });
+
+                            cancelButton.addEventListener('click', function (event) {
+                                signaturePad.clear();
+                            });
+
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

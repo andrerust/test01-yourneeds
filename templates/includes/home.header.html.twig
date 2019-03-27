@@ -1,0 +1,64 @@
+<!--
+<aside class="mobilemenu" data-yn-mobilemenu>
+    <div class="container">
+        <div class="close">
+            <a href="#" class="d-sm-none color-grey no-hover-underline" data-yn-toggle-mobilemenu>
+                <i class="fas fa-times"></i>
+            </a>
+        </div>
+        <a href="#beamanager" class="title1" data-yn-toggle-mobilemenu>Vorteile</a>
+        <a href="#sustainability" class="title1" data-yn-toggle-mobilemenu>Nachhaltigkeit</a>
+        <a href="#app" class="title1" data-yn-toggle-mobilemenu>Die App</a>
+        <a href="#" class="color-grey title1" data-yn-toggle-mobilemenu>Benefit+</a>
+        <a href="{{ path('security_login') }}" class="title1 btn btn--cta mt-2 mt-sm-5">Anmelden</a>
+        <a href="{{ path('page_imprint') }}" class="title1 mt-3 mt-sm-5">Impressum</a>
+    </div>
+</aside>
+-->
+<header class="negative">
+    <div class="container">
+        <div class="row">
+            <div class="col-5 d-none d-md-flex vertical-align-middle">
+                <nav>
+                    <a href="#benefits">Vorteile</a>
+                    <a href="#sustainability">Nachhaltigkeit</a>
+                    <a href="#app">Mobil</a>
+                </nav>
+            </div>
+            <div class="col-6 col-md-2 vertical-align-middle text-center">
+                <a href="{{ path('homepage') }}" class="logo-link">
+                    <img src="/build/static/images/yourneeds-logo-white.png" class="d-none d-sm-block"
+                         data-yn-logo-main>
+                    <img src="/build/static/images/yourneeds-logo-color.png" class="d-sm-none">
+                </a>
+            </div>
+            <div class="col-6 col-md-5 vertical-align-middle text-right">
+                <nav>
+                    <a href="{{ path('benefitplus_greetings') }}"
+                       class="d-none d-sm-inline-block color-grey">Benefit+</a>
+                    {% if not (user is null) and not (user.id is null) %}
+                        {% if is_granted('ROLE_USER') %}
+                            <a href="{{ path('manager_home', {
+                            }) }}" class=""><i class="fas fa-home fa-fw"></i> My Home
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                    {% if not (user is null) and not (user.id is null) %}
+                        {% if is_granted('ROLE_USER') %}
+                            <a href="{{ path('security_logout') }}" class="">
+                                <i class="fas fa-sign-out-alt fa-fw"></i> Abmelden
+                            </a>
+                        {% endif %}
+                    {% else %}
+                        <a href="{{ path('security_login') }}" class="btn btn--cta ml-sm-3">
+                            <i class="fas fa-sign-in-alt fa-fw"></i> Anmelden
+                        </a>
+                    {% endif %}
+                    <a href="#" class="d-sm-none ml-3 color-grey no-hover-underline" data-yn-toggle-mobilemenu>
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>

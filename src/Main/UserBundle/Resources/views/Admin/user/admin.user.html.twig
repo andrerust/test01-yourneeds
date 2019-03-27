@@ -1,0 +1,548 @@
+{% extends '@MainAdminBundle/_admin.main.html.twig' %}
+
+{% block title %}YOURneeds admin user{% endblock %}
+
+  {% block stylesheets %}
+     {{ parent() }}
+     <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+     <link rel="stylesheet" href="{{ asset('build/yourneeds-admin.css') }}"/>
+  {% endblock %}
+
+  {% block javascripts %}
+     {{ parent() }}
+     <script src="{{ asset('build/yourneeds-admin.js') }}"></script>
+  {% endblock %}
+
+{% block content %}
+   <section id="admin-detail">
+      <div id="page-box">
+         <div class="container">
+            <div class="row">
+               <div class="well well-sm">
+                  <legend>Nutzerprofil/Detailansicht</legend>
+                  <!--<a href="#" id="username">superuser</a>-->
+                  <div class="container-fluid">
+                     {% if resultUser.note is defined and not (resultUser.note is null) %}
+                        <div class="row">
+                           <div class="col-sm-4 col-md-4 col-lg-4">
+                              <button class="btn" data-toggle="collapse" data-target="#notes">
+                                 <i class="fas fa-info-circle"></i>&nbsp;&nbsp;Notizen
+                              </button>
+                           </div>
+                           <div class="col-sm-8 col-md-8 col-lg-8">
+
+                              <div class="collapse" id="notes">
+                                 <div class="container-fluid">
+                                    <div class="row">
+                                       <div class="special-table">
+                                          <div class="toolbar">
+                                             <div class="row">
+                                                <div class="col-sm-6 col-md-6 col-lg-6">
+                                                   <h3 class="title3 title3--space">Notizen</h3>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <table class="table"
+                                                 id="table-note"
+                                                 data-toggle="table">
+                                             <thead>
+                                             <tr>
+                                                <th>
+                                                   <h5>Hier findest du die allgemeinen Notizen zum Kunden</h5>
+                                                </th>
+                                             </tr>
+                                             </thead>
+                                             <tbody>
+                                             <tr>
+                                                <td>
+                                                   <p>{{ resultUser.note }}</p>
+                                                </td>
+                                             </tr>
+                                             </tbody>
+                                             <tfoot>
+                                             <tr>
+                                                <td>&nbsp;</td>
+                                             </tr>
+                                             </tfoot>
+                                          </table>
+
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     {% endif %}
+                     <div class="row">
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                           <div class="container-fluid">
+                              <div class="row">
+                                 <div class="card-wrapper">
+                                    <div class="point"></div>
+                                    <div class="line line-left"></div>
+                                    <div class="line line-right"></div>
+                                    <!-- card -->
+                                    <div class="detail-card">
+                                       <div class="detail">
+                                          <div class="row">
+                                             <div class="col-md-3">
+                                                <div class="profil-image">
+                                                   {% if resultUser.profilePicture is defined and not (resultUser.profilePicture is null) %}
+                                                      <img
+                                                          src="{{ asset("uploads/profiles/") }}{{ resultUser.profilePicture }}"
+                                                          class="img-thumbnail"/>
+                                                   {% else %}
+                                                      {% set picture = null %}
+                                                      {% if resultUser.gender == 1 %}
+                                                         {% set picture = 'avatar-boy.png' %}
+                                                      {% elseif resultUser.gender == 2 %}
+                                                         {% set picture = 'avatar-girl.png' %}
+                                                      {% elseif resultUser.gender == 3 %}
+                                                         {% set picture = 'avatar-girl.png' %}
+                                                      {% endif %}
+                                                      <img src="{{ asset("images/static/placeholder/") }}{{ picture }}"
+                                                           class="img-thumbnail"/>
+                                                   {% endif %}
+                                                </div>
+                                             </div>
+                                             <div class="col-md-9">
+                                                <h3 class="title3 title3--space">
+                                                   {{ gender }}
+                                                   {% if userTitle is defined and not (userTitle is null) %}
+                                                      {{ userTitle.titleName }}
+                                                   {% endif %}
+                                                   {{ resultUser.firstName }} {{ resultUser.lastName }}</h3>
+                                                <h5>
+                                                   Job:
+                                                   {% if jobGroup is defined and not (jobGroup is null) and not (jobGroup is empty) %}
+                                                      {{ jobGroup.jobGroupName }}
+                                                   {% else %}
+                                                      <span class="missing">nicht angegeben</span>
+                                                   {% endif %}
+                                                </h5>
+
+                                                <p>
+                                                   E-Mail: {{ resultUser.email }}<br>
+                                                   Telefon: {{ resultUser.phoneNumber }}
+                                                </p>
+
+                                                <p>Registriert:{{ resultUser.createdAt }}<br>
+                                                   Aktualisiert: {{ resultUser.updatedAt }}</p>
+
+                                                <div class="row">
+                                                   <div class="col-sm-5 col-md-5 col-lg-5">
+                                                      <div class="status">
+                                                         {% if resultUser.isActive == true %}
+                                                            <span class="label label-success"><i
+                                                                   class="fas fa-check"></i> ist aktiviert</span>
+                                                         {% elseif resultUser.isActive == false %}
+                                                            <span class="label label-danger"><i
+                                                                   class="fas fa-minus"></i> ist nicht aktiviert</span>
+                                                         {% endif %}
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-sm-7 col-md-7 col-lg-7">
+                                                      <div class="status">
+                                                         {% if resultUser.isBlocked == false %}
+                                                            <span class="label label-success"><i
+                                                                   class="fas fa-check"></i> ist nicht blockiert</span>
+                                                         {% elseif resultUser.isBlocked == true %}
+                                                            <span class="label label-danger"><i
+                                                                   class="fas fa-ban"></i> ist blockiert</span>
+                                                         {% endif %}
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          <div class="row">
+                                             <div class="btn-spacer"></div>
+                                          </div>
+                                          <div class="row">
+                                             <div class="col-sm-4 col-md-4 col-lg-4 text-left">
+                                                <a class="btn" href="mailto:{{ resultUser.email }}">
+                                                   <i class="fas fa-envelope fa-2x message"></i>&nbsp;<span>senden (*)</span>
+                                                </a>
+                                             </div>
+                                             <div class="col-sm-4 col-md-4 col-lg-4">
+                                                &nbsp;
+                                             </div>
+                                             <div class="col-sm-4 col-md-4 col-lg-4 text-right">
+                                                <a class="btn" href="{{ path('admin_user_id_edit', {
+                                                   'id': resultUser.id
+                                                }) }}">
+
+                                                   <i class="fas fa-pencil-alt fa-2x message"></i>&nbsp;<span>Editieren</span>
+                                                </a>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <!-- /card -->
+                                 </div>
+                              </div>
+                              <div class="row">
+                                 <div class="user-achievements">
+                                    <div class="detail-card">
+                                       <div class="detail">
+                                          <div class="row text-center">
+                                             <h4 class="title4 title4--space">Achievements</h4>
+                                          </div>
+                                          <div class="row">
+                                             <!-- < ACHIEVEMENTS CONTENT -->
+                                             {% if achievements is defined and not (achievements is null) and not (achievements is empty) %}
+                                                {% for achievement in achievements %}
+
+                                                   {% if loop.index is divisible by(3) %}
+                                                      <div class="row">
+                                                      <div class="col-md-3">
+                                                   {% else %}
+                                                      <div class="col-md-3">
+                                                   {% endif %}
+
+                                                   <div class="achievement-image">
+                                                      {% if achievement.mainImage is defined and not (achievement.mainImage is null) %}
+                                                         <img
+                                                             src="{{ asset("images/achievements/") }}{{ achievement.mainImage }}"
+                                                             class="img-thumbnail"/>
+                                                      {% endif %}
+                                                   </div>
+
+                                                   {% if loop.index is divisible by(3) %}
+                                                      <!-- close row -->
+                                                      </div>
+                                                      </div>
+                                                   {% else %}
+                                                      <!-- close column -->
+                                                      </div>
+                                                   {% endif %}
+                                                {% endfor %}
+                                             {% else %}
+                                                <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+                                                   <span class="missing">Noch keine eine Errungenschaften</span>
+                                                </div>
+                                             {% endif %}
+                                             <!-- > ACHIEVEMENTS CONTENT -->
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-sm-8 col-md-8 col-lg-8">
+                           <div class="container-fluid">
+                              <div class="row">
+                                 <div class="special-table sub">
+                                    <div class="toolbar">
+                                       <div class="row">
+                                          <div class="col-sm-6 col-md-6 col-lg-6">
+                                             <h3 class="title3 title3--space">Adresse</h3>
+                                          </div>
+                                          <div class="col-sm-6 col-md-6 col-lg-6 text-right updated">
+                                             <h5>Aktualisiert am
+                                                {% if address is defined and not (address is null) %}
+                                                   {{ address.updatedAt }}
+                                                {% else %}
+                                                   <td>
+                                                      ---
+                                                   </td>
+                                                {% endif %}
+                                             </h5>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <table class="table"
+                                           id="table-address"
+                                           data-toggle="table"
+                                           data-toolbar="#toolbar"
+                                           data-search="false"
+                                           data-click-to-select="false"
+                                           data-filter-control="false"
+                                           data-filter-show-clear="false"
+                                           data-show-export="false"
+                                           data-pagination="false"
+                                        >
+                                       <thead>
+                                       <tr>
+                                          <th><h4 class="title4 title4--space">Attribut</h4></th>
+                                          <th><h4 class="title4 title4--space">Wert</h4></th>
+                                       </tr>
+                                       </thead>
+                                       <tbody>
+                                       <tr>
+                                          <!-- < ADDRESS CONTENT -->
+                                          {% if address is defined and not (address is null) %}
+                                          <td><p>Stra&szlig;e und Hausnummer:</p></td>
+                                          <td><p>{{ address.street }} {{ address.streetNumber }}</p></td>
+                                       </tr>
+                                       <tr>
+                                          <td><p>PLZ:</td>
+                                          <td><p>{{ address.postalCode }}</p></td>
+                                       </tr>
+                                       <tr>
+                                          <td><p>Stadt:</td>
+                                          <td><p>{{ address.cityName }}</p></td>
+                                       </tr>
+                                       {% set flag = null %}
+                                       {% if address.countryName == 'Deutschland' %}
+                                          {% set flag = 'de' %}
+                                       {% elseif address.countryName != 'Deutschland' %}
+                                          {% set flag = 'us' %}
+                                       {% endif %}
+
+                                       <tr>
+                                          <td><p>Land:</td>
+                                          <td><p>
+                                                <img src="{{ asset("images/flags/") }}{{ flag }}.png"
+                                                     class="img-thumbnail"/> {{ address.countryName }}
+                                             </p>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td><p>Adresszusatz, bspw. c/o</p></td>
+                                          <td><p>{{ address.additionalInfo }}</p></td>
+
+                                          {% else %}
+                                             <td>
+                                                <span class="missing">Noch nicht angegeben</span>
+                                             </td>
+                                          {% endif %}
+                                          <!-- > ADDRESS CONTENT -->
+                                       </tr>
+                                       </tbody>
+                                       <tfoot>
+                                       <tr>
+                                          <td class="d-none d-sm-table-cell">&nbsp;</td>
+                                          <td>
+                                             <!-- < ADDRESS UPDATE -->
+                                             {% if address is defined and not (address is null) %}
+                                                <a class="btn"
+                                                   href="{{ path('admin_address_edit', {
+                                                      'type': 'manager',
+                                                      'id': address.id
+                                                   }) }}">
+                                                   <i class="fas fa-pencil-alt fa-2x message"></i>&nbsp;&nbsp;<span>Editieren</span>
+                                                </a>
+                                             {% else %}
+                                                <a class="btn"
+                                                   href="{{ path('admin_address_new', {
+                                                      'type': 'manager',
+                                                      'sourceId': user.id
+                                                   }) }}">
+                                                   <i class="fas fa-plus fa-2x message"></i>&nbsp;&nbsp;<span>Neu</span>
+                                                </a>
+                                             {% endif %}
+                                             <!-- > ADDRESS UPDATE -->
+                                          </td>
+                                       </tr>
+                                       </tfoot>
+                                    </table>
+
+                                 </div>
+                              </div>
+                              <div class="row">
+                                 <div class="special-table sub">
+                                    <div class="toolbar">
+                                       <div class="row">
+                                          <div class="col-sm-6 col-md-6 col-lg-6">
+
+                                             <h3 class="title3 title3--space">Bankverbindung</h3>
+                                          </div>
+                                          <div class="col-sm-6 col-md-6 col-lg-6 text-right updated">
+                                             <h5>Aktualisiert am
+                                                {% if bankAccount is defined and not (bankAccount is null) %}
+                                                   {{ bankAccount.updatedAt }}
+                                                {% else %}
+                                                   <td>
+                                                      ---
+                                                   </td>
+                                                {% endif %}
+                                             </h5>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <table class="table"
+                                           id="table-bank"
+                                           data-toggle="table"
+                                           data-toolbar="#toolbar-tariff"
+                                           data-search="false"
+                                           data-click-to-select="false"
+                                           data-filter-control="false"
+                                           data-filter-show-clear="false"
+                                           data-show-export="false"
+                                           data-pagination="false"
+                                        >
+                                       <thead>
+                                       <tr>
+                                          <th><h4 class="title4 title4--space">Attribut</h4></th>
+                                          <th><h4 class="title4 title4--space">Wert</h4></th>
+                                       </tr>
+                                       </thead>
+                                       <tbody>
+                                       <tr>
+                                          <!-- < BANK ACCOUNT CONTENT -->
+                                          {% if bankAccount is defined and not (bankAccount is null) %}
+                                          <td><p>IBAN:</p></td>
+                                          <td><p>{{ bankAccount.iban }}</p></td>
+                                       </tr>
+                                       <tr>
+                                          <td><p>BIC:</td>
+                                          <td><p>{{ bankAccount.bic }}</p></td>
+                                       </tr>
+                                       <tr>
+                                          <td><p>Bank:</td>
+                                          <td><p>{{ bankAccount.bank }}</p></td>
+                                       </tr>
+                                       {% else %}
+                                          <td>
+                                             <span class="missing">Noch nicht angegeben</span>
+                                          </td>
+                                       {% endif %}
+                                       <!-- > BANK ACCOUNT CONTENT -->
+                                       <tr>
+
+                                       </tbody>
+                                       <tfoot>
+                                       <tr>
+                                          <td class="d-none d-sm-table-cell">&nbsp;</td>
+                                          <td>
+                                             <!-- < BANK ACCOUNT UPDATE -->
+                                             {% if bankAccount is defined and not (bankAccount is null) %}
+                                                <a class="btn"
+                                                   href="{{ path('admin_user_id_bank_bid_edit', {
+                                                      'id' : resultUser.id,
+                                                      'bid' : bankAccount.id
+                                                   }) }}">
+                                                   <i class="fas fa-pencil-alt fa-2x message"></i>&nbsp;&nbsp;<span>Editieren</span>
+                                                </a>
+                                             {% else %}
+                                                <a class="btn"
+                                                   href="{{ path('admin_user_id_bank_new', {
+                                                      'id' : resultUser.id
+                                                   }) }}">
+                                                   <i class="fas fa-plus fa-2x message"></i>&nbsp;&nbsp;<span>Neu</span>
+                                                </a>
+                                             {% endif %}
+                                             <!-- > BANK ACCOUNT UPDATE -->
+                                          </td>
+                                       </tr>
+                                       </tfoot>
+                                    </table>
+
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="btn-spacer"></div>
+                     </div>
+                     <div class="row">
+                        <div class="btn-spacer"></div>
+                     </div>
+                     <div class="row">
+                        <div class="col-9 col-sm-10 col-md-10 col-lg-10">
+                           <legend>Versicherungstarif&uuml;bersicht</legend>
+                        </div>
+                        <div class="col-3 col-sm-2 col-md-2 col-lg-2 text-right">
+                           <div class="btn-group" role="group">
+                              <button type="button" class="btn">
+                                 <span><i class="fas fa-cog"></i> off</span>
+                              </button>
+                              <a href="{{ path('admin_user_id_decide_type', {
+                                 'id': resultUser.id
+                              }) }}">
+                                 <button type="button" class="btn">
+                                    <span><i class="fas fa-plus"></i></span>
+                                 </button>
+                              </a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="special-table">
+                           <div id="toolbar">
+                              <select class="form-control">
+                                 <option value="">Export Basic</option>
+                                 <option value="all">Export All</option>
+                                 <option value="selected">Export Selected</option>
+                              </select>
+                           </div>
+                           <table class="table"
+                                  id="table"
+                                  data-toggle="table"
+                                  data-toolbar="#toolbar"
+                                  data-search="true"
+                                  data-click-to-select="true"
+                                  data-filter-control="true"
+                                  data-filter-show-clear="true"
+                                  data-show-export="true"
+                                  data-pagination="true"
+                               >
+                              <thead>
+                              <tr>
+                                 <th data-field="operation" data-checkbox="true"></th>
+                                 <th data-field="actions" class="text-center">
+                                    [Action]
+                                 </th>
+                                 <th data-field="company" data-filter-control="input" data-sortable="false"
+                                     data-editable="false">
+                                    Gesellschaft
+                                 </th>
+                                 <th data-field="tariffName" data-filter-control="input" data-sortable="false">
+                                    Tarif-Name
+                                 </th>
+                                 <th data-field="rate" data-filter-control="input" data-sortable="false">
+                                    Eigenschaften
+                                 </th>
+                                 <th data-field="last_update" data-filter-control="input" data-sortable="false">
+                                    Aktualisierung
+                                 </th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              {% for tariff in tariffs %}
+                                 {% set counter = tariff.id %}
+                                 <tr>
+                                    <td class="bs-checkbox">
+                                       <input data-index="{{ counter }}" name="btSelectItem" type="checkbox">
+                                    </td>
+                                    <td>
+                                       <a href="{{ path('admin_tariff_id', {
+                                          'id': tariff.id
+                                       }) }}" class="btn">
+                                          <span><i class="fas fa-pencil-alt"></i></span>
+                                       </a>
+                                    </td>
+                                    <td>
+                      <span class="logo">
+                        <img src="{{ asset("uploads/logos/") }}{{ tariff.logo }}"
+                             class="img-thumbnail"/> {{ tariff.publicName }}<br>
+                      </span>
+                                    </td>
+                                    <td>
+                                       {{ tariff.name }}
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+                                       {{ tariff.updatedAt }}
+                                    </td>
+                                 </tr>
+                              {% endfor %}
+                              </tbody>
+                           </table>
+                        </div>
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+      </div>
+   </section>
+
+{% endblock %}

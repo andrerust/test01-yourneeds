@@ -1,0 +1,47 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds Login Waiting{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+
+    {% include 'includes/header.html.twig' %}
+    <section>
+        <div class="container" id="content">
+            <div class="row" text-center>
+                <div class="col-md-6 offset-md-3">
+                    <br>
+
+                    <h1 class="title1 title1--space text-center">
+                        Wir haben Dir einen Link geschickt {{ firstName }}!
+                    </h1>
+
+                    <div>
+                        <h3 class="title3 title3--space text-center">
+                            Der Erhalt dieser Email kann je nach Provider einige Sekunden dauern. Solltest du keine
+                            Email erhalten haben, prüfe bitte deinen Spam-Ordner. Danke und bis gleich.
+                        </h3>
+                        <br><br>
+
+                        <div class="text-center">
+                            Oops, hast Du Deinen Login-Link verloren? Dann logge Dich einfach nochmal ein!
+                            <br>
+                            <br>
+                            <a href="{{ path('security_relogin') }}" class="btn btn--cta btn-lg">
+                                Zurück zur Startseite und nochmal einloggen
+                            </a>
+                        </div>
+                    </div>
+                </div>
+    </section>
+
+    {% include 'includes/home.footer.menu.html.twig' %}
+
+{% endblock %}

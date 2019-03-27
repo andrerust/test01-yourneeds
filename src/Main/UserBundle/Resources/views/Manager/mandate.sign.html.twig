@@ -1,0 +1,180 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds sign mandate{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+
+      <style>
+          .wrapper {
+              position: relative;
+              width: 640px;
+              height: 480px;
+              -moz-user-select: none;
+              -webkit-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
+          }
+
+          .signature-pad {
+              width: 640px;
+              height: 480px;
+              border: 1px dotted #75bb60;
+          }
+
+      </style>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+      <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+
+      <script>
+          function attachLink(userId, documentName) {
+              var str = "Unterzeichnetes Mandat hier herunterladen";
+              var result = str.link("/manager/" + userId + "/document/download/" + documentName);
+              document.getElementById("downloadLink").innerHTML = result;
+              console.log(result);
+          }
+
+          saveSign = function (json) {
+              var url = "/manager/mandate/{{ contractId }}/sign/save";
+              console.log("saveSurvey called with url:" + url + " successful");
+              var url2 = "{{ projectDir }}";
+              //console.log("Json: " + json);
+              $.ajax({
+                  type: "PUT",
+                  contentType: 'application/json',
+                  url: url,
+                  dataType: 'json',
+                  cache: false,
+                  data: JSON.stringify({
+                      sign: json
+                  }),
+                  error: function (data) {
+                      //console.log("Result: Mist!");
+                  },
+                  success: function (data) {
+                      if (data.status == 200) {
+                          $(".proceed-hide-btn").addClass("hidden");
+                          $(".proceed-show-btn").addClass("visible");
+                          attachLink(data.pathUserId, data.documentName);
+                          console.log("Result: ");
+                          console.log(data);
+                          //console.log(lastId);
+                      }
+                  }
+              })
+          }
+
+      </script>
+  {% endblock %}
+
+{% block content %}
+
+    <section class="content-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center pt-2">
+                    <h1 class="title1 title1--space">
+                        Check <span class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span
+                                class="color-brown">needs</span>
+                    </h1>
+                </div>
+            </div>
+            <div class="row justify-content-start">
+                <div class="col-12 text-center pt-2">
+                    <h3>Privathaftpflicht</h3>
+                    <span class="textgreen">
+                 Nur noch der letzte Schritt. Mit deiner Unterschrift zum Maklermandat erlaubst du uns deinen Vertrag rechtlich im System zu führen und diesen zu betreuen.
+                  Du kannst das Maklermandat anschließend im Kundenordner sehen.
+                  <br>
+                  <br>
+                  <h3 class="title3 title3--space">
+                      Ein Muster des Maklermandats findest du -> <a href="/build/documents/yourneeds_mandatsmuster.pdf"
+                                                                 target="_blank">hier</a> <-
+                      </h3>.
+                 <br>
+                 <br>
+              </span>
+                    <hr class="hr">
+                </div>
+
+                <div class="col-12 align-center">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="wrapper text-right">
+                                    <canvas id="signature-pad" class="signature-pad" width="640"
+                                            height="480">
+
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row proceed-hide-btn">
+                            <div class="col-6">
+                                <button id="clear" class="btn-main">
+                                    Löschen
+                                </button>
+                            </div>
+                            <div class="col-5">
+                                <button id="save-sign" class="btn-main">
+                                    Speichern
+                                </button>
+                            </div>
+                            <div class="col-1">
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div class="row proceed-show-btn">
+                            <div class="col-6">
+                                <p style="margin-top: 10px;" id="downloadLink"></p>
+                            </div>
+                            <div class="col-5">
+                                <a href="{{ path('contracts', {
+                                    'id': resultUser.id
+                                }) }}" id="survey-proceed-button" class="btn-main">
+                             <span>
+                                Zu meinen Verträgen
+                             </span>
+                                </a>
+                            </div>
+                            <div class="col-1">
+                                &nbsp;
+                            </div>
+                        </div>
+
+                        <script>
+
+                            var signaturePad = new SignaturePad(document.getElementById('signature-pad'), {
+                                backgroundColor: 'rgba(255, 255, 255, 0)',
+                                penColor: 'rgb(0, 0, 0)'
+                            });
+                            var saveButton = document.getElementById('save-sign');
+                            var cancelButton = document.getElementById('clear');
+
+                            saveButton.addEventListener('click', function (event) {
+                                if (signaturePad.isEmpty()) {
+                                    return alert("Bitte unterzeichne bevor du weiter gehst!");
+                                }
+
+                                var data = signaturePad.toDataURL('image/png');
+                                //console.log(data);
+                                saveSign(data);
+                            });
+
+                            cancelButton.addEventListener('click', function (event) {
+                                signaturePad.clear();
+                            });
+
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

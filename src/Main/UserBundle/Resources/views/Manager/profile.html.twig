@@ -1,0 +1,177 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds personal data{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+
+    <style>
+        .visible-element {
+            margin: 0px;
+        }
+
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/build/yourneeds-manager.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-body">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12 text-center pt-2">
+                    <h1 class="title1 title1--space">
+                        Willkommen bei <span class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span
+                                class="color-brown">needs</span>
+                    </h1>
+                    <h5 class="title3 title3--space">
+                        <span class="color-green">Wir haben Dir einiges zu bieten. Lass Dich an die Hand nehmen.</span>
+                    </h5>
+                    {% if userFlag == true or addressFlag == true %}
+                        <h5 class="title3 title3--space">
+                            <i class="fas fa-info-circle fa-2x"></i>
+                            Einige Versicherungsgesellschaften benötigen weitere Daten zur Erzeugung von Angeboten.
+                            Bitte ergänze folgende Daten, damit du Dein eigener Versicherungsmanager werden kannst:
+                            <br>
+                            {% if showGlobalProtectionText == true %}
+                                <a href="{{ path('manager_survey_type', {
+                                    'type': 'basicneeds'
+                                }) }}" class="no-hover-underline full-width">
+                                    <i class="fa fa-edit"></i> Bitte ermittle zuerst deinen Grundbedarf
+                                </a>
+                            {% endif %}
+                            {% if userFlag == true %}
+                                <br>
+                                <a href="{{ path('manager_edit', {
+                                }) }}">
+                                    <i class="fa fa-edit"></i> Persönliche Daten bearbeiten
+                                </a>
+                            {% endif %}
+                            {% if addressFlag == true %}
+                                <br>
+                                {% if address is defined and not (address is null) and not (address.id is null) %}
+                                    <a href="{{ path('manager_address_edit', {
+                                        'id' : address.id
+                                    }) }}">
+                                        Formular 2: Adressdaten
+                                    </a>
+                                {% else %}
+                                    <a href="{{ path('manager_address_new', {
+                                    }) }}">
+                                        <i class="fas fa-pencil-alt fa-1x message"></i>Formular 2: Adressdaten
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                        </h5>
+                    {% endif %}
+                </div>
+                <div class="row row-eq-height">
+
+                    <div class="col-11 col-sm-5 col-lg-5 mx-auto mt-5 visible-element">
+                        {% if isAllowed.basicneeds == 1 %}
+                        <a href="{{ path('manager_profile_check', {
+                        }) }}" class="no-hover-underline full-width">
+                            {% else %}
+                            <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                                {% endif %}
+                                <div class="item" id="Grundbedarf">
+                                    <div class="image-container">
+                                        <img src="/build/static/images/start/start_insurances.jpg">
+                                    </div>
+                                    <div class="text-center p-4">
+                                        <h2 class="title2">
+                                            <span class="color-green">Y<span
+                                                        class="yourneeds-font">O</span>UR</span><span
+                                                    class="color-brown">needs</span>
+                                        </h2>
+
+                                        <p>
+                                            Check und manage deine Versicherungen
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                    </div>
+
+                    <div class="col-11 col-sm-5 col-lg-5 mx-auto mt-5 visible-element">
+                        {% if isAllowed.pli == 1 %}
+                        <a href="{{ path('show_damages') }}" class="no-hover-underline full-width">
+                            {% else %}
+                            <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                                {% endif %}
+                                <div class="item" id="Private_Haftpflicht">
+                                    <div class="image-container">
+                                        <img src="/build/static/images/start/start_damage.jpg">
+                                    </div>
+                                    <div class="text-center p-4">
+                                        <h2 class="title2">
+                                            Schaden
+                                        </h2>
+
+                                        <p>
+                                            Behalte den Überblick im Schadenfall
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                    </div>
+
+                    <div class="col-11 col-sm-5 col-lg-5 mx-auto mt-5 visible-element">
+                        {% if isAllowed.hci == 1 %}
+                        <a href="{{ path('manager_profile_help', {
+                        }) }}" class="no-hover-underline full-width">
+                            {% else %}
+                            <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                                {% endif %}
+                                <div class="item" id="profile">
+                                    <div class="image-container">
+                                        <img src="/build/static/images/start/start_help.jpg">
+                                    </div>
+                                    <div class="text-center p-4">
+                                        <h2 class="title2">
+                                            Unterstützung
+                                        </h2>
+
+                                        <p>
+                                            Hier findest Du Nachhaltigkeit, Direktkontakt, FAQ
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                    </div>
+
+                    <div class="col-11 col-sm-5 col-lg-5 mx-auto mt-5 visible-element">
+                        {% if isAllowed.lpi == 1 %}
+                        <a href="{{ path('news') }}" class="no-hover-underline full-width">
+                            {% else %}
+                            <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                                {% endif %}
+                                <div class="item" id="Rechtschutz">
+                                    <div class="image-container">
+                                        <img src="/build/static/images/start/start_news.jpg">
+                                    </div>
+                                    <div class="text-center p-4">
+                                        <h2 class="title2">
+                                            Informiere Dich!
+                                        </h2>
+
+                                        <p>
+                                            Bleib auf dem Laufenden in der Versicherungsbranche
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                    </div>
+                </div>
+                <div class="horizontally-spacer100">&nbsp;</div>
+                <div class="horizontally-spacer100">&nbsp;</div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

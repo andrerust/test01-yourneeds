@@ -1,0 +1,62 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds messages{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="/build/yourneeds-manager.js"></script>
+  {% endblock %}
+
+{% block content %}
+
+    <section class="content-body">
+        <div class="container">
+            <div class="row justify-content-start admin-content-box-title-box">
+                <div class="col-1">
+                    &nbsp;
+                </div>
+                <div class="col-10 text-center pt-2">
+                    <h1 class="title2 title2--space">
+                        Deine Nachrichten vom {{ message.updatedAt|date("d.m.Y H:m:s") }} an uns
+                    </h1>
+                </div>
+                <div class="col-1">
+                    &nbsp;
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    Betreff: {{ message.subject }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="title3 title3--space">
+                        Deine Nachrichten vom {{ message.updatedAt|date("d.m.Y H:m:s") }} an uns
+                    </h1><br>
+                    {{ message.body }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <a href="{{ path('manager_messages', {
+                        'id': message.id
+                    }) }}" class="btn"
+                       data-toggle="tooltip"
+                       data-placement="right">
+                        <span>zurück</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

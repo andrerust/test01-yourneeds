@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+   <meta charset="utf-8">
+   <style>
+      <!--
+      /* Font Definitions */
+      @font-face {
+         font-family: Wingdings;
+         panose-1: 5 0 0 0 0 0 0 0 0 0;
+      }
+
+      @font-face {
+         font-family: Wingdings;
+         panose-1: 5 0 0 0 0 0 0 0 0 0;
+      }
+
+      @font-face {
+         font-family: Calibri;
+         panose-1: 2 15 5 2 2 2 4 3 2 4;
+      }
+
+      @font-face {
+         font-family: "Segoe UI";
+         panose-1: 2 11 5 2 4 2 4 2 2 3;
+      }
+
+      @font-face {
+         font-family: "Bahnschrift Light";
+         panose-1: 2 11 5 2 4 2 4 2 2 3;
+      }
+
+      /* Style Definitions */
+      p.MsoNormal, li.MsoNormal, div.MsoNormal {
+         margin-top: 0cm;
+         margin-right: 0cm;
+         margin-bottom: 8.0pt;
+         margin-left: 0cm;
+         line-height: 107%;
+         font-size: 11.0pt;
+         font-family: "Calibri", "sans-serif";
+      }
+
+      p.MsoHeader, li.MsoHeader, div.MsoHeader {
+         mso-style-link: "Kopfzeile Zchn";
+         margin: 0cm;
+         margin-bottom: .0001pt;
+         font-size: 11.0pt;
+         font-family: "Calibri", "sans-serif";
+      }
+
+      p.MsoFooter, li.MsoFooter, div.MsoFooter {
+         mso-style-link: "Fußzeile Zchn";
+         margin: 0cm;
+         margin-bottom: .0001pt;
+         font-size: 11.0pt;
+         font-family: "Calibri", "sans-serif";
+      }
+
+      a:link, span.MsoHyperlink {
+         color: blue;
+         text-decoration: underline;
+      }
+
+      a:visited, span.MsoHyperlinkFollowed {
+         color: #954F72;
+         text-decoration: underline;
+      }
+
+      p.MsoAcetate, li.MsoAcetate, div.MsoAcetate {
+         mso-style-link: "Sprechblasentext Zchn";
+         margin: 0cm;
+         margin-bottom: .0001pt;
+         font-size: 9.0pt;
+         font-family: "Segoe UI", "sans-serif";
+      }
+
+      p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph {
+         margin-top: 0cm;
+         margin-right: 0cm;
+         margin-bottom: 8.0pt;
+         margin-left: 36.0pt;
+         line-height: 107%;
+         font-size: 11.0pt;
+         font-family: "Calibri", "sans-serif";
+      }
+
+      p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst {
+         margin-top: 0cm;
+         margin-right: 0cm;
+         margin-bottom: 0cm;
+         margin-left: 36.0pt;
+         margin-bottom: .0001pt;
+         line-height: 107%;
+         font-size: 11.0pt;
+         font-family: "Calibri", "sans-serif";
+      }
+
+      p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle {
+         margin-top: 0cm;
+         margin-right: 0cm;
+         margin-bottom: 0cm;
+         margin-left: 36.0pt;
+         margin-bottom: .0001pt;
+         line-height: 107%;
+         font-size: 11.0pt;
+         font-family: "Calibri", "sans-serif";
+      }
+
+      p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast {
+         margin-top: 0cm;
+         margin-right: 0cm;
+         margin-bottom: 8.0pt;
+         margin-left: 36.0pt;
+         line-height: 107%;
+         font-size: 11.0pt;
+         font-family: "Calibri", "sans-serif";
+      }
+
+      p.mandate-confirmationmodalheadline, li.mandate-confirmationmodalheadline, div.mandate-confirmationmodalheadline {
+         mso-style-name: mandate-confirmation__modal__headline;
+         margin-right: 0cm;
+         margin-left: 0cm;
+         font-size: 12.0pt;
+         font-family: "Times New Roman", "serif";
+      }
+
+      p.mandate-confirmationmodallist-item-intro, li.mandate-confirmationmodallist-item-intro, div.mandate-confirmationmodallist-item-intro {
+         mso-style-name: mandate-confirmation__modal__list-item-intro;
+         margin-right: 0cm;
+         margin-left: 0cm;
+         font-size: 12.0pt;
+         font-family: "Times New Roman", "serif";
+      }
+
+      p.mandate-confirmationmodallist-item-outro, li.mandate-confirmationmodallist-item-outro, div.mandate-confirmationmodallist-item-outro {
+         mso-style-name: mandate-confirmation__modal__list-item-outro;
+         margin-right: 0cm;
+         margin-left: 0cm;
+         font-size: 12.0pt;
+         font-family: "Times New Roman", "serif";
+      }
+
+      span.KopfzeileZchn {
+         mso-style-name: "Kopfzeile Zchn";
+         mso-style-link: Kopfzeile;
+      }
+
+      span.FuzeileZchn {
+         mso-style-name: "Fußzeile Zchn";
+         mso-style-link: Fußzeile;
+      }
+
+      span.SprechblasentextZchn {
+         mso-style-name: "Sprechblasentext Zchn";
+         mso-style-link: Sprechblasentext;
+         font-family: "Segoe UI", "sans-serif";
+      }
+
+      span.UnresolvedMention {
+         mso-style-name: "Unresolved Mention";
+         color: gray;
+         background: #E6E6E6;
+      }
+
+      .MsoChpDefault {
+         font-family: "Calibri", "sans-serif";
+      }
+
+      .MsoPapDefault {
+         margin-bottom: 8.0pt;
+         line-height: 107%;
+      }
+
+      /* Page Definitions */
+      @page WordSection1 {
+         size: 595.3pt 841.9pt;
+         margin: 70.85pt 70.85pt 2.0cm 70.85pt;
+      }
+
+      div.WordSection1 {
+         page: WordSection1;
+      }
+
+      /* List Definitions */
+      ol {
+         margin-bottom: 0cm;
+      }
+
+      ul {
+         margin-bottom: 0cm;
+      }
+
+      -->
+   </style>
+
+</head>
+
+<body lang=EN-US link=blue vlink="#954F72">
+
+<div class=WordSection1>
+
+   <p class=MsoNormal><b><span lang=DE>Vollmacht für Versicherungsmakler </span></b></p>
+
+   <p class=MsoNormal><span lang=DE>&nbsp;</span></p>
+
+   <p class=MsoNormal><span lang=DE>Ich, </span></p>
+
+   <p class=MsoNormal><span lang=DE><u>{{ user.lastName }}, {{ user.firstName }}</u><br>
+(Nachname, Vorname) <br>
+<br>
+<br><u>{{ address['street'] }}, {{ address['streetNumber'] }}, {{ address['postalCode'] }}
+            , {{ address['cityName'] }}</u>
+<br>
+Straße, Hausnummer, Postleitzahl, Ort</span></p>
+
+   <p class=MsoNormal><i><span lang=DE>(folgend »Kunde« genannt) </span></i></p>
+
+   <p class=MsoNormal><span lang=DE>bevollmächtige die</span></p>
+
+   <p class=MsoNormal><b><span lang=DE>YOURneeds GmbH, Nardinistraße 8, 76764 Rheinzabern, Tel: 07272/7778285, E-Mail: </span></b><span lang=DE><a
+             href="mailto:geschaeftsvorgaenge@yourneeds.de"><b>geschaeftsvorgaenge@yourneeds.de</b></a></span><b><span
+             lang=DE> </span></b></p>
+
+   <p class=MsoNormal><i><span lang=DE> (folgend »Makler« genannt)</span></i></p>
+
+   <p class=MsoNormal><span lang=DE> mich in den Versicherungsangelegenheiten zu vertreten die das System von www.yourneeds.de unterstützt.</span></p>
+
+   <p class=MsoNormal><span lang=DE>&nbsp;</span></p>
+
+   <p class=MsoNormal><span lang=DE>1. Der Makler vertritt den Kunden uneingeschränkt aktiv und passiv gegenüber den Versicherern. Dies umfasst: </span></p>
+
+   <p class=MsoListParagraphCxSpFirst style='margin-left:40.9pt;text-indent:-18.0pt'><span
+          lang=DE style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=DE>alle notwendigen Willenserklärungen abzugeben und entgegenzunehmen, die Versicherungsverträge des Kunden (folgend »Verträge« genannt) betreffen </span></p>
+
+   <p class=MsoListParagraphCxSpMiddle style='margin-left:40.9pt;text-indent:-18.0pt'><span
+          lang=DE style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=DE>neue Verträge abzuschließen</span></p>
+
+   <p class=MsoListParagraphCxSpMiddle style='margin-left:40.9pt;text-indent:-18.0pt'><span
+          lang=DE style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=DE>bestehende Verträge zu ändern</span></p>
+
+   <p class=MsoListParagraphCxSpLast style='margin-left:40.9pt;text-indent:-18.0pt'><span
+          lang=DE style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=DE>bestehende Verträge zu kündigen. </span></p>
+
+   <p class=MsoNormal><span lang=DE>Der Makler macht von dieser Vollmacht nur Gebrauch,
+wenn er dies mit dem Kunden vorher abgestimmt hat. Der Kunde bleibt zu jedem
+Zeitpunkt der Versicherungsnehmer und Schuldner der Beiträge. </span></p>
+
+   <p class=MsoNormal><span lang=DE>&nbsp;</span></p>
+
+   <p class=MsoNormal><span lang=DE>2. Der Makler darf für den Kunden alle
+Informationen und Auskünfte zu bestehenden Verträgen von den Versicherern
+uneingeschränkt abfragen und erhalten. Das umfasst auch die Einholung von
+Policenkopien bzw. Informationen zum Vertragsstand. Dafür muss der Kunde nicht
+erneut zustimmen. Die gesamte Korrespondenz des Versicherers ist mit dem
+Versicherungsnehmer im Original und mit dem Makler in Kopie zu führen. </span></p>
+
+   <p class=MsoNormal><span lang=DE>&nbsp;</span></p>
+
+   <p class=MsoNormal><span lang=DE>3. Der Makler darf weitere Vollmachten
+(Untervollmachten) an folgende Personen erteilen die von Berufs wegen zur
+Verschwiegenheit verpflichtet sind. </span></p>
+
+   <p class=MsoNormal><span lang=DE>Der Makler vergibt (Unter-)Vollmachten nur,
+damit dieser seine Aufgaben gemäß Vollmacht erfüllen kann. Untervollmachten
+können helfen, den Kunden besser zu betreuen. </span></p>
+
+   <p class=MsoNormal><span lang=DE>4. Wenn ein Schaden eintritt, unterstützt der
+Makler den Kunden bei der Regulierung. Dies gilt für Schäden, die bei folgenden
+Verträgen eintreten: </span></p>
+
+   <p class=MsoListParagraphCxSpFirst style='margin-left:38.65pt;text-indent:-18.0pt'><span
+          lang=DE style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=DE>alle Verträge, die der Makler dem Kunden vermittelt
+hat und </span></p>
+
+   <p class=MsoListParagraphCxSpLast style='margin-left:38.65pt;text-indent:-18.0pt'><span
+          lang=DE style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=DE>alle Verträge, die der Makler für den Kunden
+verwaltet. </span></p>
+
+   <p class=MsoNormal><span lang=DE>5. Wenn der Kunde mit einer
+Versicherungsangelegenheit unzufrieden ist, darf der Makler für den Kunden eine
+Beschwerde einleiten bei: </span></p>
+
+   <p class=MsoListParagraph style='text-indent:-18.0pt'><span lang=DE
+                                                               style='font-family:Symbol'>·<span
+             style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=DE>der Bundesanstalt für Finanzdienstleistungsaufsicht
+(BaFin). Einer Ombudsstelle. </span></p>
+
+   <p class=MsoNormal><span lang=DE>Dabei ist der Makler nicht nach §181 BGB
+beschränkt. Das bedeutet: Der Makler kann Rechtsgeschäfte zwischen sich und dem
+Kunden, den der Makler vertritt, vornehmen. Der Makler muss dieses Recht aber
+nicht gebrauchen. </span></p>
+
+   <p class=MsoNormal><span lang=DE>&nbsp;</span></p>
+
+   <p class=MsoNormal><span lang=DE>6. Diese Vollmacht ist </span></p>
+
+   <p class=MsoListParagraphCxSpFirst style='text-indent:-18.0pt'><span lang=DE
+                                                                        style='font-family:Symbol'>·<span
+             style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=DE>zeitlich unbegrenzt gültig und </span></p>
+
+   <p class=MsoListParagraphCxSpLast style='text-indent:-18.0pt'><span lang=DE
+                                                                       style='font-family:Symbol'>·<span
+             style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=DE>erstreckt sich auf alle Versicherungsbereiche die
+das System von www.yourneeds.de unterstützt. </span></p>
+
+   <p class=MsoNormal><span lang=DE>Der Kunde kann diese Vollmacht jederzeit
+widerrufen. Dies gilt auch dann, wenn andere Verträge zwischen Makler und
+Kunden bestehen. Um diese Vollmacht zu widerrufen, muss der Kunde dem Makler
+ein entsprechendes Schreiben schicken, dass eigenhändig unterschrieben ist. </span></p>
+
+   <p class=MsoNormal><span lang=DE>&nbsp;</span></p>
+
+   <p class=MsoNormal><span lang=DE>8. <span style='color:#444444'>Der der Makler wird
+vom Kunde bevollmächtigt, einen zuvor geschlossenen Maklervertrag im Namen des
+Kunden mit sofortiger Wirkung gemäß § </span>627<span style='color:#444444'>
+Abs. 1 BGB zu kündigen.</span></span></p>
+
+   <p class=MsoNormal><span lang=DE>&nbsp;</span></p>
+
+   <p class=MsoNormal><span lang=DE>7. Wenn eine Bestimmung dieser Vollmacht
+unwirksam sein sollte, bleiben alle weiteren Bestimmungen wirksam. </span></p>
+
+   <p class=MsoNormal><span lang=DE>YOURneeds GmbH,<br>
+Bjarke M.-O. Pahrmann, MBA<br>
+der Geschäftsführer </span></p>
+
+   <p class=MsoNormal><span lang=DE>&nbsp;</span></p>
+
+   <p class=MsoNormal><span lang=DE>&nbsp;</span></p>
+
+   <p class=MsoNormal><span lang=DE>{{ address['cityName'] }}, {{ signDate }}&nbsp;&nbsp;&nbsp;
+         <img src="{{ path }}/{{ fileNameSign }}" style="width: auto; height: 480px;">___________________________________________________________<br>
+Ort, Datum -  Kunde </span></p>
+
+   <p class=MsoNormal><span lang=DE>&nbsp;</span></p>
+
+   <p class=MsoNormal><span lang=DE>&nbsp;</span></p>
+
+   <p class=MsoNormal><span lang=DE><img src="{{ pathToResponsible }}" style="width: auto; height: 480px;">___________________________________________________________<br>
+Ort, Datum -  Makler </span></p>
+
+   <p class=MsoNormal><span lang=DE>&nbsp;</span></p>
+
+</div>
+</body>
+</html>

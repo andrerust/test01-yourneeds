@@ -1,0 +1,923 @@
+{
+  "locale": "de",
+  "title": {
+    "default": "Editieren eines Tarifs",
+    "de": "Bedarfscheck Unfallversicherung"
+  },
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "privateLiability",
+          "elements": [
+            {
+              "type": "html",
+              "name": "question0",
+              "html": {
+                "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/unfallversicherung.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h3 class=\"title2\">\nWillkommen beim Check <span class=\"color-green\">Y<span class=\"yourneeds-font\">O</span>UR</span><span\n                      class=\"color-brown\">needs</span>-Bedarfcheck!\n</h3>\n<h4 class=\"title4 title4--space\">Es geht los! Nimm dir eine Moment Zeit und erhalte von uns eine Empfehlung, welche Versicherungen für dich Sinn ergeben und welche nicht. Mit der Hilfefunktion kannst du die jeweilige Erklärung der einzelnen Frage erhalten.\n<br><br>\n            <button type=\"button\" onclick=\"survey.nextPage()\" class=\"btn btn--cta\">\n               <i class=\"fas fa-angle-right\"></i> Los geht es!\n            </button>\n<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n</div>\n</div>\n"
+              }
+            }
+          ],
+          "title": {
+            "de": "Unfallversicherung"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Screen 1",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "otherPersons",
+          "title": {
+            "de": "Möchtest du weitere Personen in der Unfallversicherung mitversichern?"
+          },
+          "valueName": "otherPersons",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "howManyPersons",
+          "visibleIf": "{otherPersons} = \"yes\"",
+          "title": {
+            "de": "Wie viele Personen möchtest du zusätzlich - außer dir - versichern?"
+          },
+          "valueName": "howManyPersons",
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "type": "matrixdynamic",
+          "name": "howManyPersonsEntry",
+          "visibleIf": "{howManyPersons} > \"0\"",
+          "title": {
+            "de": "Weitere Personen bitte eingeben (ohne Dich)"
+          },
+          "valueName": "howManyPersonsEntry",
+          "columns": [
+            {
+              "name": "firstName",
+              "title": "Vorname",
+              "cellType": "text"
+            },
+            {
+              "name": "birthday",
+              "title": "Geburtsdatum (tt.mm.jjjj)",
+              "cellType": "text"
+            },
+            {
+              "name": "sex",
+              "title": "Geschlecht",
+              "cellType": "dropdown"
+            }
+          ],
+          "choices": [
+            {
+              "value": "m",
+              "text": {
+                "de": "männlich"
+              }
+            },
+            {
+              "value": "f",
+              "text": {
+                "de": "weiblich"
+              }
+            },
+            {
+              "value": "o",
+              "text": {
+                "de": "andere"
+              }
+            }
+          ],
+          "rowCount": 8,
+          "addRowText": {
+            "de": "Weitere Person hinzufügen"
+          }
+        }
+      ],
+      "visible": false,
+      "questionTitleLocation": "top",
+      "navigationButtonsVisibility": "show"
+    },
+    {
+      "name": "Screen 2",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "publicService",
+          "title": {
+            "de": "Arbeitest du im öffentlichen Dienst?"
+          },
+          "valueName": "publicService",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ],
+      "visible": false
+    },
+    {
+      "name": "Screen 4",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "job",
+          "title": {
+            "de": "Wähle bitte deinen Beruf aus"
+          },
+          "valueName": "job",
+          "choices": [
+            "item1",
+            "item2",
+            "item3"
+          ],
+          "choicesByUrl": {
+            "url": "/api/job/all/load"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Screen 5",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "amountRecommendation",
+          "title": {
+            "de": "Sollen wir dir eine Unfallsummenempfehlung geben? "
+          },
+          "valueName": "amountRecommendation",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "text",
+          "name": "amount",
+          "visibleIf": "{amountRecommendation} = \"no\"",
+          "title": {
+            "de": "Wieviel Grundsumme wünschst du?"
+          },
+          "valueName": "amount",
+          "inputType": "number"
+        },
+        {
+          "type": "dropdown",
+          "name": "progession",
+          "visibleIf": "{amountRecommendation} = \"no\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Welche Progession wünscht du?"
+          },
+          "valueName": "progession",
+          "choices": [
+            {
+              "value": "350",
+              "text": {
+                "de": "350%"
+              }
+            },
+            {
+              "value": "225",
+              "text": {
+                "de": "225%"
+              }
+            },
+            {
+              "value": "300",
+              "text": {
+                "de": "300%"
+              }
+            },
+            {
+              "value": "500",
+              "text": {
+                "de": "500%"
+              }
+            },
+            {
+              "value": "600",
+              "text": {
+                "de": "600%"
+              }
+            },
+            {
+              "value": "1000",
+              "text": {
+                "de": "1000%"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "yearlyIncome",
+          "visibleIf": "{amountRecommendation} = \"yes\"",
+          "title": {
+            "de": "Wie hoch ist dein Jahresgehalt?"
+          },
+          "valueName": "yearlyIncome",
+          "isRequired": true,
+          "inputType": "number"
+        },
+        {
+          "type": "text",
+          "name": "amountRecommendationResultComplete",
+          "visibleIf": "{yearlyIncome} > 1",
+          "title": {
+            "de": "Unsere empfohlene Grundsumme bei 350% Progression"
+          },
+          "valueName": "amountRecommendationResultComplete",
+          "inputType": "number",
+          "inputMask": "currency"
+        },
+        {
+          "type": "radiogroup",
+          "name": "overtakeRecommendationResult",
+          "visibleIf": "{yearlyIncome} > 1",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Summe übernehmen?"
+          },
+          "valueName": "overtakeRecommendationResult",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 6",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "advancedDeathBenefit",
+          "title": {
+            "de": "Möchtest du eine Todesfallleistung, bzw. einen maximalen Vorschuss auf die Leistung? "
+          },
+          "valueName": "advancedDeathBenefit",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "text",
+          "name": "advancedDeathBenefitAmount",
+          "visibleIf": "{advancedDeathBenefit} = \"yes\"",
+          "title": {
+            "de": "In welcher Höhe?"
+          },
+          "valueName": "advancedDeathBenefitAmount"
+        }
+      ]
+    },
+    {
+      "name": "Screen 7",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "dailyAccidentBenefit",
+          "title": {
+            "de": "Wünschst du ein Unfall-Krankentagegeld?"
+          },
+          "valueName": "dailyAccidentBenefit",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "dailyAccidentBenefifDays",
+          "visibleIf": "{dailyAccidentBenefit} = \"yes\"",
+          "title": {
+            "de": "Ab wie vielten Tag?"
+          },
+          "valueName": "dailyAccidentBenefifDays",
+          "choices": [
+            {
+              "value": "15",
+              "text": {
+                "de": "ab 15. Tag"
+              }
+            },
+            {
+              "value": "29",
+              "text": {
+                "de": "ab 29. Tag"
+              }
+            },
+            {
+              "value": "43",
+              "text": {
+                "de": "ab 43. Tag"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "name": "dailyAccidentBenefitAmount",
+          "visibleIf": "{dailyAccidentBenefit} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "Die Höhe deines gewünschten Unfallkrankentagegeld?"
+          },
+          "valueName": "dailyAccidentBenefitAmount"
+        }
+      ],
+      "visible": false
+    },
+    {
+      "name": "Screen 8",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "accidentPension",
+          "title": {
+            "de": "Wünscht du eine Unfall-Rente ab 50% Invalidität?"
+          },
+          "valueName": "accidentPension",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "accidentPensionAmount",
+          "visibleIf": "{accidentPension} = \"yes\"",
+          "startWithNewLine": false,
+          "title": {
+            "de": "In welcher Höhe?"
+          },
+          "valueName": "accidentPensionAmount",
+          "choices": [
+            "100",
+            "200",
+            "300",
+            "400",
+            "500",
+            "600",
+            "700",
+            "800",
+            "900",
+            "1000",
+            "1100",
+            "1200",
+            "1300",
+            "1400",
+            "1500"
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "improvedLimbTax",
+          "title": {
+            "de": "Durch eine verbesserte Gliedetaxe - d.h. Bewertung der Schadenhöhe eines Körperteils, würdest eine bessere Einstufung bekommen. Willst du das?"
+          },
+          "valueName": "improvedLimbTax",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 9",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "haveBrokenBonesInsured",
+          "title": {
+            "de": "Möchtest du Knochenbruch als Unfallereignis mitversichert haben?"
+          },
+          "valueName": "haveBrokenBonesInsured",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 10",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "damageByEcessiveExertion",
+          "title": {
+            "de": "Möchtest du bleibende Schäden durch Eigenbewegungen / überhöhte Kraftanstrengung mitversichern?"
+          },
+          "valueName": "damageByEcessiveExertion",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 11",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "poisonGases",
+          "title": {
+            "de": "Sollen Vergiftungen durch Gase und Dämpfe mitversichert sein?"
+          },
+          "valueName": "poisonGases",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 12",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "poisonFood",
+          "title": {
+            "de": "Sollen Vergiftungen durch Nahrungsmittel mitversichert sein?"
+          },
+          "valueName": "poisonFood",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 13",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "xRayDamage",
+          "title": {
+            "de": "Sollen Schäden durch Röntgen-, Laser- und künstlich erzeugte ultraviolette Strahlen (außer bei beruflichen Umgang) mitversichert sein?"
+          },
+          "valueName": "xRayDamage",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 14",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "divingDamages",
+          "title": {
+            "de": "Möchtest du tauchtypischen Gesundheitsschäden mitversichern?"
+          },
+          "valueName": "divingDamages",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 15",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "dentalProthesis",
+          "title": {
+            "de": "Möchtest du eine Kostenerstattung von Zahnersatz infolge Unfall?"
+          },
+          "valueName": "dentalProthesis",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 16",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "involvementOfIllnesses",
+          "title": {
+            "de": "Möchtest du, dass die Mitwirkung von Krankheiten und Gebrechen nicht angerechnet wird?"
+          },
+          "valueName": "involvementOfIllnesses",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 17",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "domesticHelp",
+          "title": {
+            "de": "Sollen Kosten einer Haushaltshilfe nach einem Unfall mitversichert werden?"
+          },
+          "valueName": "domesticHelp",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 18",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "automaticBenefitImprovements",
+          "title": {
+            "de": "Sollen künftige Leistungsverbesserungen automatisch eingeschlossen werden ohne Beantragung?"
+          },
+          "valueName": "automaticBenefitImprovements",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 19",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "consciousnessThroughDrunkenness",
+          "title": {
+            "de": "Mitversichern von Bewusstseinsstörungen durch Trunkenheit?"
+          },
+          "valueName": "consciousnessThroughDrunkenness",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 20",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "insectBites",
+          "title": {
+            "de": "Willst du bleibende Schäden durch Insektenstich oder Zeckenbiss mitversichert haben?"
+          },
+          "valueName": "insectBites",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Seite 22",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "unemployed",
+          "title": {
+            "de": "Willst du auch im Falle einer Arbeitslosigkeit eine zeitlich begrenzte Beitragsfreiheit?"
+          },
+          "valueName": "unemployed",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Seite 23",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "everythingOk",
+          "title": {
+            "de": "Hast du alle Fragen mit deinen Wünschen beantwortet?"
+          },
+          "valueName": "everythingOk",
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "exit",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question2",
+          "html": {
+            "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/unfallversicherung.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h4 class=\"title4 title4--space\">Wir kalkulieren nun die zu dir passenden Versicherungen.<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n            <button type=\"button\" onclick=\"survey.completeLastPage()\" class=\"btn btn--cta\">\n               Zum Angebot - los geht es!\n            </button>\n<br><br>\n\n</div>\n</div>\n"
+          }
+        }
+      ],
+      "visibleIf": "{everythingOk} = \"yes\""
+    },
+    {
+      "name": "exit messenger",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question1",
+          "html": {
+            "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/unfallversicherung.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h4 class=\"title4 title4--space\">Welche Wünsche sind noch offen, bzw. welche Fragen nicht beantwortet? Schreibe uns hier über unsere Kontaktbox Deine Wünsche/Fragen.<br><br>\nSollten doch alle deine Wünsche/Fragen erfüllt sein, kommst du mit \"Absenden\" zu deinem Angebot.\n<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n<a href=\"/manager/messages\">\n            <button type=\"button\" class=\"btn btn--cta\">\n               Schreib eine Nachricht an uns!\n            </button>\n</a>\n<br><br>\n\n</div>\n</div>\n"
+          }
+        }
+      ],
+      "visibleIf": "{everythingOk} = \"no\""
+    }
+  ],
+  "showProgressBar": "top",
+  "goNextPageAutomatic": true,
+  "pagePrevText": {
+    "de": "zurück"
+  },
+  "pageNextText": {
+    "de": "weiter"
+  }
+}

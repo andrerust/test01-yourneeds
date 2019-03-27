@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            outline: none !important;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            margin: 0;
+            padding: 0;
+            font-weight: 400;
+            color: #3c3c3c;
+            line-height: 16px;
+        }
+
+        p {
+            font-size: 14px;
+            line-height: 28px;
+        }
+
+        td, p {
+            padding: 3px;
+        }
+
+    </style>
+
+</head>
+
+<body lang=EN-US link=blue vlink="#954F72">
+<div style="padding: 0 20px 0 20px; font-size: 15px;">
+    <div class="text-center" style="text-align: center">
+        <p>
+            <img src="{{ pathToLogo }}" data-yn-toggle-logo class="d-none" style="width: 200px;">
+        </p>
+
+        <p>&nbsp&nbsp;</p>
+
+        <h1>
+            <strong>Kooperationsvereinbarung</strong>
+        </h1>
+
+        <br><br>
+
+        <p>zwischen</p>
+
+        <p>&nbsp;</p>
+
+        <p>
+        <h2>YOURneeds Versicherungsmakler GmbH</h2><br>
+        <br><br>
+        Nardinistra&szlig;e 8 <br/> 76764 Rheinzabern
+        </p>
+
+        <p>&nbsp;</p>
+
+        <p>und</p>
+
+        <p>&nbsp;</p>
+
+        <p>
+            {% set partnerType = '' %}
+            {% if not (partner.partnerType) is null %}
+                {% if partner.partnerType == 'club' %}
+                    {% set isBenefitAdmin = 'Verein' %}
+                {% elseif partner.partnerType == 'company' %}
+                    {% set isBenefitAdmin = 'Firma' %}
+                {% elseif partner.partnerType == 'association' %}
+                    {% set isBenefitAdmin = 'Verband' %}
+                {% endif %}
+            {% endif %}
+
+        <h2>{{ partnerType }} {{ partner.name }}</h2><br>
+        <h3>- {{ partnerSubType }} - </h3><br>
+        <br>
+        {{ address.street }} {{ address.streetNumber }}<br><br>
+        {{ address.postalCode }} {{ address.city.name }}<br>
+        <br>
+        <strong>Ansprechpartner:</strong> {{ user.firstName }} {{ user.lastName }}<br><br>
+        <strong>E-Mail:</strong> {{ user.email }}<br><br>
+        <strong>Telefonnumer:</strong> {{ user.phoneNumber }}
+        </p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>
+            <strong>Benefit+:</strong> Das Mitarbeiter Benefit Programm
+        </p>
+    </div>
+
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
+    <p>
+    <h3>Präambel</h3>
+    </p>
+
+    <p>
+        Das Benefit+ Programm ist dafür da, dem Mitarbeitern/Mitgliedern Ihrer Firma/Verine/Verband
+        einen zusätzlichen Benefit zukommen zu lassen. Beide Parteien schließen diese Kooperationsvereinbarung im
+        gegenseitigen Interesse.
+    </p>
+
+    <p>
+        Die YOURneeds Versicherungsmakler GmbH ist ein digitaler Versicherungsmakler der speziell für den
+        geschlossenen Personenkreis Ihrer Mitarbeiter/Mitglieder einen Preisnachlass gegenüber dem freien
+        Markt anbietet. Dieser Preisnachlass gilt solange die Mitarbeiterin/der Mitarbeiter/Mitglied in Ihrer
+        Firma/Verein/Verband aktiv ist. Sollte die Mitarbeiterin/der Mitarbeiter/Mitglied aus Ihrer
+        Firma/Verein/Verband ausscheiden, entfällt dieser Vorteil.
+    </p>
+    <p>Diese Kooperationsvereinbarung ist für Sie als Firma /Verein/Verband komplett kostenlos.</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
+    <h3>1. Datenschutz und Datenabfrage</h3>
+    <p>
+        Die Mitarbeiterin/der Mitarbeiter/Mitglied erklärt sich mit der Teilnahme am Benefit+ Programm
+        ausdrücklich damit einverstanden, dass maximal einmal jährlich der Aktivitätsstatus (noch aktiv /
+        nicht mehr aktiv) bei Ihnen per Mail an: {{ user.email }} abgefragt wird.
+    </p>
+    <p>
+        Dies dient lediglich der Abfrage der Anspruchsvoraussetzung der Benefit+ Vereinbarung mit Ihrer
+        Firma.
+    </p>
+    <p>
+        Die generelle Datenschutzvereinbarung können Sie auf der Homepage
+        <a href="https://www.nachhaltigkeit-versicherung.de/privacypolicy">
+            https://www.nachhaltigkeit-versicherung.de/privacypolicy
+        </a>
+        abrufen.
+    </p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
+
+    <h3>2. Dauer der Vereinbarung</h3>
+    <p>
+        Diese Vereinbarung hat eine unbegrenzte Laufzeit und ist jederzeit mit einer Frist von 3 Monaten
+        zum Jahresende von beiden Parteien kündbar.
+    </p>
+
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
+
+    <h3>3. Marketing</h3>
+    <p>
+        Durch Benefit+ sollen Ihren Mitarbeitern/Mitgliedern Vorteile im Bereich der privaten
+        Sachversicherungen haben. Damit diese auch über diese Vorteile informiert werden, vereinbaren
+        beide Parteien folgende kostenlose Marketingmaßnahmen:
+    </p>
+
+    <p>
+
+    <table>
+        <tr>
+            <td style="vertical-align: bottom">
+                a) Bannerwerbung auf Ihrer Homepage/Intranet mit entsprechender Verlinkung
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: bottom">
+                b) Beileger als One-Pager zu Informationsschreiben/Gehaltsabrechnungen
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: bottom">
+                c) Plakat max. DinA2 auf dem „schwarzen Brett“.
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: bottom">
+                d) Bei Vereinen/Verbänden auf Veranstaltungen mit Bandenwerbung (Digital oder als Stoff-
+                Banner)
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: bottom">
+                e) Informationen in E-Mail Newslettern
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align: bottom">
+                f) Redaktionelle Beiträge in Haus-/Vereins-/Verbandszeitungen / Newslettern.
+            </td>
+        </tr>
+
+    </table>
+    </p>
+    <p>
+        Den genauen Marketingumfang vereinbaren die Parteien gemeinsam.
+    </p>
+
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
+
+    <h3>4. Logonutzung</h3>
+    <p>
+        Mit dieser Vereinbarung erlauben Sie uns die Nutzung Ihres Logos für Onepager, im
+        Referenzverzeichnis unserer Homepage und von Ihnen geprüfte Mailinganhänge.
+    </p>
+
+    <p>
+        Ebenso wird das User Frontend (geschlossener Bereich) für Ihre Mitarbeiter/Mitglieder mit Ihrem
+        Logo versehen, damit es für Ihren Mitarbeitern/Mitgliedern ersichtlich ist, dass diese sich im Benefit+
+        Modus befinden und nicht in der freien Version. Dies dient auch für den Mitarbeitern/Mitgliedern
+        einer höheren Identifikation.
+    </p>
+
+
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
+    <table>
+        <tr>
+            <td style="vertical-align: bottom">
+                <p style="line-height: 30px;">
+                <div style="width: auto; height: 120px; overflow: hidden;">
+                    <img src="{{ pathToResponsible }}" style="width: auto; height: 160px;">
+                </div>
+                <br>Rheinzabern, {{ date }} <br>
+                ________________________________________________________<br>
+                GF Bjarke M.-O. Pahrmann, MBA
+                </p>
+            </td>
+            <td style="vertical-align: bottom">
+                <p style="line-height: 30px;">
+                <div style="width: auto; height: 120px; overflow: hidden;">
+                </div>
+                <br>{{ address.city.name }}, {{ date }}&nbsp;
+                <img src="{{ path }}/{{ fileNameSign }}" style="width: auto; height: 160px;"><br>
+                ________________________________________________________<br>
+                {{ user.firstName }} {{ user.lastName }}
+                </p>
+            </td>
+        </tr>
+
+    </table>
+</div>
+
+</body>
+</html>

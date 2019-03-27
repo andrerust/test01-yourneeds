@@ -1,0 +1,61 @@
+{% extends 'static.mail.html.twig' %}
+
+{% block title %}YOURneeds projects{% endblock %}
+
+  {% block stylesheets %}
+     {{ parent() }}
+     <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+     <link rel="stylesheet" href="/build/yourneeds-admin.css"/>
+  {% endblock %}
+
+  {% block javascripts %}
+     {{ parent() }}
+  {% endblock %}
+
+{% block content %}
+   <section id="profile">
+      <div id="content">
+         <div class="row no-gutters">
+            <div class="col-md-12" id="bg-result">
+               <div class="horizontally-spacer25">&nbsp;</div>
+               <div class="container">
+                  <div class="row">
+                     <div class="container admin-content-box-title">
+
+                        <div class="row">
+                           <div class="col-12">
+                              <div class="form-group col-md-6 mb-3">
+                                 Hallo {{ user.firstName }}, {{ user.lastName }},
+                                 <br><br>
+                                 vielen Dank für dein Vertrauen.
+                                 <br>
+                                 <br>
+                                 Du kannst jetzt alle Vorzüge von YOURneeds nutzen.
+                                 <br>
+                                 <br>
+                                 Dein Vertrag wird jetzt bei uns hinterlegt:
+                                 <br>
+                                 Gesellschaft: {{ contract.company.name }}<br>
+                                 Versicherungsart: {{ contractTypeName }}<br>
+                                 Versicherungsnr: {{ contract.insuranceNumber }}<br>
+                                 Tarifname: {{ contract.tariffName }}<br>
+                                 Gesellschaft: {{ companyName }}<br>
+                                 Beitrag: {{ contract.paymentFee }}<br>
+                                 Beginn: {{ contract.dateRuntimeBegin|date("d.m.Y") }}<br>
+                                 Ende: {{ contract.dateRuntimeEnd|date("d.m.Y") }}<br>
+                                 <br>
+                                 Mit besten Grüße
+                                 <br>
+                                 Dein Team von YOURneeds
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+{% endblock %}

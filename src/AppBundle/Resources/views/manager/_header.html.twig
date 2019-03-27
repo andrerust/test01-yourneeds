@@ -1,0 +1,221 @@
+<header id="admin-header">
+    <div class="header-wrapper">
+        <!--Navigation Row Start-->
+        <div class="container-fluid">
+            <div class="row">
+                <!--Nav Holder Start-->
+                <div class="nav-wrapper">
+                    <!--Menu Holder Start-->
+                    <div class="dropdown bar">
+
+                        <ul class="nav navbar-nav dropdown-menu--horizontal">
+
+                            <li class="hidden-xs">
+                                <div class="logo">
+                                    {% if app.user is defined and not (app.user is null) and is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('admin_dashboard') }}">
+                                            <img src="{{ asset('build/static/logo-yourneeds.png') }}" class="logo"
+                                                 alt="YOURneeds admin home">
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path('homepage') }}">
+                                            <img src="{{ asset('build/static/logo-yourneeds.png') }}" class="logo"
+                                                 alt="YOURneeds home">
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </li>
+                            <li class="logo-divider"></li>
+                            {% if app.user is defined and not (app.user is null) and is_granted('ROLE_ADMIN') %}
+                                <li>
+                                    <a class="dropmenu-item-btn" href="{{ path('admin_users') }}">
+                  <span>
+                    <i class="far fa-address-book fa-2x"></i>
+                  </span>
+                  <span class="dropmenu-item-btn-text">
+                    Nutzer
+                  </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropmenu-item-btn" href='{{ path('admin_tariffs_type', {
+                                        'type': 'pli'
+                                    }) }}'>
+                  <span>
+                    <i class="far fa-file-text fa-2x"></i>
+                  </span>
+                  <span class="dropmenu-item-btn-text">
+                    Versicherungen
+                  </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropmenu-item-btn" href="{{ path('admin_tariffs') }}">
+                                        <span><i class="fas fa-money fa-2x"></i></span>
+                    <span class="dropmenu-item-btn-text">
+                      Provisionen
+                    </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropmenu-item-btn" href="{{ path('admin_dashboard') }}">
+                  <span>
+                    <i class="fas fa-line-chart fa-2x"></i>
+                  </span>
+                  <span class="dropmenu-item-btn-text">
+                    Dashboard
+                  </span>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="dropdown sub-nav">
+
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                       role="button" aria-haspopup="true"
+                                       aria-expanded="false">
+                    <span class="main-nav-dropdown">
+                    Versicherungsangebote hier!
+                    </span>
+                                        <span class="caret"></span>
+                                    </a>
+
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="{{ path('admin_tariffs_type', {
+                                                'type': 'pli'
+                                            }) }}">
+                                                <i class="fas fa-car" aria-hidden="true"></i> Privathaftpflicht
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fas fa-car" aria-hidden="true"></i> KFZ (off)
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fas fa-medkit" aria-hidden="true"></i> Unfallversicherung (off)
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fas fa-futbol" aria-hidden="true"></i> Wohngeb&auml;ude (off)
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="far fa-heart" aria-hidden="true"></i> RLV (off)
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fas fa-heart" aria-hidden="true"></i> Zahnzusatz (off)
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fas fa-balance-scale" aria-hidden="true"></i> Rechtsschutz (off)
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            {% endif %}
+                            <li class="hidden-xs logo-divider"></li>
+                        </ul>
+                        <ul class="nav navbar-nav dropdown-menu--horizontal navbar-right">
+                            <li class="dropdown hidden-sm">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fas fa-medkit"></i> Hilfe
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fas fa-play"></i>
+                                            &nbsp;Wie funktioniert es (off)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fas fa-book" aria-hidden="true"></i>
+                                            &nbsp;FAQs lesen (off)
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </li>
+
+                            {% if app.user is defined and not (app.user is null) and is_granted('ROLE_USER') %}
+                                <li class="dropdown">
+                                    <!--<div class="profile-image">-->
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                       data-close-others="true">
+                                        <i class="far fa-folder-open"></i> {{ app.user.firstName }}'s Profil
+                                        <span class="caret"></span>
+                                    </a>
+                                    <!--</div>-->
+                                    <ul class="dropdown-menu pull-right">
+                                        <li>
+                                            <a href="{{ path("user_profile", {
+                                                'id': app.user.id
+                                            }) }}">
+                                                <i class="far fa-file-text" aria-hidden="true"></i> Mein Profil
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fas fa-user" aria-hidden="true"></i> Konto (off)
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('security_logout') }}">
+                                                <i class="fas fa-sign-out-alt"></i> Abmelden
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <a href="{{ path('security_login') }}">
+                                        <i class="fas fa-sign-in-alt"></i> Einloggen
+                                    </a>
+                                </li>
+                                <!--
+                <li>
+                  <a href="javascript:;" data-fancybox data-type="ajax"
+                     data-src="{{ path('register_box') }}"
+                     data-caption="Register"
+                     title="Register" class="fancybox">
+                    <i class="fas fa-sign-in-alt"></i> Registrieren
+                  </a>
+                </li>
+                -->
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--
+            <div class="row">
+              <ul class="nav nav-pills sub-nav" role="tablist">
+                <li class="sub-nav-divider">&nbsp;</li>
+                <li class="active">
+                  <a href="#"><i class="fas fa-users fa-1x"></i> Personen <span class="badge">--</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"><i class="fas fa-users fa-1x"></i> Vertr&auml;ge <span class="badge">--</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#"><i class="fas fa-users fa-1x"></i> &Uuml;bersicht <span class="badge">--</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            -->
+
+        </div>
+    </div>
+
+</header>

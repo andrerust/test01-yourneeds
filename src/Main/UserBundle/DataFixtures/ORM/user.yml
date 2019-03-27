@@ -1,0 +1,165 @@
+Main\UserBundle\Entity\User:
+    user_1:
+        email: schreiber@schreiberfriends.com
+        userName: Sven Schreiber
+        phoneNumber: <phoneNumber()>
+        firstName: Sven
+        lastName: Schreiber
+        gender: <numberBetween(1, 3)>
+        userTitle: '@title_*'
+        jobGroup: '@job_group_*'
+        employer: 'YOURneeds GmbH'
+        familyStatus: '@family_staus_*'
+        plainPassword: lllgo
+        profilePicture: <getUserProfilePicture()>
+        coins: <numberBetween(0, 200)>
+        note: <paragraph()>
+        roles: [ROLE_ADMIN]
+        isActive: 1
+        isBlocked: 0
+        termsAccepted: <boolean(100)>
+        termsAcceptedUpdate: '<dateTimeBetween("-180 days", "now")>'
+        receiveNewsletter: <boolean(100)>
+        receiveNewsletterUpdate: '<dateTimeBetween("-180 days", "now")>'
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'
+
+    user_2:
+        email: andre.rust@intertects.com
+        userName: Andre Rust
+        phoneNumber: <phoneNumber()>
+        firstName: Andre
+        lastName: Rust
+        gender: <numberBetween(1, 3)>
+        userTitle: '@title_*'
+        jobGroup: '@job_group_*'
+        employer: 'YOURneeds GmbH'
+        familyStatus: '@family_staus_*'
+        plainPassword: lllgo
+        profilePicture: <getUserProfilePicture()>
+        coins: <numberBetween(0, 200)>
+        note: <paragraph()>
+        roles: [ROLE_ADMIN]
+        isActive: 1
+        isBlocked: 0
+        termsAccepted: <boolean(100)>
+        termsAcceptedUpdate: '<dateTimeBetween("-180 days", "now")>'
+        receiveNewsletter: <boolean(100)>
+        receiveNewsletterUpdate: '<dateTimeBetween("-180 days", "now")>'
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'
+
+    user_{3..20}:
+        email: test_<current()>@test.com
+        userName: <userName()>
+        phoneNumber: <phoneNumber()>
+        firstName: <firstName()>
+        lastName: <lastName()>
+        gender: <numberBetween(1, 3)>
+        userTitle: '@title_*'
+        jobGroup: '@job_group_*'
+        employer: <company()>
+        familyStatus: '@family_staus_*'
+        plainPassword: lllgo
+        profilePicture: <getUserProfilePicture()>
+        coins: <numberBetween(0, 200)>
+        note: <paragraph()>
+        roles: [<randomRole()>]
+        isActive: <boolean(80)>
+        isBlocked: <boolean(10)>
+        termsAccepted: <boolean(90)>
+        termsAcceptedUpdate: '<dateTimeBetween("-180 days", "now")>'
+        receiveNewsletter: <boolean(50)>
+        receiveNewsletterUpdate: '<dateTimeBetween("-180 days", "now")>'
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'
+
+Main\UserBundle\Entity\User:
+    testuser_3:
+        email: andre.rust_2@intertects.com
+        userName: 'Test Empty'
+        phoneNumber: <phoneNumber()>
+        firstName: 'Sample first name'
+        lastName: 'Sample last name'
+        gender: <numberBetween(1, 3)>
+        userTitle: '@title_*'
+        jobGroup: '@job_group_*'
+        employer: 'Sample company'
+        familyStatus: '@family_staus_*'
+        plainPassword: lllgo
+        profilePicture: <getUserProfilePicture()>
+        coins: 0
+        note: <paragraph()>
+        roles: [ROLE_USER]
+        isActive: 1
+        isBlocked: 0
+        termsAccepted: <boolean(100)>
+        termsAcceptedUpdate: '<dateTimeBetween("-180 days", "now")>'
+        receiveNewsletter: true
+        receiveNewsletterUpdate: '<dateTimeBetween("-180 days", "now")>'
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'
+
+#----------------------------------------
+#----------------- FAMILY STATUS
+Main\UserBundle\Entity\FamilyStatus:
+    family_staus_none:
+        name: 'Nicht angegeben'
+        isDefault: 1
+    family_staus_single:
+        name: 'Single'
+        isDefault: 0
+    family_staus_married:
+        name: 'Verheiratet'
+        isDefault: 0
+    family_staus_widowed:
+        name: 'Verwitwet'
+        isDefault: 0
+    family_staus_divorced:
+        name: 'Geschieden'
+        isDefault: 0
+
+Main\UserBundle\Entity\Title:
+    title_none:
+        name: 'Keiner'
+        isActive: 1
+        isDefault: 1
+    title_dr:
+        name: 'Dr.'
+        isActive: 1
+        isDefault: 0
+    title_prof:
+        name: 'Prof.'
+        isActive: 1
+        isDefault: 0
+    title_prof_dr:
+        name: 'Prof. Dr.'
+        isActive: 1
+        isDefault: 0
+
+Main\UserBundle\Entity\Address:
+    address_{1..20}:
+        user: '@user_*'
+        additionalInfo: 80%? <sentence()>
+        street: 'Sample Street'
+        streetNumber: <numberBetween(1, 200)>
+        postalCode: <numberBetween(20000, 50000)>
+        city: '@city_*'
+        country: '@country_*'
+        type: 1
+        isActive: 1
+        isBlocked: 0
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'
+
+Main\UserBundle\Entity\BankAccount:
+    bankaccount_{1..40}:
+        user: '@user_*'
+        iban: <bankAccountNumber()>
+        bic: <swiftBicNumber()>
+        bank: <word()>
+        country: '@country_*'
+        isActive: 1
+        isBlocked: 0
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'

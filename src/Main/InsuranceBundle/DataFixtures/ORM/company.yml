@@ -1,0 +1,208 @@
+#----------------------------------------
+#----------------- COMPANY
+Main\InsuranceBundle\Entity\Company:
+    company_janitos:
+        name: Janitos Versicherung AG
+        publicName: Janitos
+        department: Vertriebspartnermanagement
+        contactPerson: Aurelio Bentivegna
+        email: aurelio_bentivegna@janitos.de
+        website: www.janitos.de
+        logo: 'janitoslogo.jpg'
+        contactPhoneNumber: '04642 91 4727'
+        contactFaxNumber: '04642 91 4755'
+        note: '---'
+        isActive: <boolean(100)>
+        updatedAt: '<dateTimeBetween("-180 days", "now")>'
+        createdAt: '<dateTimeBetween("-180 days", "now")>'
+
+    company_haftpflichtkasse_darmstadt:
+        name: Die Haftpflichtkasse VVaG
+        publicName: Haftpflichtkasse Darmstadt
+        department: '---'
+        contactPerson: '---'
+        email: info@haftpflichtkasse.de
+        website: www.haftpflichtkasse.de
+        logo: 'Die-Haftpflichtkasse-300x135.jpg'
+        contactPhoneNumber: '06154 6010'
+        contactFaxNumber: '06154 6012288'
+        note: '---'
+        isActive: <boolean(100)>
+        updatedAt: '<dateTimeBetween("-180 days", "now")>'
+        createdAt: '<dateTimeBetween("-180 days", "now")>'
+
+    company_ostangler_brandgilde:
+        name: Ostangler Brandgilde VVaG
+        publicName: Ostangler Brandgilde
+        department: '---'
+        contactPerson: Lasse Koerner
+        email: lasse.koerner@oab.de
+        website: www.ostangler.de
+        logo: 'ostangler-versicherungen.png'
+        contactPhoneNumber: '04642 91 4727'
+        contactFaxNumber: '04642 91 4755'
+        note: '---'
+        isActive: <boolean(100)>
+        updatedAt: '<dateTimeBetween("-180 days", "now")>'
+        createdAt: '<dateTimeBetween("-180 days", "now")>'
+
+    company_helvetia:
+        name: Helvetia Schweizerische Versicherungsgesellschaft AG
+        publicName: Helvetia
+        department: Direktion fuer Deutschland
+        contactPerson: '---'
+        email: '---'
+        website: www.helvetia.com
+        logo: 'helvetia-logo.jpg'
+        contactPhoneNumber: '---'
+        contactFaxNumber: '---'
+        note: '---'
+        isActive: <boolean(100)>
+        updatedAt: '<dateTimeBetween("-180 days", "now")>'
+        createdAt: '<dateTimeBetween("-180 days", "now")>'
+
+    company_asspario:
+        name: asspario Versicherungsdienst AG
+        publicName: asspario
+        department: '---'
+        contactPerson: '---'
+        email: '---'
+        website: www.asspario.de
+        logo: 'asspario-logo.png'
+        contactPhoneNumber: '---'
+        contactFaxNumber: '---'
+        note: '---'
+        isActive: <boolean(100)>
+        updatedAt: '<dateTimeBetween("-180 days", "now")>'
+        createdAt: '<dateTimeBetween("-180 days", "now")>'
+
+    company_waldenburger:
+        name: Waldenburger Versicherung AG
+        publicName: Waldenburger
+        department: ''
+        contactPerson: ''
+        email: ''
+        website: www.waldenburger.com
+        logo: 'waldenburger-logo.png'
+        contactPhoneNumber: ''
+        contactFaxNumber: ''
+        note: '---'
+        isActive: <boolean(100)>
+        updatedAt: '<dateTimeBetween("-180 days", "now")>'
+        createdAt: '<dateTimeBetween("-180 days", "now")>'
+
+    company_ammerlaender:
+        name: Ammerlaender Versicherung VVaG
+        publicName: Ammerlaender
+        department: '---'
+        contactPerson: '---'
+        email: '---'
+        website: www.ammerlaender-versicherung.de
+        logo: 'ammerlaender-logo.gif'
+        contactPhoneNumber: '---'
+        contactFaxNumber: '---'
+        note: '---'
+        isActive: <boolean(100)>
+        updatedAt: '<dateTimeBetween("-180 days", "now")>'
+        createdAt: '<dateTimeBetween("-180 days", "now")>'
+
+#----------------------------------------
+#----------------- ADDRESS
+Main\UserBundle\Entity\Address:
+    address_janitos:
+        company: '@company_janitos'
+        additionalInfo:
+        street: 'Im Breitspiel'
+        streetNumber: '2-4'
+        postalCode: '69126'
+        city: '@city_heidelberg'
+        country: '@country_de'
+        type: 1
+        isActive: 1
+        isBlocked: 0
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'
+
+    address_haftpflichtkasse_darmstadt:
+        company: '@company_haftpflichtkasse_darmstadt'
+        additionalInfo:
+        street: 'Darmstaedter Str.'
+        streetNumber: '103'
+        postalCode: '64380'
+        city: '@city_rossdorf'
+        country: '@country_de'
+        type: 1
+        isActive: 1
+        isBlocked: 0
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'
+
+    address_ostangler_brandgilde:
+        company: '@company_ostangler_brandgilde'
+        additionalInfo:
+        street: 'Flensburger Strasse'
+        streetNumber: '5'
+        postalCode: '24376'
+        city: '@city_kappeln'
+        country: '@country_de'
+        type: 1
+        isActive: 1
+        isBlocked: 0
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'
+
+    address_helvetia:
+        company: '@company_helvetia'
+        additionalInfo:
+        street: 'Berliner Strasse'
+        streetNumber: '56-58'
+        postalCode: '60311'
+        city: '@city_frankfurt_main'
+        country: '@country_de'
+        type: 1
+        isActive: 1
+        isBlocked: 0
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'
+
+    address_asspario:
+        company: '@company_asspario'
+        additionalInfo:
+        street: 'Bosenheimer Strasse'
+        streetNumber: '286'
+        postalCode: '55543'
+        city: '@city_bad_kreuznach'
+        country: '@country_de'
+        type: 1
+        isActive: 1
+        isBlocked: 0
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'
+
+    address_waldenburger:
+        company: '@company_asspario'
+        additionalInfo:
+        street: 'Max-Eyth-Strasse'
+        streetNumber: '1'
+        postalCode: '74638'
+        city: '@city_waldenburg'
+        country: '@country_de'
+        type: 1
+        isActive: 1
+        isBlocked: 0
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'
+
+    address_ammerlaender:
+        company: '@company_ammerlaender'
+        additionalInfo:
+        street: 'Bahnhofstr'
+        streetNumber: '8'
+        postalCode: '26655'
+        city: '@city_westerstede'
+        country: '@country_de'
+        type: 1
+        isActive: 1
+        isBlocked: 0
+        updatedAt: '<dateTimeBetween("-30 days", "now")>'
+        createdAt: '<dateTimeBetween("-200 days", "now")>'

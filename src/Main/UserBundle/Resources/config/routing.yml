@@ -1,0 +1,24 @@
+security_login:
+    defaults: { _controller: MainUserBundle:Security:login }
+    path:     /login
+
+#security_login_box:
+#    defaults: { _controller: MainUserBundle:Security:login }
+#    path:     /sign/box
+
+security_logout:
+    defaults: { _controller: MainUserBundle:Security:logout }
+    path:     /logout
+
+#user_register:
+#    defaults: { _controller: MainUserBundle:User:register }
+#    path:     /register
+
+
+user_web:
+    resource: "@MainUserBundle/Controller/Web"
+    type:     annotation
+
+admin_web:
+    resource: "@MainUserBundle/Controller/Admin"
+    type:     annotation

@@ -1,0 +1,56 @@
+{% extends 'static.mail.html.twig' %}
+
+{% block title %}YOURneeds projects{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+      <link rel="stylesheet" href="/build/yourneeds-admin.css"/>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+  {% endblock %}
+
+{% block content %}
+    <section id="profile">
+        <div id="content">
+            <div class="row no-gutters">
+                <div class="col-md-12" id="bg-result">
+                    <div class="horizontally-spacer25">&nbsp;</div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="container admin-content-box-title">
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group col-md-6 mb-3">
+                                            Hallo {{ user.firstName }},
+                                            <br><br>
+                                            schön, dass ihr euch dazu entschlossen habt für eure Mitarbeiter/Mitglieder
+                                            was gutes zu tun. Das Benefit+ biete für alle eine Win-Win Situation:
+                                            <br><br>
+                                            Für euch als Firma/Verein/Verband habt Ihr den Vorteil, dass Ihr für eure
+                                            Mitarbeiter/Mitglieder einen volldigitalen bedarfsgerechten
+                                            Versicherungsmakler anbieten könnt mit einem Preisvorteil von bis zu 30%
+                                            gegenüber dem freien Markt.
+                                            <br><br>
+                                            Dies ist auch gleichzeitig die "Win-Situation" der Mitarbeiter/Mitglieder.
+                                            Dieser Gruppenvertrag/Service ist für euch als Firma/Verein/Verband und für
+                                            eure Mitarbeiter/Mitglieder 100% kostenfrei und sehr einfach zu managen.
+                                            <br><br>
+                                            Mit besten Grüßen
+                                            <br>
+                                            Euer Team von YOURneeds
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

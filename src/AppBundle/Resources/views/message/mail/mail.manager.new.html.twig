@@ -1,0 +1,55 @@
+{% extends 'static.mail.html.twig' %}
+
+{% block title %}YOURneeds projects{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+      <link rel="stylesheet" href="/build/yourneeds-admin.css"/>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+  {% endblock %}
+
+{% block content %}
+    <section id="profile">
+        <div id="content">
+            <div class="row no-gutters">
+                <div class="col-md-12" id="bg-result">
+                    <div class="horizontally-spacer25">&nbsp;</div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="container admin-content-box-title">
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group col-md-6 mb-3">
+                                            Hallo {{ user.firstName }},
+                                            <br><br>
+                                            vielen Dank für deine Nachricht
+                                            vom {{ userMessage.updatedAt|date("d.m.Y") }} {{ userMessage.updatedAt|date("H:m:s") }}
+                                            Uhr. Wir werden diese so schnell wie möglich bearbeiten.
+                                            <br>
+                                            <br>
+                                            Deine Nachricht an uns lautet:<br>
+                                            <b>Art:</b> {{ userMessage.messageType.name }}<br><br>
+                                            <b>Betreff:</b> {{ userMessage.subject }}<br>
+                                            <b>Nachricht:</b> {{ userMessage.body }}<br>
+                                            <br>
+                                            <br>
+                                            Mit besten Grüßen
+                                            <br>
+                                            Dein Team von YOURneeds
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

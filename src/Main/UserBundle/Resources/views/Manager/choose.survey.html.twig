@@ -1,0 +1,388 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds Tarifumfrage aktivieren{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+
+    <style>
+        span.step {
+            border: 1px solid #74b959;
+            border-radius: 0.8em;
+            -moz-border-radius: 0.8em;
+            -webkit-border-radius: 0.8em;
+            color: #74b959;
+            display: inline-block;
+            font-weight: bold;
+            line-height: 1.4em;
+            margin-right: 6px;
+            text-align: center;
+            width: 1.6em;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/build/yourneeds-manager.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-body">
+        <div class="container">
+            <div class="row manager-content-box text-center">
+                <h1 class="title1 title1--space">
+                    Check <span class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span
+                            class="color-brown">needs</span>
+                </h1>
+            </div>
+            {% if (userFlag == true or addressFlag == true) or userAgeToLow == true %}
+                <div class="text-center info-box">
+                    {% if (userFlag == true or addressFlag == true) and userAgeToLow != true %}
+                        <div class="col-12">
+                            <h5 class="title3 title3--space">
+                                <span class="step">
+                                    <i class="fas fa-info fa-1x"></i>
+                                </span>
+                                Einige Versicherungsgesellschaften benötigen Deine Daten für Angebote, mit besonderem
+                                Preis-Leistungsverhältnis. <br>
+                                Bitte ergänze folgende Daten, damit du dir unser Spezialangebote
+                                einholen kannst:
+                                <br>
+                                <br>
+                                <a href="{{ path('manager_personal_data', {
+                                }) }}">
+                                    <i class="fa fa-edit"></i> Persönliche Daten (bearbeiten)
+                                </a>
+                            </h5>
+                        </div>
+                    {% endif %}
+                    {% if userAgeToLow == true %}
+                        <div class="col-12">
+                            <div class="row manager-content-box text-center">
+                                <h5 class="title3 title3--space color-red">
+                                    <span class="step">
+                                        <i class="fas fa-info fa-1x"></i>
+                                    </span>
+                                    Du hast angegeben, dass du keine 18 Jahre alt bist und kannst demnach keine
+                                    Versicherungsverträge
+                                    abschließen.<br>
+                                    Wenn Du doch älter als 18 Jahre bist, dann ändere dies gern in deinen
+                                    persönlichen
+                                    Eintellungen.
+                                    <br>
+                                    <a href="{{ path('manager_personal_data', {
+                                    }) }}">
+                                        <i class="fa fa-edit"></i> Persönliche Daten (bearbeiten)
+                                    </a>
+                                </h5>
+                                <hr>
+                                <hr>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+            <div class="row text-center">
+                <div class="col-12 col-sm-12 col-lg-12 mx-auto mt-4 text-center">
+                    <h2 class="title2 title3--space">
+                    <span class="color-green">
+                        <span class="step">1.</span>&nbsp;
+                                Ermittle zuerst deinen grundsätzlichen Bedarf, ...
+                    </span>
+                        <hr>
+                    </h2>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% set classActiveBasicneeds = 'inactive' %}
+                    {% if isAllowed.basicneeds == 1 %}
+                    {% set classActiveBasicneeds = 'active' %}
+                    <a href="{{ path('manager_survey_type', {
+                        'type': 'basicneeds'
+                    }) }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item {{ classActiveBasicneeds }}" id="Grundbedarf">
+                                <div class="image-container">
+                                    <img src="/build/static/images/grundbedarf.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Grundbedarf
+                                    </h2>
+                                    <hr>
+                                    <p>
+                                        Prüfe, welche Versicherung du wirklich brauchst.
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+                <div class="col-12 col-sm-12 col-lg-12 mx-auto mt-4 text-center">
+                    <h2 class="title2 title3--space">
+                        <span class="color-green">
+                            <span class="step">2.</span>&nbsp;
+                                    ...anschließend wähle Deine gewünschte Versicherungsart
+                        </span>
+                        <hr>
+                        {% if userFlag == true or addressFlag == true %}
+                            <div class="row manager-content-box text-center">
+                                <h5 class="title3 title3--space color-green">
+                                    <span class="step">
+                                        <i class="fas fa-info fa-1x"></i>
+                                    </span>
+                                    Hier geht es schnell weiter, wenn alle Deine Informationen für die
+                                    Angebote vorhanden sind, siehe Hinweis oben.
+                                    <br>
+                                </h5>
+                            </div>
+                        {% endif %}
+                    </h2>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% set classActivePli = 'inactive' %}
+                    {% if isAllowed.pli == 1 %}
+                    {% set classActivePli = 'active' %}
+                    <a href="{{ path('manager_survey_type', {
+                        'type': 'pli'
+                    }) }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item {{ classActivePli }}" id="Private_Haftpflicht">
+                                <div class="image-container">
+                                    <img src="/build/static/images/privathaftpflicht.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Private Haftpflicht
+                                    </h2>
+                                    <hr>
+                                    <p>
+                                        Die wichtigste Versicherung überhaupt!
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% set classActiveHci = 'inactive' %}
+                    {% if isAllowed.hci == 1 %}
+                    {% set classActiveHci= 'active' %}
+                    <a href="{{ path('manager_survey_type', {
+                        'type': 'hci'
+                    }) }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item {{ classActiveHci }}" id="Hausrate">
+                                <div class="image-container">
+                                    <img src="/build/static/images/hausrat.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Hausrat
+                                    </h2>
+                                    <hr>
+                                    <p>
+                                        Schütze Hab und Gut
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% set classActiveRbi = 'inactive' %}
+                    {% if isAllowed.rbi == 1 %}
+                    {% set classActiveRbi= 'active' %}
+                    <a href="{{ path('manager_survey_type', {
+                        'type': 'rbi'
+                    }) }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item {{ classActiveRbi }}" id="Wohngebäude">
+                                <div class="image-container">
+                                    <img src="/build/static/images/wohngebaeude.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Wohngebäude
+                                    </h2>
+                                    <hr>
+                                    <p>
+                                        Sicherheit für Haus und Grund
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% set classActiveAci = 'inactive' %}
+                    {% if isAllowed.aci == 1 %}
+                    {% set classActiveAci = 'active' %}
+                    <a href="{{ path('manager_survey_type', {
+                        'type': 'aci'
+                    }) }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item {{ classActiveAci }}" id="Unfall">
+                                <div class="image-container">
+                                    <img src="/build/static/images/unfallversicherung.jpg">
+                                    <!--
+                                    <img src="/build/static/images/start/start_growing.jpg">
+                                -->
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Unfall
+                                    </h2>
+                                    <hr>
+                                    <p>
+                                        Deine persönliche Kasko
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% set classActiveAli = 'inactive' %}
+                    {% if isAllowed.ali == 1 %}
+                    {% set classActiveAli= 'active' %}
+                    <a href="{{ path('manager_survey_type', {
+                        'type': 'ali'
+                    }) }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item {{ classActiveAli }}" id="Tierhalter Haftpflicht">
+                                <div class="image-container">
+                                    <img src="/build/static/images/tierhaftpflicht.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Tierhalter Haftpflicht
+                                    </h2>
+                                    <hr>
+                                    <p>
+                                        Wichtig wenn dein Hund/Pferd einen Schaden verursacht
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% set classActiveLpi = 'inactive' %}
+                    {% if isAllowed.lpi == 1 %}
+                    {% set classActiveLpi = 'active' %}
+                    <a href="{{ path('manager_survey_type', {
+                        'type': 'lpi'
+                    }) }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item {{ classActiveLpi }}" id="Rechtschutz">
+                                <div class="image-container">
+                                    <img src="/build/static/images/rechtsschutz.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Rechtschutz
+                                    </h2>
+                                    <hr>
+                                    <p>
+                                        Bekomme Recht, wenn du es brauchst
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% set classActiveAmi = 'inactive' %}
+                    {% if isAllowed.ami == 1 %}
+                    {% set classActiveAmi = 'active' %}
+                    <a href="{{ path('manager_survey_type', {
+                        'type': 'ami'
+                    }) }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item {{ classActiveAmi }}" id="Kfz">
+                                <div class="image-container">
+                                    <img src="/build/static/images/start/start_growing.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Kfz
+                                    </h2>
+                                    <hr>
+                                    <p>Schütze Dein heiliges Blech
+                                        <br>(Dieser Baum wächst noch)
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% set classActiveRli = 'inactive' %}
+                    {% if isAllowed.rli == 1 %}
+                    {% set classActiveRli = 'active' %}
+                    <a href="{{ path('manager_survey_type', {
+                        'type': 'ami'
+                    }) }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item {{ classActiveRli }}" id="Risikoleben">
+                                <div class="image-container">
+                                    <img src="/build/static/images/start/start_growing.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Risikoleben
+                                    </h2>
+                                    <hr>
+                                    <p>
+                                        Schütze deine Hinterbliebenen
+                                        <br>(Dieser Baum wächst noch)
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-4 mx-auto mt-4">
+                    {% set classActiveMsi = 'inactive' %}
+                    {% if isAllowed.msi == 1 %}
+                    {% set classActiveMsi = 'active' %}
+                    <a href="{{ path('manager_survey_type', {
+                        'type': 'ami'
+                    }) }}" class="no-hover-underline full-width">
+                        {% else %}
+                        <a href="javascript:void(0);" class="disabled no-hover-underline full-width">
+                            {% endif %}
+                            <div class="item {{ classActiveMsi }}" id="Krankenzusatz">
+                                <div class="image-container">
+                                    <img src="/build/static/images/start/start_growing.jpg">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h2 class="title2">
+                                        Krankenzusatz
+                                    </h2>
+                                    <hr>
+                                    <p>
+                                        Ergänze deine bestehende Krankenvorsorge
+                                        <br>(Dieser Baum wächst noch)
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

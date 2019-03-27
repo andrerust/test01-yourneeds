@@ -1,0 +1,147 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds Bezahlart angeben{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+      <script>
+          handleSpinner = function () {
+              doSpinner = function (elem, preloader) {
+                  $(preloader).show();
+                  console.log("handleSpinnerBox e:" + elem + " _ p:" + preloader + " successful");
+                  $("#survey-spinner").addClass("visible");
+                  $("#survey-proceed-title").addClass("visible");
+                  setTimeout(function () {
+                      $("#survey-proceed-title").removeClass("visible");
+                      $("#survey-spinner").removeClass("visible");
+                      $("#survey-proceed-button").addClass("visible btn--cta");
+                  }, (3 * 1000));
+              }
+              doSpinner(elem, preloader);
+          }
+      </script>
+  {% endblock %}
+
+{% block content %}
+
+    <section class="content-body">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12 text-center pt-2">
+                    <h1 class="title1 title1--space">
+                        Check <span class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span
+                                class="color-brown">needs</span>
+                    </h1>
+                </div>
+            </div>
+            <span class="color-green">
+             Wähle nun die gewünschte Zahlweise f&uuml;r
+          </span>
+
+            <div class="row">
+                <div class="col-3 box mx-auto mt-4 p-2">
+                    {% if monthly > 0 %}
+                        <a href="{{ path('manager_choose_payment_save', {
+                            'payment': 12,
+                            'type': type,
+                            'tariffId': tariffId
+                        }) }}">
+                            <div class="container border border-dark item p-4 border-hover pointer box-inner"
+                                 id="prozessfrage_monatliche_zahlweise">
+                                <div class="text-center">monatlich</div>
+                                <hr>
+                                <p class="text-center color-green"
+                                   id="versicherung_preis_monatliche_zahlweise">
+                                    {{ monthlyFee }} €
+                                </p>
+
+                                <p class="text-right" style=""
+                                   id="prozessfrage_monatliche_zahlweise_Aufschlag">
+                                    Aufschlag {{ monthlyValue }}%
+                                </p>
+                            </div>
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="col-3 box mx-auto mt-4 p-2">
+                    {% if quaterly > 0 %}
+                        <a href="{{ path('manager_choose_payment_save', {
+                            'payment': 4,
+                            'type': type,
+                            'tariffId': tariffId
+                        }) }}">
+                            <div class="container border border-dark item p-4 border-hover pointer box-inner"
+                                 id="prozessfrage_vierteljährliche_zahlweise">
+                                <div class="text-center">vierteljährlich</div>
+                                <hr>
+                                <p class="text-center color-green"
+                                   id="versicherung_preis_vierteljährliche_zahlweise">
+                                    {{ quaterlyFee }} €
+                                </p>
+
+                                <p class="text-right" style=""
+                                   id="prozessfrage_vierteljährliche_zahlweise_Aufschlag">
+                                    Aufschlag {{ quaterlyValue }}%
+                                </p>
+                            </div>
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="col-3 box mx-auto mt-4 p-2">
+                    {% if semiAnnually > 0 %}
+                        <a href="{{ path('manager_choose_payment_save', {
+                            'payment': 2,
+                            'type': type,
+                            'tariffId': tariffId
+                        }) }}">
+                            <div class="container border border-dark item p-4 border-hover pointer box-inner"
+                                 id="prozessfrage_halbjaehrliche_zahlweise">
+                                <div class="text-center">halbjährlich</div>
+                                <hr>
+                                <p class="text-center color-green"
+                                   id="versicherung_preis_halbjaehrliche_zahlweise">
+                                    {{ semiAnnuallyFee }} €
+                                </p>
+
+                                <p class="text-right" style=""
+                                   id="prozessfrage_halbjaehrliche_zahlweise_Aufschlag">
+                                    Aufschlag {{ semiAnnuallyValue }}%
+                                </p>
+                            </div>
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="col-3 box mx-auto mt-4 p-2">
+                    {# {% if yearly > 0 %} #}
+                    <a href="{{ path('manager_choose_payment_save', {
+                        'payment': 1,
+                        'type': type,
+                        'tariffId': tariffId
+                    }) }}">
+                        <div class="container border border-dark item p-4 border-hover pointer box-inner"
+                             id="prozessfrage_jaehrliche_zahlweise">
+                            <div class="text-center">jährlich</div>
+                            <hr>
+                            <p class="text-center color-green" id="versicherung_preis_jaehrliche_zahlweise">
+                                {{ yearlyFee }} €
+                            </p>
+
+                            <p class="text-right" style=""
+                               id="prozessfrage_jaehrliche_zahlweise_Aufschlag">
+                                Aufschlag 0%
+                            </p>
+                        </div>
+                    </a>
+                    {#{% endif %} #}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

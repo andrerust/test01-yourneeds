@@ -1,0 +1,122 @@
+Main\UserBundle\Entity\City:
+    city_{1..11}:
+        name: <city()>
+        isActive: <boolean(90)>
+        isDefault: '0'
+    city_heidelberg:
+        name: 'Heidelberg'
+        isActive: 1
+        isDefault: '0'
+    city_rossdorf:
+        name: 'Rossdorf'
+        isActive: 1
+        isDefault: '0'
+    city_kappeln:
+        name: 'Kappeln'
+        isActive: 1
+        isDefault: '0'
+    city_frankfurt_main:
+        name: 'Frankfurt am Main'
+        isActive: 1
+        isDefault: '0'
+    city_bad_kreuznach:
+        name: 'Frankfurt am Main'
+        isActive: 1
+        isDefault: '0'
+    city_waldenburg:
+        name: 'Waldenburg'
+        isActive: 1
+        isDefault: '0'
+    city_westerstede:
+        name: 'Westerstede'
+        isActive: 1
+        isDefault: '0'
+
+Main\UserBundle\Entity\Country:
+    country_de:
+        name: 'Deutschland'
+        isActive: <boolean(100)>
+        isDefault: '1'
+    country_ch:
+        name: 'Schweiz'
+        isActive: 1
+        isDefault: 0
+    country_A:
+        name: 'Oesterreich'
+        isActive: <boolean(100)>
+        isDefault: 0
+
+#----------------------------------------
+#----------------- JOB GROUP
+Main\UserBundle\Entity\JobGroup:
+    job_group_none:
+        name: 'Nicht angegeben'
+        isDefault: 1
+    job_group_1:
+        name: 'Angestellte/r'
+        isDefault: 0
+    job_group_2:
+        name: 'Arbeiter/in'
+        isDefault: 0
+    job_group_3:
+        name: 'Facharbeiter/in'
+        isDefault: 0
+    job_group_4:
+        name: 'Beamter/Beamtin'
+        isDefault: 0
+    job_group_5:
+        name: 'Berufssoldat/in'
+        isDefault: 0
+    job_group_6:
+        name: 'Hausfrau/-mann'
+        isDefault: 0
+    job_group_7:
+        name: 'Student/in'
+        isDefault: 0
+    job_group_8:
+        name: 'Ohne Beschaeftigung'
+        isDefault: 0
+    job_group_9:
+        name: 'Selbst. Freiberufler'
+        isDefault: 0
+    job_group_10:
+        name: 'Gesellschafter (Geschaeftsfuehrer)'
+        isDefault: 0
+    job_group_11:
+        name: 'Rentner/in'
+        isDefault: 0
+    job_group_12:
+        name: 'Auszubildender'
+        isDefault: 0
+
+Main\UserBundle\Entity\Achievement:
+    achievement_{1..10}:
+        title: <title()>
+        achievementType: <sentence()>
+        mainImage: element<numberBetween(1, 10)>.png
+        mainText: <paragraph()>
+        isActive: <boolean(90)>
+        activeFrom: '<dateTimeBetween("-200 days", "+10 days")>'
+        activeUntil: '<dateTimeBetween("-200 days", "+300 days")>'
+
+Main\UserBundle\Entity\Activity:
+    activity_1:
+        shortDescription: You added a document
+        context: document
+        createdAt: '<dateTimeBetween("-480 days", "now")>'
+    activity_2:
+        shortDescription: You deleted a document
+        context: document
+        createdAt: '<dateTimeBetween("-480 days", "now")>'
+    activity_3:
+        shortDescription: You wrote a message
+        context: communication
+        createdAt: '<dateTimeBetween("-480 days", "now")>'
+    activity_4:
+        shortDescription: You reported a insurance case
+        context: case
+        createdAt: '<dateTimeBetween("-480 days", "now")>'
+    activity_5:
+        shortDescription: You have an open calculator case. Want to finish it?
+        context: calculator
+        createdAt: '<dateTimeBetween("-480 days", "now")>'

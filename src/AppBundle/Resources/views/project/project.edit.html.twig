@@ -1,0 +1,270 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds projects{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+      <link rel="stylesheet" href="/build/yourneeds-admin.css"/>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+  {% endblock %}
+
+{% block content %}
+
+    <section class="content-body" id="profile">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-12">
+                    <form name="edit_project_form"
+                          role="form"
+                          id="edit_project_form"
+                          class="container"
+                          method="post"
+                          action="{{ path('manager_projects', {
+                              'id': user.id
+                          }) }}"
+                          data-toggle="validator"
+                          enctype="multipart/form-data"
+                    >
+                        <div class="row">
+                            <div class="container admin-content-box-title">
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <h1 class="title1 title1--space">
+                                            Nachhaltigkeit / Soziales
+                                        </h1>
+                                    </div>
+                                    <div class="col-12">
+                                        <p>
+                                            Wir legen ganz besonders Wert auf Nachhaltigkeit in unserem gesamten Tun.
+                                            Daher arbeiten wir möglichst papierlos, nutzen neueste Technologien und
+                                            unterstützen soziale Projekte für mehr Nachhaltigkeit auf unserer Erde. Mit
+                                            jedem Vertrag den du hier hinzufügst oder neu abschließt, geht ein Teil
+                                            unserer Einnahme an ein von dir ausgewähltes Projekt.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-12 text-center">
+                                    <p class="title2 title2--space">
+                                        Wähle, welches Projekt wir für dich unterstützen dürfen.
+                                    </p>
+                                </div>
+                                <div class="row row-eq-height mt-2">
+                                    <div class="col-12 col-md-4">
+                                        <div class="item p-4 pb-huge">
+                                            <h2 class="title2 text-center">
+                                                World Vision
+                                            </h2>
+                                            <p class="mt-4 text-center">
+                                                <img src="/build/static/images/world-vision-logo.png">
+                                            </p>
+                                            <p class="mt-4 text-center">
+                                                <a href="javascript:void(0);" data-yn-toggle="#world-vision">Mehr
+                                                    erfahren</a>
+                                            </p>
+                                            <div class="d-none mb-5" id="world-vision">
+                                                <p>
+                                                    Sauberes Trinkwasser ist auch heute noch ein kostbares Gut und für
+                                                    viele Menschen nicht selbstverständlich, sondern schwer zu
+                                                    erreichen. 663 Millionen Menschen weltweit haben kein sauberes
+                                                    Trinkwasser, etwa die Hälfte davon lebt in Afrika südlich der
+                                                    Sahara. Noch schlechter sieht es aus bei der Grundversorgung mit
+                                                    sanitären Anlagen: 2,4 Milliarden Menschen – etwa ein Drittel der
+                                                    Weltbevölkerung – hat nicht die Möglichkeit, eine Toilette oder
+                                                    Latrine zu benutzen.
+                                                </p>
+                                                <p>
+                                                    Zahlreiche Familien müssen Wasserquellen nutzen, aus denen auch
+                                                    Tiere trinken. Durch die Verunreinigungen werden die Menschen krank
+                                                    – vor allem kleine Kinder leiden schnell unter lebensbedrohlichen
+                                                    Durchfällen. Nur mit sauberem Wasser können Kinder, ihre Familien
+                                                    und die ganze Gemeinschaft überleben und sich entwickeln.
+                                                </p>
+                                                <p>
+                                                    Wassergewinnung ist daher eines unserer wichtigsten Arbeitsgebiete,
+                                                    um Kindern in Not eine bessere Zukunft zu ermöglichen. Gemeinsam mit
+                                                    der Bevölkerung bohren oder sanieren wir Brunnen, bauen geschützte
+                                                    Wasserentnahmestellen, Sammelbehälter und Filteranlagen. In
+                                                    Schulungen lernen die Menschen, wie man Pumpen und Brunnen instand
+                                                    hält. So verschaffen wir alle zehn Sekunden einem weiteren Menschen
+                                                    Zugang zu sauberem Trinkwasser. Allein in 2016 stellte World Vision
+                                                    in seinen Projekten weltweit für mehr als 4,6 Millionen Menschen
+                                                    sauberes Wasser bereit. Lesen Sie mehr zu den Ergebnissen unserer
+                                                    Arbeit für sauberes Trinkwasser.
+                                                </p>
+                                            </div>
+                                            <div class="item__bottom p-4">
+                                                <label class="btn mt-2 mb-0 full-width text-center"
+                                                       data-yn-toggle-radio>
+                                                    <input type="radio"
+                                                           id="edit_project_form_project_1"
+                                                           name="edit_project_form[project]"
+                                                           value="1"
+                                                            {% if activeUserProjectId is not null and activeUserProjectId > 0 %}
+                                                                {{ 1 == activeUserProjectId ? 'checked' : '' }}
+                                                            {% endif %}
+                                                    >&nbsp;&nbsp;
+                                                    {% if activeUserProjectId is not null and activeUserProjectId > 0 and 1 == activeUserProjectId %}
+                                                        Du unterstützt jetzt
+                                                    {% else %}
+                                                        Unterstützen
+                                                    {% endif %}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4 mt-4 mt-md-0">
+                                        <div class="item p-4 pb-huge">
+                                            <h2 class="title2 text-center">
+                                                The Ocean Cleanup
+                                            </h2>
+                                            <p class="mt-4 text-center">
+                                                <img src="/build/static/images/ocean-cleanup-logo.png">
+                                            </p>
+                                            <p class="mt-4 text-center">
+                                                <a href="javascript:void(0);" data-yn-toggle="#ocean-cleanup">Mehr
+                                                    erfahren</a>
+                                            </p>
+                                            <div class="d-none mb-5" id="ocean-cleanup">
+                                                <p>
+                                                    The Ocean Cleanup ist ein Projekt des 1994 geborenen Niederländers
+                                                    und Student der Luft- und Raumfahrttechnik Boyan Slat aus Delft, den
+                                                    Plastikmüll in den Ozeanen einzusammeln. An der Machbarkeitsstudie
+                                                    arbeiteten über 100 Forscher, welche zu dem Ergebnis kamen, dass das
+                                                    Projekt lohnend wäre.
+                                                </p>
+                                                <p>
+                                                    Auslöser für das Projekt war ein Urlaub im Jahr 2011 in
+                                                    Griechenland, in dem Boyan Slat im Alter von 16 Jahren beim Tauchen
+                                                    mehr Müll als Fische erblickte. Im Oktober 2014 erreichte das im
+                                                    Juni begonnene Crowdfunding durch rund 40.000 Unterstützer die
+                                                    benötigten 2 Millionen USD. Das auf der TEDx-Konferenz vorgestellte
+                                                    und an der Technischen Universität Delft entwickelte Konzept besteht
+                                                    aus 50 km langen, V-förmig angeordneten Schläuchen, die an der
+                                                    Meeresoberfläche schwimmen und durch Gewichte am Meeresboden an
+                                                    ihrem Platz bleiben. Sie sammeln 90 Prozent des schwimmenden
+                                                    Plastikmülls ab einer Größe von 20 mm, der (Stand 2014) 50 Euro je
+                                                    zum Recycling gegebener Tonne bringt und durch das Einsammeln nicht
+                                                    weiter zu Mikroplastik zerfällt. Der meiste Plastikmüll treibt in
+                                                    den oberen 3 Metern der Meere.
+                                                </p>
+                                            </div>
+                                            <div class="item__bottom p-4">
+                                                <label class="btn mt-2 mb-0 full-width text-center"
+                                                       data-yn-toggle-radio>
+                                                    <input type="radio"
+                                                           id="edit_project_form_project_2"
+                                                           name="edit_project_form[project]"
+                                                           value="2"
+                                                            {% if activeUserProjectId is not null and activeUserProjectId > 0 %}
+                                                                {{ 2 == activeUserProjectId ? 'checked' : '' }}
+                                                            {% endif %}
+                                                    >&nbsp;&nbsp;
+                                                    {% if activeUserProjectId is not null and activeUserProjectId > 0 and 2 == activeUserProjectId %}
+                                                        Du unterstützt jetzt
+                                                    {% else %}
+                                                        Unterstützen
+                                                    {% endif %}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4 mt-4 mt-md-0">
+                                        <div class="item p-4 pb-huge">
+                                            <h2 class="title2 text-center">
+                                                GEO schützt den Regenwald
+                                            </h2>
+                                            <p class="mt-4 text-center">
+                                                <img src="/build/static/images/geo-schuetzt-regenwald-logo.png">
+                                            </p>
+                                            <p class="mt-4 text-center">
+                                                <a href="javascript:void(0);" data-yn-toggle="#geo-schuetzt-regenwald">Mehr
+                                                    erfahren</a>
+                                            </p>
+                                            <div class="d-none mb-5" id="geo-schuetzt-regenwald">
+                                                <p>
+                                                    GEO schützt den Regenwald e.V. realisiert weltweit Projekte für den
+                                                    Erhalt der tropischen und subtropischen Wälder und für die Menschen,
+                                                    die dort leben.
+                                                </p>
+                                                <p>
+                                                    GEO schützt den Regenwald e. V. hilft Menschen in Afrika, Asien und
+                                                    Lateinamerika, ihre natürlichen Waldressourcen zu bewahren und
+                                                    nachhaltig zu nutzen. Die geförderten Projekte verbessern auch die
+                                                    wirtschaftliche, soziale oder gesundheitliche Situation der Menschen
+                                                    vor Ort. Erst die Kombination mit ökonomischer und sozialer
+                                                    Förderung führt zu nachhaltiger Entwicklung und dauerhaftem
+                                                    Waldschutz. Die Projektaktivitäten in den Zielgebieten werden durch
+                                                    lokale Partnerorganisationen umgesetzt, mit denen der Verein oft
+                                                    seit vielen Jahren erfolgreich zusammenarbeitet. Das GEO Magazin
+                                                    berichtet wenn immer möglich über die Projektarbeit.
+                                                </p>
+                                            </div>
+                                            <div class="item__bottom p-4">
+                                                <label class="btn mt-2 mb-0 full-width text-center"
+                                                       data-yn-toggle-radio>
+                                                    <input type="radio"
+                                                           id="edit_project_form_project_3"
+                                                           name="edit_project_form[project]"
+                                                           value="3"
+                                                            {% if activeUserProjectId is not null and activeUserProjectId > 0 %}
+                                                                {{ 3 == activeUserProjectId ? 'checked' : '' }}
+                                                            {% endif %}
+                                                    >&nbsp;&nbsp;
+                                                    {% if activeUserProjectId is not null and activeUserProjectId > 0 and 3 == activeUserProjectId %}
+                                                        Du unterstützt jetzt
+                                                    {% else %}
+                                                        Unterstützen
+                                                    {% endif %}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-12 mb-3">
+                                        <div class="alert alert-success" role="alert" id="success_message">
+                                            <i class="fas fa-check"></i>
+                                            Daten erfolgreich ge&auml;ndert
+                                        </div>
+                                        <a href="{{ path('manager_home', {
+                                            'id' : user.id
+                                        }) }}">
+                                            <input class="form-control"
+                                                   type="hidden"
+                                                   name="edit_contract_form[_token]"
+                                                   id="edit_contract_form__token"
+                                                   value="{{ form._token.vars.value }}"
+                                            >
+                                            <button type="button"
+                                                    id="edit_company_form_quit"
+                                                    name="edit_company_form[quit]"
+                                                    class="btn btn-danger"
+                                            >
+                                                Abbrechen
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </a>
+                                        <button type="submit"
+                                                id="edit_company_form_save"
+                                                name="edit_company_form[save]"
+                                                class="btn btn--cta"
+                                        >
+                                            Speichern
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

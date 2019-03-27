@@ -1,0 +1,67 @@
+/* YOURneeds admin module */
+
+@import "../scss/variables";
+
+.status .label {
+	font-weight: 600;
+	font-size: 12px;
+	margin-bottom: 2px;
+}
+
+.pic-list img {
+	width: auto;
+	height: 65px;
+	padding: 2px;
+	margin: 3px;
+}
+
+.pic-list.small img {
+	width: auto;
+	height: 45px;
+}
+
+legend {
+	border-top: 1px solid $yn-color-green;
+	border-bottom: 1px solid $yn-color-green;
+}
+
+.fixed-table-toolbar {
+	padding: 5px 20px 5px 20px;
+}
+
+.admin-content-box-title {
+	height: auto;
+	margin: 0 0 20% 0;
+}
+
+.fa-minus {
+	color: $yn-color-grey-3;
+}
+
+#manager-activities td {
+	font-size: $yn-font-size;
+}
+
+/******************************************
+	COMPANIES
+/******************************************/
+.logo-image img {
+	width: 120px;
+	height: auto;
+}
+
+.text-box {
+	padding: $yn-unit-250;
+}
+
+.form-box {
+	padding: $yn-unit-250;
+}
+
+#success_message {
+	visibility: hidden;
+	
+    &.visible {
+    	visibility: visible;
+    }
+}

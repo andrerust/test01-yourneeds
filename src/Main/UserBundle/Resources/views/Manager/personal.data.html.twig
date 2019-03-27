@@ -1,0 +1,489 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}Persönliche Daten{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+
+      <style>
+          span.step {
+              border: 1px solid #74b959;
+              border-radius: 0.8em;
+              -moz-border-radius: 0.8em;
+              -webkit-border-radius: 0.8em;
+              color: #74b959;
+              display: inline-block;
+              font-weight: bold;
+              line-height: 1.4em;
+              margin-right: 6px;
+              text-align: center;
+              width: 1.6em;
+          }
+      </style>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="/build/yourneeds-manager.js"></script>
+
+  {% endblock %}
+
+{% block content %}
+
+    <section class="content-body">
+        <div class="container">
+            <div class="row justify-content-start">
+                <div class="col-12 text-center pt-2">
+                    <h1 class="title1 title1--space">Meine Daten</h1>
+                </div>
+            </div>
+            <div class="row justify-content-start info-box">
+                <div class="col-12 text-center pt-2">
+                    <h3 class="title3 title3--space">
+                        <i class="fas fa-info-circle"></i> Einige Versicherungsgesellschaften benötigen
+                        persönlichen Daten zur Kalkulation von Angeboten.
+                        Wir haben Dir hierfür die Formulare 1. und 2. zur Verfügung gestellt. Nach dem
+                        Ausfüllen kannst du über »Check YOURneeds«
+                        deinen optimalen Tarif ermitteln und Dein eigener Versicherungsmanager sein. Formular 3 wird
+                        erst beim Neuabschluss benötigt.
+                    </h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <br><br>
+                    <div class="special-table table-responsive">
+                        <table class="table"
+                               id="table-address"
+                               data-toggle="table"
+                               data-toolbar="#toolbar"
+                               data-search="false"
+                               data-click-to-select="false"
+                               data-filter-control="false"
+                               data-filter-show-clear="false"
+                               data-show-export="false"
+                               data-pagination="false"
+                        >
+                            <thead>
+                            <tr>
+                                <th style="text-align: left;">
+                                    <h2 class="title2">
+                                        1. Persönliche Daten
+                                    </h2>
+                                </th>
+                                <th style="text-align: right;">
+                                    <a class="btn btn--cta"
+                                       href="{{ path('manager_edit', {
+                                           'id' : user.id
+                                       }) }}">
+                                        <i class="fas fa-pencil-alt fa-1x message"></i>&nbsp;
+                                        <span>erfassen/ändern</span>
+                                    </a>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <p>Anrede:
+                                </td>
+                                <td>
+                                    <p>
+                                        {% if not (user.gender is null) and not (user.gender is empty) %}
+                                            {% if user.gender == 1 %}
+                                                {% set gender = 'Herr' %}
+                                            {% elseif user.gender == 2 %}
+                                                {% set gender = 'Frau' %}
+                                            {% elseif user.gender == 3 %}
+                                                {% set gender = 'Inter' %}
+                                            {% else %}
+                                                {% set gender = '---' %}
+                                            {% endif %}
+                                            {{ gender }}
+                                        {% else %}
+                                            ---
+                                        {% endif %}
+                                        {% if not (user.userTitle is null)
+                                            and not (user.userTitle is empty)
+                                            and not (user.userTitle.isDefault == '1') %}
+                                            {{ user.userTitle }}
+                                        {% else %}
+
+                                        {% endif %}
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>
+                                        Name:
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        {{ user.firstName }} {{ user.lastName }}
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>
+                                        Geburtsdatum:
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        {{ user.birthdate|date("d.m.Y") }}
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Status:
+                                </td>
+                                <td>
+                                    <p>
+                                        {% if not (user.familyStatus is null) and not (user.familyStatus is empty) %}
+                                            {{ user.familyStatus }}
+                                        {% else %}
+                                            ---
+                                        {% endif %}
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>
+                                        Beruf:
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        {% if not (user.jobGroup is null) and not (user.jobGroup.name is null) and not (user.jobGroup is empty) %}
+                                            {{ user.jobGroup.name }}
+                                        {% else %}
+                                            <span class="missing">nicht angegeben</span>
+                                        {% endif %}
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>
+                                        E-Mail:
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        {{ user.email }}
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>
+                                        Mobilnummer:
+                                    </p>
+                                </td>
+                                <td>
+                                    <p>
+                                        {{ user.phoneNumber }}
+                                    </p>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td class="d-none d-sm-table-cell">&nbsp;</td>
+                                <td>
+                                    <h5>
+                                        Zuletzt aktualisiert: {{ user.updatedAt|date("d.m.Y") }}
+                                    </h5>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-12 col-md-6">
+                    <div class="special-table">
+                        <table class="table"
+                               id="table-address"
+                               data-toggle="table"
+                               data-toolbar="#toolbar"
+                               data-search="false"
+                               data-click-to-select="false"
+                               data-filter-control="false"
+                               data-filter-show-clear="false"
+                               data-show-export="false"
+                               data-pagination="false"
+                        >
+                            <thead>
+                            <tr>
+                                <th style="text-align: left;">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h2 class="title2">
+                                                2. Adresse
+                                            </h2>
+                                        </div>
+                                        <div class="col-6" style="text-align: right;">
+                                            <a class="btn btn--cta"
+                                               href="{{ path('manager_address_new', {
+                                               }) }}">
+                                                <i class="fas fa-plus fa-1x message"></i>&nbsp;&nbsp;<span>Weitere</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if addresses is defined and not (addresses is null) and not addresses is empty %}
+                                {% for address in addresses %}
+                                    {% if address.isMain == 1 %}
+                                        <tr>
+                                            <td colspan="2" class="item active">
+                                                <h2 class="title2 title2--space">
+                                                    Hauptadresse
+                                                </h2>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="2" class="item">
+                                                <h3 class="title3 title3--space">Weitere Adresse</h3>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                    <tr>
+                                        <td>
+                                            <p>Stra&szlig;e und Hausnummer:</p>
+                                        </td>
+                                        <td>
+                                            <p>{{ address.street.name }} {{ address.streetNumber }}</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>PLZ:
+                                        </td>
+                                        <td>
+                                            <p>{{ address.postalCode.zip }} {{ address.city.name }}</p>
+                                        </td>
+                                    </tr>
+
+                                    {% set flag = null %}
+                                    {% if address.country.name == 'Deutschland' %}
+                                        {% set flag = 'de' %}
+                                    {% elseif address.country.name != 'Deutschland' %}
+                                        {% set flag = 'us' %}
+                                    {% endif %}
+
+                                    <tr>
+                                        <td>
+                                            <p>Land:
+                                        </td>
+                                        <td>
+                                            <p>
+                                                <img src="{{ asset("images/flags/") }}{{ flag }}.png"
+                                                     style="height: 20px; width: auto; border: none;">
+                                                {{ address.country.name }}
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>Adresszusatz, bspw. c/o</p>
+                                        </td>
+                                        <td>
+                                            <p>{{ address.additionalInfo }}</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="d-none d-sm-table-cell">&nbsp;</td>
+                                        <td>
+                                            <h5>
+                                                Zuletzt aktualisiert:
+                                                {{ address.updatedAt|date("d.m.Y") }}
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="d-none d-sm-table-cell">&nbsp;</td>
+                                        <td class="d-none d-sm-table-cell">
+                                            <a class="btn btn--cta"
+                                               href="{{ path('manager_address_edit', {
+                                                   'id' : address.id
+                                               }) }}">
+                                                <i class="fas fa-pencil-alt fa-1x"></i>&nbsp;<span>Ändern</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="d-none d-sm-table-cell">
+                                            <hr>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        &nbsp;
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td>
+                                        Bitte angeben, da bestimmte Versicherer diese zur Kalkulation eines Angebots
+                                        benötigen.
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <div style="background-color: #444444; opacity: 0.4;">
+                        <div class="special-table">
+                            <table class="table"
+                                   id="table-bank"
+                                   data-toggle="table"
+                                   data-toolbar="#toolbar-tariff"
+                                   data-search="false"
+                                   data-click-to-select="false"
+                                   data-filter-control="false"
+                                   data-filter-show-clear="false"
+                                   data-show-export="false"
+                                   data-pagination="false"
+                            >
+
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <div class="row">
+                                            <div class="col-6" style="text-align: left;">
+                                                <h2 class="title2">
+                                                    3. Bank
+                                                </h2>
+                                            </div>
+                                            <div class="col-6" style="text-align: right;">
+                                                {% if bankAccount is defined and bankAccount is null %}
+                                                    <a class="btn btn--cta"
+                                                       href="{{ path('manager_bank_new', {
+                                                           'id' : user.id
+                                                       }) }}">
+                                                        <i class="fas fa-plus fa-1x"></i>&nbsp;<span>Neu</span>
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if bankAccount is defined and not (bankAccount is null) and not (bankAccount.iban is null) %}
+                                    <tr>
+                                        <td>
+                                            <p>IBAN:</p>
+                                        </td>
+                                        <td>
+                                            <p>{{ bankAccount.iban }}</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>BIC:
+                                        </td>
+                                        <td>
+                                            <p>{{ bankAccount.bic }}</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>Bank:
+                                        </td>
+                                        <td>
+                                            <p>{{ bankAccount.bank }}</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>Land:
+                                        </td>
+                                        <td>
+                                            <p>{{ bankAccount.country.name }}</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>Konto bestätigt</p>
+                                        </td>
+                                        <td>
+                                            {% if bankAccount.isActive == true %}
+                                                <span class="label label-success"><i
+                                                            class="fas fa-check"></i></span>
+                                            {% elseif bankAccount.isActive == false %}
+                                                <span class="label label-danger"><i class="fas fa-minus"></i></span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="d-none d-sm-table-cell">&nbsp;</td>
+                                        <td class="d-none d-sm-table-cell">
+                                            <a class="btn btn--cta"
+                                               href="{{ path('manager_bank_edit', {
+                                                   'id' : bankAccount.id
+                                               }) }}">
+                                                <i class="fas fa-pencil-alt fa-1x"></i>&nbsp;<span>Ändern</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="d-none d-sm-table-cell">
+                                            <hr>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        &nbsp;
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td>
+                                            kein Eintrag
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td class="d-none d-sm-table-cell">&nbsp;</td>
+                                    <td>
+                                        <h5>Zuletzt aktualisiert:
+                                            {% if bankAccount is defined and not (bankAccount is null) %}
+                                            {{ bankAccount.updatedAt|date("d.m.Y") }}
+                                            {% else %}
+                                    <td>
+                                        ---
+                                    </td>
+                                    {% endif %}
+                                    </h5>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

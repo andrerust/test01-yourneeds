@@ -1,0 +1,69 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds projects{% endblock %}
+
+  {% block stylesheets %}
+     {{ parent() }}
+     <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+     <link rel="stylesheet" href="/build/yourneeds-admin.css"/>
+  {% endblock %}
+
+  {% block javascripts %}
+     {{ parent() }}
+  {% endblock %}
+
+{% block content %}
+   <section id="profile">
+      <div id="content">
+         <div class="row no-gutters">
+            <div class="col-md-12" id="bg-result">
+               <div class="horizontally-spacer25">&nbsp;</div>
+               <div class="container">
+                  <div class="row">
+                     <div class="container admin-content-box-title">
+
+                        <div class="row">
+                           <div class="col-12">
+                              <div class="form-group col-md-6 mb-3">
+                                 Sehr geehrte Damen und Herren,
+                                 <br><br>
+                                 hiermit bitten wir um Übertragung des folgenden Vertrages/Kunden:
+                                 <br>
+                                 {{ user.lastName }}, {{ user.firstName }}
+                                 <br>
+                                 {% set address = user.addresses[0] %}
+                                 {{ address.street }}, {{ address.streetNumber }}
+                                 <br>
+                                 {{ address.postalCode }}, {{ address.city.name }}
+                                 <br>
+                                 {{ address.country.name }}
+                                 <br><br>
+                                 {{ contractType.name }}
+                                 <br>
+                                 {{ contract.insuranceNumber }}
+                                 <br>
+                                 {{ contract.tariffName }}
+                                 <br>
+                                 <br>
+                                 <br>
+                                 Im Anhang finden Sie den Maklerauftrag.
+                                 <br>
+                                 Unsere Vermittlernummer lautet:
+                                 <br>
+                                 Vielen Dank für Ihre Bemühungen im Voraus.
+                                 <br><br>
+                                 Mit freundlichen Grüße
+                                 <br>
+                                 Ihr Team von YOURneeds GmbH
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+{% endblock %}

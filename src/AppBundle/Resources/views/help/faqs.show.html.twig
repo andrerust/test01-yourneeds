@@ -1,0 +1,69 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds faqs{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+
+  {% endblock %}
+
+{% block content %}
+
+    <section class="content-body">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-11 col-sm-12 col-xs-12 col-lg-12">
+                    <div class="row">
+                        <div class="col- col-xs-12 text-center pt-2">
+                            <a href="{{ path('manager_home') }}" class="btn btn--cta">
+                                Zur&uuml;ck zum Profil
+                            </a>
+                        </div>
+                        <div class="horizontally-spacer100">&nbsp;</div>
+                    </div>
+                    <div class="row justify-content-start">
+                        <div class="col-12 col-xs-12 text-center pt-2">
+                            <h1 class="title1 title1--space">
+                                <span class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span
+                                        class="color-brown">needs</span>&nbsp;FAQs
+                            </h1>
+                        </div>
+                    </div>
+
+                    {% for entry in entryList %}
+                        <div style="background-color: #ffffff; border: 1px solid darkgreen; border-top-left-radius: 12px; border-bottom-right-radius: 12px; padding: 15px; margin: 5px;">
+                            <div class="row row-eq-height">
+                                <div class="col-11 col-sm-12 col-lg-12">
+                                    <h2 class="title2 title2--space text-left" style="padding-bottom: 0; margin-bottom: 0;">
+                                        Frage: {{ entry.question|trim }}
+                                    </h2>
+                                </div>
+                            </div>
+                            <div class="row row-eq-height">
+                                <div class="col-11 col-sm-12 col-lg-12">
+                                    <h3 class="title3 title3--space text-left" style="padding-top: 0; margin-top: 0;">
+                                        <i>
+                                            Antwort: <span style="font-weight: normal">{{ entry.answer|trim }}</span>
+                                        </i>
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="row row-eq-height">
+                                <div class="col-11 col-sm-12 col-lg-12">
+                                    &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

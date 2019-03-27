@@ -1,0 +1,186 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}Admin user edit{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+      <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+      <script src="/build/yourneeds-manager.js"></script>
+      <script>
+          $(document).ready(function () {
+          });
+      </script>
+  {% endblock %}
+
+{% block content %}
+
+    <section class="content-body" id="admin-user">
+        <div class="container">
+            <div class="row justify-content-start admin-content-box-title-box">
+                <!--
+             {{ form_start(form) }}
+             {{ form_widget(form) }}
+             {{ form_end(form) }}
+             <input type="file" id="edit_user_form_profilePicture" name="edit_user_form[profilePicture]" required="required">
+             -->
+                <div class="col-1">
+                    &nbsp;
+                </div>
+                <div class="col-10 text-center pt-2">
+                    <h1 class="title1 title1--space">Update Deiner Bankdaten</h1>
+
+                    <p>Zuletzt aktualisiert: {{ user.updatedAt|date("d.m Y") }}</p>
+                    <hr>
+                </div>
+                <div class="col-1">
+                    &nbsp;
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <form name="edit_bank_form"
+                          id="edit_bank_form"
+                          class="needs-validation"
+                          method="post"
+                          action="{{ path('manager_bank_edit', {
+                              'id' : bank.id
+                          }) }}"
+                          novalidate="novalidate"
+                            >
+                        <div class="row justify-content-start background-wood" style="margin-top:10px;">
+                            <div class="col-12 text-center pt-2"><h3 class="title3 title3--space">Aktuell
+                                    erfasste Daten</h3>
+                                <hr>
+
+                                {% if errors is defined and not (errors is null) and not (errors is empty) %}
+                                    <div class="row">
+                                        <div class="offset-1 col-11">
+                                            <h3 class="title3 title3--space title">Da haben sich noch Fehler in der
+                                                Eingabe
+                                                versteckt</h3>
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="offset-1 col-11">
+                                            <ul>
+                                                {% for error in errors %}
+                                                    <li>{{ error.property }}: {{ error.message }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- SALUTATION -->
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="edit_user_form_userTitle">IBAN</label>
+                                    <input class="form-control"
+                                           type="text"
+                                           name="edit_bank_form[iban]"
+                                           id="edit_bank_form_iban"
+                                           placeholder="IBAN"
+                                           value="{{ bank.iban }}"
+                                           required
+                                            />
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="edit_user_form_userTitle">BIC</label>
+                                    <input class="form-control"
+                                           type="text"
+                                           name="edit_bank_form[bic]"
+                                           id="edit_bank_form_bic"
+                                           placeholder="BIC"
+                                           value="{{ bank.bic }}"
+                                           required
+                                            />
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="edit_user_form_firstName">Bank</label>
+                                    <input class="form-control"
+                                           type="text"
+                                           name="edit_bank_form[bank]"
+                                           id="edit_bank_form_bank"
+                                           placeholder="Bank"
+                                           value="{{ bank.bank }}"
+                                           required
+                                            />
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="edit_user_form_jobGroup">Land</label>
+                                        <select name="edit_bank_form[country]"
+                                                id="edit_bank_form_country"
+                                                class="form-control selectpicker"
+                                                required
+                                                >
+                                            <option value=" ">Bitte w&auml;hlen</option>
+                                            {% for country in countries %}
+                                                <option
+                                                        value="{{ country.id }}" {{ country.id == bank.country.id ? 'selected="selected"' : '' }}>
+                                                    {{ country.name }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-12 text-left">
+                                    <div class="row">
+                                        <div class="col-6 col-sm-6 col-md-3 col-lg-3 text-left">
+                                            <a href="{{ path('manager_profile', {
+                                                'id' : user.id
+                                            }) }}">
+                                                <button type="button"
+                                                        id="edit_bank_form_quit"
+                                                        name="edit_bank_form[quit]"
+                                                        class="btn">Abbrechen
+                                                    <span class="glyphicon glyphicon-remove"></span>
+                                                </button>
+                                            </a>
+                                        </div>
+                                        <div class="col-6 col-sm-6 col-md-5 col-lg-5 text-right">
+                                            <button type="submit"
+                                                    id="edit_bank_form_save"
+                                                    name="edit_bank_form[save]"
+                                                    class="btn">Daten speichern
+                                                <span class="glyphicon glyphicon-send"></span>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-12">&nbsp;</div>
+
+                                        <input class="form-control"
+                                               type="hidden"
+                                               name="edit_bank_form[_token]"
+                                               id="edit_bank_form__token"
+                                               value="{{ form._token.vars.value }}"/>
+                                        <input class="form-control"
+                                               type="hidden"
+                                               name="edit_bank_form[userName]"
+                                               id="edit_bank_form_userName"
+                                               value="{{ form._token.vars.value }}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

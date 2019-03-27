@@ -1,0 +1,595 @@
+{
+  "locale": "de",
+  "title": {
+    "default": "Editieren eines Tarifs",
+    "de": "Bedarfscheck Tierhalterhaftpflicht"
+  },
+  "pages": [
+    {
+      "name": "Intro",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "privateLiability",
+          "elements": [
+            {
+              "type": "html",
+              "name": "question0",
+              "html": {
+                "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/tierhaftpflicht.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h3 class=\"title2\">\nWillkommen beim Check <span class=\"color-green\">Y<span class=\"yourneeds-font\">O</span>UR</span><span\n                      class=\"color-brown\">needs</span>-Bedarfcheck!\n</h3>\n<h4 class=\"title4 title4--space\">Es geht los! Nimm dir eine Moment Zeit und erhalte von uns eine Empfehlung, welche Versicherungen für dich Sinn ergeben und welche nicht. Mit der Hilfefunktion kannst du die jeweilige Erklärung der einzelnen Frage erhalten.\n<br><br>\n            <button type=\"button\" onclick=\"survey.nextPage()\" class=\"btn btn--cta\">\n               <i class=\"fas fa-angle-right\"></i> Los geht es!\n            </button>\n<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n</div>\n</div>\n"
+              }
+            }
+          ],
+          "title": {
+            "de": "Tierhalterhaftpflicht"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Screen 1",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "kindOfAnimal",
+          "title": {
+            "de": "Welches Tier möchtest du versichern?"
+          },
+          "valueName": "kindOfAnimal",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "dog",
+              "text": {
+                "de": "Hund"
+              }
+            },
+            {
+              "value": "horse",
+              "text": {
+                "de": "Pferd"
+              }
+            }
+          ]
+        },
+        {
+          "type": "dropdown",
+          "name": "animalCount",
+          "title": {
+            "de": "Wie viele Tiere?"
+          },
+          "valueName": "animalCount",
+          "isRequired": true,
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ]
+        },
+        {
+          "type": "radiogroup",
+          "name": "liveNumberExist",
+          "visibleIf": "{kindOfAnimal} contains \"horse\"",
+          "title": {
+            "de": "Ist eine Lebens-Nr. vorhanden?  "
+          },
+          "valueName": "liveNumberExist",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ],
+      "navigationButtonsVisibility": "show"
+    },
+    {
+      "name": "Screen 2",
+      "elements": [
+        {
+          "type": "matrixdynamic",
+          "name": "animalCountEntry",
+          "visibleIf": "{animalCount} > \"0\"",
+          "title": {
+            "de": "Gib bitte folgende Daten zu deinen Tieren ein"
+          },
+          "valueName": "animalCountEntry",
+          "columns": [
+            {
+              "name": "breed",
+              "title": "Rasse",
+              "cellType": "dropdown",
+              "isRequired": true
+            },
+            {
+              "name": "hasChipNo",
+              "title": "ChipNr vorhanden?",
+              "cellType": "radiogroup"
+            },
+            {
+              "name": "isMixedBreed",
+              "title": "Mischling",
+              "cellType": "radiogroup",
+              "isRequired": true
+            },
+            {
+              "name": "mainMixedBreed",
+              "title": "Wenn Mischling - Welche Rasse überwiegend?",
+              "cellType": "dropdown"
+            }
+          ],
+          "choices": [
+            {
+              "value": "no",
+              "text": {
+                "de": "nein"
+              }
+            },
+            {
+              "value": "yes",
+              "text": {
+                "de": "ja"
+              }
+            }
+          ],
+          "rowCount": 8,
+          "addRowText": {
+            "de": "Weiteres Tier hinzufügen"
+          }
+        }
+      ],
+      "visibleIf": "{kindOfAnimal} contains \"dog\""
+    },
+    {
+      "name": "Screen 3",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "puppiesProtection",
+          "visibleIf": "{kindOfAnimal} contains \"dog\"",
+          "title": {
+            "de": "Möchtest du auch Versicherungsschutz für Welpen?"
+          },
+          "valueName": "puppiesProtection",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 3b",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "jungAnimalsProtection",
+          "title": {
+            "de": "Möchtest du Jungtiere bis zur nächsten Hauptfälligkeit mitversichert haben? "
+          },
+          "valueName": "jungAnimalsProtection",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ],
+      "visibleIf": "{kindOfAnimal} contains \"horse\""
+    },
+    {
+      "name": "Screen 4",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "doDogTournaments",
+          "title": {
+            "de": "Geht dein Hund auch auf Turniere oder Schauvorführungen?"
+          },
+          "valueName": "doDogTournaments",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ],
+      "visibleIf": "{kindOfAnimal} contains \"dog\""
+    },
+    {
+      "name": "Screen 4b",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "doHorseTournaments",
+          "title": {
+            "de": "Nimmt dein Pferd an Pferderennen teil?"
+          },
+          "valueName": "doHorseTournaments",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ],
+      "visibleIf": "{kindOfAnimal} contains \"horse\""
+    },
+    {
+      "name": "Screen 5",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "includeMatingDamage",
+          "title": {
+            "de": "Möchtest du auch Deckschäden mitversichert haben?"
+          },
+          "valueName": "includeMatingDamage",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 6",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "authorizedRiders",
+          "title": {
+            "de": "Lässt du fremde berechtigte Reiter mit deinem Pferd reiten?"
+          },
+          "valueName": "authorizedRiders",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ],
+      "visibleIf": "{kindOfAnimal} contains \"horse\""
+    },
+    {
+      "name": "Screen 7",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "includeCorridorDamage",
+          "title": {
+            "de": "Möchtest du Flurschäden mitversichert haben?"
+          },
+          "valueName": "includeCorridorDamage",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ],
+      "visibleIf": "{kindOfAnimal} contains \"horse\""
+    },
+    {
+      "name": "Screen 8",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "amountCovered",
+          "title": {
+            "de": "Soll deine Versicherungssumme höher als 1. Mio sein?"
+          },
+          "valueName": "amountCovered",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "min1mio",
+              "text": {
+                "de": "mind. 1 Mio EUR"
+              }
+            },
+            {
+              "value": "min3mio",
+              "text": {
+                "de": "mind. 3 Mio EUR"
+              }
+            },
+            {
+              "value": "min5mio",
+              "text": {
+                "de": "min. 5 Mio EUR"
+              }
+            },
+            {
+              "value": "min10mio",
+              "text": {
+                "de": "min. 10 Mio EUR"
+              }
+            },
+            {
+              "value": "min15mio",
+              "text": {
+                "de": "min. 15 Mio EUR"
+              }
+            },
+            {
+              "value": "min20mio",
+              "text": {
+                "de": "min. 20 Mio EUR"
+              }
+            },
+            {
+              "value": "min50mio",
+              "text": {
+                "de": "min. 50 Mio EUR"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 9",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "retention",
+          "title": {
+            "de": "Wünscht du eine Selbstbeteiligung?"
+          },
+          "valueName": "retention",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 10",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "previousInsurance",
+          "title": {
+            "de": "Hattest du in den letzten 5 Jahren eine Tierhalterhaftpflichtversicherung?"
+          },
+          "valueName": "previousInsurance",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "dropdown",
+          "name": "previousInsuranceDamageCount",
+          "visibleIf": "{previousInsurance} = \"yes\"",
+          "title": {
+            "de": "Hattest du Schäden in den letzten 5 Jahren?"
+          },
+          "valueName": "previousInsuranceDamageCount",
+          "isRequired": true,
+          "choices": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 11",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "publicService",
+          "title": {
+            "de": "Arbeitest du im öffentlichen Dienst?"
+          },
+          "valueName": "publicService",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ],
+      "visible": false
+    },
+    {
+      "name": "Screen 12",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "everythingOk",
+          "title": {
+            "de": "Hast du alle Fragen mit deinen Wünschen beantwortet?"
+          },
+          "valueName": "everythingOk",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "exit",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question2",
+          "html": {
+            "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/tierhaftpflicht.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h4 class=\"title4 title4--space\">Wir kalkulieren nun die zu dir passenden Versicherungen.<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n            <button type=\"button\" onclick=\"survey.completeLastPage()\" class=\"btn btn--cta\">\n               Zum Angebot - los geht es!\n            </button>\n<br><br>\n\n</div>\n</div>\n"
+          }
+        }
+      ],
+      "visibleIf": "{everythingOk} = \"yes\""
+    },
+    {
+      "name": "exit messenger",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question1",
+          "html": {
+            "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/tierhaftpflicht.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h4 class=\"title4 title4--space\">Welche Wünsche sind noch offen, bzw. welche Fragen nicht beantwortet? Schreibe uns hier über unsere Kontaktbox Deine Wünsche/Fragen.<br><br>\nSollten doch alle deine Wünsche/Fragen erfüllt sein, kommst du mit \"Absenden\" zu deinem Angebot.\n<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n<a href=\"/manager/messages\">\n            <button type=\"button\" class=\"btn btn--cta\">\n               Schreib eine Nachricht an uns!\n            </button>\n</a>\n<br><br>\n\n</div>\n</div>\n"
+          }
+        }
+      ],
+      "visibleIf": "{everythingOk} = \"no\""
+    }
+  ],
+  "showProgressBar": "top",
+  "goNextPageAutomatic": true,
+  "pagePrevText": {
+    "de": "zurück"
+  },
+  "pageNextText": {
+    "de": "weiter"
+  }
+}

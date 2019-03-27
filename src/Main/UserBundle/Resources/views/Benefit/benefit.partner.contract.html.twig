@@ -1,0 +1,125 @@
+{% extends 'static.home.html.twig' %}
+
+{% block title %}YOURneeds Benefit+ Anmeldung eines Partners - Vertragsdownload {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/build/yourneeds-manager.css"/>
+    <link rel="stylesheet" href="/build/surveyCore.css">
+
+    <style>
+        .sv_p_root {
+            text-align: left;
+        }
+
+        .sv_nav .btn,
+        .sv_matrix_dynamic_button {
+            width: 125px;
+        }
+
+        .sv_q_file_remove_button {
+            width: 60px;
+            padding-top: 10px;
+        }
+
+        .sv_nav .btn,
+        .sv_matrix_dynamic_button,
+        .sv_q_file_remove_button {
+            height: 25px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .sv_nav .btn {
+            -moz-box-shadow: 0 0 15px #b19f9e;
+            -webkit-box-shadow: 0 0 15px #b19f9e;
+            box-shadow: 0 0 15px #b19f9e;
+            background: #74b959;
+            background: -moz-linear-gradient(left, #74b959 0%, #6fbc85 100%);
+            background: -webkit-linear-gradient(left, #74b959 0%, #6fbc85 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, #74b959), color-stop(100%, #6fbc85));
+            background: -o-linear-gradient(left, #74b959 0%, #6fbc85 100%);
+            background: -ms-linear-gradient(left, #74b959 0%, #6fbc85 100%);
+            background: linear-gradient(to right, #74b959 0%, #6fbc85 100%);
+        }
+
+        .sv_nav .btn:before {
+            background: #68a750;
+            background: -moz-linear-gradient(left, #68a750 0%, #64a978 100%);
+            background: -webkit-linear-gradient(left, #68a750 0%, #64a978 100%);
+            background: -webkit-gradient(left top, right top, color-stop(0%, #68a750), color-stop(100%, #64a978));
+            background: -o-linear-gradient(left, #68a750 0%, #64a978 100%);
+            background: -ms-linear-gradient(left, #68a750 0%, #64a978 100%);
+            background: linear-gradient(to right, #68a750 0%, #64a978 100%);
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/build/yourneeds-manager.js"></script>
+    <script src="/build/surveyCore.js"></script>
+    <!--
+      -->
+    <script type="text/javascript" src="/build/libs/customwidget.js"></script>
+    <script src="https://unpkg.com/surveyjs-widgets"></script>
+    <script>
+
+        function attachLink(id, documentName) {
+            var str = "Vertrag hier herunterladen: ";
+            var result = str.link("/benefitplus/contract/download/" + id + "/" + documentName);
+            document.getElementById("downloadLink").innerHTML = result;
+            document.getElementById("downloadLinkContainer").classList.add('btn');
+            document.getElementById("downloadLinkContainer").classList.add('btn--cta');
+            console.log(result);
+        }
+
+    </script>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12 text-center pt-2">
+                    <h1 class="title1 title1--space">
+                        <span class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span
+                                class="color-brown">needs</span> Benefit+ Registrierung
+                    </h1>
+                    <h3 class="title3 title3--space">
+                        Vertragsdownload
+                    </h3>
+                </div>
+            </div>
+            <div class="row justify-content-start">
+                <div class="col-12 text-center">
+                    <div cylass="row">
+                        <div class="col-12 text-center">
+                            <a href="{{ path('benefitplus_contract_download', {
+                                'pathBenefitPartnerId': 'benefit',
+                                'pathBenefitPartnerId': 'benefit'
+                            }) }}" id="survey-proceed-button" class="btn btn--cta">
+                             <span>
+                                Zum Login für Mitarbeiter/Mitglieder
+                             </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div cylass="row">
+                        <div class="col-12 text-center">
+                            <a href="{{ path('security_login', {
+                                'isBenefit': 'benefit'
+                            }) }}" id="survey-proceed-button" class="btn btn--cta">
+                             <span>
+                                Zum Login für Mitarbeiter/Mitglieder
+                             </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

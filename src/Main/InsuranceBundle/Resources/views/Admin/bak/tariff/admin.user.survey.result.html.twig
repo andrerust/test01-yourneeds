@@ -1,0 +1,319 @@
+{% extends '@MainAdminBundle/_admin.main.html.twig' %}
+
+{% block title %}YOURneeds tariff result offers{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/static.css') }}">
+    <style type="text/css">
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+    </script>
+{% endblock %}
+
+{% if app.user is defined and not (app.user is null) and is_granted('ROLE_USER') %}
+    {% set userName = app.user.firstName %}
+{% else %}
+    {% set userName = 'Lieber Besucher' %}
+{% endif %}
+
+{% block content %}
+    <section id="admin-survey">
+        <div id="page-box">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="well well-sm">
+                        <div class="row text-center">
+                            <h2 class="title2 title2--space">
+                                deine Ergebnisse,
+                                <span class="home-user-name">{{ userName }}</span>!
+                            </h2>
+                            <h4 class="title4 title4--space">
+                                W&auml;hle deinen Lieblingstarif aus!
+                            </h4>
+                        </div>
+
+                        {% if isEmpty == false %}
+                            <div class="row text-center">
+
+                                <div class="lm-tabel">
+                                    <div class="lm-item lm-item-2">
+                                        <div class="lm-item-top"><span class="lm-item-title lm-underline">G&uuml;nstigster Tarif</span>
+
+                                            <div class="lm-item-price">{{ cheapest.fit }} <i class="fas fa-percent"></i>
+                                            </div>
+                                            <div class="lm-item-price color-white">{{ cheapest.price }} EUR /
+                                                Jahr
+                                            </div>
+                                        </div>
+                                        <div class="lm-item-body">
+                                            <div class="lm-item-desc result-logo">
+                                                <strong>{{ cheapest.company.publicName }}</strong><br>
+                                                <img src="{{ asset("uploads/logos/") }}{{ cheapest.company.logo }}"
+                                                     class="img-thumbnail"/><br>
+
+                                                <p>Tarif: {{ cheapest.tariffName }} ({{ cheapest.id }})</p>
+                                            </div>
+                                            <ul class="lm-item-list text-left">
+                                                <li class="icon-ok-text">Deckungssumme Person
+                                                    mind. {{ cheapest.amountCoveredBodyInjury }}
+
+                                                    {% if cheapest.attributeFit.amountCoveredBodyInjury == true %}
+                                                        <i class="icon-ok"></i>
+                                                    {% else %}
+                                                        <i class="icon-cancel"></i>
+                                                    {% endif %}
+
+                                                </li>
+                                                <li class="icon-ok-text">Deckungssummen Sach
+                                                    mind. {{ cheapest.amountCoveredMaterialDamage }}<i
+                                                            class="icon-ok"></i></li>
+                                                <li class="icon-ok-text">Deckungssummen Verm&ouml;gen
+                                                    mind. {{ cheapest.amountCoveredFinancialDamage }}<i
+                                                            class="icon-cancel"></i></li>
+                                                <li class="icon-ok-text">Nicht deliktf&auml;hige Kinder
+                                                    mind. {{ cheapest.amountCoveredJungKids }}
+                                                    <i class="icon-cancel"></i></li>
+                                                <li class="icon-cancel-text">
+                                                    Forderungsausfalldeckung {{ cheapest.badDeptLoss }}<i
+                                                            class="icon-ok"></i></li>
+                                                <li class="icon-cancel-text">Unbebaute
+                                                    Grundst&uuml;cke {{ cheapest.undevelopedProperties }}
+
+                                                    {% if cheapest.attributeFit.undevelopedProperties == true %}
+                                                        <i class="icon-ok"></i>
+                                                    {% else %}
+                                                        <i class="icon-cancel"></i>
+                                                    {% endif %}
+
+
+                                                </li>
+                                            </ul>
+                                            <div class="lm-item-link">
+                                                <a href="{{ path('admin_decision_result_pdf_a', {
+                                                    'id': cheapest.id
+                                                }) }}">
+                                                    <div class="result-link">Details</div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="lm-item-bottom"></div>
+                                    </div>
+                                    <div class="lm-item lm-item-1">
+                                        <div class="lm-item-top"><span
+                                                    class="lm-item-title lm-underline">Best fit</span>
+
+                                            <div class="lm-item-price">{{ bestFit.fit }} <i class="fas fa-percent"></i>
+                                            </div>
+                                            <div class="lm-item-price color-white">{{ bestFit.price }} EUR / Jahr
+                                            </div>
+                                        </div>
+                                        <div class="lm-item-body">
+                                            <div class="lm-item-desc result-logo">
+                                                <strong>{{ bestFit.company.publicName }}</strong><br>
+                                                <img src="{{ asset("uploads/logos/") }}{{ bestFit.company.logo }}"
+                                                     class="img-thumbnail"/><br>
+
+                                                <p>Tarif: {{ bestFit.tariffName }} ({{ bestFit.id }})</p>
+                                            </div>
+                                            <ul class="lm-item-list text-left">
+                                                <li class="icon-ok-text">Deckungssumme Person
+                                                    mind. {{ bestFit.amountCoveredBodyInjury }}
+
+                                                    {% if bestFit.attributeFit.amountCoveredBodyInjury == true %}
+                                                        <i class="icon-ok"></i>
+                                                    {% else %}
+                                                        <i class="icon-cancel"></i>
+                                                    {% endif %}
+
+                                                </li>
+                                                <li class="icon-ok-text">Deckungssummen Sach
+                                                    mind. {{ bestFit.amountCoveredMaterialDamage }}<i
+                                                            class="icon-ok"></i></li>
+                                                <li class="icon-ok-text">Deckungssummen Verm&ouml;gen
+                                                    mind. {{ bestFit.amountCoveredFinancialDamage }}<i
+                                                            class="icon-ok"></i></li>
+                                                <li class="icon-ok-text">Nicht deliktf&auml;hige Kinder
+                                                    mind. {{ bestFit.amountCoveredJungKids }}
+                                                    <i class="icon-ok"></i></li>
+                                                <li class="icon-cancel-text">
+                                                    Forderungsausfalldeckung {{ bestFit.badDeptLoss }}<i
+                                                            class="icon-cancel"></i></li>
+                                                <li class="icon-cancel-text">Unbebaute
+                                                    Grundst&uuml;cke {{ bestFit.undevelopedProperties }}<i
+                                                            class="icon-cancel"></i></li>
+                                            </ul>
+                                            <div class="lm-item-link">
+                                                <a href="{{ path('admin_decision_result_pdf_a', {
+                                                    'id': bestFit.id
+                                                }) }}">
+                                                    <div class="result-link">Details</div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="lm-item-bottom">
+                                            <span class="lm-underline">Jetzt w&auml;hlenw </span>und Du erh&auml;lst
+                                            eine
+                                            Errungenschaft!
+                                        </div>
+                                    </div>
+                                    <div class="lm-item lm-item-3">
+                                        <div class="lm-item-top"><span
+                                                    class="lm-item-title lm-underline">Maximale Leistung</span>
+
+                                            <div class="lm-item-price">{{ performance.fit }} <i
+                                                        class="fas fa-percent"></i>
+                                            </div>
+                                            <div class="lm-item-price color-white">{{ performance.price }} EUR /
+                                                Jahr
+                                            </div>
+                                        </div>
+                                        <div class="lm-item-body">
+                                            <div class="lm-item-desc result-logo">
+                                                <strong>{{ performance.company.publicName }}
+                                                    (EUR{{ performance.rate }})</strong><br>
+                                                <img src="{{ asset("uploads/logos/") }}{{ performance.company.logo }}"
+                                                     class="img-thumbnail"/><br>
+
+                                                <p>Tarif: {{ performance.tariffName }} ({{ performance.id }}
+                                                    )</p>
+                                            </div>
+                                            <ul class="lm-item-list text-left">
+                                                <li class="icon-ok-text">Deckungssumme Person
+                                                    mind. {{ performance.amountCoveredBodyInjury }}<i
+                                                            class="icon-ok"></i></li>
+                                                <li class="icon-ok-text">Deckungssummen Sach
+                                                    mind. {{ performance.amountCoveredMaterialDamage }}<i
+                                                            class="icon-ok"></i></li>
+                                                <li class="icon-ok-text">Deckungssummen Verm&ouml;gen
+                                                    mind. {{ performance.amountCoveredFinancialDamage }}<i
+                                                            class="icon-ok"></i></li>
+                                                <li class="icon-ok-text">Nicht deliktf&auml;hige Kinder
+                                                    mind. {{ performance.amountCoveredJungKids }}
+                                                    <i class="icon-ok"></i></li>
+                                                <li class="icon-ok-text">
+                                                    Forderungsausfalldeckung {{ performance.badDeptLoss }}<i
+                                                            class="icon-ok"></i></li>
+                                                <li class="icon-ok-text">Unbebaute
+                                                    Grundst&uuml;cke {{ bestFit.undevelopedProperties }}<i
+                                                            class="icon-ok"></i></li>
+                                            </ul>
+                                            <div class="lm-item-link">
+                                                <a href="{{ path('admin_decision_result_pdf_a', {
+                                                    'id': performance.id
+                                                }) }}">
+                                                    <div class="result-link">Details</div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="lm-item-bottom"></div>
+                                    </div>
+
+                                    <div class="lm-item lm-item-4">
+                                        <div class="lm-item-top"><span
+                                                    class="lm-item-title lm-underline">Mein Portfolio</span>
+
+                                            <div class="lm-item-price">n <i class="fas fa-percent"></i>
+                                            </div>
+                                            <div class="lm-item-price color-white">{{ performance.price*2 }} EUR
+                                                /
+                                                Jahr
+                                            </div>
+                                        </div>
+                                        <div class="lm-item-body">
+                                            <div class="lm-item-desc result-logo">
+                                                <strong>{{ performance.company.publicName }}
+                                                    (EUR{{ performance.rate }})</strong><br>
+                                                <img src="{{ asset("uploads/logos/") }}{{ performance.company.logo }}"
+                                                     class="img-thumbnail"/><br>
+
+                                                <p>Tarif: {{ performance.tariffName }} ({{ performance.id }}
+                                                    )</p>
+                                            </div>
+                                            <ul class="lm-item-list text-left">
+                                                <li class="icon-ok-text">Deckungssumme Person
+                                                    mind. {{ performance.amountCoveredBodyInjury }}<i
+                                                            class="icon-ok"></i></li>
+                                                <li class="icon-ok-text">Deckungssummen Sach
+                                                    mind. {{ performance.amountCoveredMaterialDamage }}<i
+                                                            class="icon-ok"></i></li>
+                                                <li class="icon-ok-text">Deckungssummen Verm&ouml;gen
+                                                    mind. {{ performance.amountCoveredFinancialDamage }}<i
+                                                            class="icon-ok"></i></li>
+                                                <li class="icon-ok-text">Nicht deliktf&auml;hige Kinder
+                                                    mind. {{ performance.amountCoveredJungKids }}
+                                                    <i class="icon-ok"></i></li>
+                                                <li class="icon-ok-text">
+                                                    Forderungsausfalldeckung {{ performance.badDeptLoss }}<i
+                                                            class="icon-ok"></i></li>
+                                                <li class="icon-ok-text">Unbebaute
+                                                    Grundst&uuml;cke {{ bestFit.undevelopedProperties }}<i
+                                                            class="icon-ok"></i></li>
+                                            </ul>
+                                            <div class="lm-item-link">
+                                                <a href="#">
+                                                    <a href="#">
+                                                        <div class="result-link">Details</div>
+                                                    </a>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="lm-item-bottom"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            No records found!
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-6 text-left">
+                            <div class="col-sm-6 col-md-6 col-lg-6 text-left">
+                                <a href="{{ path('admin_user_id', {
+                                    'id': userId
+                                }) }}">
+                                    <button class="btn">
+                                        <i class="fas fa-user"></i>Zur&uuml;ck zum letzten Nutzer
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6 text-left">
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-lg-3 text-right">
+                            <h2 class="title2 title2--space headline">
+                                <a href="{{ path('admin_decision_result_pdf_a', {
+                                    'id': userId
+                                }) }}">
+                                    <button class="btn">
+                                        <i class="far fa-file-pdf"></i>Test-PDF erzeugen
+                                    </button>
+                                </a>
+                            </h2>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-lg-3 text-right">
+                            <h2 class="title2 title2--space headline">
+                                <a href="{{ path('admin_decision_result_pdf_mandate', {
+                                    'id': userId
+                                }) }}">
+                                    <button class="btn">
+                                        <i class="far fa-file-pdf"></i>Test-Mandat erzeugen
+                                    </button>
+                                </a>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="row text-center">&nbsp;
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}

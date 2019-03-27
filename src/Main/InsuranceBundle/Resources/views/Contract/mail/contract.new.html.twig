@@ -1,0 +1,75 @@
+{% extends 'static.mail.html.twig' %}
+
+{% block title %}YOURneeds projects{% endblock %}
+
+  {% block stylesheets %}
+     {{ parent() }}
+     <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+  {% endblock %}
+
+  {% block javascripts %}
+     {{ parent() }}
+  {% endblock %}
+
+{% block content %}
+   <section id="profile">
+      <div id="content">
+         <div class="row no-gutters">
+            <div class="col-md-12" id="bg-result">
+               <div class="horizontally-spacer25">&nbsp;</div>
+               <div class="container">
+                  <div class="row">
+                     <div class="container admin-content-box-title">
+
+                        <div class="row">
+                           <div class="col-12">
+                              <div class="form-group col-md-6 mb-3">
+                                 Sehr geehrte Damen und Herren,
+                                 <br><br>
+                                 hiermit bitten wir um Übertragung des folgenden Vertrages/Kunden:
+                                 <br>
+                                 {{ user.lastName }}, {{ user.firstName }}
+                                 <br>
+                                 {{ address.street.name }}, {{ address.streetNumber }}
+                                 <br>
+                                 {{ address.postalCode.zip }}, {{ address.city.name }}
+                                 <br>
+                                 {{ address.country.name }}
+                                 <br><br>
+                                 Gesellschaft: {{ contract.company.name }}
+                                 <br>
+                                 Versicherungsart: {{ contractTypeName }}
+                                 <br>
+                                 Versicherungsnr: {{ contract.insuranceNumber }}
+                                 <br>
+                                 Tarifname: {{ contract.tariffName }}
+                                 <br>
+                                 Beitrag: {{ contract.paymentFee }}
+                                 <br>
+                                 Beginn: {{ contract.dateRuntimeBegin|date("d.m.Y") }}
+                                 <br>
+                                 Ende: {{ contract.dateRuntimeEnd|date("d.m.Y") }}
+                                 <br>
+                                 <br>
+                                 <br>
+                                 Im Anhang finden Sie den Maklerauftrag.
+                                 <br>
+                                 Unsere Vermittlernummer lautet: {{ agencyNumber }}
+                                 <br>
+                                 Vielen Dank für Ihre Bemühungen im Voraus.
+                                 <br><br>
+                                 Mit freundlichen Grüße
+                                 <br>
+                                 Ihr Team von YOURneeds
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+{% endblock %}

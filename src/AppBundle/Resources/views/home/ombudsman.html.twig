@@ -1,0 +1,106 @@
+{% extends 'static.home.html.twig' %}
+
+	{% block title %}YOURneeds GmbH Impressum{% endblock %}
+
+  {% block stylesheets %}
+      {{ parent() }}
+  {% endblock %}
+
+  {% block javascripts %}
+      {{ parent() }}
+  {% endblock %}
+
+{% block content %}
+
+    {% include 'includes/header.html.twig' %}
+
+    <section>
+        <div id="content">
+            <div class="horizontally-spacer100">&nbsp;</div>
+            <div class="row no-gutters">
+                <div class="col">
+                    <div class="container mx-auto">
+                        <h1 class="title1 title1--space">Schlichtungsstellen</h1>
+
+                        <p>
+                            Versicherungsombudsmann e.V. (Vermittlung von Versicherungen)
+                        </p>
+
+                        <p>
+                            Postfach 08 06 32, 10006 Berlin<br>
+                            Tel.: 0800 3696000 (kostenfrei aus deutschen Telefonnetzen)<br>
+                            Fax: 0800 3699000 (kostenfrei aus deutschen Telefonnetzen)<br>
+                            Internet: <a href="http://www.versicherungsombudsmann.de">
+                                www.versicherungsombudsmann.de
+                            </a><br>
+                            <a href="mailto:beschwerde@versicherungsombudsmann.de">
+                                beschwerde@versicherungsombudsmann.de
+                            </a>
+                            <br>
+                        </p>
+
+                        <p>
+                            Ombudsmann für die Private Kranken- und Pflegeversicherung (Vermittlung privater
+                            Krankenversicherungen)<br><br>
+                            Postfach 06 02 22, 10052 Berlin<br>
+                            Tel.: 0800 2550444 (kostenfrei aus deutschen Telefonnetzen)<br>
+                            Fax: 030 20458931<br>
+                            Internet: <a href="http://www.pkv-ombudsmann.de">
+                                www.pkv-ombudsmann.de
+                            </a><br>
+                            <a href="mailto:ombudsmann@pkv-ombudsmann.de">
+                                ombudsmann@pkv-ombudsmann.de
+                            </a>
+                        </p>
+
+                        <p>
+                            Schlichtungsstelle der Deutschen Bundesbank (Vermittlung von Darlehen)<br>
+                            Postfach 111232<br>
+                            60047 Frankfurt/Main<br>
+                            Tel.: 069 23 88 19 07<br>
+                            Fax: 069 70 90 90 99 01<br><br>
+                            Internet: <a href="http://www.bundesbank.de/Navigation/DE/Service/Schlichtungsstelle/schlichtungsstelle.html
+schlichtung@bundesbank.de
+">
+                                www.bundesbank.de/Navigation/DE/Service/Schlichtungsstelle/schlichtungsstelle.html
+                                schlichtung@bundesbank.de
+                            </a>
+                        </p>
+
+                        <p>
+                            Allgemeine Verbraucherschlichtungsstelle des Zentrums für Schlichtung e. V.
+                            (Vermittlung von Kapitalanlagen, insbesondere Investmentfonds, alternative Investmentfonds
+                            und Immobilien)<br><br>
+                            Straßburgerstraße 8<br>
+                            77694 Kehl<br>
+                            Tel.: 07851 / 79 57 940<br>
+                            Fax: 07851 / 79 57 941<br>
+                            Internet: <a href="http://www.verbraucher-schlichter.de">
+                                www.verbraucher-schlichter.de
+                            </a><br>
+                            <a href="mailto:mail@verbraucher-schlichter.de">
+                                mail@verbraucher-schlichter.de
+                            </a>
+                        </p>
+
+                        <p>
+                            Ombudsmann der privaten Bausparkassen (Vermittlung von Bausparverträgen/-darlehen)
+                            Postfach 303079<br>
+                            10730 Berlin<br>
+                            Internet: <a href="http://http://www.schlichtungsstelle-bausparen.de">
+                                http://www.schlichtungsstelle-bausparen.de
+                            </a><br>
+                            <a href="mailto:info@schlichtungsstelle-bausparen.de">
+                                info@schlichtungsstelle-bausparen.de
+                            </a>
+                        </p>
+                    </div>
+                    <!--container-->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'includes/home.footer.menu.html.twig' %}
+
+{% endblock %}

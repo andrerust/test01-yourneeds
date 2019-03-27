@@ -1,0 +1,459 @@
+{
+  "locale": "de",
+  "title": {
+    "default": "Editieren eines Tarifs",
+    "de": "Bedarfscheck Privathaftpflicht"
+  },
+  "pages": [
+    {
+      "name": "intro",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "privateLiability",
+          "elements": [
+            {
+              "type": "html",
+              "name": "question0",
+              "html": {
+                "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/grundbedarf.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h3 class=\"title2\">\nWillkommen beim Check <span class=\"color-green\">Y<span class=\"yourneeds-font\">O</span>UR</span><span\n                      class=\"color-brown\">needs</span>-Bedarfcheck!\n</h3>\n<h4 class=\"title4 title4--space\">Es geht los! Nimm dir eine Moment Zeit und erhalte von uns eine Empfehlung, welche Versicherungen für dich Sinn ergeben und welche nicht. Mit der Hilfefunktion kannst du die jeweilige Erklärung der einzelnen Frage erhalten.\n<br><br>\n            <button type=\"button\" onclick=\"survey.nextPage()\" class=\"btn btn--cta\">\n               <i class=\"fas fa-angle-right\"></i> Los geht es!\n            </button>\n<br><br>\nVielen Dank!<br><br>\nDein YOURneeds-Team\n</h4>\n</div>\n</div>\n"
+              }
+            }
+          ],
+          "title": {
+            "de": "Grundbedarf"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Screen 1",
+      "elements": [
+        {
+          "type": "dropdown",
+          "name": "job",
+          "title": {
+            "de": "Was bist du von Beruf?"
+          },
+          "valueName": "job",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "employee",
+              "text": {
+                "de": "Angestellt"
+              }
+            },
+            {
+              "value": "withoutProfessionalActivity",
+              "text": {
+                "de": "Arbeitssuchend"
+              }
+            },
+            {
+              "value": "manager",
+              "text": {
+                "de": "Beamter, Renter/Pensionär"
+              }
+            },
+            {
+              "value": "selfEmployed",
+              "text": {
+                "de": "Selbstständig"
+              }
+            }
+          ]
+        }
+      ],
+      "questionTitleLocation": "top",
+      "description": {
+        "de": "Allgemeine Informationen "
+      },
+      "navigationButtonsVisibility": "show"
+    },
+    {
+      "name": "Screen 2",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "privateLegallyAssured",
+          "title": {
+            "de": "Bist du gesetzlich oder privat Krankenversichert?"
+          },
+          "valueName": "privateLegallyAssured",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "private",
+              "text": {
+                "de": "Privat"
+              }
+            },
+            {
+              "value": "legallyAssured",
+              "text": {
+                "de": "Gesetzlich"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ],
+      "description": {
+        "de": "Bitte gib hier alle Deckungssummen ein."
+      }
+    },
+    {
+      "name": "Screen 4",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "propertyOrRent",
+          "title": {
+            "de": "Wohnst du im Eigentum oder zur Miete? "
+          },
+          "valueName": "propertyOrRent",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "property",
+              "text": {
+                "de": "Eigentum"
+              }
+            },
+            {
+              "value": "forRent",
+              "text": {
+                "de": "Zur Miete"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 5",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "condominiumOrResidentialBuilding",
+          "visibleIf": "{propertyOrRent} = \"property\"",
+          "title": {
+            "de": "Lebst du in einer Eigentumswohnung oder in einem eigenen Wohngebäude?"
+          },
+          "valueName": "condominiumOrResidentialBuilding",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "condominium",
+              "text": {
+                "de": "Eigentumswohnung"
+              }
+            },
+            {
+              "value": "residentialBuilding",
+              "text": {
+                "de": "Wohngebäude"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 6",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "hasVehicleSentinel",
+          "title": {
+            "de": "Besitzt du ein Fahrzeug oder Anhänger?"
+          },
+          "valueName": "hasVehicleSentinel",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "checkbox",
+          "name": "hasVehicle",
+          "visibleIf": "{hasVehicleSentinel} = \"yes\"",
+          "title": {
+            "de": "Hast du ein Auto, Campingfahrzeug oder Anhänger, Motorrad oder ein Moped? "
+          },
+          "valueName": "hasVehicle",
+          "choices": [
+            {
+              "value": "car",
+              "text": {
+                "de": "Auto"
+              }
+            },
+            {
+              "value": "camper",
+              "text": {
+                "de": "Campingfahrzeug"
+              }
+            },
+            {
+              "value": "campingTrailer",
+              "text": {
+                "de": "Campinganhänger"
+              }
+            },
+            {
+              "value": "motorcycle",
+              "text": {
+                "de": "Motorrad"
+              }
+            },
+            {
+              "value": "scooter",
+              "text": {
+                "de": "Moped"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 7",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "hasPersonalLiabilityInsurance",
+          "title": {
+            "de": "Hast du eine bestehende Privathaftpflichtversicherung ? "
+          },
+          "valueName": "hasPersonalLiabilityInsurance",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        },
+        {
+          "type": "radiogroup",
+          "name": "hasPersonalLiabilityInsuranceOthers",
+          "visibleIf": "{hasPersonalLiabilityInsurance} = \"no\"",
+          "title": {
+            "de": "Bist du bei jemandem mitversichert?"
+          },
+          "valueName": "hasPersonalLiabilityInsuranceOthers",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 8",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "horsesAndDogs",
+          "title": {
+            "de": "Hast du einen Hund oder ein Pferd?"
+          },
+          "valueName": "horsesAndDogs",
+          "choices": [
+            {
+              "value": "none",
+              "text": {
+                "de": "Keines von beiden"
+              }
+            },
+            {
+              "value": "dog",
+              "text": {
+                "de": "Hund"
+              }
+            },
+            {
+              "value": "horse",
+              "text": {
+                "de": "Pferd"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 9",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "livingTogether",
+          "title": {
+            "de": "Hast du einen eigenen Hausrat oder lebst du bei jemandem im Hausrat mit? "
+          },
+          "valueName": "livingTogether",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "own",
+              "text": {
+                "de": "Hab meinen eigenen Hausrat"
+              }
+            },
+            {
+              "value": "together",
+              "text": {
+                "de": "Wohne bei jemanden mit"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 10",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "lawSupport",
+          "title": {
+            "de": "Möchtest du, dass du Unterstützung bei Streitigkeiten gegenüber Dritten von einem Rechtsanwalt unterstützt wirst?"
+          },
+          "valueName": "lawSupport",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 11",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "accident",
+          "title": {
+            "de": "Möchtest du finanziell gut versorgt sein, wenn du nach einem Sturz oder einem Unfall schwer verletzt oder dauerhaft eingeschränkt bist?"
+          },
+          "valueName": "accident",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "Screen 14",
+      "elements": [
+        {
+          "type": "radiogroup",
+          "name": "survivingDependants",
+          "title": {
+            "de": "Möchtest du, dass die Hinterbliebenen nach einem Todesfall eine von dir bestimmte Geldsumme erhalten oder nach dem Todesfall eine Finanzierung absichert ist?"
+          },
+          "valueName": "survivingDependants",
+          "isRequired": true,
+          "choices": [
+            {
+              "value": "yes",
+              "text": {
+                "de": "Ja"
+              }
+            },
+            {
+              "value": "no",
+              "text": {
+                "de": "Nein"
+              }
+            }
+          ],
+          "choicesOrder": "asc"
+        }
+      ]
+    },
+    {
+      "name": "exit",
+      "elements": [
+        {
+          "type": "html",
+          "name": "question1",
+          "html": {
+            "de": "<div class=\"row\" style=\"overflow: hidden; width: 95%;\">\n<div class=\"col-lg-4 col-md-4 col-sm-12 col-xs-12 text-left\">\n<div class=\"item banner\">\n                                    <img src=\"/build/static/images/grundbedarf_finish.jpg\" class=\"cover\">\n                                </div>\n</div>\n<div class=\"col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left\">\n<h4 class=\"title4 title4--space\">Super - wir haben die für dich wichtigen Versicherungen ermittelt. Unter Check YOURneeds sind diese jetzt zum Vergleich freigeschaltet<br><br>\nNicht berücksichtigt ist die Altersvorsorge und die Berufsunfähigkeit. Bei Interesse dies bitte über die Kontaktbox anfragen.<br><br>\n</h4>\n            <button type=\"button\" onclick=\"survey.completeLastPage()\" class=\"btn btn--cta\">\n               Weiter zur Versicherungsauswahl!\n            </button>\n<br><br>\n\n</div>\n</div>\n"
+          }
+        }
+      ]
+    }
+  ],
+  "showProgressBar": "top",
+  "goNextPageAutomatic": true,
+  "pagePrevText": {
+    "de": "zurück"
+  },
+  "pageNextText": {
+    "de": "weiter"
+  }
+}

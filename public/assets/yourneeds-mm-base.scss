@@ -1,0 +1,587 @@
+/* YOURneeds mm module */
+
+@import "scss/variables"; 
+@import "scss/base"; 
+@import "scss/modules"; 
+
+// We wrap everything in the body tag to get a higher specificity then every other existing styles
+// Mr. Money has a lot of ID styles and !importants, that's why we need to write that ugly code here
+body {
+    background-color: transparent;
+    
+    #header {
+    	position: fixed;
+    	width: 100%;
+    	height: 25px;
+    	padding-top: 5px;
+    	z-index: 99999;
+    }
+    
+    #manager-navigation {
+    	position: fixed;
+    	top: 0;
+    }
+    
+    .manager-nav-col-fixed75 {
+    	max-width: 75px;
+    }
+    
+    .manager-nav-col-fixed175 {
+    	max-width: 175px;
+    }
+    
+    .manager-nav-col-fixed275 {
+    	max-width: 275px;
+    }
+    
+    .horizontally-spacer10 {
+    	height: 10px;
+    }
+    
+    .horizontally-spacer25 {
+    	height: 25px;
+    }
+    
+    .horizontally-spacer50 {
+    	height: 50px;
+    }
+    
+    .horizontally-spacer100 {
+    	height: 100px;
+    }
+    
+    .horizontally-spacer200 {
+    	height: 200px;
+    }
+    
+    .horizontally-spacer400 {
+    	height: 400px;
+    }
+        
+    #footer {
+    	position: fixed;
+    	padding: 0;
+    	margin-right: 3.5%;
+    	right: 3.5%;
+    	bottom: 3.5%;
+    	z-index: 9999;
+    	cursor: pointer;
+    	width: 225px;
+    
+        a {
+        	color: $yn-color-grey-3;
+        }
+        
+        .d-flex a {
+        	text-align: center;
+        	padding: 4px;
+        }
+    }
+    
+    .nav,
+    .flex-column,
+    .navbar-custom {
+    	margin: 0;
+    	padding: 0;
+    }
+    
+    .navbar-custom .navbar-nav .nav-link {
+    	color: $yn-color-black;
+    }
+    
+    .navbar-custom .navbar-brand,
+    .navbar-custom .navbar-text {
+    	color: $yn-color-black;
+    }
+    
+    .navbar-custom .nav-item.active .nav-link,
+    .navbar-custom .nav-item:hover .nav-link {
+    	color: $yn-color-green;
+    }
+    
+    .bullit {
+    	transform: translate(-50%, -0%);
+    }
+    
+    
+    .bullittext {
+    	display: inline-block;
+    	width: 80%;
+    	padding-left: 3%;
+    }
+    
+    .card {
+    	background-color: transparentize($yn-color-grey-1, 0);
+    	border: 0;
+    }
+    
+    .card-header, 
+    .card-footer {
+    	opacity: 0;
+    	border: 0;
+    }
+    
+    .center {
+    	margin-left: auto;
+    	margin-right: auto;
+    	display: block;
+    }
+    
+    .logo {
+    	z-index: 9990 !important;
+    	cursor: pointer;
+    }
+    
+    .custom-file-upload {
+    	@include edges-round();
+    	color: $yn-color-white;
+    	background-color: $yn-color-green;
+    	border: 0px solid $yn-color-green;
+    	padding: 5px;
+    	cursor: pointer;
+    }
+    
+    .divider {
+    	width: 1px;
+    	height: 10px;
+    	background-color: $yn-color-grey-3;
+    	display: inline-block;
+    	margin: 0px;
+    }
+    
+    .imagescale {
+    	width: auto;
+    	height: auto;
+    	max-width: 100%;
+    	max-height: 100%;
+    	float: left;
+    	display: inline-block;
+    }
+    
+    .media-body {
+    	max-width: 1600px;
+    }
+    
+    .nomargin {
+    	color: $yn-color-grey-3;
+    	font-size: 80%;
+    	margin: 0px;
+    	padding: 0px;
+    	line-height: 0%;
+    	transform: translate(-0%, -80%);
+    }
+    
+    .nopadding {
+    	padding: 0 !important;
+    	margin: 0 !important;
+    }
+    
+    .pointer {
+    	cursor: pointer;
+    }
+    
+    .profilpic {
+    	@include edges-round();
+    	color: $yn-color-white;
+    	background-color: $yn-color-green;
+    	max-width: 100px;
+    }
+    
+    .posrelative70 {
+    	position: relative;
+    	top: 70%;
+    }
+    
+    .posrelative80 {
+    	position: relative;
+    	top: 80%;
+    	transform: translate(-50%, -50%);
+    }
+    
+    .textsize {
+    	font-size: 90%;
+    }
+    
+    ul.a {
+    	list-style-type: circle;
+    }
+    
+    .vertical-center {
+    	min-height: 100%; /* Fallback for browsers do NOT support vh unit */
+    	min-height: 100vh; /* These two lines are counted as one */
+    
+    	display: flex;
+    	align-items: center;
+    }
+    
+    .zfront {
+    	z-index: 9999 !important;
+    	margin-top: 1%;
+    	position: absolute;
+    }
+    
+    .zfront_rel {
+    	z-index: 9999 !important;
+    	margin-top: 1%;
+    }
+    
+    .zfront20 {
+    	z-index: 9990 !important;
+    	position: absolute;
+    	margin-top: 0;
+    }
+    
+    .box {
+        a:hover,
+        a:active,
+        a:focus {
+        	text-decoration: none;
+        }
+    }
+    
+    .box-inner {
+    	width: 90%;
+    	height: auto;
+    	margin: 10px;
+    	border-top-left-radius: 20px;
+    	border-bottom-right-radius: 20px;
+    }
+    
+    #dev-layer {
+    	background-color: $yn-color-green-secondary;
+    	border: 1px;
+    	padding: 3px;
+    	padding-top: 0;
+    	margin: 3px;
+    	margin-top: 0;
+    	position: absolute;
+    	z-index: 999999;
+    	height: 20px;
+    	text-align: center;
+    	font-size: 12px;
+    }
+    
+    #dev-layer li {
+    	float: left;
+    }
+    
+    #dimensions {
+    	font-size: 12px;
+    	z-index: 9999;
+    	height: 14px;
+    	text-align: center;
+    	padding: 2px;
+    }
+    
+    li {
+    	line-height: 19px;
+    }
+    
+    .proceed-show-btn {
+    	display: none;
+    }
+    
+    .proceed-show-btn.visible {
+    	display: flex;
+    }
+    
+    .proceed-hide-btn {
+    	display: flex;
+    }
+    
+    .proceed-hide-btn.hidden {
+    	display: none;
+    }
+    
+    .box-mid {
+    	margin: 5px;
+    	padding: 5px;
+    	height: 200px;
+    }
+    
+    .antrag,
+    .head {
+    	width: 100%;
+    }
+    
+    h2 {
+    	font-size: 120%;
+    	color: $yn-color-green;
+    }
+    
+    ul {
+    	list-style-type: none;
+    }
+    
+    .hr {
+    	display: block;
+    	height: 1px;
+    	border: 0;
+    	margin-top: .5em;
+    	padding: 0;
+    	
+        &#{&}--blue {
+        	border-top: 1px solid $yn-color-blue;
+        }
+        
+        &#{&}--red {
+        	border-top: 1px solid $yn-color-red;
+        }
+        
+        &#{&}--violet {
+        	border-top: 1px solid $yn-color-violet;
+        }
+    }
+    
+    .horizontally-spacer100 {
+    	height: 100px;
+    }
+    
+    .horizontally-spacer200 {
+    	height: 200px;
+    }
+    
+    .horizontally-spacer400 {
+    	height: 400px;
+    }
+    
+    .menu {
+    	position: absolute;
+    	height: auto;
+    	max-width: 600px;
+    	overflow: hidden;
+    	float: right;
+    	right: 1.7%;
+    	z-index: 99999;
+    	cursor: pointer;
+    	transform: translate(-190%, 0%);
+    }
+    
+    .menutext {
+    	margin: 5%;
+    	line-height: .1;
+    }
+    
+    .menubottom {
+    	height: auto;
+    	position: absolute;
+    	margin: 0em 0;
+    	bottom: 0%;
+    	right: 3.5%;
+    	z-index: 9999;
+    	cursor: pointer;
+    }
+    
+    .menu-layer {
+    	max-width: 1600px;
+    	width: 100%;
+    	height: 100%;
+    	z-index: 9999;
+    	background-color: $yn-color-white;
+    	position: absolute;
+    	display: none;
+    	opacity: .75;
+    	text-align: right;
+    }
+    
+    .slideout-menu {
+    	position: fixed;
+    	top: 0;
+    	right: 165px;
+    	max-width: 1400px;
+    	width: 100%;
+    	height: 100%;
+    	z-index: 9999;
+    	background-color: $yn-color-red;
+    	display: none;
+    	opacity: .9;
+    }
+    
+    
+    
+    #dev-layer {
+    	position: absolute;
+    	left: 10px;
+    	top: 0;
+    	z-index: 999999;
+    	height: 20px;
+    	text-align: center;
+    	padding: 2px;
+    	font-size: $yn-font-size;
+    	float: right;
+    }
+    
+    #dev-layer li {
+    	float: left;
+    }
+    
+    #dimensions {
+    	font-size: 12px;
+    	z-index: 9999;
+    	height: 14px;
+    	text-align: center;
+    	padding: 2px;
+    }
+    
+    
+    .navbar-custom .navbar-nav .nav-link {
+    	color: $yn-color-black;
+    }
+    
+    .navbar-custom .navbar-brand,
+    .navbar-custom .navbar-text {
+    	color: $yn-color-black;
+    }
+    
+    .navbar-custom .nav-item.active .nav-link,
+    .navbar-custom .nav-item:hover .nav-link {
+    	color: $yn-color-green;
+    }
+    
+    
+    .fontsmall {
+    	font-size: 75%;
+    }
+    
+    .floatleft {
+    	float: left;
+    	left: -10px;
+    }
+    
+    .greenbtn {
+    	@include edges-round();
+    	display: inline-block;
+    	color: $yn-color-white;
+    	border: 0px solid $yn-color-green;
+    	background: $yn-color-green;
+    	box-shadow: 0 0 5px -1px transparentize($yn-color-black, .2);
+    	cursor: pointer;
+    	vertical-align: middle;
+    	text-align: center;
+    	display: table-cell;
+    
+        &:active {
+        	color: $yn-color-red;
+        	box-shadow: 0 0 5px -1px transparentize($yn-color-black, .6);
+        }
+    }
+    
+    .hover:hover {
+    	color: $yn-color-green;
+    }
+    
+    #profile {
+    	width: 100%;
+    }
+    
+    .antrag_nav_prev,
+    .antrag_nav_next {    
+        @extend .btn;
+        @extend .btn--cta;
+
+        img {
+        	position: absolute;
+        	top: 15px;
+        	right: 15px;
+        }
+    }
+    
+    .sparte_phv {
+    	width: 1200px;
+    }
+    
+    #antrag {
+    	width: 100%;
+    	margin: 0 auto;
+    	padding: 0 0 20px 0;
+    }
+    
+    .ui-widget {
+    	font-size: 12px;
+    }
+    
+    .ui-widget input, 
+    .ui-widget select, 
+    .ui-widget textarea, 
+    .ui-widget button {
+    	font-size: 1em;
+    }
+    
+    .selectize-dropdown,
+    .selectize-input,
+    .selectize-input input {
+    	color: $yn-color-grey-8;
+    	font-family: inherit;
+    	font-size: inherit;
+    	line-height: inherit;
+    }
+    
+    #bereich_header_dokumente .sp1,
+    #bereich_versicherungsschutz .sp1 {
+    	margin-left: 25%;
+    }
+    
+    #bereich_versicherungsnehmer .sp1 {
+    	margin-left: 0;
+    }
+    
+    // Lately added styles
+    
+    p {
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        color: inherit;
+    }
+    
+    #antrag {
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        width: auto;
+    }
+    
+    #tarifinfo .cell .balken {
+        background: $yn-color-grey-3;
+        background-color: $yn-color-grey-3;
+
+        .aktiv {
+            background: $yn-color-green;
+            background-color: $yn-color-green;
+        }
+    }
+    
+    .ant_box,
+    .sepa_mandat {
+        background-color: transparent;
+        box-shadow: none;
+    }
+    
+    .zeile {
+        &:hover {
+            .sp1 {
+                color: $yn-color-green !important;
+            }
+        }
+    }
+    
+    .antrag_auftrag {
+        @extend .btn;
+        @extend .btn--cta;
+    }
+    
+    .aDialog {
+        background-color: $yn-color-red;
+    }
+    
+    .red {
+        color: $yn-color-red !important;
+    }
+    
+    .ant_ue {
+        box-shadow: none;
+        font-weight: bolder;
+        font-size: $yn-font-size-large;
+        line-height: $yn-line-height-large;
+    }
+}

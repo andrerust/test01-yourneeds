@@ -1,0 +1,155 @@
+{% extends '@MainAdminBundle/_admin.main.html.twig' %}
+
+{% block title %}YOURneeds admin insurances{% endblock %}
+
+  {% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/tariff.css') }}">
+  {% endblock %}
+
+  {% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/tariff.js') }}"></script>
+  {% endblock %}
+
+{% block content %}
+  <section id="admin-overview">
+    <div id="page-box">
+      <div class="container-fluid">
+        <div class="row">
+          {% set subNaviActive = 'pli' %}
+          {{ include('@MainAdminBundle/_admin.header.sub.html.twig') }}
+        </div>
+        <div class="well well-sm">
+          <div class="row">
+            <div class="col-9 col-sm-10 col-md-10 col-lg-10">
+              <legend>Versicherungstarif&uuml;bersicht</legend>
+            </div>
+            <div class="col-3 col-sm-2 col-md-2 col-lg-2 text-right">
+              <div class="btn-group" role="group">
+                <a type="button" class="btn">
+                  <span><i class="fas fa-cog"></i> (*)</span>
+                </a>
+                <a type="button" href="{{ path('admin_tariff_new', {
+                  'type': subNaviActive
+                }) }}" class="btn">
+                  <span><i class="fas fa-plus"></i></span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="special-table">
+              <div id="toolbar">
+                <select class="form-control">
+                  <option value="">Export Basic</option>
+                  <option value="all">Export All</option>
+                  <option value="selected">Export Selected</option>
+                </select>
+              </div>
+              <table class="table"
+                     id="table"
+                     data-toggle="table"
+                     data-toolbar="#toolbar"
+                     data-search="true"
+                     data-search-text=""
+                     data-show-columns="true"
+                     data-show-toggle="true"
+                     data-click-to-select="true"
+                     data-filter-control="true"
+                     data-filter-show-clear="true"
+                     data-show-export="true"
+                     data-pagination="true"
+                      >
+                <thead>
+                <tr>
+                  <th data-field="operation" data-checkbox="true"></th>
+                  <th data-field="actions" class="text-center" data-switchable="false">
+                    [Action]
+                  </th>
+                  <th data-field="company" data-filter-control="input"
+                      data-sortable="true" data-switchable="false">
+                    Gesellschaft
+                  </th>
+                  <th data-field="tariffName" data-filter-control="input"
+                      data-sortable="true" data-switchable="false">
+                    Tarif-Name
+                  </th>
+                  <th data-field="rate" data-filter-control="input" data-sortable="false">
+                    Eigenschaften
+                  </th>
+                  <th data-field="active" data-filter-control="" data-sortable="false">
+                    Aktiv
+                  </th>
+                  <th data-field="last_update" data-filter-control="input" data-sortable="true">
+                    Aktualisierung
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if tariffs|length > 0 %}
+                  {% for tariff in tariffs %}
+                    {% set counter = tariff.id %}
+                    <tr>
+                      <td class="bs-checkbox">
+                        <input data-index="{{ counter }}" name="btSelectItem" type="checkbox">
+                      </td>
+                      <td class="text-center">
+                        <a href="{{ path('admin_tariff_id', {
+                          'id': tariff.id
+                        }) }}" class="btn">
+                          <span><i class="fas fa-pencil-alt"></i></span>
+                        </a>
+                      </td>
+                      <td>
+                      <span class="logo">
+                        <img src="{{ asset("uploads/logos/") }}{{ tariff.logo }}"
+                             class="img-thumbnail"/> {{ tariff.companyName }}<br>
+                      </span>
+                        Kontakt: {{ tariff.contactPerson }}
+                      </td>
+                      <td>
+                        {{ tariff.name }}
+                      </td>
+                      <td>
+                        <p>
+                          Deckungssumme (Person):
+                          {% for entry in tariff.amountCoveredBodyInjury %}
+                            {% include('@MainInsuranceBundle/Admin/tariff/partials/checklist.html.twig') %}
+                          {% endfor %}<br>
+
+                          Deckungssumme (Sach):
+                          {% for entry in tariff.amountCoveredMaterialDamage %}
+                            {% include('@MainInsuranceBundle/Admin/tariff/partials/checklist.html.twig') %}
+                          {% endfor %}<br>
+
+                          Deckungssumme (Finanzen):
+                          {% for entry in tariff.amountCoveredFinancialDamage %}
+                            {% include('@MainInsuranceBundle/Admin/tariff/partials/checklist.html.twig') %}
+                          {% endfor %}<br>
+                        </p>
+                      </td>
+                      <td class="status text-center">
+                        {% if tariff.isActive == true %}
+                          <span class="label label-success"><i class="fas fa-check"></i></span>
+                        {% elseif tariff.isActive == false %}
+                          <span class="label label-danger"><i class="fas fa-minus"></i></span>
+                        {% endif %}
+                      </td>
+                      <td>
+                        {{ tariff.updatedAt }}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                {% endif %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+{% endblock %}

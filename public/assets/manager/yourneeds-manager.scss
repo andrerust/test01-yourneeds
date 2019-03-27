@@ -1,0 +1,251 @@
+/* YOURneeds manager module */
+
+@import "../scss/variables";
+
+.tabs {
+	display: table;
+	width: 100%;
+    margin: $yn-unit;
+
+    &:after {
+    	content: "";
+    	display: block;
+    	width: 100%;
+    	clear: both;
+    }
+    
+    ul {
+    	list-style: none;
+    	display: table-row;
+    	
+        li {
+        	display: table-cell;
+
+            i {
+            	color: $yn-color-green;
+            }
+
+            a {
+                @include transition();
+                
+                &:link {
+                	font-weight: bolder;
+                	white-space: nowrap;
+                	text-overflow: ellipsis;
+                	display: block;
+                	text-align: center;
+                	text-transform: capitalize;
+                	text-decoration: none;
+                	min-width: 5em;
+                	max-width: 20em;
+                	color: $yn-color-grey-3;
+                	margin: 0 0 0 0;
+                }
+                
+                &.active {
+                	position: relative;
+                	border-bottom: .25em solid $yn-color-green;
+                	background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(70%, transparentize($yn-color-white, 0)), color-stop(100%, $yn-color-blue-light));
+                	background: -moz-linear-gradient(top, transparentize($yn-color-white, 0) 70%, $yn-color-blue-light 100%);
+                	background: -webkit-linear-gradient(top, transparentize($yn-color-white, 0) 70%, $yn-color-blue-light 100%);
+                	background: linear-gradient(to bottom, transparentize($yn-color-white, 0) 70%, $yn-color-blue-light 100%);
+                	
+                    &:after {
+                    	content: "";
+                    	display: block;
+                    	border-color: $yn-color-green;
+                    	border-width: .75em .75em 0 .75em;
+                    	border-style: solid;
+                    	width: 0;
+                    	height: 0;
+                    	position: absolute;
+                    	bottom: -.75em;
+                    	left: 50%;
+                    	margin-left: -.75em;
+                    	z-index: 1;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.attribute-list-entry {
+	font-size: 12px;
+	padding-bottom: 3px;
+}
+
+.icon-frame {
+	border-radius: 50px;
+	width: 20px;
+	height: 20px;
+	position: relative;
+	border: 1px solid $yn-color-green;
+	left: 1px;
+	top: 0;
+	border-radius: 50px;
+	float: left;
+
+    &.check {
+    	border: 1px solid $yn-color-green;
+    	border-radius: 50px;
+    }
+    
+    &.times {
+    	border: 1px solid $yn-color-red;
+    	border-radius: 50px;
+    }
+    
+    .fa-check {
+    	position: relative;
+    	top: -1px;
+    	left: 3px;
+    }
+    
+    .fa-star {
+    	position: relative;
+    	left: 3px;
+    	top: 0;
+    	color: $yn-color-green;
+    }
+    
+    .fa-minus {
+    	position: relative;
+    	left: 4px;
+    	top: 0;
+    }
+}
+
+.fa-check {
+	position: relative;
+	left: 3px;
+	top: 1px;
+}
+
+
+#insurance_name_cheapest {
+	padding-top: 10px;
+}
+
+.col-3 {
+	margin: 0;
+	padding: 0;
+}
+
+.company-logo-img-box {
+	height: 50px;
+}
+
+.img {
+	width: auto;
+	height: 45px;
+}
+
+.result-header-row {
+	height: 45px;
+}
+
+.wrapper {
+    position: relative;
+    width: 640px;
+    height: 480px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.signature-pad {
+    width: 640px;
+    height: 480px;
+    border: 1px dotted $yn-color-green;
+}
+
+.profile-image {
+    @include edges-round();
+    border: 1px solid $yn-color-grey-3;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;     
+}
+
+.col-menu {
+    @include shadow-box();
+    @include transition();
+    display: table-cell;
+    background-color: $yn-color-white;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 150;
+    overflow-x: scroll;
+    padding-top: $yn-unit-250;
+    padding-bottom: $yn-unit-250;
+    @include media-breakpoint-down(xs) {
+        position: fixed;
+        width: 100%;
+        font-size: $yn-font-size-xlarge;
+        line-height: $yn-line-height-xlarge;
+    }    
+    
+    &#{&}--small {
+        text-align: center;
+        @include media-breakpoint-down(xs) {
+            display: none;
+        }
+
+        & > .content-menu {
+            max-width: 30px;
+            padding-left: $yn-unit;
+            padding-right: $yn-unit;
+        }
+        
+        .description {
+            display: none;
+        }
+    }
+    
+    .nav {
+        a {
+            width: 100%;
+            margin-top: $yn-unit;
+            margin-bottom: $yn-unit;
+            
+            &:hover {
+                border-bottom-color: transparent;
+            }
+        }
+    }
+    
+    .icon,
+    .description {
+        display: table-cell;
+    }
+    
+    .description {
+        padding-left: $yn-unit;
+    }
+    
+    .square {
+        max-width: 100px;
+        max-height: 100px;
+    }
+}
+
+.content-body,
+.col-menu {
+    display: table-cell;
+}
+
+.content-menu {
+    @include transition();
+    @include media-breakpoint-up(xs) {
+        max-width: 20em;
+        width: 20em;
+    }
+    @include media-breakpoint-down(xs) {
+        max-width: 100%;
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+}

@@ -1,0 +1,46 @@
+{% extends 'static.html.twig' %}
+
+{% block title %}YOURneeds user profil{% endblock %}
+
+  {% block stylesheets %}
+     {{ parent() }}
+     <link rel="stylesheet" href="{{ asset('build/yourneeds-manager.css') }}"/>
+     <style>
+     </style>
+
+  {% endblock %}
+
+  {% block javascripts %}
+     {{ parent() }}
+     <script src="{{ asset('build/yourneeds-manager.js') }}"></script>
+     <script>
+     </script>
+  {% endblock %}
+
+{% block content %}
+
+<div class="col-menu col-menu--small">
+   {% include '@MainUserBundle/Manager/profile/includes/manager.internal.nav.html.twig' %}
+</div>
+<section class="content-body" id="profile">
+  <div class="container">
+    <div class="row justify-content-start margintop10">
+       <div class="col-12 text-center pt-2">
+            <h3 class="title3 title3--space">Check <span class="color-green">Y<span class="yourneeds-font">O</span>UR</span><span class="color-brown">needs</span></h3>
+          <span class="color-green">Schadensmeldung Finalisierung</span>
+       </div>
+       <div class="container kv-main text-center">
+          <div class="col-12 mt-3 mb-2">
+             <a href="{{ path('manager_type_damage_report_download', {
+                'id': resultUser['id'],
+                'type': 'pli'
+             }) }}">
+                <div class="result-link">Schadensmeldung herunterladen</div>
+             </a>
+          </div>
+       </div>
+    </div>
+ </div>
+</section>
+
+{% endblock %}
